@@ -2,7 +2,6 @@
 from turtle import pos
 import pandas as pd
 import xlrd
-from pandasql import sqldf
 
 # Your File Path
 file_path = 'Files/All.xlsm'
@@ -22,7 +21,7 @@ defense = ['LE', 'RE', 'DT', 'LOLB','ROLB', 'MLB', 'CB', 'FS', 'SS']
 oline = ['RT', 'LT', 'RG', 'LG', 'C']
 
 # Team Index Dictionary
-team_dict = {'CHI': 0, 'SF': 13,}
+team_dict = {0:'CHI', 1:'CIN', 2:'BUF', 3:'DEN', 4:'CLE', 5:'TB', 6:'ARI', 7:'LAC', 8:'KC', 9:'IND', 10:'DAL', 11:'MIA', 12:'PHI', 13:'ATL', 14:'SF', 15:'NYG', 16:'JAX', 17:'NYJ', 18:'DET', 19:'GB', 20:'CAR', 21:'NE', 22:'LV', 23:'LAR', 24:'BAL', 25:'WAS', 26:'NO', 27:'SEA', 28:'PIT', 29:'TEN', 30:'MIN', 31:'HOU'}
 
 # Excel Sheet Dataframes (Player Data & Statistical Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
