@@ -21,6 +21,9 @@ offense = ['HB', 'WR', 'TE']
 defense = ['LE', 'RE', 'DT', 'LOLB','ROLB', 'MLB', 'CB', 'FS', 'SS']
 oline = ['RT', 'LT', 'RG', 'LG', 'C']
 
+# Team Index Dictionary
+team_dict = {'CHI': 0, 'SF': 13,}
+
 # Excel Sheet Dataframes (Player Data & Statistical Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
 df_offensiveStats = pd.read_excel(file_path, sheet_name='Offensive Stats').merge(df_players, how='right', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
