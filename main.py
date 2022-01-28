@@ -2,7 +2,7 @@
 from turtle import pos
 import pandas as pd
 import xlrd
-from pandasql import sqldf
+
 
 # Your File Path
 file_path = 'Files/All.xlsm'
