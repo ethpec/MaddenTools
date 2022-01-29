@@ -32,6 +32,7 @@ df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
 df_offensiveStats = pd.read_excel(file_path, sheet_name='Offensive Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
 df_defensiveStats = pd.read_excel(file_path, sheet_name='Defensive Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
 df_olineStats = pd.read_excel(file_path, sheet_name='OLine Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
+df_kickingStats = pd.read_excel(file_path, sheet_name='Kicking Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
 
 # Filter Dataframes
 df_offensiveStats = df_offensiveStats[(df_offensiveStats['SEAS_YEAR'] == season) 
@@ -44,6 +45,28 @@ df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season)
 # Add new DataFrame columns for Offense
 df_offensiveStats['ScrimmmageYardsPerGame'] = (df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']
 df_offensiveStats['ScrimmmageTDsPerGame'] = (df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED']
+
+# Add new DataFrame columns for OLine
+df_olineStats['SacksPer1000Snaps'] = (df_olineStats['OLINESACKSALLOWED'] / df_olineStats['DOWNSPLAYED']) * 1000
+
+# Add new DataFrame columns for Kicking
+df_kickingStats['FGPercentage'] = df_kickingStats['KICKFGMADE'] / df_kickingStats['KICKFGATTEMPTS']
+df_kickingStats['EPPercentage'] = df_kickingStats['KICKEPMADE'] / df_kickingStats['KICKEPATTEMPTS']
+df_kickingStats['Over40YardPercentage'] = (df_kickingStats['KICKFGMADE40TO49'] + df_kickingStats['KICKFGMADE50ORMORE']) / (df_kickingStats['KICKFGATTEMPTS40TO49'] + df_kickingStats['KICKFGATTEMPTS50ORMORE'])
+df_kickingStats['PuntTBPerIn20'] = df_kickingStats['PUNTTOUCHBACKS'] / df_kickingStats['PUNTIN20']
+df_kickingStats['YardsPerPunt'] = df_kickingStats['PUNTYARDS'] / df_kickingStats['PUNTATTEMPTS']
+df_kickingStats['NetYardsToPuntYards'] = df_kickingStats['PUNTNETYARDS'] / df_kickingStats['PUNTYARDS']
+
+# Add new DataFrame columns for Defense
+df_defensiveStats['DLSacksAndTFLPerGame'] = (df_defensiveStats['DLINESACKS'] + df_defensiveStats['DEFTACKLESFORLOSS']) / df_defensiveStats['GAMESPLAYED']
+df_defensiveStats['TotalTurnovers'] = df_defensiveStats['DLINEFUMBLERECOVERIES'] + df_defensiveStats['DLINESAFETIES'] + df_defensiveStats['DSECINTS'] + df_defensiveStats['DSECINTTDS'] + df_defensiveStats['DLINEBLOCKS'] + df_defensiveStats['DLINEFORCEDFUMBLES'] + df_defensiveStats['DLINEFUMBLETDS']
+df_defensiveStats['LBSacksTFLPassDeflPerGame'] = (df_defensiveStats['DLINESACKS'] + df_defensiveStats['DEFTACKLESFORLOSS'] + df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['GAMESPLAYED']
+df_defensiveStats['TacklesPerGame'] = (df_defensiveStats['ASSDEFTACKLES'] + df_defensiveStats['DEFTACKLES']) / df_defensiveStats['GAMESPLAYED']
+df_defensiveStats['CBPassDeflPerGame'] = df_defensiveStats['DEFPASSDEFLECTIONS'] / df_defensiveStats['GAMESPLAYED']
+df_defensiveStats['CBCatchAllowPer100Snaps'] = (df_defensiveStats['CTHALLOWED'] / df_defensiveStats['DOWNSPLAYED']) *100
+df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHALLOWED'] - df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['GAMESPLAYED']
+
+
 
 # Offensive Stats/Progression
 print('Running Offensive Progression')
@@ -81,5 +104,8 @@ for idx, row in df_offensiveStats.iterrows():
 # Join worksheet DataFrames to player DataFrame
 
 # Export our new sheet to a file
-df_offensiveStats.to_csv('Files/Test.csv', sep=',',index=False)
+df_offensiveStats.to_csv('Files/OffTest.csv', sep=',',index=False)
+df_defensiveStats.to_csv('Files/DefTest.csv', sep=',',index=False)
+df_olineStats.to_csv('Files/OLTest.csv', sep=',',index=False)
+df_kickingStats.to_csv('Files/KickingTest.csv', sep=',',index=False)
 print('File created')
