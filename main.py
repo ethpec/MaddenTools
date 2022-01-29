@@ -23,6 +23,7 @@ tier_6 = range(0,70)
 offense = ['HB', 'WR', 'TE']
 defense = ['LE', 'RE', 'DT', 'LOLB','ROLB', 'MLB', 'CB', 'FS', 'SS']
 oline = ['RT', 'LT', 'RG', 'LG', 'C']
+kicking = ['K', 'P']
 
 # Team Index Dictionary
 team_dict = {0:'CHI', 1:'CIN', 2:'BUF', 3:'DEN', 4:'CLE', 5:'TB', 6:'ARI', 7:'LAC', 8:'KC', 9:'IND', 10:'DAL', 11:'MIA', 12:'PHI', 13:'ATL', 14:'SF', 15:'NYG', 16:'JAX', 17:'NYJ', 18:'DET', 19:'GB', 20:'CAR', 21:'NE', 22:'LV', 23:'LAR', 24:'BAL', 25:'WAS', 26:'NO', 27:'SEA', 28:'PIT', 29:'TEN', 30:'MIN', 31:'HOU'}
@@ -102,5 +103,8 @@ for idx, row in df_offensiveStats.iterrows():
 # Join worksheet DataFrames to player DataFrame
 
 # Export our new sheet to a file
-df_offensiveStats.to_csv('Files/Test.csv', sep=',',index=False)
+df_offensiveStats.to_csv('Files/OffTest.csv', sep=',',index=False)
+df_defensiveStats.to_csv('Files/DefTest.csv', sep=',',index=False)
+df_olineStats.to_csv('Files/OLTest.csv', sep=',',index=False)
+df_kickingStats.to_csv('Files/KickingTest.csv', sep=',',index=False)
 print('File created')
