@@ -7,14 +7,17 @@ import xlrd
 # Your File Path
 file_path = 'Files/All.xlsm'
 
+# Season
+season = 2
+
 # Rating Tiers
 tier_0 = range(95,100)
-tier_1 = range(90,94)
-tier_2 = range(85,89)
-tier_3 = range(80,84)
-tier_4 = range(75,79)
-tier_5 = range(70,74)
-tier_6 = range(0,69)
+tier_1 = range(90,95)
+tier_2 = range(85,90)
+tier_3 = range(80,85)
+tier_4 = range(75,80)
+tier_5 = range(70,75)
+tier_6 = range(0,70)
 
 # Position Groups
 offense = ['HB', 'WR', 'TE']
@@ -26,23 +29,32 @@ team_dict = {0:'CHI', 1:'CIN', 2:'BUF', 3:'DEN', 4:'CLE', 5:'TB', 6:'ARI', 7:'LA
 
 # Excel Sheet Dataframes (Player Data & Statistical Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
-df_offensiveStats = pd.read_excel(file_path, sheet_name='Offensive Stats').merge(df_players, how='right', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
-df_defensiveStats = pd.read_excel(file_path, sheet_name='Defensive Stats').merge(df_players, how='right', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
-df_olineStats = pd.read_excel(file_path, sheet_name='OLine Stats').merge(df_players, how='right', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
+df_offensiveStats = pd.read_excel(file_path, sheet_name='Offensive Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
+df_defensiveStats = pd.read_excel(file_path, sheet_name='Defensive Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
+df_olineStats = pd.read_excel(file_path, sheet_name='OLine Stats').merge(df_players, how='left', left_on=['FullName', 'Position'], right_on=['FullName','Position'])
 
-# Add new DataFrame columns
+# Filter Dataframes
+df_offensiveStats = df_offensiveStats[(df_offensiveStats['SEAS_YEAR'] == season) 
+& (df_offensiveStats['ContractStatus'] == 'Signed') & (df_offensiveStats['GAMESPLAYED'] >= 10)]
+df_defensiveStats = df_defensiveStats[(df_defensiveStats['SEAS_YEAR'] == season) 
+& (df_defensiveStats['ContractStatus'] == 'Signed') & (df_defensiveStats['GAMESPLAYED'] >= 10) & (df_defensiveStats['DOWNSPLAYED'] >= 250)]
+df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season) 
+& (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 250)]
 
+# Add new DataFrame columns for Offense
+df_offensiveStats['ScrimmmageYardsPerGame'] = (df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']
+df_offensiveStats['ScrimmmageTDsPerGame'] = (df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED']
 
 # Offensive Stats/Progression
-
+print('Running Offensive Progression')
 for idx, row in df_offensiveStats.iterrows():
-    # Running Backs
-    if  df_offensiveStats.loc[idx,'Position'] == 'WR':
+# Running Backs
+    if  df_offensiveStats.loc[idx,'Position'] == 'HB':
         # Tier 0
         if df_offensiveStats.loc[idx,'OverallRating'] in tier_0:
             df_offensiveStats.loc[idx,'SkillPoints'] += 1
         # Tier 1
-        if df_offensiveStats.loc[idx,'OverallRating'] in tier_1:
+        if int(df_offensiveStats.loc[idx,'OverallRating']) in tier_1:
             df_offensiveStats.loc[idx,'SkillPoints'] += 1
         # Tier 2
         if df_offensiveStats.loc[idx,'OverallRating'] in tier_2:
@@ -70,3 +82,4 @@ for idx, row in df_offensiveStats.iterrows():
 
 # Export our new sheet to a file
 df_offensiveStats.to_csv('Files/Test.csv', sep=',',index=False)
+print('File created')
