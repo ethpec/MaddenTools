@@ -59,9 +59,6 @@ for idx, row in df_offensiveStats.iterrows():
         # Tier 6
         if df_offensiveStats.loc[idx,'OverallRating'] in tier_6:
             df_offensiveStats.loc[idx,'SkillPoints'] += 1
-        # Test
-        if df_offensiveStats.loc[idx,'FullName'] == 'Davante Adams':
-            df_offensiveStats.loc[idx,'SkillPoints'] += 1
 
     if  df_offensiveStats.loc[idx,'Position'] == 'HB':
         df_offensiveStats.loc[idx,'SkillPoints'] = 1
