@@ -3,14 +3,13 @@ from turtle import pos
 import pandas as pd
 import xlrd
 
-
 # Your File Path
 file_path = 'Files/All.xlsm'
 
 # Season
 season = 2
 
-# Rating Tiers
+# Rating Tier
 tier_0 = range(95,100)
 tier_1 = range(90,95)
 tier_2 = range(85,90)
