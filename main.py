@@ -43,6 +43,14 @@ def find_rating_tier(rating):
     elif rating in tier_6:
         return 'tier_6'
 
+def make_range(range_string):
+    if '.' in range_string:
+        return np.arange(float(range_string.split('-')[0]), float(range_string.split('-')[1]),.01)
+    else:
+        return np.arange(int(range_string.split('-')[0]), int(range_string.split('-')[1]),1)
+
+def make_tier_dict(logic_dataframe):
+    
 # Excel Sheet Dataframes (Player Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
 df_players['TeamName'] = df_players['TeamIndex'].apply(lambda x: team_dict[x]) # Create column with lambda
@@ -51,6 +59,7 @@ df_players.to_csv('Files/PlayerTest.csv', sep=',',index=False)
 
 # Excel Sheets Dataframe (Logic)
 df_logic = pd.read_excel('Files/Progression Regression Logic.xlsx', sheet_name='Columnar')
+df_logic['StatRange'] = df_logic['StatValue'].apply(make_range)
 df_logic.to_csv('Files/LogicTest.csv', sep=',',index=False)
 
 # Excel Sheet Dataframes (Stats) and JOINS
@@ -68,7 +77,7 @@ df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season)
 & (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 250)]
 
 # Add new DataFrame columns for Offense
-df_offensiveStats['ScrimmmageYardsPerGame'] = int(round((df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']))
+df_offensiveStats['ScrimmmageYardsPerGame'] = round((df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED'])
 df_offensiveStats['ScrimmmageTDsPerGame'] = round((df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED'],2)
 
 # Add new DataFrame columns for OLine

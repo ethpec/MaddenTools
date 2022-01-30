@@ -8,11 +8,11 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 108,WR,JuJu,Smith-Schuster,JuJu Smith-Schuster,HOU,30,0,1,0,720,24,810,280,True,0,10,0,0,57,0,0,2,4,0,0,0,0,0,0,2,13,13,0,31,0,JuJu,Smith-Schuster,2459.0,2457.0,31.0,Signed,85.0,0.0,0.0,HOU,tier_2,58.0,0.15
 114,FB,Gabe,Nabers,Gabe Nabers,CIN,10,0,0,0,11,10,249,9,True,0,3,0,0,2,0,0,2,6,0,0,0,0,0,0,0,15,0,0,1,2,Gabe,Nabers,1910.0,1908.0,1.0,Signed,69.0,0.0,0.0,CIN,tier_6,1.0,0.13
 142,TE,Jeremy,Ruckert,Jeremy Ruckert,ARI,0,0,0,0,80,14,387,44,True,0,0,0,0,13,0,0,2,0,0,0,0,0,0,0,1,15,1,1,6,0,Jeremy,Ruckert,3468.0,3466.0,6.0,Signed,66.0,0.0,0.0,ARI,tier_6,5.0,0.07
-144,HB,Anthony,McFarland,Anthony McFarland,PIT,265,0,0,30,16,11,234,16,True,0,91,0,0,4,0,1,2,25,0,3,0,0,0,0,0,13,3,0,28,3,Anthony,McFarland,1740.0,1738.0,28.0,Signed,71.0,1.0,0.0,PIT,tier_5,22.0,0.23
+144,HB,Anthony,McFarland,Anthony McFarland,PIT,265,0,0,30,16,11,234,16,True,0,91,0,0,4,0,1,2,25,0,3,0,0,0,0,0,13,3,0,28,3,Anthony,McFarland,1740.0,1738.0,28.0,Signed,71.0,0.0,0.0,PIT,tier_5,22.0,0.23
 147,WR,Antonio,Gandy-Golden,Antonio Gandy-Golden,CIN,0,0,0,0,0,0,70,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,12,0,0,1,0,Antonio,Gandy-Golden,901.0,899.0,1.0,Signed,70.0,0.0,0.0,CIN,tier_5,0.0,0.0
 158,TE,Tyree,Jackson,Tyree Jackson,LV,0,0,0,0,21,16,143,8,True,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,15,0,0,22,0,Tyree,Jackson,1318.0,1316.0,22.0,Signed,57.0,0.0,0.0,LV,tier_6,1.0,0.0
 160,TE,Dallas,Goedert,Dallas Goedert,PHI,0,0,8,0,516,46,975,221,True,0,0,0,0,42,0,0,2,0,0,2,0,0,0,0,2,14,14,0,12,0,Dallas,Goedert,958.0,956.0,12.0,Signed,83.0,0.0,0.0,PHI,tier_3,37.0,0.14
-161,HB,Keaontay,Ingram,Keaontay Ingram,LV,6,0,0,0,0,0,91,0,True,0,4,0,0,0,0,0,2,4,0,0,0,0,0,0,0,15,0,0,22,2,Keaontay,Ingram,3473.0,3471.0,22.0,Signed,70.0,1.0,0.0,LV,tier_5,0.0,0.13
+161,HB,Keaontay,Ingram,Keaontay Ingram,LV,6,0,0,0,0,0,91,0,True,0,4,0,0,0,0,0,2,4,0,0,0,0,0,0,0,15,0,0,22,2,Keaontay,Ingram,3473.0,3471.0,22.0,Signed,70.0,0.0,0.0,LV,tier_5,0.0,0.13
 163,WR,Jakobi,Meyers,Jakobi Meyers,LV,24,0,0,0,793,27,763,334,True,0,8,0,0,62,0,0,2,4,0,0,0,0,0,0,3,15,15,1,22,0,Jakobi,Meyers,1797.0,1795.0,22.0,Signed,78.0,0.0,0.0,LV,tier_4,54.0,0.2
 170,QB,Desmond,Ridder,Desmond Ridder,CIN,0,0,0,0,0,0,68,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,0,0,1,0,Desmond,Ridder,3375.0,3373.0,1.0,Signed,62.0,0.0,0.0,CIN,tier_6,0.0,0.0
 177,QB,Teddy,Bridgewater,Teddy Bridgewater,DEN,186,3161,0,11,0,0,888,0,True,284,61,432,10,0,0,0,2,14,29,2,0,0,44,18,0,15,15,3,3,1,Teddy,Bridgewater,284.0,282.0,3.0,Signed,66.0,0.0,0.0,DEN,tier_6,12.0,0.07
@@ -25,7 +25,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 266,WR,Racey,McMath,Racey McMath,TEN,0,0,1,0,192,29,165,63,True,0,0,0,0,13,0,0,2,0,0,0,0,0,0,0,0,15,0,0,29,0,Racey,McMath,1771.0,1769.0,29.0,Signed,66.0,0.0,0.0,TEN,tier_6,13.0,0.0
 267,QB,Brock,Purdy,Brock Purdy,BUF,0,0,0,0,0,0,70,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,1,0,2,0,Brock,Purdy,3474.0,3472.0,2.0,Signed,59.0,0.0,0.0,BUF,tier_6,0.0,0.0
 268,FB,Andrew,Beck,Andrew Beck,BUF,93,0,0,2,58,17,384,25,True,0,34,0,0,6,0,0,2,7,0,1,0,0,0,0,0,15,1,0,2,1,Andrew,Beck,169.0,167.0,2.0,Signed,72.0,0.0,0.0,BUF,tier_5,10.0,0.07
-273,HB,Josh,Jacobs,Josh Jacobs,LV,1183,0,2,564,214,22,721,172,True,0,233,0,0,23,0,14,2,71,0,21,0,0,0,0,0,15,15,0,22,7,Josh,Jacobs,1320.0,1318.0,22.0,Signed,97.0,1.0,0.0,LV,tier_0,93.0,0.47
+273,HB,Josh,Jacobs,Josh Jacobs,LV,1183,0,2,564,214,22,721,172,True,0,233,0,0,23,0,14,2,71,0,21,0,0,0,0,0,15,15,0,22,7,Josh,Jacobs,1320.0,1318.0,22.0,Signed,97.0,0.0,0.0,LV,tier_0,93.0,0.47
 281,TE,Foster,Moreau,Foster Moreau,CIN,0,0,3,0,713,20,1091,366,True,0,0,0,0,75,0,0,2,0,0,4,0,0,0,0,7,15,15,0,1,0,Foster,Moreau,1865.0,1863.0,1.0,Signed,74.0,0.0,0.0,CIN,tier_5,48.0,0.47
 295,QB,Bailey,Zappe,Bailey Zappe,CAR,9,317,0,0,0,0,149,0,True,25,4,40,1,0,0,0,2,4,27,0,0,0,3,2,0,15,1,1,20,0,Bailey,Zappe,3495.0,3493.0,20.0,Signed,56.0,0.0,0.0,CAR,tier_6,1.0,0.0
 297,WR,Hunter,Renfrow,Hunter Renfrow,LV,12,0,0,0,604,28,597,246,True,0,6,0,0,49,0,0,2,4,0,0,0,0,0,0,5,11,11,0,22,0,Hunter,Renfrow,2200.0,2198.0,22.0,Signed,80.0,0.0,0.0,LV,tier_3,56.0,0.45
@@ -43,7 +43,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 631,TE,Colby,Parkinson,Colby Parkinson,SEA,0,0,1,0,0,0,201,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,1,0,27,0,Colby,Parkinson,2041.0,2039.0,27.0,Signed,68.0,0.0,0.0,SEA,tier_6,0.0,0.0
 633,WR,Allen,Lazard,Allen Lazard,ATL,3,0,2,0,806,29,683,315,True,0,2,0,0,67,0,0,2,4,0,0,0,0,0,0,5,15,6,0,13,0,Allen,Lazard,1565.0,1563.0,13.0,Signed,76.0,0.0,0.0,ATL,tier_4,54.0,0.33
 636,QB,Josh,Allen,Josh Allen,BUF,284,4036,0,81,0,0,992,0,True,350,62,517,11,0,0,1,2,68,31,2,0,0,37,29,0,15,15,6,2,2,Josh,Allen,46.0,44.0,2.0,Signed,89.0,0.0,0.0,BUF,tier_2,19.0,0.13
-637,HB,Devin,Singletary,Devin Singletary,BUF,922,0,2,337,261,28,819,177,True,0,261,0,0,29,0,5,2,70,0,12,0,0,0,0,4,15,15,2,2,5,Devin,Singletary,2389.0,2387.0,2.0,Signed,89.0,1.0,0.0,BUF,tier_2,79.0,0.6
+637,HB,Devin,Singletary,Devin Singletary,BUF,922,0,2,337,261,28,819,177,True,0,261,0,0,29,0,5,2,70,0,12,0,0,0,0,4,15,15,2,2,5,Devin,Singletary,2389.0,2387.0,2.0,Signed,89.0,0.0,0.0,BUF,tier_2,79.0,0.6
 638,TE,Dawson,Knox,Dawson Knox,BUF,0,0,0,0,721,26,1109,306,True,0,0,0,0,75,0,0,2,0,0,3,0,0,0,0,5,15,15,0,2,0,Dawson,Knox,1516.0,1514.0,2.0,Signed,90.0,0.0,0.0,BUF,tier_1,48.0,0.33
 645,TE,Tyler,Conklin,Tyler Conklin,MIN,0,0,1,0,146,19,502,92,True,0,0,0,0,15,0,0,2,0,0,1,0,0,0,0,1,15,1,0,30,0,Tyler,Conklin,509.0,507.0,30.0,Signed,70.0,0.0,0.0,MIN,tier_5,10.0,0.07
 680,FB,Alec,Ingold,Alec Ingold,MIN,195,0,1,91,145,14,725,89,True,0,39,0,0,23,0,2,2,56,0,3,0,0,0,0,1,15,6,4,30,2,Alec,Ingold,1279.0,1277.0,30.0,Signed,80.0,0.0,0.0,MIN,tier_3,23.0,0.2
@@ -53,24 +53,24 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 739,TE,Luke,Ford,Luke Ford,LV,0,0,0,0,68,15,440,40,True,0,0,0,0,10,0,0,2,0,0,0,0,0,0,0,0,14,1,0,22,0,Luke,Ford,3169.0,3167.0,22.0,Signed,59.0,0.0,0.0,LV,tier_6,5.0,0.0
 740,TE,Jonnu,Smith,Jonnu Smith,NE,34,0,1,0,222,28,565,129,True,0,17,0,0,20,0,0,2,4,0,1,0,0,0,0,3,14,0,0,21,2,Jonnu,Smith,2433.0,2431.0,21.0,Signed,79.0,0.0,0.0,NE,tier_4,18.0,0.36
 742,TE,Hunter,Henry,Hunter Henry,NE,0,0,0,0,766,27,1003,367,True,0,0,0,0,73,0,0,2,0,0,1,0,0,0,0,3,14,14,0,21,0,Hunter,Henry,1142.0,1140.0,21.0,Signed,87.0,0.0,0.0,NE,tier_2,55.0,0.21
-743,HB,Rhamondre,Stevenson,Rhamondre Stevenson,NE,462,0,2,141,163,15,499,162,True,0,120,0,0,24,0,4,2,66,0,5,0,0,0,0,1,15,5,1,21,3,Rhamondre,Stevenson,2506.0,2504.0,21.0,Signed,74.0,1.0,0.0,NE,tier_5,42.0,0.27
+743,HB,Rhamondre,Stevenson,Rhamondre Stevenson,NE,462,0,2,141,163,15,499,162,True,0,120,0,0,24,0,4,2,66,0,5,0,0,0,0,1,15,5,1,21,3,Rhamondre,Stevenson,2506.0,2504.0,21.0,Signed,74.0,0.0,0.0,NE,tier_5,42.0,0.27
 745,QB,Mac,Jones,Mac Jones,NE,74,4067,0,0,0,0,979,0,True,351,31,562,12,0,0,0,2,4,30,0,0,0,40,26,0,15,15,5,21,2,Mac,Jones,1432.0,1430.0,21.0,Signed,78.0,0.0,0.0,NE,tier_4,5.0,0.13
-754,HB,Nate,McCrary,Nate McCrary,LAR,148,0,0,12,88,21,189,76,True,0,57,0,0,17,0,0,2,15,0,2,0,0,0,0,1,10,1,1,23,1,Nate,McCrary,3015.0,3013.0,23.0,Signed,66.0,1.0,0.0,LAR,tier_6,24.0,0.2
+754,HB,Nate,McCrary,Nate McCrary,LAR,148,0,0,12,88,21,189,76,True,0,57,0,0,17,0,0,2,15,0,2,0,0,0,0,1,10,1,1,23,1,Nate,McCrary,3015.0,3013.0,23.0,Signed,66.0,0.0,0.0,LAR,tier_6,24.0,0.2
 775,TE,Drew,Sample,Drew Sample,LAR,11,0,4,0,292,18,929,120,True,0,3,0,0,38,0,0,2,4,0,2,0,0,0,0,3,15,6,0,23,0,Drew,Sample,2300.0,2298.0,23.0,Signed,72.0,0.0,0.0,LAR,tier_5,20.0,0.2
 784,TE,Darren,Waller,Darren Waller,LV,0,0,0,0,611,25,1008,299,True,0,0,0,0,65,0,0,2,0,0,3,0,0,0,0,6,14,14,0,22,0,Darren,Waller,2738.0,2736.0,22.0,Signed,87.0,0.0,0.0,LV,tier_2,44.0,0.43
 797,TE,Jacob,Harris,Jacob Harris,LAR,0,0,0,0,8,8,115,6,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,14,0,0,23,0,Jacob,Harris,1087.0,1085.0,23.0,Signed,65.0,0.0,0.0,LAR,tier_6,1.0,0.0
-804,HB,Benny,Snell,Benny Snell,ARI,578,0,0,136,181,20,498,156,True,0,165,0,0,27,0,2,2,58,0,11,0,0,0,0,1,15,12,3,6,2,Benny,Snell,2465.0,2463.0,6.0,Signed,76.0,1.0,0.0,ARI,tier_4,51.0,0.2
-805,HB,Austin,Ekeler,Austin Ekeler,ARI,355,0,0,76,197,20,439,134,True,0,109,0,0,30,0,2,2,45,0,7,0,0,0,0,1,13,13,0,6,3,Austin,Ekeler,744.0,742.0,6.0,Signed,78.0,1.0,0.0,ARI,tier_4,42.0,0.31
+804,HB,Benny,Snell,Benny Snell,ARI,578,0,0,136,181,20,498,156,True,0,165,0,0,27,0,2,2,58,0,11,0,0,0,0,1,15,12,3,6,2,Benny,Snell,2465.0,2463.0,6.0,Signed,76.0,0.0,0.0,ARI,tier_4,51.0,0.2
+805,HB,Austin,Ekeler,Austin Ekeler,ARI,355,0,0,76,197,20,439,134,True,0,109,0,0,30,0,2,2,45,0,7,0,0,0,0,1,13,13,0,6,3,Austin,Ekeler,744.0,742.0,6.0,Signed,78.0,0.0,0.0,ARI,tier_4,42.0,0.31
 806,QB,Tyler,Shough,Tyler Shough,ARI,8,133,0,0,0,0,103,0,True,12,2,23,2,0,0,0,2,4,18,0,0,0,2,0,0,14,0,1,6,0,Tyler,Shough,3251.0,3249.0,6.0,Signed,60.0,0.0,0.0,ARI,tier_6,1.0,0.0
 807,QB,Sam,Darnold,Sam Darnold,BAL,67,727,0,2,0,0,258,0,True,66,29,103,1,0,0,0,2,5,28,1,0,0,8,5,0,12,4,4,24,0,Sam,Darnold,587.0,585.0,24.0,Signed,66.0,0.0,0.0,BAL,tier_6,6.0,0.0
 808,QB,Jimmy,Garoppolo,Jimmy Garoppolo,NYG,17,886,0,0,0,0,292,0,True,83,7,140,8,0,0,0,2,4,27,0,0,0,8,6,0,13,4,1,15,0,Jimmy,Garoppolo,907.0,905.0,15.0,Signed,71.0,0.0,0.0,NYG,tier_5,1.0,0.0
 809,QB,Bryce,Young,Bryce Young,NYG,309,2522,0,146,0,0,672,0,True,214,40,352,12,0,0,4,2,78,46,6,0,0,35,11,0,15,11,5,15,2,Bryce,Young,1523.0,1521.0,15.0,Signed,71.0,0.0,0.0,NYG,tier_5,21.0,0.13
-811,HB,Kendall,Milton,Kendall Milton,NYG,334,0,1,86,171,17,518,132,True,0,94,0,0,25,0,4,2,33,0,7,0,0,0,0,3,15,15,0,15,3,Kendall,Milton,1502.0,1500.0,15.0,Signed,77.0,1.0,0.0,NYG,tier_4,34.0,0.4
+811,HB,Kendall,Milton,Kendall Milton,NYG,334,0,1,86,171,17,518,132,True,0,94,0,0,25,0,4,2,33,0,7,0,0,0,0,3,15,15,0,15,3,Kendall,Milton,1502.0,1500.0,15.0,Signed,77.0,0.0,0.0,NYG,tier_4,34.0,0.4
 815,QB,Russell,Wilson,Russell Wilson,SEA,353,3464,0,84,0,0,996,0,True,308,77,486,8,0,0,1,2,71,33,3,0,0,29,29,0,15,15,7,27,4,Russell,Wilson,2896.0,2894.0,27.0,Signed,92.0,0.0,0.0,SEA,tier_1,24.0,0.27
-816,HB,Chris,Carson,Chris Carson,SEA,205,0,1,47,59,12,232,58,True,0,61,0,0,7,0,1,2,45,0,2,0,0,0,0,0,15,1,0,27,1,Chris,Carson,417.0,415.0,27.0,Signed,76.0,1.0,0.0,SEA,tier_4,18.0,0.07
+816,HB,Chris,Carson,Chris Carson,SEA,205,0,1,47,59,12,232,58,True,0,61,0,0,7,0,1,2,45,0,2,0,0,0,0,0,15,1,0,27,1,Chris,Carson,417.0,415.0,27.0,Signed,76.0,0.0,0.0,SEA,tier_4,18.0,0.07
 838,TE,Dominique,Dafney,Dominique Dafney,NYG,0,0,0,0,30,9,334,17,True,0,0,0,0,6,0,0,2,0,0,0,0,0,0,0,2,12,2,0,15,0,Dominique,Dafney,569.0,567.0,15.0,Signed,67.0,0.0,0.0,NYG,tier_6,2.0,0.17
 839,WR,Collin,Johnson,Collin Johnson,NYG,0,0,0,0,138,21,180,47,True,0,0,0,0,10,0,0,2,0,0,1,0,0,0,0,1,14,14,0,15,0,Collin,Johnson,1366.0,1364.0,15.0,Signed,72.0,0.0,0.0,NYG,tier_5,10.0,0.07
-840,HB,Zonovan,Knight,Zonovan Knight,NYG,885,0,0,391,159,16,488,130,True,0,205,0,0,24,0,9,2,69,0,15,0,0,0,0,1,13,13,4,15,7,Zonovan,Knight,3377.0,3375.0,15.0,Signed,81.0,1.0,0.0,NYG,tier_3,80.0,0.62
+840,HB,Zonovan,Knight,Zonovan Knight,NYG,885,0,0,391,159,16,488,130,True,0,205,0,0,24,0,9,2,69,0,15,0,0,0,0,1,13,13,4,15,7,Zonovan,Knight,3377.0,3375.0,15.0,Signed,81.0,0.0,0.0,NYG,tier_3,80.0,0.62
 841,TE,Zach,Davidson,Zach Davidson,NYG,0,0,0,0,40,14,248,18,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,0,15,2,1,15,0,Zach,Davidson,594.0,592.0,15.0,Signed,66.0,0.0,0.0,NYG,tier_6,3.0,0.0
 842,WR,Kadarius,Toney,Kadarius Toney,NYG,0,0,0,0,722,30,755,282,True,0,0,0,0,51,0,0,2,0,0,1,0,0,0,0,4,13,13,0,15,0,Kadarius,Toney,2645.0,2643.0,15.0,Signed,80.0,0.0,0.0,NYG,tier_3,56.0,0.31
 843,WR,Sterling,Shepard,Sterling Shepard,NYG,0,0,2,0,925,46,832,348,True,0,0,0,0,63,0,0,2,0,0,1,0,0,0,0,2,15,15,0,15,0,Sterling,Shepard,2364.0,2362.0,15.0,Signed,77.0,0.0,0.0,NYG,tier_4,62.0,0.13
@@ -79,7 +79,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 846,QB,Grayson,McCall,Grayson McCall,CLE,137,2551,0,0,0,0,747,0,True,240,45,378,3,0,0,0,2,4,33,0,0,0,27,23,0,13,13,1,4,0,Grayson,McCall,3296.0,3294.0,4.0,Signed,71.0,0.0,0.0,CLE,tier_5,11.0,0.0
 850,TE,Harrison,Bryant,Harrison Bryant,CLE,10,0,1,0,181,26,622,102,True,0,3,0,0,23,0,0,2,4,0,0,0,0,0,0,2,15,1,0,4,1,Harrison,Bryant,339.0,337.0,4.0,Signed,73.0,0.0,0.0,CLE,tier_5,13.0,0.2
 851,WR,N'Keal,Harry,N'Keal Harry,ATL,0,0,4,0,492,23,581,185,True,0,0,0,0,37,0,0,2,0,0,0,0,0,0,0,3,14,14,0,13,0,N'Keal,Harry,1101.0,1099.0,13.0,Signed,74.0,0.0,0.0,ATL,tier_5,35.0,0.21
-852,HB,Zamir,White,Zamir White,ATL,1063,0,0,317,600,24,948,422,True,0,283,0,0,60,0,9,2,51,0,15,0,0,0,0,4,15,15,0,13,2,Zamir,White,3397.0,3395.0,13.0,Signed,80.0,1.0,0.0,ATL,tier_3,111.0,0.4
+852,HB,Zamir,White,Zamir White,ATL,1063,0,0,317,600,24,948,422,True,0,283,0,0,60,0,9,2,51,0,15,0,0,0,0,4,15,15,0,13,2,Zamir,White,3397.0,3395.0,13.0,Signed,80.0,0.0,0.0,ATL,tier_3,111.0,0.4
 853,QB,Kenny,Pickett,Kenny Pickett,ATL,137,4298,0,0,0,0,1030,0,True,373,43,602,14,0,0,0,2,4,29,0,0,0,56,27,0,15,15,7,13,1,Kenny,Pickett,3570.0,3568.0,13.0,Signed,71.0,0.0,0.0,ATL,tier_5,9.0,0.07
 854,TE,Jacob,Breeland,Jacob Breeland,ATL,0,0,0,0,27,10,171,22,True,0,0,0,0,4,0,0,2,0,0,0,0,0,0,0,1,15,0,0,13,0,Jacob,Breeland,277.0,275.0,13.0,Signed,63.0,0.0,0.0,ATL,tier_6,2.0,0.07
 856,QB,Feleipe,Franks,Feleipe Franks,ATL,0,0,0,0,0,0,55,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,0,0,13,0,Feleipe,Franks,865.0,863.0,13.0,Signed,55.0,0.0,0.0,ATL,tier_6,0.0,0.0
@@ -87,31 +87,31 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 858,WR,Frank,Darby,Frank Darby,ATL,0,0,0,0,138,26,187,64,True,0,0,0,0,12,0,0,2,0,0,0,0,0,0,0,1,13,3,0,13,0,Frank,Darby,584.0,582.0,13.0,Signed,67.0,0.0,0.0,ATL,tier_6,11.0,0.08
 859,TE,Kyle,Pitts,Kyle Pitts,ATL,0,0,0,0,858,27,1113,377,True,0,0,0,0,83,0,0,2,0,0,4,0,0,0,0,7,15,15,0,13,0,Kyle,Pitts,2113.0,2111.0,13.0,Signed,97.0,0.0,0.0,ATL,tier_0,57.0,0.47
 860,WR,Calvin,Ridley,Calvin Ridley,ATL,0,0,0,0,812,23,838,331,True,0,0,0,0,63,0,0,2,0,0,0,0,0,0,0,4,13,13,0,13,0,Calvin,Ridley,2220.0,2218.0,13.0,Signed,88.0,0.0,0.0,ATL,tier_2,62.0,0.31
-862,HB,Chris,Rodriguez Jr,Chris Rodriguez Jr,MIN,80,0,0,0,5,5,44,4,True,0,33,0,0,1,0,0,2,4,0,0,0,0,0,0,0,11,0,0,30,1,Chris,Rodriguez Jr,3256.0,3254.0,30.0,Signed,70.0,1.0,0.0,MIN,tier_5,8.0,0.09
+862,HB,Chris,Rodriguez Jr,Chris Rodriguez Jr,MIN,80,0,0,0,5,5,44,4,True,0,33,0,0,1,0,0,2,4,0,0,0,0,0,0,0,11,0,0,30,1,Chris,Rodriguez Jr,3256.0,3254.0,30.0,Signed,70.0,0.0,0.0,MIN,tier_5,8.0,0.09
 863,WR,Jameson,Williams,Jameson Williams,MIN,5,0,1,0,766,25,864,314,True,0,3,0,0,57,0,0,2,3,0,0,0,0,0,0,3,13,13,0,30,0,Jameson,Williams,3192.0,3190.0,30.0,Signed,78.0,0.0,0.0,MIN,tier_4,59.0,0.23
 864,QB,Tua,Tagovailoa,Tua Tagovailoa,MIN,261,3831,0,86,0,0,1053,0,True,328,55,552,15,0,0,2,2,50,29,3,0,0,36,21,0,15,15,4,30,3,Tua,Tagovailoa,2552.0,2550.0,30.0,Signed,69.0,0.0,0.0,MIN,tier_6,17.0,0.2
 865,WR,Drake,London,Drake London,KC,4,0,2,0,798,28,866,281,True,0,1,0,0,63,0,0,2,4,0,2,0,0,0,0,7,15,15,0,8,0,Drake,London,3325.0,3323.0,8.0,Signed,80.0,0.0,0.0,KC,tier_3,53.0,0.47
 866,TE,Noah,Gray,Noah Gray,KC,0,0,6,0,555,22,1094,252,True,0,0,0,0,55,0,0,2,0,0,4,0,0,0,0,2,15,13,0,8,0,Noah,Gray,997.0,995.0,8.0,Signed,71.0,0.0,0.0,KC,tier_5,37.0,0.13
-867,HB,Clyde,Edwards-Helaire,Clyde Edwards-Helaire,KC,1134,0,0,538,179,28,636,110,True,0,260,0,0,19,0,10,2,78,0,20,0,0,0,0,1,15,15,0,8,11,Clyde,Edwards-Helaire,736.0,734.0,8.0,Signed,82.0,1.0,0.0,KC,tier_3,88.0,0.8
+867,HB,Clyde,Edwards-Helaire,Clyde Edwards-Helaire,KC,1134,0,0,538,179,28,636,110,True,0,260,0,0,19,0,10,2,78,0,20,0,0,0,0,1,15,15,0,8,11,Clyde,Edwards-Helaire,736.0,734.0,8.0,Signed,82.0,0.0,0.0,KC,tier_3,88.0,0.8
 868,WR,Tyreek,Hill,Tyreek Hill,KC,9,0,1,0,1211,62,938,418,True,0,4,0,0,82,0,0,2,4,0,4,0,0,0,0,10,15,15,0,8,0,Tyreek,Hill,1178.0,1176.0,8.0,Signed,91.0,0.0,0.0,KC,tier_1,81.0,0.67
 869,QB,Patrick,Mahomes,Patrick Mahomes,KC,349,3421,0,161,0,0,911,0,True,292,52,485,13,0,0,4,2,75,62,5,0,0,19,23,0,15,15,4,8,3,Patrick,Mahomes,1676.0,1674.0,8.0,Signed,99.0,0.0,0.0,KC,tier_0,23.0,0.2
 871,WR,Preston,Williams,Preston Williams,CHI,0,0,0,0,741,28,701,282,True,0,0,0,0,66,0,0,2,0,0,0,0,0,0,0,6,15,15,0,0,0,Preston,Williams,2857.0,2855.0,0.0,Signed,74.0,0.0,0.0,CHI,tier_5,49.0,0.4
 872,QB,Brett,Rypien,Brett Rypien,CHI,0,18,0,0,0,0,74,0,True,2,0,4,1,0,0,0,2,0,11,0,0,0,1,0,0,15,0,0,0,0,Brett,Rypien,2294.0,2292.0,0.0,Signed,55.0,0.0,0.0,CHI,tier_6,0.0,0.0
 874,TE,Mitchell,Wilcox,Mitchell Wilcox,CHI,13,0,0,0,31,10,427,25,True,0,5,0,0,5,0,0,2,4,0,0,0,0,0,0,1,15,0,0,0,0,Mitchell,Wilcox,1607.0,1605.0,0.0,Signed,60.0,0.0,0.0,CHI,tier_6,3.0,0.07
-877,HB,Melvin,Gordon III,Melvin Gordon III,PHI,180,0,0,104,12,12,119,8,True,0,45,0,0,1,0,0,2,12,0,0,0,0,0,0,0,14,12,0,12,6,Melvin,Gordon III,974.0,972.0,12.0,Signed,73.0,1.0,0.0,PHI,tier_5,14.0,0.43
+877,HB,Melvin,Gordon III,Melvin Gordon III,PHI,180,0,0,104,12,12,119,8,True,0,45,0,0,1,0,0,2,12,0,0,0,0,0,0,0,14,12,0,12,6,Melvin,Gordon III,974.0,972.0,12.0,Signed,73.0,0.0,0.0,PHI,tier_5,14.0,0.43
 878,TE,Sam,LaPorta,Sam LaPorta,BAL,11,0,1,0,24,9,626,30,True,0,5,0,0,6,0,0,2,4,0,0,0,0,0,0,0,15,0,0,24,0,Sam,LaPorta,3182.0,3180.0,24.0,Signed,58.0,0.0,0.0,BAL,tier_6,2.0,0.0
 879,WR,Jake,Smith,Jake Smith,BAL,4,0,0,0,522,21,471,246,True,0,1,0,0,49,0,0,2,4,0,0,0,0,0,0,4,15,6,0,24,0,Jake,Smith,3217.0,3215.0,24.0,Signed,70.0,1.0,0.0,BAL,tier_5,35.0,0.27
 880,TE,Thaddeus,Moss,Thaddeus Moss,BAL,0,0,0,0,142,28,546,64,True,0,0,0,0,13,0,0,2,0,0,0,0,0,0,0,1,15,2,0,24,0,Thaddeus,Moss,1879.0,1877.0,24.0,Signed,65.0,0.0,0.0,BAL,tier_6,9.0,0.07
 881,WR,Tylan,Wallace,Tylan Wallace,BAL,3,0,1,0,116,17,231,45,True,0,1,0,0,10,0,0,2,3,0,0,0,0,0,0,0,11,11,0,24,0,Tylan,Wallace,2737.0,2735.0,24.0,Signed,70.0,0.0,0.0,BAL,tier_5,11.0,0.0
 882,WR,Rashod,Bateman,Rashod Bateman,BAL,14,0,0,0,996,29,872,350,True,0,7,0,0,71,0,0,2,4,0,0,0,0,0,0,5,15,15,0,24,0,Rashod,Bateman,151.0,149.0,24.0,Signed,82.0,0.0,0.0,BAL,tier_3,67.0,0.33
-883,HB,J.K.,Dobbins,J.K. Dobbins,BAL,720,0,0,248,193,27,659,137,True,0,190,0,0,20,0,5,2,64,0,8,0,0,0,0,1,11,11,0,24,4,J.K.,Dobbins,671.0,669.0,24.0,Signed,88.0,1.0,0.0,BAL,tier_2,83.0,0.45
+883,HB,J.K.,Dobbins,J.K. Dobbins,BAL,720,0,0,248,193,27,659,137,True,0,190,0,0,20,0,5,2,64,0,8,0,0,0,0,1,11,11,0,24,4,J.K.,Dobbins,671.0,669.0,24.0,Signed,88.0,0.0,0.0,BAL,tier_2,83.0,0.45
 884,WR,Marquise,Brown,Marquise Brown,BAL,0,0,0,0,667,28,774,238,True,0,0,0,0,54,0,0,2,0,0,0,0,0,0,0,9,13,13,0,24,0,Marquise,Brown,323.0,321.0,24.0,Signed,84.0,0.0,0.0,BAL,tier_3,51.0,0.69
 885,TE,Mark,Andrews,Mark Andrews,BAL,0,0,0,0,902,28,823,371,True,0,0,0,0,67,0,0,2,0,0,1,0,0,0,0,6,12,12,0,24,0,Mark,Andrews,75.0,73.0,24.0,Signed,92.0,0.0,0.0,BAL,tier_1,75.0,0.5
-886,HB,Sincere,McCormick,Sincere McCormick,TB,211,0,0,47,125,22,230,68,True,0,73,0,0,14,0,1,2,33,0,2,0,0,0,0,2,13,2,0,5,1,Sincere,McCormick,3248.0,3246.0,5.0,Signed,79.0,1.0,0.0,TB,tier_4,26.0,0.23
+886,HB,Sincere,McCormick,Sincere McCormick,TB,211,0,0,47,125,22,230,68,True,0,73,0,0,14,0,1,2,33,0,2,0,0,0,0,2,13,2,0,5,1,Sincere,McCormick,3248.0,3246.0,5.0,Signed,79.0,0.0,0.0,TB,tier_4,26.0,0.23
 887,QB,Matthew,Stafford,Matthew Stafford,TB,176,4046,0,44,0,0,986,0,True,346,43,551,18,0,0,1,2,48,80,1,0,0,37,23,0,15,15,4,5,2,Matthew,Stafford,2487.0,2485.0,5.0,Signed,79.0,0.0,0.0,TB,tier_4,12.0,0.13
 888,QB,Baker,Mayfield,Baker Mayfield,CAR,102,3357,0,0,0,0,890,0,True,296,36,479,12,0,0,0,2,4,30,0,0,0,39,25,0,14,14,7,20,0,Baker,Mayfield,1716.0,1714.0,20.0,Signed,78.0,0.0,0.0,CAR,tier_4,7.0,0.0
 889,FB,Elijhaa,Penny,Elijhaa Penny,TB,6,0,0,0,-4,0,245,-2,True,0,1,0,0,1,0,0,2,6,0,0,0,0,0,0,0,15,1,0,5,0,Elijhaa,Penny,2063.0,2061.0,5.0,Signed,68.0,0.0,0.0,TB,tier_6,0.0,0.0
-891,HB,Khalil,Herbert,Khalil Herbert,CHI,824,0,0,347,130,18,632,118,True,0,199,0,0,20,0,7,2,66,0,15,0,0,0,0,0,14,8,2,0,4,Khalil,Herbert,1145.0,1143.0,0.0,Signed,75.0,1.0,0.0,CHI,tier_4,68.0,0.29
+891,HB,Khalil,Herbert,Khalil Herbert,CHI,824,0,0,347,130,18,632,118,True,0,199,0,0,20,0,7,2,66,0,15,0,0,0,0,0,14,8,2,0,4,Khalil,Herbert,1145.0,1143.0,0.0,Signed,75.0,0.0,0.0,CHI,tier_4,68.0,0.29
 892,QB,Justin,Fields,Justin Fields,CHI,290,3536,0,102,0,0,977,0,True,326,63,499,16,0,0,2,2,66,30,4,0,0,47,20,0,15,15,10,0,2,Justin,Fields,812.0,810.0,0.0,Signed,74.0,0.0,0.0,CHI,tier_5,19.0,0.13
 893,WR,Darnell,Mooney,Darnell Mooney,CHI,14,0,0,0,912,25,974,373,True,0,4,0,0,80,0,0,2,4,0,0,0,0,0,0,4,15,15,0,0,0,Darnell,Mooney,1847.0,1845.0,0.0,Signed,82.0,0.0,0.0,CHI,tier_3,62.0,0.27
 894,TE,Cole,Kmet,Cole Kmet,CHI,0,0,0,0,622,30,1126,281,True,0,0,0,0,58,0,0,2,0,0,1,0,0,0,0,1,15,15,0,0,0,Cole,Kmet,1514.0,1512.0,0.0,Signed,80.0,0.0,0.0,CHI,tier_3,41.0,0.07
@@ -119,43 +119,43 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 896,WR,Justin,Jefferson,Justin Jefferson,LAC,0,0,0,0,951,24,801,321,True,0,0,0,0,61,0,0,2,0,0,0,0,0,0,0,3,13,13,0,7,0,Justin,Jefferson,1338.0,1336.0,7.0,Signed,93.0,0.0,0.0,LAC,tier_1,73.0,0.23
 897,QB,Kyle,Sloter,Kyle Sloter,LAC,72,1325,0,11,0,0,427,0,True,125,21,198,3,0,0,0,2,15,26,2,0,0,17,10,0,10,5,1,7,0,Kyle,Sloter,2408.0,2406.0,7.0,Signed,50.0,0.0,0.0,LAC,tier_6,7.0,0.0
 898,QB,Matt,Corral,Matt Corral,NYJ,411,2421,0,201,0,0,635,0,True,198,57,317,7,0,0,5,2,85,62,7,0,0,29,17,0,11,11,6,17,3,Matt,Corral,2815.0,2813.0,17.0,Signed,81.0,0.0,0.0,NYJ,tier_3,37.0,0.27
-899,HB,TJ,Pledger,TJ Pledger,LAC,116,0,0,53,123,16,178,81,True,0,27,0,0,17,0,1,2,56,0,1,0,0,0,0,1,13,1,1,7,0,TJ,Pledger,3621.0,3619.0,7.0,Signed,62.0,1.0,0.0,LAC,tier_6,18.0,0.08
-900,HB,Kyren,Williams,Kyren Williams,LAC,974,0,1,308,347,20,733,236,True,0,250,0,0,46,0,9,2,60,0,18,0,0,0,0,3,14,14,0,7,8,Kyren,Williams,3404.0,3402.0,7.0,Signed,70.0,1.0,0.0,LAC,tier_5,94.0,0.79
+899,HB,TJ,Pledger,TJ Pledger,LAC,116,0,0,53,123,16,178,81,True,0,27,0,0,17,0,1,2,56,0,1,0,0,0,0,1,13,1,1,7,0,TJ,Pledger,3621.0,3619.0,7.0,Signed,62.0,0.0,0.0,LAC,tier_6,18.0,0.08
+900,HB,Kyren,Williams,Kyren Williams,LAC,974,0,1,308,347,20,733,236,True,0,250,0,0,46,0,9,2,60,0,18,0,0,0,0,3,14,14,0,7,8,Kyren,Williams,3404.0,3402.0,7.0,Signed,70.0,0.0,0.0,LAC,tier_5,94.0,0.79
 901,TE,Christopher,Herndon IV,Christopher Herndon IV,LAC,0,0,0,0,59,13,396,42,True,0,0,0,0,7,0,0,2,0,0,1,0,0,0,0,0,15,0,0,7,0,Christopher,Herndon IV,1148.0,1146.0,7.0,Signed,70.0,0.0,0.0,LAC,tier_5,4.0,0.0
 902,TE,Donald,Parham Jr,Donald Parham Jr,LAC,0,0,3,0,510,19,1119,245,True,0,0,0,0,53,0,0,2,0,0,2,0,0,0,0,4,15,15,0,7,0,Donald,Parham Jr,2036.0,2034.0,7.0,Signed,71.0,0.0,0.0,LAC,tier_5,34.0,0.27
 903,FB,Khari,Blasingame,Khari Blasingame,DEN,70,0,0,0,19,11,369,11,True,0,23,0,0,6,0,0,2,4,0,0,0,0,0,0,0,15,4,0,3,1,Khari,Blasingame,212.0,210.0,3.0,Signed,74.0,0.0,0.0,DEN,tier_5,6.0,0.07
 904,TE,Jake,Ferguson,Jake Ferguson,DEN,0,0,0,0,37,9,313,16,True,0,0,0,0,7,0,0,2,0,0,1,0,0,0,0,0,15,0,0,3,0,Jake,Ferguson,3437.0,3435.0,3.0,Signed,67.0,0.0,0.0,DEN,tier_6,2.0,0.0
 905,QB,Tanner,Morgan,Tanner Morgan,DEN,3,50,0,0,0,0,79,0,True,4,1,7,0,0,0,0,2,3,17,0,0,0,0,0,0,15,0,0,3,0,Tanner,Morgan,3484.0,3482.0,3.0,Signed,55.0,0.0,0.0,DEN,tier_6,0.0,0.0
-907,HB,Javonte,Williams,Javonte Williams,DEN,811,0,1,352,126,17,455,115,True,0,183,0,0,17,0,9,2,66,0,12,0,0,0,0,1,10,10,0,3,11,Javonte,Williams,2845.0,2843.0,3.0,Signed,86.0,1.0,0.0,DEN,tier_2,94.0,1.2
+907,HB,Javonte,Williams,Javonte Williams,DEN,811,0,1,352,126,17,455,115,True,0,183,0,0,17,0,9,2,66,0,12,0,0,0,0,1,10,10,0,3,11,Javonte,Williams,2845.0,2843.0,3.0,Signed,86.0,0.0,0.0,DEN,tier_2,94.0,1.2
 909,TE,Albert,Okwuegbunam,Albert Okwuegbunam,DEN,0,0,2,0,369,26,735,158,True,0,0,0,0,34,0,0,2,0,0,1,0,0,0,0,3,15,6,0,3,0,Albert,Okwuegbunam,1992.0,1990.0,3.0,Signed,72.0,0.0,0.0,DEN,tier_5,25.0,0.2
 910,WR,Jerry,Jeudy,Jerry Jeudy,DEN,4,0,0,0,397,29,490,150,True,0,1,0,0,32,0,0,2,4,0,0,0,0,0,0,5,10,10,0,3,0,Jerry,Jeudy,1357.0,1355.0,3.0,Signed,82.0,0.0,0.0,DEN,tier_3,40.0,0.5
 911,WR,Michael,Gallup,Michael Gallup,MIA,3,0,0,0,703,26,692,248,True,0,1,0,0,55,0,0,2,3,0,2,0,0,0,0,4,13,13,0,11,0,Michael,Gallup,900.0,898.0,11.0,Signed,81.0,0.0,0.0,MIA,tier_3,54.0,0.31
 913,WR,Courtland,Sutton,Courtland Sutton,DEN,0,0,0,0,529,22,628,220,True,0,0,0,0,42,0,0,2,0,0,0,0,0,0,0,3,11,11,0,3,0,Courtland,Sutton,2539.0,2537.0,3.0,Signed,84.0,0.0,0.0,DEN,tier_3,48.0,0.27
 914,WR,Tim,Patrick,Tim Patrick,DEN,0,0,0,0,710,25,649,297,True,0,0,0,0,57,0,0,2,0,0,0,0,0,0,0,3,13,13,0,3,0,Tim,Patrick,2051.0,2049.0,3.0,Signed,75.0,0.0,0.0,DEN,tier_4,55.0,0.23
-915,HB,Max,Borghi,Max Borghi,IND,37,0,0,9,18,12,83,18,True,0,18,0,0,3,0,0,2,12,0,1,0,0,0,0,0,10,0,0,9,1,Max,Borghi,3434.0,3432.0,9.0,Signed,73.0,1.0,0.0,IND,tier_5,6.0,0.1
+915,HB,Max,Borghi,Max Borghi,IND,37,0,0,9,18,12,83,18,True,0,18,0,0,3,0,0,2,12,0,1,0,0,0,0,0,10,0,0,9,1,Max,Borghi,3434.0,3432.0,9.0,Signed,73.0,0.0,0.0,IND,tier_5,6.0,0.1
 918,WR,Isaiah,Weston,Isaiah Weston,TB,0,0,0,0,17,17,73,9,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,11,2,0,5,0,Isaiah,Weston,3482.0,3480.0,5.0,Signed,66.0,0.0,0.0,TB,tier_6,2.0,0.0
 920,QB,Jacoby,Brissett,Jacoby Brissett,LAR,3,0,0,0,0,0,60,0,True,0,1,2,0,0,0,0,2,3,0,0,0,0,0,0,0,12,0,0,23,0,Jacoby,Brissett,287.0,285.0,23.0,Signed,63.0,0.0,0.0,LAR,tier_6,0.0,0.0
 924,QB,Chase,Brice,Chase Brice,NYJ,52,1140,0,0,0,0,342,0,True,99,21,163,6,0,0,0,2,4,25,0,0,0,17,3,0,11,4,5,17,1,Chase,Brice,3686.0,3684.0,17.0,Signed,52.0,0.0,0.0,NYJ,tier_6,5.0,0.09
-926,HB,Lyn-J,Dixon,Lyn-J Dixon,NYJ,239,0,0,64,59,12,308,51,True,0,65,0,0,11,0,1,2,44,0,6,0,0,0,0,0,13,1,0,17,4,Lyn-J,Dixon,3510.0,3508.0,17.0,Signed,69.0,1.0,0.0,NYJ,tier_6,23.0,0.31
-927,HB,Ryan,Nall,Ryan Nall,DEN,264,0,0,47,94,17,269,49,True,0,95,0,0,11,0,1,2,36,0,3,0,0,0,0,0,12,4,0,3,3,Ryan,Nall,1912.0,1910.0,3.0,Signed,55.0,1.0,0.0,DEN,tier_6,30.0,0.25
+926,HB,Lyn-J,Dixon,Lyn-J Dixon,NYJ,239,0,0,64,59,12,308,51,True,0,65,0,0,11,0,1,2,44,0,6,0,0,0,0,0,13,1,0,17,4,Lyn-J,Dixon,3510.0,3508.0,17.0,Signed,69.0,0.0,0.0,NYJ,tier_6,23.0,0.31
+927,HB,Ryan,Nall,Ryan Nall,DEN,264,0,0,47,94,17,269,49,True,0,95,0,0,11,0,1,2,36,0,3,0,0,0,0,0,12,4,0,3,3,Ryan,Nall,1912.0,1910.0,3.0,Signed,55.0,0.0,0.0,DEN,tier_6,30.0,0.25
 928,WR,Travell,Harris,Travell Harris,ARI,0,0,0,0,0,0,70,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,14,1,0,6,0,Travell,Harris,3585.0,3583.0,6.0,Signed,63.0,0.0,0.0,ARI,tier_6,0.0,0.0
 929,WR,Rondale,Moore,Rondale Moore,ARI,11,0,1,0,859,30,866,364,True,0,3,0,0,73,0,0,2,4,0,4,0,0,0,0,4,14,14,0,6,0,Rondale,Moore,1861.0,1859.0,6.0,Signed,80.0,0.0,0.0,ARI,tier_3,62.0,0.29
 930,WR,Brandon,Aiyuk,Brandon Aiyuk,SF,0,0,1,0,1059,32,785,397,True,0,0,0,0,75,0,0,2,0,0,1,0,0,0,0,2,13,13,0,14,0,Brandon,Aiyuk,26.0,24.0,14.0,Signed,78.0,0.0,0.0,SF,tier_4,81.0,0.15
-931,HB,Karan,Higdon,Karan Higdon,SF,295,0,0,77,11,6,173,14,True,0,90,0,0,4,0,1,2,60,0,3,0,0,0,0,0,13,4,1,14,5,Karan,Higdon,1159.0,1157.0,14.0,Signed,69.0,1.0,0.0,SF,tier_6,24.0,0.38
+931,HB,Karan,Higdon,Karan Higdon,SF,295,0,0,77,11,6,173,14,True,0,90,0,0,4,0,1,2,60,0,3,0,0,0,0,0,13,4,1,14,5,Karan,Higdon,1159.0,1157.0,14.0,Signed,69.0,0.0,0.0,SF,tier_6,24.0,0.38
 933,FB,Kyle,Juszczyk,Kyle Juszczyk,SF,68,0,0,8,98,18,622,74,True,0,27,0,0,15,0,0,2,14,0,2,0,0,0,0,0,15,4,0,14,1,Kyle,Juszczyk,1454.0,1452.0,14.0,Signed,79.0,0.0,0.0,SF,tier_4,11.0,0.07
 934,QB,Chris,Streveler,Chris Streveler,PIT,0,0,0,0,0,0,63,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,0,0,28,0,Chris,Streveler,2521.0,2519.0,28.0,Signed,52.0,0.0,0.0,PIT,tier_6,0.0,0.0
 935,QB,Gardner,Minshew II,Gardner Minshew II,PIT,163,3645,0,6,0,0,974,0,True,332,55,517,11,0,0,0,2,9,34,1,0,0,47,24,0,15,15,5,28,1,Gardner,Minshew II,1824.0,1822.0,28.0,Signed,67.0,0.0,0.0,PIT,tier_6,11.0,0.07
 936,WR,Isaiah,Coulter,Isaiah Coulter,PIT,0,0,0,0,70,16,113,18,True,0,0,0,0,8,0,0,2,0,0,0,0,0,0,0,3,12,6,0,28,0,Isaiah,Coulter,533.0,531.0,28.0,Signed,68.0,0.0,0.0,PIT,tier_6,6.0,0.25
 937,FB,Patrick,Ricard,Patrick Ricard,PIT,10,0,0,0,5,5,293,4,True,0,3,0,0,1,0,0,2,4,0,0,0,0,0,0,0,15,0,0,28,0,Patrick,Ricard,2210.0,2208.0,28.0,Signed,81.0,0.0,0.0,PIT,tier_3,1.0,0.0
-938,HB,Najee,Harris,Najee Harris,PIT,980,0,1,388,280,34,679,267,True,0,212,0,0,33,0,7,2,76,0,15,0,0,0,0,1,12,12,0,28,7,Najee,Harris,1091.0,1089.0,28.0,Signed,95.0,1.0,0.0,PIT,tier_0,105.0,0.67
+938,HB,Najee,Harris,Najee Harris,PIT,980,0,1,388,280,34,679,267,True,0,212,0,0,33,0,7,2,76,0,15,0,0,0,0,1,12,12,0,28,7,Najee,Harris,1091.0,1089.0,28.0,Signed,95.0,0.0,0.0,PIT,tier_0,105.0,0.67
 940,TE,Pat,Freiermuth,Pat Freiermuth,PIT,0,0,6,0,475,21,1101,219,True,0,0,0,0,52,0,0,2,0,0,1,0,0,0,0,1,15,15,0,28,0,Pat,Freiermuth,870.0,868.0,28.0,Signed,74.0,0.0,0.0,PIT,tier_5,32.0,0.07
 941,WR,Chase,Claypool,Chase Claypool,LAR,7,0,1,0,910,28,937,371,True,0,2,0,0,75,0,0,2,4,0,0,0,0,0,0,2,16,16,0,23,0,Chase,Claypool,468.0,466.0,23.0,Signed,80.0,0.0,0.0,LAR,tier_3,57.0,0.12
 942,WR,Curtis,Samuel,Curtis Samuel,WAS,3,0,0,9,668,24,811,242,True,0,1,0,0,59,0,0,2,3,0,2,0,0,0,0,8,14,14,0,25,0,Curtis,Samuel,2302.0,2300.0,25.0,Signed,81.0,0.0,0.0,WAS,tier_3,48.0,0.57
 943,WR,Johnny,Wilson,Johnny Wilson,MIA,0,0,0,0,0,0,86,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,13,1,0,11,0,Johnny,Wilson,3235.0,3233.0,11.0,Signed,69.0,0.0,0.0,MIA,tier_6,0.0,0.0
-944,HB,Miles,Sanders,Miles Sanders,PHI,967,0,10,551,452,65,817,359,True,0,261,0,0,54,0,0,2,20,0,15,0,0,0,0,2,15,15,1,12,4,Miles,Sanders,2309.0,2307.0,12.0,Signed,96.0,1.0,0.0,PHI,tier_0,95.0,0.4
+944,HB,Miles,Sanders,Miles Sanders,PHI,967,0,10,551,452,65,817,359,True,0,261,0,0,54,0,0,2,20,0,15,0,0,0,0,2,15,15,1,12,4,Miles,Sanders,2309.0,2307.0,12.0,Signed,96.0,0.0,0.0,PHI,tier_0,95.0,0.4
 945,TE,Charlie,Taumoepeau,Charlie Taumoepeau,MIA,0,0,1,0,11,11,236,3,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,1,0,11,0,Charlie,Taumoepeau,2561.0,2559.0,11.0,Signed,67.0,0.0,0.0,MIA,tier_6,1.0,0.0
-946,HB,CJ,Verdel,CJ Verdel,MIA,122,0,0,32,177,25,287,118,True,0,44,0,0,18,0,1,2,24,0,2,0,0,0,0,1,12,12,0,11,2,CJ,Verdel,3446.0,3444.0,11.0,Signed,75.0,1.0,0.0,MIA,tier_4,25.0,0.25
-947,HB,Marlon,Mack,Marlon Mack,MIA,869,0,0,303,102,24,457,95,True,0,197,0,0,19,0,7,2,76,0,11,0,0,0,0,1,11,11,1,11,9,Marlon,Mack,1669.0,1667.0,11.0,Signed,78.0,1.0,0.0,MIA,tier_4,88.0,0.91
+946,HB,CJ,Verdel,CJ Verdel,MIA,122,0,0,32,177,25,287,118,True,0,44,0,0,18,0,1,2,24,0,2,0,0,0,0,1,12,12,0,11,2,CJ,Verdel,3446.0,3444.0,11.0,Signed,75.0,0.0,0.0,MIA,tier_4,25.0,0.25
+947,HB,Marlon,Mack,Marlon Mack,MIA,869,0,0,303,102,24,457,95,True,0,197,0,0,19,0,7,2,76,0,11,0,0,0,0,1,11,11,1,11,9,Marlon,Mack,1669.0,1667.0,11.0,Signed,78.0,0.0,0.0,MIA,tier_4,88.0,0.91
 948,TE,Gerald,Everett,Gerald Everett,NYJ,0,0,2,0,663,25,1104,316,True,0,0,0,0,59,0,0,2,0,0,0,0,0,0,0,3,15,15,0,17,0,Gerald,Everett,782.0,780.0,17.0,Signed,76.0,0.0,0.0,NYJ,tier_4,44.0,0.2
 949,QB,Drew,Lock,Drew Lock,MIA,0,0,0,0,0,0,84,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,14,0,0,11,0,Drew,Lock,1618.0,1616.0,11.0,Signed,65.0,0.0,0.0,MIA,tier_6,0.0,0.0
 950,WR,Jaylen,Waddle,Jaylen Waddle,MIA,7,0,0,0,854,31,966,283,True,0,2,0,0,61,0,0,2,4,0,1,0,0,0,0,4,15,15,0,11,0,Jaylen,Waddle,2718.0,2716.0,11.0,Signed,89.0,0.0,0.0,MIA,tier_2,57.0,0.27
@@ -164,12 +164,12 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 953,FB,Masen,Wake,Masen Wake,DAL,14,0,0,0,6,6,264,7,True,0,4,0,0,1,0,0,2,4,0,0,0,0,0,0,0,15,1,0,10,0,Masen,Wake,2582.0,2580.0,10.0,Signed,70.0,0.0,0.0,DAL,tier_5,1.0,0.0
 959,TE,Arik,Gilbert,Arik Gilbert,ATL,0,0,0,0,165,26,616,88,True,0,0,1,0,13,0,0,2,0,0,0,0,0,0,0,1,15,0,0,13,0,Arik,Gilbert,363.0,361.0,13.0,Signed,75.0,0.0,0.0,ATL,tier_4,11.0,0.07
 963,WR,K.J.,Osborn,K.J. Osborn,MIN,0,0,1,0,910,27,995,318,True,0,0,0,0,73,0,0,2,0,0,0,0,0,0,0,5,15,15,0,30,0,K.J.,Osborn,2018.0,2016.0,30.0,Signed,73.0,0.0,0.0,MIN,tier_5,61.0,0.33
-968,HB,Jonathan,Taylor,Jonathan Taylor,IND,871,0,4,254,255,27,714,184,True,0,252,0,0,26,0,8,2,44,0,15,0,0,0,0,1,15,15,0,9,6,Jonathan,Taylor,2572.0,2570.0,9.0,Signed,96.0,1.0,0.0,IND,tier_0,75.0,0.47
+968,HB,Jonathan,Taylor,Jonathan Taylor,IND,871,0,4,254,255,27,714,184,True,0,252,0,0,26,0,8,2,44,0,15,0,0,0,0,1,15,15,0,9,6,Jonathan,Taylor,2572.0,2570.0,9.0,Signed,96.0,0.0,0.0,IND,tier_0,75.0,0.47
 969,TE,Mo,Alie-Cox,Mo Alie-Cox,IND,0,0,0,0,81,20,402,51,True,0,0,0,0,12,0,0,2,0,0,0,0,0,0,0,3,12,0,0,9,0,Mo,Alie-Cox,38.0,36.0,9.0,Signed,73.0,0.0,0.0,IND,tier_5,7.0,0.25
 970,TE,John,Fitzpatrick,John Fitzpatrick,TEN,0,0,0,0,46,6,364,28,True,0,0,0,0,11,0,0,2,0,0,0,0,0,0,0,2,15,0,0,29,0,John,Fitzpatrick,3144.0,3142.0,29.0,Signed,59.0,0.0,0.0,TEN,tier_6,3.0,0.13
 971,QB,Bo,Nix,Bo Nix,TEN,19,592,0,0,0,0,208,0,True,59,5,100,1,0,0,0,2,4,27,0,0,0,11,2,0,15,3,4,29,0,Bo,Nix,3156.0,3154.0,29.0,Signed,60.0,0.0,0.0,TEN,tier_6,1.0,0.0
 972,QB,Carson,Wentz,Carson Wentz,TEN,127,2940,0,21,0,0,756,0,True,269,35,436,7,0,0,1,2,24,30,1,0,0,31,17,0,12,12,10,29,2,Carson,Wentz,2792.0,2790.0,29.0,Signed,70.0,0.0,0.0,TEN,tier_5,11.0,0.17
-973,HB,Leddie,Brown,Leddie Brown,TEN,144,0,1,6,308,24,889,235,True,0,61,1,0,47,0,0,2,9,0,3,0,0,0,0,1,15,15,0,29,2,Leddie,Brown,3459.0,3457.0,29.0,Signed,71.0,1.0,0.0,TEN,tier_5,30.0,0.2
+973,HB,Leddie,Brown,Leddie Brown,TEN,144,0,1,6,308,24,889,235,True,0,61,1,0,47,0,0,2,9,0,3,0,0,0,0,1,15,15,0,29,2,Leddie,Brown,3459.0,3457.0,29.0,Signed,71.0,0.0,0.0,TEN,tier_5,30.0,0.2
 974,WR,Treylon,Burks,Treylon Burks,TEN,0,0,1,0,1051,27,857,432,True,0,0,0,0,87,0,0,2,0,0,0,0,0,0,0,6,15,15,0,29,0,Treylon,Burks,3329.0,3327.0,29.0,Signed,79.0,0.0,0.0,TEN,tier_4,70.0,0.4
 975,WR,Trishton,Jackson,Trishton Jackson,TEN,0,0,0,0,20,20,68,7,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,0,0,29,0,Trishton,Jackson,1317.0,1315.0,29.0,Signed,65.0,0.0,0.0,TEN,tier_6,1.0,0.0
 976,TE,Briley,Moore,Briley Moore,TEN,0,0,7,0,457,22,914,188,True,0,0,0,0,47,0,0,2,0,0,2,0,0,0,0,1,15,15,0,29,0,Briley,Moore,1851.0,1849.0,29.0,Signed,69.0,0.0,0.0,TEN,tier_6,30.0,0.07
@@ -178,7 +178,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 980,TE,Hudson,Henry,Hudson Henry,KC,3,0,0,0,23,11,549,10,True,0,1,0,0,5,0,0,2,3,0,0,0,0,0,0,1,15,1,0,8,0,Hudson,Henry,3277.0,3275.0,8.0,Signed,74.0,0.0,0.0,KC,tier_5,2.0,0.07
 981,WR,Marvin,Mims,Marvin Mims,KC,4,0,0,0,488,26,511,223,True,0,1,0,0,47,0,0,2,4,0,0,0,0,0,0,2,13,13,1,8,0,Marvin,Mims,3246.0,3244.0,8.0,Signed,77.0,0.0,0.0,KC,tier_4,38.0,0.15
 982,WR,Damion,Willis,Damion Willis,LAC,0,0,0,0,0,0,59,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,13,0,0,7,0,Damion,Willis,2875.0,2873.0,7.0,Signed,66.0,0.0,0.0,LAC,tier_6,0.0,0.0
-983,HB,Larry,Rountree III,Larry Rountree III,LAC,187,0,0,81,18,14,167,11,True,0,40,0,0,2,0,3,2,34,0,4,0,0,0,0,0,15,1,1,7,4,Larry,Rountree III,2273.0,2271.0,7.0,Signed,69.0,1.0,0.0,LAC,tier_6,14.0,0.27
+983,HB,Larry,Rountree III,Larry Rountree III,LAC,187,0,0,81,18,14,167,11,True,0,40,0,0,2,0,3,2,34,0,4,0,0,0,0,0,15,1,1,7,4,Larry,Rountree III,2273.0,2271.0,7.0,Signed,69.0,0.0,0.0,LAC,tier_6,14.0,0.27
 984,TE,Tre',McKitty,Tre' McKitty,LAC,0,0,0,0,19,10,341,15,True,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,15,0,0,7,0,Tre',McKitty,1760.0,1758.0,7.0,Signed,67.0,0.0,0.0,LAC,tier_6,1.0,0.0
 985,QB,Justin,Herbert,Justin Herbert,LAC,89,2559,0,2,0,0,581,0,True,217,25,356,9,0,0,0,2,6,33,2,0,0,20,12,0,10,10,3,7,0,Justin,Herbert,1144.0,1142.0,7.0,Signed,89.0,0.0,0.0,LAC,tier_2,9.0,0.0
 986,WR,Mike,Williams,Mike Williams,LAC,0,0,1,0,854,33,850,334,True,0,0,0,0,67,0,0,2,0,0,0,0,0,0,0,6,14,14,0,7,0,Mike,Williams,2853.0,2851.0,7.0,Signed,81.0,0.0,0.0,LAC,tier_3,61.0,0.43
@@ -187,13 +187,13 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 989,TE,Jalen,Wydermyer,Jalen Wydermyer,WAS,6,0,5,0,329,21,956,122,True,0,2,0,0,33,0,0,2,4,0,2,0,0,0,0,4,15,8,0,25,1,Jalen,Wydermyer,3350.0,3348.0,25.0,Signed,72.0,0.0,0.0,WAS,tier_5,22.0,0.33
 991,TE,John,Bates,John Bates,WAS,0,0,0,0,7,7,248,2,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,1,0,25,0,John,Bates,154.0,152.0,25.0,Signed,67.0,0.0,0.0,WAS,tier_6,0.0,0.0
 992,WR,Dyami,Brown,Dyami Brown,WAS,0,0,4,0,911,34,694,302,True,0,0,0,0,66,0,0,2,0,0,0,0,0,0,0,6,15,15,0,25,0,Dyami,Brown,311.0,309.0,25.0,Signed,81.0,0.0,0.0,WAS,tier_3,61.0,0.4
-993,HB,Antonio,Gibson,Antonio Gibson,WAS,914,0,1,356,229,24,484,138,True,0,203,0,0,26,0,8,2,75,0,15,0,0,0,0,0,12,12,1,25,6,Antonio,Gibson,928.0,926.0,25.0,Signed,88.0,1.0,0.0,WAS,tier_2,95.0,0.5
+993,HB,Antonio,Gibson,Antonio Gibson,WAS,914,0,1,356,229,24,484,138,True,0,203,0,0,26,0,8,2,75,0,15,0,0,0,0,0,12,12,1,25,6,Antonio,Gibson,928.0,926.0,25.0,Signed,88.0,0.0,0.0,WAS,tier_2,95.0,0.5
 994,TE,Jace,Sternberger,Jace Sternberger,WAS,0,0,0,0,350,18,664,157,True,0,0,0,0,35,0,0,2,0,0,1,0,0,0,0,3,13,7,0,25,0,Jace,Sternberger,2501.0,2499.0,25.0,Signed,69.0,0.0,0.0,WAS,tier_6,27.0,0.23
 995,WR,Terry,McLaurin,Terry McLaurin,WAS,0,0,0,0,854,77,830,313,True,0,0,0,0,56,0,0,2,0,0,2,0,0,0,0,4,15,15,0,25,0,Terry,McLaurin,1765.0,1763.0,25.0,Signed,92.0,0.0,0.0,WAS,tier_1,57.0,0.27
 997,TE,Austin,Hooper,Austin Hooper,CLE,0,0,1,0,517,28,966,260,True,0,0,0,0,53,0,0,2,0,0,0,0,0,0,0,4,14,14,0,4,0,Austin,Hooper,1213.0,1211.0,4.0,Signed,87.0,0.0,0.0,CLE,tier_2,37.0,0.29
 999,TE,Brevyn,Spann-Ford,Brevyn Spann-Ford,HOU,17,0,1,0,27,9,344,22,True,0,8,0,0,6,0,0,2,4,0,0,0,0,0,0,1,15,0,0,31,0,Brevyn,Spann-Ford,3113.0,3111.0,31.0,Signed,58.0,0.0,0.0,HOU,tier_6,3.0,0.07
 1000,QB,C.J.,Stroud,C.J. Stroud,HOU,190,3094,0,1,0,0,876,0,True,271,65,446,13,0,0,0,2,5,27,1,0,0,32,16,0,15,15,6,31,2,C.J.,Stroud,2926.0,2924.0,31.0,Signed,72.0,0.0,0.0,HOU,tier_5,13.0,0.13
-1001,HB,Myles,Gaskin,Myles Gaskin,HOU,534,0,0,206,157,21,421,104,True,0,126,0,0,18,0,4,2,63,0,10,0,0,0,0,2,10,7,0,31,3,Myles,Gaskin,913.0,911.0,31.0,Signed,74.0,1.0,0.0,HOU,tier_5,69.0,0.5
+1001,HB,Myles,Gaskin,Myles Gaskin,HOU,534,0,0,206,157,21,421,104,True,0,126,0,0,18,0,4,2,63,0,10,0,0,0,0,2,10,7,0,31,3,Myles,Gaskin,913.0,911.0,31.0,Signed,74.0,0.0,0.0,HOU,tier_5,69.0,0.5
 1004,TE,Ross,Dwelley,Ross Dwelley,HOU,0,0,0,0,699,24,1051,282,True,0,0,0,0,58,0,0,2,0,0,1,0,0,0,0,2,15,15,0,31,0,Ross,Dwelley,714.0,712.0,31.0,Signed,74.0,0.0,0.0,HOU,tier_5,47.0,0.13
 1005,QB,Zach,Wilson,Zach Wilson,PHI,416,3865,0,16,0,0,947,0,True,276,58,513,23,0,0,5,2,31,80,0,0,0,28,32,0,15,15,6,12,2,Zach,Wilson,2899.0,2897.0,12.0,Signed,77.0,0.0,0.0,PHI,tier_4,28.0,0.13
 1006,TE,Dom,Wood-Anderson,Dom Wood-Anderson,HOU,0,0,0,0,23,10,146,17,True,0,0,0,0,3,0,0,2,0,0,0,0,0,0,0,0,15,0,0,31,0,Dom,Wood-Anderson,1624.0,1622.0,31.0,Signed,57.0,0.0,0.0,HOU,tier_6,2.0,0.0
@@ -201,10 +201,10 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1013,WR,Kyle,Phillips,Kyle Phillips,PIT,0,0,1,0,364,25,305,144,True,0,0,0,0,35,0,0,2,0,0,0,0,0,0,0,4,10,1,0,28,0,Kyle,Phillips,3455.0,3453.0,28.0,Signed,68.0,0.0,0.0,PIT,tier_6,36.0,0.4
 1014,TE,Irv,Smith Jr,Irv Smith Jr,MIN,0,0,5,0,392,26,973,158,True,0,0,0,0,32,0,0,2,0,0,2,0,0,0,0,1,14,14,0,30,0,Irv,Smith Jr,2413.0,2411.0,30.0,Signed,81.0,0.0,0.0,MIN,tier_3,28.0,0.07
 1015,QB,Kellen,Mond,Kellen Mond,MIN,0,0,0,0,0,0,71,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,0,0,30,0,Kellen,Mond,1840.0,1838.0,30.0,Signed,61.0,0.0,0.0,MIN,tier_6,0.0,0.0
-1016,HB,Jake,Funk,Jake Funk,LAR,435,0,1,190,98,28,276,85,True,0,93,0,0,13,0,6,2,51,0,14,0,0,0,0,0,10,4,2,23,7,Jake,Funk,889.0,887.0,23.0,Signed,69.0,1.0,0.0,LAR,tier_6,53.0,0.7
+1016,HB,Jake,Funk,Jake Funk,LAR,435,0,1,190,98,28,276,85,True,0,93,0,0,13,0,6,2,51,0,14,0,0,0,0,0,10,4,2,23,7,Jake,Funk,889.0,887.0,23.0,Signed,69.0,0.0,0.0,LAR,tier_6,53.0,0.7
 1020,TE,Cade,Otton,Cade Otton,NYJ,10,0,0,0,39,13,537,24,True,0,2,0,0,6,0,0,2,7,0,0,0,0,0,0,1,15,1,0,17,0,Cade,Otton,3392.0,3390.0,17.0,Signed,72.0,0.0,0.0,NYJ,tier_5,3.0,0.07
 1022,TE,Brycen,Hopkins,Brycen Hopkins,LAR,0,0,0,0,55,14,362,31,True,0,0,0,0,6,0,0,2,0,0,0,0,0,0,0,1,15,1,0,23,0,Brycen,Hopkins,1214.0,1212.0,23.0,Signed,66.0,0.0,0.0,LAR,tier_6,4.0,0.07
-1024,HB,Cam,Akers,Cam Akers,LAR,1021,0,1,475,197,20,536,132,True,0,199,0,0,24,0,10,2,75,0,13,0,0,0,0,3,12,12,6,23,7,Cam,Akers,27.0,25.0,23.0,Signed,94.0,1.0,0.0,LAR,tier_1,102.0,0.83
+1024,HB,Cam,Akers,Cam Akers,LAR,1021,0,1,475,197,20,536,132,True,0,199,0,0,24,0,10,2,75,0,13,0,0,0,0,3,12,12,6,23,7,Cam,Akers,27.0,25.0,23.0,Signed,94.0,0.0,0.0,LAR,tier_1,102.0,0.83
 1026,WR,Robert,Woods,Robert Woods,LAR,1,0,0,2,1057,30,956,383,True,0,1,0,0,79,0,0,2,1,0,2,0,0,0,0,6,15,15,0,23,0,Robert,Woods,2928.0,2926.0,23.0,Signed,81.0,0.0,0.0,LAR,tier_3,71.0,0.4
 1027,QB,Kyle,Trask,Kyle Trask,SF,0,0,0,0,0,0,46,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,14,0,0,14,0,Kyle,Trask,2656.0,2654.0,14.0,Signed,63.0,0.0,0.0,SF,tier_6,0.0,0.0
 1028,TE,Noah,Togiai,Noah Togiai,SF,0,0,0,0,88,16,332,33,True,0,0,0,0,10,0,0,2,0,0,0,0,0,0,0,1,15,1,0,14,0,Noah,Togiai,2636.0,2634.0,14.0,Signed,62.0,0.0,0.0,SF,tier_6,6.0,0.07
@@ -215,12 +215,12 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1034,TE,Charlie,Woerner,Charlie Woerner,SF,0,0,3,0,380,39,905,201,True,0,0,0,0,36,0,0,2,0,0,2,0,0,0,0,3,15,13,0,14,0,Charlie,Woerner,2918.0,2916.0,14.0,Signed,68.0,0.0,0.0,SF,tier_6,25.0,0.2
 1035,WR,Tee,Higgins,Tee Higgins,CIN,23,0,0,0,905,26,852,336,True,0,7,0,0,75,0,0,2,4,0,0,0,0,0,0,8,14,14,0,1,0,Tee,Higgins,1161.0,1159.0,1.0,Signed,85.0,0.0,0.0,CIN,tier_2,66.0,0.57
 1036,QB,Joe,Burrow,Joe Burrow,CIN,106,4113,0,1,0,0,959,0,True,360,38,538,8,0,0,0,2,5,28,1,0,0,36,30,0,15,15,8,1,2,Joe,Burrow,359.0,357.0,1.0,Signed,83.0,0.0,0.0,CIN,tier_3,7.0,0.13
-1037,HB,Joe,Mixon,Joe Mixon,CIN,498,0,3,94,240,28,529,189,True,0,161,0,0,23,0,3,2,38,0,5,0,0,0,0,2,10,10,0,1,4,Joe,Mixon,1831.0,1829.0,1.0,Signed,90.0,1.0,0.0,CIN,tier_1,74.0,0.6
+1037,HB,Joe,Mixon,Joe Mixon,CIN,498,0,3,94,240,28,529,189,True,0,161,0,0,23,0,3,2,38,0,5,0,0,0,0,2,10,10,0,1,4,Joe,Mixon,1831.0,1829.0,1.0,Signed,90.0,0.0,0.0,CIN,tier_1,74.0,0.6
 1038,WR,Romeo,Doubs,Romeo Doubs,IND,0,0,0,0,91,29,122,27,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,0,15,0,0,9,0,Romeo,Doubs,3336.0,3334.0,9.0,Signed,74.0,0.0,0.0,IND,tier_5,6.0,0.0
 1039,WR,Will,Fuller V,Will Fuller V,IND,0,0,0,0,638,24,663,273,True,0,3,0,0,53,0,0,2,4,0,0,0,0,0,0,5,15,15,0,9,0,Will,Fuller V,879.0,877.0,9.0,Signed,77.0,0.0,0.0,IND,tier_4,43.0,0.33
 1040,WR,Christian,Kirk,Christian Kirk,IND,3,0,0,0,899,29,790,318,True,0,1,0,0,67,0,0,2,3,0,0,0,0,0,0,5,15,15,0,9,0,Christian,Kirk,1506.0,1504.0,9.0,Signed,79.0,0.0,0.0,IND,tier_4,60.0,0.33
 1041,QB,Jameis,Winston,Jameis Winston,IND,247,3322,0,105,0,0,892,0,True,294,45,455,13,0,0,2,2,72,29,4,0,0,28,23,0,15,15,5,9,5,Jameis,Winston,2909.0,2907.0,9.0,Signed,72.0,0.0,0.0,IND,tier_5,16.0,0.33
-1042,HB,Michael,Carter,Michael Carter,NYJ,459,0,0,99,247,24,512,198,True,0,153,0,0,27,0,1,2,73,0,7,0,0,0,0,2,10,10,1,17,4,Michael,Carter,424.0,422.0,17.0,Signed,84.0,1.0,0.0,NYJ,tier_3,71.0,0.6
+1042,HB,Michael,Carter,Michael Carter,NYJ,459,0,0,99,247,24,512,198,True,0,153,0,0,27,0,1,2,73,0,7,0,0,0,0,2,10,10,1,17,4,Michael,Carter,424.0,422.0,17.0,Signed,84.0,0.0,0.0,NYJ,tier_3,71.0,0.6
 1044,QB,Marcus,Mariota,Marcus Mariota,IND,8,44,0,0,0,0,99,0,True,3,2,7,0,0,0,0,2,4,20,0,0,0,3,0,0,15,0,0,9,0,Marcus,Mariota,1686.0,1684.0,9.0,Signed,63.0,0.0,0.0,IND,tier_6,1.0,0.0
 1045,TE,Robert,Tonyan,Robert Tonyan,IND,0,0,1,0,535,24,1054,268,True,0,0,0,0,57,0,0,2,0,0,2,0,0,0,0,6,15,15,0,9,0,Robert,Tonyan,2648.0,2646.0,9.0,Signed,79.0,0.0,0.0,IND,tier_4,36.0,0.4
 1046,WR,Kearis,Jackson,Kearis Jackson,NYJ,0,0,1,0,64,23,159,21,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,1,15,3,0,17,0,Kearis,Jackson,3135.0,3133.0,17.0,Signed,72.0,0.0,0.0,NYJ,tier_5,4.0,0.07
@@ -231,34 +231,34 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1053,QB,Davis,Mills,Davis Mills,HOU,3,293,0,0,0,0,115,0,True,27,1,48,1,0,0,0,2,3,24,0,0,0,5,1,0,15,0,0,31,0,Davis,Mills,1816.0,1814.0,31.0,Signed,63.0,0.0,0.0,HOU,tier_6,0.0,0.0
 1054,WR,Brandin,Cooks,Brandin Cooks,HOU,9,0,1,0,789,27,835,290,True,0,3,0,0,63,0,0,2,3,0,0,0,0,0,0,2,14,14,0,31,0,Brandin,Cooks,517.0,515.0,31.0,Signed,82.0,0.0,0.0,HOU,tier_3,57.0,0.14
 1055,QB,Josh,Rosen,Josh Rosen,NO,0,71,0,0,0,0,81,0,True,6,0,6,0,0,0,0,2,0,21,0,0,0,2,2,0,14,0,0,26,0,Josh,Rosen,2269.0,2267.0,26.0,Signed,63.0,0.0,0.0,NO,tier_6,0.0,0.0
-1057,HB,Chris,Evans,Chris Evans,CIN,413,0,1,128,115,14,383,104,True,0,110,0,0,17,0,3,2,68,0,3,0,0,0,0,2,11,5,0,1,0,Chris,Evans,774.0,772.0,1.0,Signed,74.0,1.0,0.0,CIN,tier_5,48.0,0.18
+1057,HB,Chris,Evans,Chris Evans,CIN,413,0,1,128,115,14,383,104,True,0,110,0,0,17,0,3,2,68,0,3,0,0,0,0,2,11,5,0,1,0,Chris,Evans,774.0,772.0,1.0,Signed,74.0,0.0,0.0,CIN,tier_5,48.0,0.18
 1058,QB,Sam,Howell,Sam Howell,NO,200,3496,0,78,0,0,965,0,True,322,39,550,19,0,0,2,2,49,27,2,0,0,46,20,0,15,15,7,26,1,Sam,Howell,3310.0,3308.0,26.0,Signed,79.0,0.0,0.0,NO,tier_4,13.0,0.07
 1059,TE,Tony,Poljan,Tony Poljan,NO,97,0,1,0,80,15,501,38,True,0,42,0,0,17,0,0,2,4,0,0,0,0,0,0,2,15,0,3,26,1,Tony,Poljan,2118.0,2116.0,26.0,Signed,66.0,0.0,0.0,NO,tier_6,12.0,0.2
 1062,TE,Dylan,Soehner,Dylan Soehner,NO,0,0,0,0,40,11,422,28,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,0,15,0,0,26,0,Dylan,Soehner,2466.0,2464.0,26.0,Signed,69.0,0.0,0.0,NO,tier_6,3.0,0.0
 1072,TE,Kenny,Yeboah,Kenny Yeboah,PHI,0,0,1,0,52,30,250,34,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,0,10,10,1,12,0,Kenny,Yeboah,2957.0,2955.0,12.0,Signed,67.0,0.0,0.0,PHI,tier_6,5.0,0.0
 1073,WR,Dez,Fitzpatrick,Dez Fitzpatrick,MIN,0,0,0,0,16,16,97,3,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,0,0,30,0,Dez,Fitzpatrick,823.0,821.0,30.0,Signed,66.0,0.0,0.0,MIN,tier_6,1.0,0.0
 1074,WR,Quintez,Cephus,Quintez Cephus,DET,0,0,0,0,85,16,125,33,True,0,0,0,0,8,0,0,2,0,0,0,0,0,0,0,1,10,0,0,18,0,Quintez,Cephus,435.0,433.0,18.0,Signed,73.0,0.0,0.0,DET,tier_5,8.0,0.1
-1075,HB,Derrick,Henry,Derrick Henry,TEN,590,0,0,180,47,23,304,42,True,0,151,0,0,5,0,4,2,54,0,7,0,0,0,0,0,11,11,2,29,3,Derrick,Henry,1141.0,1139.0,29.0,Signed,90.0,1.0,0.0,TEN,tier_1,58.0,0.27
+1075,HB,Derrick,Henry,Derrick Henry,TEN,590,0,0,180,47,23,304,42,True,0,151,0,0,5,0,4,2,54,0,7,0,0,0,0,0,11,11,2,29,3,Derrick,Henry,1141.0,1139.0,29.0,Signed,90.0,0.0,0.0,TEN,tier_1,58.0,0.27
 1076,QB,C.J.,Beathard,C.J. Beathard,LAC,0,0,0,0,0,0,47,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,10,0,0,7,0,C.J.,Beathard,167.0,165.0,7.0,Signed,52.0,0.0,0.0,LAC,tier_6,0.0,0.0
 1078,TE,Tommy,Stevens,Tommy Stevens,DAL,0,0,0,0,26,14,292,11,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,1,15,1,0,10,0,Tommy,Stevens,2504.0,2502.0,10.0,Signed,58.0,0.0,0.0,DAL,tier_6,2.0,0.07
 1080,TE,Charlie,Kolar,Charlie Kolar,DAL,0,0,0,0,38,18,453,15,True,0,0,0,0,5,0,0,2,0,0,0,0,0,0,0,1,12,2,0,10,0,Charlie,Kolar,3423.0,3421.0,10.0,Signed,64.0,0.0,0.0,DAL,tier_6,3.0,0.08
 1081,QB,Zerrick,Cooper,Zerrick Cooper,DAL,3,8,0,0,0,0,67,0,True,1,1,1,0,0,0,0,2,3,8,0,0,0,0,0,0,14,0,0,10,0,Zerrick,Cooper,3499.0,3497.0,10.0,Signed,53.0,0.0,0.0,DAL,tier_6,0.0,0.0
 1083,WR,CeeDee,Lamb,CeeDee Lamb,DAL,3,0,2,0,899,29,1005,323,True,0,2,0,0,68,0,0,2,4,0,0,0,0,0,0,4,15,15,0,10,0,CeeDee,Lamb,1536.0,1534.0,10.0,Signed,88.0,0.0,0.0,DAL,tier_2,60.0,0.27
 1084,QB,Dak,Prescott,Dak Prescott,DAL,311,3658,0,98,0,0,1005,0,True,332,69,532,12,0,0,2,2,49,29,4,0,0,30,21,0,15,15,5,10,2,Dak,Prescott,2130.0,2128.0,10.0,Signed,86.0,0.0,0.0,DAL,tier_2,21.0,0.13
-1085,HB,Ezekiel,Elliott,Ezekiel Elliott,DAL,1001,0,1,326,322,22,666,253,True,0,251,0,0,39,0,8,2,67,0,12,0,0,0,0,2,13,13,5,10,7,Ezekiel,Elliott,753.0,751.0,10.0,Signed,84.0,1.0,0.0,DAL,tier_3,102.0,0.69
+1085,HB,Ezekiel,Elliott,Ezekiel Elliott,DAL,1001,0,1,326,322,22,666,253,True,0,251,0,0,39,0,8,2,67,0,12,0,0,0,0,2,13,13,5,10,7,Ezekiel,Elliott,753.0,751.0,10.0,Signed,84.0,0.0,0.0,DAL,tier_3,102.0,0.69
 1087,TE,Dalton,Schultz,Dalton Schultz,DAL,0,0,2,0,479,25,988,203,True,0,0,0,0,49,0,0,2,0,0,2,0,0,0,0,3,14,14,0,10,0,Dalton,Schultz,2327.0,2325.0,10.0,Signed,78.0,0.0,0.0,DAL,tier_4,34.0,0.21
 1088,WR,Amari,Cooper,Amari Cooper,DAL,7,0,0,0,1070,29,928,382,True,0,2,0,0,85,0,0,2,4,0,1,0,0,0,0,6,15,15,0,10,0,Amari,Cooper,518.0,516.0,10.0,Signed,84.0,0.0,0.0,DAL,tier_3,72.0,0.4
 1089,WR,Cooper,Kupp,Cooper Kupp,NE,4,0,0,0,869,30,776,308,True,0,3,0,0,62,0,0,2,3,0,1,0,0,0,0,1,13,13,0,21,0,Cooper,Kupp,1527.0,1525.0,21.0,Signed,80.0,0.0,0.0,NE,tier_3,67.0,0.08
 1092,FB,Case,Hatch,Case Hatch,JAX,14,0,0,0,16,7,411,20,True,0,5,0,0,3,0,0,2,6,0,0,0,0,0,0,0,15,0,0,16,0,Case,Hatch,2937.0,2935.0,16.0,Signed,69.0,0.0,0.0,JAX,tier_6,2.0,0.0
 1093,TE,Josh,Whyle,Josh Whyle,JAX,0,0,0,0,192,22,449,71,True,0,0,0,0,18,0,0,2,0,0,0,0,0,0,0,4,15,0,0,16,0,Josh,Whyle,3258.0,3256.0,16.0,Signed,65.0,0.0,0.0,JAX,tier_6,13.0,0.27
-1094,HB,Bijan,Robinson,Bijan Robinson,JAX,228,0,0,83,214,24,339,139,True,0,59,0,0,24,0,2,2,40,0,6,0,0,0,0,0,10,10,0,16,3,Bijan,Robinson,3292.0,3290.0,16.0,Signed,81.0,1.0,0.0,JAX,tier_3,44.0,0.3
+1094,HB,Bijan,Robinson,Bijan Robinson,JAX,228,0,0,83,214,24,339,139,True,0,59,0,0,24,0,2,2,40,0,6,0,0,0,0,0,10,10,0,16,3,Bijan,Robinson,3292.0,3290.0,16.0,Signed,81.0,0.0,0.0,JAX,tier_3,44.0,0.3
 1095,QB,Dwayne,Haskins Jr,Dwayne Haskins Jr,JAX,12,401,0,0,0,0,187,0,True,36,3,71,5,0,0,0,2,4,25,0,0,0,6,0,0,15,1,1,16,0,Dwayne,Haskins Jr,1109.0,1107.0,16.0,Signed,59.0,0.0,0.0,JAX,tier_6,1.0,0.0
 1096,WR,John,Metchie III,John Metchie III,JAX,3,0,0,0,844,27,832,309,True,0,1,0,0,64,0,0,2,3,0,0,0,0,0,0,3,15,15,0,16,0,John,Metchie III,3337.0,3335.0,16.0,Signed,79.0,0.0,0.0,JAX,tier_4,56.0,0.2
 1097,TE,Maxx,Williams,Maxx Williams,JAX,0,0,4,0,550,24,990,256,True,0,0,0,0,53,0,0,2,0,0,2,0,0,0,0,4,15,15,0,16,0,Maxx,Williams,2852.0,2850.0,16.0,Signed,74.0,0.0,0.0,JAX,tier_5,37.0,0.27
 1098,WR,Auden,Tate,Auden Tate,JAX,0,0,2,0,743,28,888,267,True,0,0,0,0,62,0,0,2,0,0,0,0,0,0,0,9,15,15,0,16,0,Auden,Tate,2559.0,2557.0,16.0,Signed,78.0,0.0,0.0,JAX,tier_4,50.0,0.6
 1099,TE,Luke,Farrell,Luke Farrell,JAX,0,0,0,0,10,19,199,-6,True,0,0,0,0,3,0,0,2,0,0,0,0,0,0,0,1,14,0,0,16,0,Luke,Farrell,793.0,791.0,16.0,Signed,62.0,0.0,0.0,JAX,tier_6,1.0,0.07
 1100,QB,Trevor,Lawrence,Trevor Lawrence,JAX,89,3037,0,0,0,0,880,0,True,269,30,436,6,0,0,0,2,4,28,0,0,0,25,26,0,14,14,3,16,1,Trevor,Lawrence,1560.0,1558.0,16.0,Signed,80.0,0.0,0.0,JAX,tier_3,6.0,0.07
-1101,HB,James,Robinson,James Robinson,JAX,1091,0,0,414,74,19,413,76,True,0,243,0,0,9,0,11,2,73,0,14,0,0,0,0,0,13,13,0,16,8,James,Robinson,2248.0,2246.0,16.0,Signed,91.0,1.0,0.0,JAX,tier_1,90.0,0.62
+1101,HB,James,Robinson,James Robinson,JAX,1091,0,0,414,74,19,413,76,True,0,243,0,0,9,0,11,2,73,0,14,0,0,0,0,0,13,13,0,16,8,James,Robinson,2248.0,2246.0,16.0,Signed,91.0,0.0,0.0,JAX,tier_1,90.0,0.62
 1103,FB,Jay,Symonds,Jay Symonds,ARI,0,0,0,0,16,7,237,23,True,0,0,0,0,4,0,0,2,0,0,0,0,0,0,0,0,15,1,0,6,0,Jay,Symonds,1412.0,1410.0,6.0,Signed,75.0,0.0,0.0,ARI,tier_4,1.0,0.0
 1104,WR,Marquez,Callaway,Marquez Callaway,NO,3,0,0,0,736,25,943,312,True,0,1,0,0,62,0,0,2,3,0,0,0,0,0,0,5,15,15,0,26,0,Marquez,Callaway,390.0,388.0,26.0,Signed,78.0,0.0,0.0,NO,tier_4,49.0,0.33
 1105,TE,Adam,Trautman,Adam Trautman,NO,0,0,0,0,674,21,1125,318,True,0,0,0,0,61,0,0,2,0,0,0,0,0,0,0,5,15,15,1,26,0,Adam,Trautman,2657.0,2655.0,26.0,Signed,79.0,0.0,0.0,NO,tier_4,45.0,0.33
@@ -267,25 +267,25 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1113,WR,Amari,Rodgers,Amari Rodgers,GB,0,0,1,0,939,24,926,353,True,0,0,0,0,75,0,0,2,0,0,0,0,0,0,0,4,15,15,1,19,0,Amari,Rodgers,2258.0,2256.0,19.0,Signed,77.0,0.0,0.0,GB,tier_4,63.0,0.27
 1114,TE,Josiah,Deguara,Josiah Deguara,GB,0,0,1,0,34,18,410,16,True,0,0,0,0,3,0,0,2,0,0,0,0,0,0,0,0,15,0,0,19,0,Josiah,Deguara,639.0,637.0,19.0,Signed,70.0,0.0,0.0,GB,tier_5,2.0,0.0
 1116,QB,Jordan,Love,Jordan Love,GB,149,3708,0,0,0,0,982,0,True,329,46,545,17,0,0,0,2,4,28,0,0,0,51,18,0,15,15,4,19,2,Jordan,Love,1642.0,1640.0,19.0,Signed,68.0,0.0,0.0,GB,tier_6,10.0,0.13
-1117,HB,Aaron,Jones,Aaron Jones,GB,298,0,1,11,425,25,927,313,True,0,103,0,0,48,0,0,2,10,0,5,0,0,0,0,1,15,15,0,19,2,Aaron,Jones,1402.0,1400.0,19.0,Signed,82.0,1.0,0.0,GB,tier_3,48.0,0.2
+1117,HB,Aaron,Jones,Aaron Jones,GB,298,0,1,11,425,25,927,313,True,0,103,0,0,48,0,0,2,10,0,5,0,0,0,0,1,15,15,0,19,2,Aaron,Jones,1402.0,1400.0,19.0,Signed,82.0,0.0,0.0,GB,tier_3,48.0,0.2
 1118,TE,Erick,All,Erick All,DET,0,0,0,0,13,5,255,9,True,0,0,0,0,3,0,0,2,0,0,0,0,0,0,0,0,14,0,0,18,0,Erick,All,3205.0,3203.0,18.0,Signed,66.0,0.0,0.0,DET,tier_6,1.0,0.0
 1119,QB,Mason,Rudolph,Mason Rudolph,DET,35,973,0,0,0,0,320,0,True,85,12,140,4,0,0,0,2,4,25,0,0,0,16,5,0,15,2,2,18,0,Mason,Rudolph,2282.0,2280.0,18.0,Signed,60.0,0.0,0.0,DET,tier_6,2.0,0.0
-1120,HB,Pierre,Strong Jr,Pierre Strong Jr,DET,0,0,0,0,8,8,98,9,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,0,0,18,0,Pierre,Strong Jr,3661.0,3659.0,18.0,Signed,58.0,1.0,0.0,DET,tier_6,1.0,0.0
+1120,HB,Pierre,Strong Jr,Pierre Strong Jr,DET,0,0,0,0,8,8,98,9,True,0,0,0,0,1,0,0,2,0,0,0,0,0,0,0,0,15,0,0,18,0,Pierre,Strong Jr,3661.0,3659.0,18.0,Signed,58.0,0.0,0.0,DET,tier_6,1.0,0.0
 1121,WR,Tre'Quan,Smith,Tre'Quan Smith,DET,0,0,0,0,843,25,932,321,True,0,0,0,0,71,0,0,2,0,0,0,0,0,0,0,6,15,15,0,18,0,Tre'Quan,Smith,2452.0,2450.0,18.0,Signed,78.0,0.0,0.0,DET,tier_4,56.0,0.4
-1122,HB,Jonathan,Ward,Jonathan Ward,DET,188,0,0,80,42,15,113,14,True,0,43,0,0,7,0,2,2,50,0,3,0,0,0,0,1,12,0,1,18,5,Jonathan,Ward,2748.0,2746.0,18.0,Signed,68.0,1.0,0.0,DET,tier_6,19.0,0.5
+1122,HB,Jonathan,Ward,Jonathan Ward,DET,188,0,0,80,42,15,113,14,True,0,43,0,0,7,0,2,2,50,0,3,0,0,0,0,1,12,0,1,18,5,Jonathan,Ward,2748.0,2746.0,18.0,Signed,68.0,0.0,0.0,DET,tier_6,19.0,0.5
 1124,WR,Amon-Ra,St. Brown,Amon-Ra St. Brown,DET,0,0,0,0,694,25,594,257,True,0,0,0,0,50,0,0,2,0,0,0,0,0,0,0,3,15,15,0,18,0,Amon-Ra,St. Brown,2485.0,2483.0,18.0,Signed,74.0,0.0,0.0,DET,tier_5,46.0,0.2
-1125,HB,D'Andre,Swift,D'Andre Swift,DET,1116,0,1,399,423,23,821,266,True,0,251,0,0,45,0,9,2,75,0,18,0,0,0,0,2,15,15,0,18,7,D'Andre,Swift,2548.0,2546.0,18.0,Signed,87.0,1.0,0.0,DET,tier_2,103.0,0.6
+1125,HB,D'Andre,Swift,D'Andre Swift,DET,1116,0,1,399,423,23,821,266,True,0,251,0,0,45,0,9,2,75,0,18,0,0,0,0,2,15,15,0,18,7,D'Andre,Swift,2548.0,2546.0,18.0,Signed,87.0,0.0,0.0,DET,tier_2,103.0,0.6
 1126,WR,DeVonta,Smith,DeVonta Smith,PHI,0,0,16,0,578,39,705,106,True,0,0,0,0,40,0,0,2,0,0,1,0,0,0,0,2,13,13,0,12,0,DeVonta,Smith,2422.0,2420.0,12.0,Signed,85.0,0.0,0.0,PHI,tier_2,44.0,0.15
 1128,QB,Jared,Goff,Jared Goff,DET,158,2472,0,71,0,0,683,0,True,232,28,386,10,0,0,2,2,40,25,2,0,0,33,16,0,13,13,4,18,0,Jared,Goff,959.0,957.0,18.0,Signed,71.0,0.0,0.0,DET,tier_5,12.0,0.0
 1129,FB,Pearse,Migl,Pearse Migl,SEA,0,0,0,0,0,0,232,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,15,1,0,27,0,Pearse,Migl,2337.0,2335.0,27.0,Signed,69.0,0.0,0.0,SEA,tier_6,0.0,0.0
-1130,HB,Saquon,Barkley,Saquon Barkley,SEA,1241,0,1,417,387,27,828,313,True,0,306,0,0,49,0,9,2,75,0,19,0,0,0,0,2,15,15,0,27,5,Saquon,Barkley,133.0,131.0,27.0,Signed,89.0,1.0,0.0,SEA,tier_2,109.0,0.47
+1130,HB,Saquon,Barkley,Saquon Barkley,SEA,1241,0,1,417,387,27,828,313,True,0,306,0,0,49,0,9,2,75,0,19,0,0,0,0,2,15,15,0,27,5,Saquon,Barkley,133.0,131.0,27.0,Signed,89.0,0.0,0.0,SEA,tier_2,109.0,0.47
 1131,QB,Travis,Ranks,Travis Ranks,SEA,0,0,0,0,0,0,58,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,14,0,0,27,0,Travis,Ranks,3391.0,3389.0,27.0,Signed,54.0,0.0,0.0,SEA,tier_6,0.0,0.0
 1137,TE,Tyler,Davis,Tyler Davis,MIN,0,0,0,0,11,7,165,-3,True,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,15,0,0,30,0,Tyler,Davis,625.0,623.0,30.0,Signed,65.0,0.0,0.0,MIN,tier_6,1.0,0.0
 1142,WR,Kelvin,Harmon,Kelvin Harmon,MIN,0,0,5,0,904,29,710,391,True,0,0,0,0,75,0,0,2,0,0,0,0,0,0,0,8,15,15,0,30,0,Kelvin,Harmon,1072.0,1070.0,30.0,Signed,73.0,0.0,0.0,MIN,tier_5,60.0,0.53
 1145,QB,Easton,Stick,Easton Stick,TB,0,0,0,0,0,0,58,0,True,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,14,0,0,5,0,Easton,Stick,2509.0,2507.0,5.0,Signed,55.0,0.0,0.0,TB,tier_6,0.0,0.0
-1146,HB,Tony,Pollard,Tony Pollard,TB,1073,0,1,511,276,21,743,205,True,0,245,0,0,31,0,13,2,72,0,15,0,0,0,0,1,14,14,0,5,12,Tony,Pollard,2119.0,2117.0,5.0,Signed,86.0,1.0,0.0,TB,tier_2,96.0,0.93
+1146,HB,Tony,Pollard,Tony Pollard,TB,1073,0,1,511,276,21,743,205,True,0,245,0,0,31,0,13,2,72,0,15,0,0,0,0,1,14,14,0,5,12,Tony,Pollard,2119.0,2117.0,5.0,Signed,86.0,0.0,0.0,TB,tier_2,96.0,0.93
 1147,TE,Isaiah,Likely,Isaiah Likely,TB,0,0,0,0,114,39,508,82,True,0,0,0,0,10,0,0,2,0,0,0,0,0,0,0,2,15,1,0,5,0,Isaiah,Likely,3440.0,3438.0,5.0,Signed,63.0,0.0,0.0,TB,tier_6,8.0,0.13
-1148,HB,Eric,Gray,Eric Gray,TB,21,0,0,0,0,0,103,0,True,0,8,0,0,0,0,0,2,4,0,0,0,0,0,0,0,15,1,0,5,1,Eric,Gray,3390.0,3388.0,5.0,Signed,73.0,1.0,0.0,TB,tier_5,1.0,0.07
+1148,HB,Eric,Gray,Eric Gray,TB,21,0,0,0,0,0,103,0,True,0,8,0,0,0,0,0,2,4,0,0,0,0,0,0,0,15,1,0,5,1,Eric,Gray,3390.0,3388.0,5.0,Signed,73.0,0.0,0.0,TB,tier_5,1.0,0.07
 1151,WR,Jaelon,Darden,Jaelon Darden,TB,0,0,1,0,182,22,274,79,True,0,0,0,0,17,0,0,2,0,0,0,0,0,0,0,0,10,5,1,5,0,Jaelon,Darden,586.0,584.0,5.0,Signed,71.0,0.0,0.0,TB,tier_5,18.0,0.0
 1152,WR,Tyler,Johnson,Tyler Johnson,TB,0,0,1,0,405,24,552,199,True,0,0,0,0,36,0,0,2,0,0,0,0,0,0,0,5,14,9,4,5,0,Tyler,Johnson,1394.0,1392.0,5.0,Signed,69.0,0.0,0.0,TB,tier_6,29.0,0.36
 1153,WR,Scotty,Miller,Scotty Miller,TB,-1,0,1,0,860,27,831,291,True,0,1,0,0,72,0,0,2,0,0,0,0,0,0,0,5,14,14,1,5,0,Scotty,Miller,1812.0,1810.0,5.0,Signed,77.0,0.0,0.0,TB,tier_4,61.0,0.36
@@ -295,7 +295,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1158,TE,Dalton,Keene,Dalton Keene,DET,0,0,0,0,415,21,743,212,True,0,0,0,0,45,0,0,2,0,0,0,0,0,0,0,2,15,6,0,18,0,Dalton,Keene,1470.0,1468.0,18.0,Signed,68.0,0.0,0.0,DET,tier_6,28.0,0.13
 1159,FB,Monte,Pottebaum,Monte Pottebaum,DET,0,0,0,0,6,5,338,8,True,0,0,0,0,3,0,0,2,0,0,0,0,0,0,0,0,15,0,0,18,0,Monte,Pottebaum,2716.0,2714.0,18.0,Signed,72.0,0.0,0.0,DET,tier_5,0.0,0.0
 1162,FB,Chigoziem,Okonkwo,Chigoziem Okonkwo,CAR,30,0,0,6,8,5,348,4,True,0,9,0,0,5,0,0,2,9,0,1,0,0,0,0,0,15,0,1,20,0,Chigoziem,Okonkwo,3739.0,3737.0,20.0,Signed,68.0,0.0,0.0,CAR,tier_6,3.0,0.0
-1167,HB,Jaylan,Knighton,Jaylan Knighton,DAL,186,-16384,0,-4096,151,-128,280,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,10,3,Jaylan,Knighton,3242.0,3240.0,10.0,Signed,78.0,1.0,0.0,DAL,tier_4,26.0,0.23
+1167,HB,Jaylan,Knighton,Jaylan Knighton,DAL,186,-16384,0,-4096,151,-128,280,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,10,3,Jaylan,Knighton,3242.0,3240.0,10.0,Signed,78.0,0.0,0.0,DAL,tier_4,26.0,0.23
 1183,TE,Blake,Jarwin,Blake Jarwin,PHI,0,-16384,0,-4096,82,-128,439,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,12,0,Blake,Jarwin,1334.0,1332.0,12.0,Signed,70.0,0.0,0.0,PHI,tier_5,5.0,0.0
 1186,WR,Tyrie,Cleveland,Tyrie Cleveland,CLE,0,-16384,0,-4096,0,-128,75,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,4,0,Tyrie,Cleveland,473.0,471.0,4.0,Signed,62.0,0.0,0.0,CLE,tier_6,0.0,0.0
 1187,WR,Jalen,Reagor,Jalen Reagor,PHI,0,-16384,0,-4096,921,-128,706,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,10,15,0,0,12,0,Jalen,Reagor,2178.0,2176.0,12.0,Signed,80.0,0.0,0.0,PHI,tier_3,61.0,0.67
@@ -305,21 +305,21 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1222,WR,Donovan,Peoples-Jones,Donovan Peoples-Jones,CLE,12,-16384,0,-4096,679,-128,801,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,6,15,0,0,4,0,Donovan,Peoples-Jones,2065.0,2063.0,4.0,Signed,71.0,0.0,0.0,CLE,tier_5,46.0,0.4
 1225,WR,Van,Jefferson,Van Jefferson,LAR,2,-16384,0,-4096,716,-128,847,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,23,0,Van,Jefferson,1341.0,1339.0,23.0,Signed,75.0,0.0,0.0,LAR,tier_4,48.0,0.2
 1240,WR,Garrett,Wilson,Garrett Wilson,PHI,12,-16384,0,-4096,868,-128,838,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,10,15,0,1,12,0,Garrett,Wilson,3311.0,3309.0,12.0,Signed,85.0,0.0,0.0,PHI,tier_2,59.0,0.67
-1247,HB,John,Emery Jr,John Emery Jr,CAR,249,-16384,0,-4096,104,-128,277,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,20,1,John,Emery Jr,3164.0,3162.0,20.0,Signed,70.0,1.0,0.0,CAR,tier_5,25.0,0.07
+1247,HB,John,Emery Jr,John Emery Jr,CAR,249,-16384,0,-4096,104,-128,277,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,20,1,John,Emery Jr,3164.0,3162.0,20.0,Signed,70.0,0.0,0.0,CAR,tier_5,25.0,0.07
 1270,WR,Tutu,Atwell,Tutu Atwell,LAR,3,-16384,0,-4096,199,-128,255,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,12,0,1,23,0,Tutu,Atwell,99.0,97.0,23.0,Signed,69.0,0.0,0.0,LAR,tier_6,17.0,0.08
-1293,HB,Michael,Haupert,Michael Haupert,NYG,7,-16384,0,-4096,5,-128,74,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,0,15,0,Michael,Haupert,3127.0,3125.0,15.0,Signed,67.0,1.0,0.0,NYG,tier_6,1.0,0.0
+1293,HB,Michael,Haupert,Michael Haupert,NYG,7,-16384,0,-4096,5,-128,74,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,0,15,0,Michael,Haupert,3127.0,3125.0,15.0,Signed,67.0,0.0,0.0,NYG,tier_6,1.0,0.0
 1358,WR,De'Michael,Harris,De'Michael Harris,DEN,0,-16384,0,-4096,66,-128,222,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,3,0,De'Michael,Harris,1082.0,1080.0,3.0,Signed,67.0,0.0,0.0,DEN,tier_6,5.0,0.0
-1367,HB,Nyheim,Hines,Nyheim Hines,IND,277,-16384,0,-4096,36,-128,322,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,9,0,Nyheim,Hines,1182.0,1180.0,9.0,Signed,85.0,1.0,0.0,IND,tier_2,21.0,0.0
+1367,HB,Nyheim,Hines,Nyheim Hines,IND,277,-16384,0,-4096,36,-128,322,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,9,0,Nyheim,Hines,1182.0,1180.0,9.0,Signed,85.0,0.0,0.0,IND,tier_2,21.0,0.0
 1368,WR,Olabisi,Johnson,Olabisi Johnson,TEN,0,-16384,0,-4096,610,-128,691,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,6,15,0,0,29,0,Olabisi,Johnson,1387.0,1385.0,29.0,Signed,73.0,0.0,0.0,TEN,tier_5,41.0,0.4
 1369,WR,Gary,Jennings,Gary Jennings,SF,0,-16384,0,-4096,145,-128,155,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,14,0,Gary,Jennings,1353.0,1351.0,14.0,Signed,70.0,0.0,0.0,SF,tier_5,10.0,0.0
-1370,HB,Tyler,Goodson,Tyler Goodson,CLE,328,-16384,0,-4096,173,-128,466,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,4,1,Tyler,Goodson,3226.0,3224.0,4.0,Signed,71.0,1.0,0.0,CLE,tier_5,33.0,0.2
+1370,HB,Tyler,Goodson,Tyler Goodson,CLE,328,-16384,0,-4096,173,-128,466,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,4,1,Tyler,Goodson,3226.0,3224.0,4.0,Signed,71.0,0.0,0.0,CLE,tier_5,33.0,0.2
 1371,WR,K.J.,Hamler,K.J. Hamler,DEN,-2,-16384,0,-4096,435,-128,590,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,15,0,0,3,0,K.J.,Hamler,1056.0,1054.0,3.0,Signed,75.0,0.0,0.0,DEN,tier_4,29.0,0.07
 1372,WR,Freddie,Swain,Freddie Swain,SEA,0,-16384,0,-4096,9,-128,138,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,27,0,Freddie,Swain,2541.0,2539.0,27.0,Signed,71.0,0.0,0.0,SEA,tier_5,1.0,0.0
 1373,WR,Ihmir,Smith-Marsette,Ihmir Smith-Marsette,MIN,0,-16384,0,-4096,252,-128,315,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,15,0,0,30,0,Ihmir,Smith-Marsette,2458.0,2456.0,30.0,Signed,68.0,0.0,0.0,MIN,tier_6,17.0,0.07
 1374,WR,Bryan,Edwards,Bryan Edwards,LV,0,-16384,0,-4096,184,-128,298,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,22,0,Bryan,Edwards,730.0,728.0,22.0,Signed,74.0,0.0,0.0,LV,tier_5,12.0,0.13
 1375,WR,Isaiah,Hill,Isaiah Hill,LAC,0,-16384,0,-4096,0,-128,161,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,7,0,Isaiah,Hill,3654.0,3652.0,7.0,Signed,61.0,0.0,0.0,LAC,tier_6,0.0,0.0
 1376,WR,Rashard,Higgins,Rashard Higgins,LAC,4,-16384,0,-4096,801,-128,865,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,7,0,Rashard,Higgins,1160.0,1158.0,7.0,Signed,75.0,0.0,0.0,LAC,tier_4,54.0,0.2
-1377,HB,Justice,Hill,Justice Hill,WAS,487,-16384,0,-4096,24,-128,343,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,0,25,3,Justice,Hill,1170.0,1168.0,25.0,Signed,75.0,1.0,0.0,WAS,tier_4,46.0,0.27
+1377,HB,Justice,Hill,Justice Hill,WAS,487,-16384,0,-4096,24,-128,343,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,0,25,3,Justice,Hill,1170.0,1168.0,25.0,Signed,75.0,0.0,0.0,WAS,tier_4,46.0,0.27
 1378,WR,Dax,Milne,Dax Milne,WAS,0,-16384,0,-4096,0,-128,111,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,25,0,Dax,Milne,1820.0,1818.0,25.0,Signed,67.0,0.0,0.0,WAS,tier_6,0.0,0.0
 1379,WR,Joe,Reed,Joe Reed,DET,0,-16384,0,-4096,41,-128,146,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,18,0,Joe,Reed,2189.0,2187.0,18.0,Signed,67.0,0.0,0.0,DET,tier_6,3.0,0.0
 1381,WR,Shi,Smith,Shi Smith,CAR,4,-16384,0,-4096,39,-128,163,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,20,0,Shi,Smith,2448.0,2446.0,20.0,Signed,69.0,0.0,0.0,CAR,tier_6,3.0,0.0
@@ -328,8 +328,8 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1384,WR,Erik,Ezukanma,Erik Ezukanma,PIT,0,-16384,0,-4096,0,-128,118,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,12,0,0,28,0,Erik,Ezukanma,3157.0,3155.0,28.0,Signed,65.0,0.0,0.0,PIT,tier_6,0.0,0.0
 1385,WR,Steven,Sims,Steven Sims,SF,0,-16384,0,-4096,703,-128,766,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,14,0,Steven,Sims,2388.0,2386.0,14.0,Signed,76.0,0.0,0.0,SF,tier_4,47.0,0.13
 1386,WR,Stefon,Diggs,Stefon Diggs,BUF,46,-16384,0,-4096,958,-128,1043,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,2,0,Stefon,Diggs,658.0,656.0,2.0,Signed,97.0,0.0,0.0,BUF,tier_0,67.0,0.2
-1387,HB,Chase,Edmonds,Chase Edmonds,WAS,240,-16384,0,-4096,85,-128,208,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,1,25,1,Chase,Edmonds,723.0,721.0,25.0,Signed,72.0,1.0,0.0,WAS,tier_5,30.0,0.09
-1389,HB,Mohamed,Ibrahim,Mohamed Ibrahim,NO,1064,-16384,0,-4096,379,-128,896,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,26,8,Mohamed,Ibrahim,3464.0,3462.0,26.0,Signed,71.0,1.0,0.0,NO,tier_5,96.0,0.53
+1387,HB,Chase,Edmonds,Chase Edmonds,WAS,240,-16384,0,-4096,85,-128,208,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,11,0,1,25,1,Chase,Edmonds,723.0,721.0,25.0,Signed,72.0,0.0,0.0,WAS,tier_5,30.0,0.09
+1389,HB,Mohamed,Ibrahim,Mohamed Ibrahim,NO,1064,-16384,0,-4096,379,-128,896,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,26,8,Mohamed,Ibrahim,3464.0,3462.0,26.0,Signed,71.0,0.0,0.0,NO,tier_5,96.0,0.53
 1390,WR,Antonio,Nunn,Antonio Nunn,DET,0,-16384,0,-4096,31,-128,165,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,18,0,Antonio,Nunn,1964.0,1962.0,18.0,Signed,69.0,0.0,0.0,DET,tier_6,2.0,0.0
 1391,WR,Chris,Autman-Bell,Chris Autman-Bell,CHI,0,-16384,0,-4096,0,-128,156,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,0,0,Chris,Autman-Bell,3515.0,3513.0,0.0,Signed,67.0,0.0,0.0,CHI,tier_6,0.0,0.0
 1392,WR,Elijah,Moore,Elijah Moore,NYJ,4,-16384,0,-4096,854,-128,847,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,8,15,0,0,17,0,Elijah,Moore,1856.0,1854.0,17.0,Signed,80.0,0.0,0.0,NYJ,tier_3,57.0,0.53
@@ -337,44 +337,44 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,RUSHYARDS,PASSYARDS,
 1394,WR,Jarvis,Landry,Jarvis Landry,CLE,41,-16384,0,-4096,987,-128,974,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,6,15,0,0,4,0,Jarvis,Landry,1546.0,1544.0,4.0,Signed,78.0,0.0,0.0,CLE,tier_4,69.0,0.4
 1395,WR,George,Pickens,George Pickens,PIT,4,-16384,0,-4096,383,-128,395,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,11,0,0,28,0,George,Pickens,3342.0,3340.0,28.0,Signed,73.0,0.0,0.0,PIT,tier_5,35.0,0.27
 1396,WR,Tyler,Boyd,Tyler Boyd,CIN,19,-16384,0,-4096,594,-128,602,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,11,0,0,1,0,Tyler,Boyd,255.0,253.0,1.0,Signed,84.0,0.0,0.0,CIN,tier_3,56.0,0.18
-1397,HB,Trayveon,Williams,Trayveon Williams,HOU,243,-16384,0,-4096,48,-128,408,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,1,31,2,Trayveon,Williams,2866.0,2864.0,31.0,Signed,69.0,1.0,0.0,HOU,tier_6,19.0,0.13
+1397,HB,Trayveon,Williams,Trayveon Williams,HOU,243,-16384,0,-4096,48,-128,408,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,1,31,2,Trayveon,Williams,2866.0,2864.0,31.0,Signed,69.0,0.0,0.0,HOU,tier_6,19.0,0.13
 1398,WR,Pooka,Williams Jr,Pooka Williams Jr,HOU,0,-16384,0,-4096,0,-128,111,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,31,0,Pooka,Williams Jr,2829.0,2827.0,31.0,Signed,63.0,0.0,0.0,HOU,tier_6,0.0,0.0
-1399,HB,Zach,Charbonnet,Zach Charbonnet,PIT,48,-16384,0,-4096,24,-128,162,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,28,0,Zach,Charbonnet,3196.0,3194.0,28.0,Signed,64.0,1.0,0.0,PIT,tier_6,5.0,0.0
+1399,HB,Zach,Charbonnet,Zach Charbonnet,PIT,48,-16384,0,-4096,24,-128,162,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,28,0,Zach,Charbonnet,3196.0,3194.0,28.0,Signed,64.0,0.0,0.0,PIT,tier_6,5.0,0.0
 1400,WR,Ty,Fryfogle,Ty Fryfogle,GB,0,-16384,0,-4096,0,-128,145,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,19,0,Ty,Fryfogle,3419.0,3417.0,19.0,Signed,67.0,0.0,0.0,GB,tier_6,0.0,0.0
 1401,WR,Kayshon,Boutte,Kayshon Boutte,GB,11,-16384,0,-4096,704,-128,786,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,19,0,Kayshon,Boutte,406.0,404.0,19.0,Signed,76.0,0.0,0.0,GB,tier_4,48.0,0.13
-1402,HB,Chuba,Hubbard,Chuba Hubbard,CAR,376,-16384,0,-4096,79,-128,324,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,1,20,4,Chuba,Hubbard,1231.0,1229.0,20.0,Signed,76.0,1.0,0.0,CAR,tier_4,32.0,0.29
-1404,HB,Demetric,Felton,Demetric Felton,CLE,683,-16384,0,-4096,140,-128,590,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,4,3,Demetric,Felton,803.0,801.0,4.0,Signed,71.0,1.0,0.0,CLE,tier_5,55.0,0.2
+1402,HB,Chuba,Hubbard,Chuba Hubbard,CAR,376,-16384,0,-4096,79,-128,324,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,1,20,4,Chuba,Hubbard,1231.0,1229.0,20.0,Signed,76.0,0.0,0.0,CAR,tier_4,32.0,0.29
+1404,HB,Demetric,Felton,Demetric Felton,CLE,683,-16384,0,-4096,140,-128,590,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,4,3,Demetric,Felton,803.0,801.0,4.0,Signed,71.0,0.0,0.0,CLE,tier_5,55.0,0.2
 1405,WR,Deonte,Harris,Deonte Harris,LV,39,-16384,0,-4096,671,-128,1001,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,22,0,Deonte,Harris,1084.0,1082.0,22.0,Signed,82.0,0.0,0.0,LV,tier_3,47.0,0.2
-1407,HB,Javian,Hawkins,Javian Hawkins,TB,8,-16384,0,-4096,10,-128,119,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,5,0,Javian,Hawkins,1113.0,1111.0,5.0,Signed,74.0,1.0,0.0,TB,tier_5,1.0,0.0
-1408,HB,Brandon,Bolden,Brandon Bolden,BAL,42,-16384,0,-4096,23,-128,96,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,24,0,Brandon,Bolden,228.0,226.0,24.0,Signed,56.0,1.0,0.0,BAL,tier_6,4.0,0.0
+1407,HB,Javian,Hawkins,Javian Hawkins,TB,8,-16384,0,-4096,10,-128,119,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,5,0,Javian,Hawkins,1113.0,1111.0,5.0,Signed,74.0,0.0,0.0,TB,tier_5,1.0,0.0
+1408,HB,Brandon,Bolden,Brandon Bolden,BAL,42,-16384,0,-4096,23,-128,96,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,24,0,Brandon,Bolden,228.0,226.0,24.0,Signed,56.0,0.0,0.0,BAL,tier_6,4.0,0.0
 1409,WR,K.J.,Hill Jr,K.J. Hill Jr,CAR,0,-16384,0,-4096,0,-128,86,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,20,0,K.J.,Hill Jr,1166.0,1164.0,20.0,Signed,64.0,0.0,0.0,CAR,tier_6,0.0,0.0
-1410,HB,Jerrion,Ealy,Jerrion Ealy,KC,254,-16384,0,-4096,236,-128,535,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,8,2,Jerrion,Ealy,3416.0,3414.0,8.0,Signed,77.0,1.0,0.0,KC,tier_4,33.0,0.13
+1410,HB,Jerrion,Ealy,Jerrion Ealy,KC,254,-16384,0,-4096,236,-128,535,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,8,2,Jerrion,Ealy,3416.0,3414.0,8.0,Signed,77.0,0.0,0.0,KC,tier_4,33.0,0.13
 1411,WR,Marquez,Stevenson,Marquez Stevenson,BUF,0,-16384,0,-4096,30,-128,145,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,2,0,Marquez,Stevenson,2505.0,2503.0,2.0,Signed,71.0,0.0,0.0,BUF,tier_5,2.0,0.0
-1412,HB,Tyler,Allgeier,Tyler Allgeier,BAL,323,-16384,0,-4096,18,-128,392,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,24,2,Tyler,Allgeier,3430.0,3428.0,24.0,Signed,72.0,1.0,0.0,BAL,tier_5,23.0,0.13
+1412,HB,Tyler,Allgeier,Tyler Allgeier,BAL,323,-16384,0,-4096,18,-128,392,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,24,2,Tyler,Allgeier,3430.0,3428.0,24.0,Signed,72.0,0.0,0.0,BAL,tier_5,23.0,0.13
 1413,WR,Khalil,Shakir,Khalil Shakir,NE,0,-16384,0,-4096,99,-128,282,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,15,0,0,21,0,Khalil,Shakir,3556.0,3554.0,21.0,Signed,71.0,0.0,0.0,NE,tier_5,7.0,0.07
-1414,HB,Isaiah,Spiller,Isaiah Spiller,NE,492,-16384,0,-4096,187,-128,473,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,10,0,0,21,6,Isaiah,Spiller,3349.0,3347.0,21.0,Signed,85.0,1.0,0.0,NE,tier_2,68.0,0.8
+1414,HB,Isaiah,Spiller,Isaiah Spiller,NE,492,-16384,0,-4096,187,-128,473,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,10,0,0,21,6,Isaiah,Spiller,3349.0,3347.0,21.0,Signed,85.0,0.0,0.0,NE,tier_2,68.0,0.8
 1415,WR,Kendrick,Bourne,Kendrick Bourne,NE,27,-16384,0,-4096,646,-128,502,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,10,0,0,21,0,Kendrick,Bourne,247.0,245.0,21.0,Signed,76.0,0.0,0.0,NE,tier_4,67.0,0.3
-1416,HB,Kenneth,Walker III,Kenneth Walker III,ATL,4,-16384,0,-4096,13,-128,168,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,15,0,0,13,0,Kenneth,Walker III,3176.0,3174.0,13.0,Signed,73.0,1.0,0.0,ATL,tier_5,1.0,0.07
-1418,HB,Xazavian,Valladay,Xazavian Valladay,ATL,40,-16384,0,-4096,8,-128,239,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,1,13,1,Xazavian,Valladay,3502.0,3500.0,13.0,Signed,69.0,1.0,0.0,ATL,tier_6,3.0,0.07
+1416,HB,Kenneth,Walker III,Kenneth Walker III,ATL,4,-16384,0,-4096,13,-128,168,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,15,0,0,13,0,Kenneth,Walker III,3176.0,3174.0,13.0,Signed,73.0,0.0,0.0,ATL,tier_5,1.0,0.07
+1418,HB,Xazavian,Valladay,Xazavian Valladay,ATL,40,-16384,0,-4096,8,-128,239,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,1,13,1,Xazavian,Valladay,3502.0,3500.0,13.0,Signed,69.0,0.0,0.0,ATL,tier_6,3.0,0.07
 1419,WR,Jalen,McMillian,Jalen McMillian,DET,3,-16384,0,-4096,443,-128,825,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,4,13,0,2,18,0,Jalen,McMillian,3241.0,3239.0,18.0,Signed,76.0,0.0,0.0,DET,tier_4,34.0,0.31
-1421,HB,Alexander,Mattison,Alexander Mattison,GB,417,-16384,0,-4096,40,-128,274,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,19,3,Alexander,Mattison,1712.0,1710.0,19.0,Signed,85.0,1.0,0.0,GB,tier_2,35.0,0.23
+1421,HB,Alexander,Mattison,Alexander Mattison,GB,417,-16384,0,-4096,40,-128,274,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,13,0,0,19,3,Alexander,Mattison,1712.0,1710.0,19.0,Signed,85.0,0.0,0.0,GB,tier_2,35.0,0.23
 1422,WR,Zay,Flowers,Zay Flowers,ARI,0,-16384,0,-4096,15,-128,219,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,6,0,Zay,Flowers,3214.0,3212.0,6.0,Signed,69.0,0.0,0.0,ARI,tier_6,1.0,0.0
 1423,WR,Darius,Slayton,Darius Slayton,HOU,31,-16384,0,-4096,569,-128,676,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,5,13,0,0,31,0,Darius,Slayton,2406.0,2404.0,31.0,Signed,79.0,0.0,0.0,HOU,tier_4,46.0,0.38
 1424,WR,Rakim,Jarrett,Rakim Jarrett,CIN,11,-16384,0,-4096,356,-128,392,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,1,0,Rakim,Jarrett,648.0,646.0,1.0,Signed,77.0,0.0,0.0,CIN,tier_4,24.0,0.13
-1425,HB,Kene,Nwangwu,Kene Nwangwu,MIN,632,-16384,0,-4096,16,-128,412,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,14,0,5,30,4,Kene,Nwangwu,1965.0,1963.0,30.0,Signed,72.0,1.0,0.0,MIN,tier_5,46.0,0.36
+1425,HB,Kene,Nwangwu,Kene Nwangwu,MIN,632,-16384,0,-4096,16,-128,412,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,14,0,5,30,4,Kene,Nwangwu,1965.0,1963.0,30.0,Signed,72.0,0.0,0.0,MIN,tier_5,46.0,0.36
 1426,WR,Troy,Omeire,Troy Omeire,WAS,0,-16384,0,-4096,63,-128,180,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,13,0,0,25,0,Troy,Omeire,3284.0,3282.0,25.0,Signed,71.0,0.0,0.0,WAS,tier_5,5.0,0.08
-1427,HB,Darrynton,Evans,Darrynton Evans,TEN,244,-16384,0,-4096,22,-128,166,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,29,1,Darrynton,Evans,775.0,773.0,29.0,Signed,73.0,1.0,0.0,TEN,tier_5,18.0,0.07
-1428,HB,Zach,Evans,Zach Evans,LV,340,-16384,0,-4096,92,-128,466,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,22,4,Zach,Evans,3274.0,3272.0,22.0,Signed,76.0,1.0,0.0,LV,tier_4,29.0,0.27
+1427,HB,Darrynton,Evans,Darrynton Evans,TEN,244,-16384,0,-4096,22,-128,166,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,29,1,Darrynton,Evans,775.0,773.0,29.0,Signed,73.0,0.0,0.0,TEN,tier_5,18.0,0.07
+1428,HB,Zach,Evans,Zach Evans,LV,340,-16384,0,-4096,92,-128,466,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,15,0,0,22,4,Zach,Evans,3274.0,3272.0,22.0,Signed,76.0,0.0,0.0,LV,tier_4,29.0,0.27
 1429,WR,Lynn,Bowden Jr,Lynn Bowden Jr,MIA,-1,-16384,0,-4096,593,-128,758,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,5,15,0,1,11,0,Lynn,Bowden Jr,249.0,247.0,11.0,Signed,72.0,0.0,0.0,MIA,tier_5,39.0,0.33
 1430,WR,J.J.,Koski,J.J. Koski,KC,0,-16384,0,-4096,0,-128,129,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,0,8,0,J.J.,Koski,1521.0,1519.0,8.0,Signed,65.0,0.0,0.0,KC,tier_6,0.0,0.0
 1431,WR,Jadan,Blue,Jadan Blue,NYG,-1,-16384,0,-4096,462,-128,818,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,1,15,0,Jadan,Blue,3463.0,3461.0,15.0,Signed,71.0,0.0,0.0,NYG,tier_5,31.0,0.13
 1432,WR,James,Washington,James Washington,PIT,5,-16384,0,-4096,704,-128,656,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,5,12,0,0,28,0,James,Washington,2759.0,2757.0,28.0,Signed,75.0,0.0,0.0,PIT,tier_4,59.0,0.42
 1433,WR,Keke,Coutee,Keke Coutee,IND,0,-16384,0,-4096,130,-128,191,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,2,15,0,0,9,0,Keke,Coutee,536.0,534.0,9.0,Signed,75.0,0.0,0.0,IND,tier_4,9.0,0.13
 1434,WR,Randall,St. Felix,Randall St. Felix,DAL,0,-16384,0,-4096,466,-128,570,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,1,10,0,Randall,St. Felix,3477.0,3475.0,10.0,Signed,69.0,0.0,0.0,DAL,tier_6,31.0,0.2
-1435,HB,Tyler,Ervin,Tyler Ervin,CHI,42,-16384,0,-4096,3,-128,241,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,1,0,1,Tyler,Ervin,768.0,766.0,0.0,Signed,55.0,1.0,0.0,CHI,tier_6,3.0,0.07
+1435,HB,Tyler,Ervin,Tyler Ervin,CHI,42,-16384,0,-4096,3,-128,241,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,0,14,0,1,0,1,Tyler,Ervin,768.0,766.0,0.0,Signed,55.0,0.0,0.0,CHI,tier_6,3.0,0.07
 1436,WR,D'Wayne,Eskridge,D'Wayne Eskridge,SEA,0,-16384,0,-4096,292,-128,390,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,27,0,D'Wayne,Eskridge,770.0,768.0,27.0,Signed,74.0,0.0,0.0,SEA,tier_5,19.0,0.2
 1437,WR,Chris,Olave,Chris Olave,GB,0,-16384,0,-4096,924,-128,958,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,5,14,0,0,19,0,Chris,Olave,3321.0,3319.0,19.0,Signed,81.0,0.0,0.0,GB,tier_3,66.0,0.36
 1438,WR,Mecole,Hardman,Mecole Hardman,NE,14,-16384,0,-4096,578,-128,815,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,10,13,0,0,21,0,Mecole,Hardman,1067.0,1065.0,21.0,Signed,83.0,0.0,0.0,NE,tier_3,46.0,0.77
-1439,HB,Travis,Etienne Jr,Travis Etienne Jr,JAX,411,-16384,0,-4096,66,-128,412,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,14,0,1,16,4,Travis,Etienne Jr,771.0,769.0,16.0,Signed,83.0,1.0,0.0,JAX,tier_3,34.0,0.36
+1439,HB,Travis,Etienne Jr,Travis Etienne Jr,JAX,411,-16384,0,-4096,66,-128,412,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,1,14,0,1,16,4,Travis,Etienne Jr,771.0,769.0,16.0,Signed,83.0,0.0,0.0,JAX,tier_3,34.0,0.36
 1440,WR,Tyler,Lockett,Tyler Lockett,SEA,0,-16384,0,-4096,823,-128,962,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,7,15,0,0,27,0,Tyler,Lockett,1620.0,1618.0,27.0,Signed,79.0,0.0,0.0,SEA,tier_4,55.0,0.47
 1441,WR,David,Bell,David Bell,NO,0,-16384,0,-4096,777,-128,860,-4096,False,0,0,0,0,0,0,0,2,-128,-128,0,0,0,0,0,3,15,0,0,26,0,David,Bell,3383.0,3381.0,26.0,Signed,73.0,0.0,0.0,NO,tier_5,52.0,0.2
