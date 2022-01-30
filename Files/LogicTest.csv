@@ -1,0 +1,13 @@
+Rating Tier,StatCheck,StatValue,SkillPoint
+tier_0,ScrimmageYardsPerGame,100-250,1
+tier_0,ScrimmageYardsPerGame,80-99,-2
+tier_0,ScrimmageYardsPerGame,60-79,-5
+tier_0,ScrimmageYardsPerGame,40-59,-8
+tier_0,ScrimmageYardsPerGame,20-39,-10
+tier_0,ScrimmageYardsPerGame,0-19,-15
+tier_0,ScrimmmageTDsPerGame,1.00-5.00,1
+tier_0,ScrimmmageTDsPerGame,0.80-0.99,0
+tier_0,ScrimmmageTDsPerGame,0.60-0.79,-2
+tier_0,ScrimmmageTDsPerGame,0.40-0.59,-3
+tier_0,ScrimmmageTDsPerGame,0.20-0.39,-5
+tier_0,ScrimmmageTDsPerGame,0.00-0.19,-7
