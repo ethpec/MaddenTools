@@ -1,8 +1,10 @@
 # Imports
+import decimal
 from turtle import pos
 import pandas as pd
 import numpy as np
 import xlrd
+from decimal import *
 
 # Your File Path
 file_path = 'Files/All.xlsm'
@@ -45,12 +47,12 @@ def find_rating_tier(rating):
 
 def make_range(range_string):
     if '.' in range_string:
-        return np.arange(float(range_string.split('-')[0]), float(range_string.split('-')[1]),.01)
+        return np.round(np.arange(float(range_string.split('-')[0]), float(range_string.split('-')[1]),.01),2).tolist()
     else:
-        return np.arange(int(range_string.split('-')[0]), int(range_string.split('-')[1]),1)
+        return np.round(np.arange(int(range_string.split('-')[0]), int(range_string.split('-')[1]),1)).tolist()
 
-def make_tier_dict(logic_dataframe):
-    
+# def make_tier_dict(logic_dataframe):
+
 # Excel Sheet Dataframes (Player Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
 df_players['TeamName'] = df_players['TeamIndex'].apply(lambda x: team_dict[x]) # Create column with lambda
