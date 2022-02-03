@@ -136,7 +136,7 @@ df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_
 
 # Melt other DataFrames
 
-# Join worksheet DataFrames to player DataFrame
+# Join worksheet DataFrames to player DataFrame and update column(s)
 
 # Export our DataFrames to various test files
 df_offensiveStats.to_csv('Files/OffTest.csv', sep=',',index=False)
