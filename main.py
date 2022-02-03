@@ -135,17 +135,9 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 df_off_points = pd.read_sql_query(qry_off,conn)
 df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index()
 df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
+# ... join back to original and update columns
 
-
-# Offensive Stats/Progression
-print('Running Offensive Progression')
-def offensive_progression(df_offensiveStats, df_logic):
-    for idx, row in df_offensiveStats.iterrows():
-    # Running Backs
-        if  df_offensiveStats.loc[idx,'Position'] == 'HB':
-            # Tier 0
-            if df_offensiveStats.loc[idx,'OverallRating'] in tier_0:
-                df_offensiveStats.loc[idx,'SkillPoints'] += 1
+# Melt other DataFrames
 
 # Join worksheet DataFrames to player DataFrame
 
