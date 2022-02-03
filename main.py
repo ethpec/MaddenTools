@@ -26,7 +26,7 @@ team_dict = {0:'CHI', 1:'CIN', 2:'BUF', 3:'DEN', 4:'CLE', 5:'TB', 6:'ARI', 7:'LA
 20:'CAR', 21:'NE', 22:'LV', 23:'LAR', 24:'BAL', 25:'WAS', 26:'NO', 27:'SEA', 28:'PIT', 29:'TEN', 
 30:'MIN', 31:'HOU', 32:'FA'}
 
-# Functions
+# Functions (Can be expanded and collapsed)
 
 def find_rating_tier(rating):
     if rating in tier_0:
