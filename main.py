@@ -94,6 +94,8 @@ df_defensiveStats = df_defensiveStats[(df_defensiveStats['SEAS_YEAR'] == season)
 & (df_defensiveStats['ContractStatus'] == 'Signed') & (df_defensiveStats['GAMESPLAYED'] >= 10) & (df_defensiveStats['DOWNSPLAYED'] >= 250)]
 df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season) 
 & (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 250)]
+df_kickingStats = df_kickingStats[(df_kickingStats['SEAS_YEAR'] == season) 
+& (df_kickingStats['ContractStatus'] == 'Signed')]
 
 # Add new DataFrame columns for Offense
 df_offensiveStats['ScrimmageYardsPerGame'] = (df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']
