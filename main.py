@@ -48,11 +48,13 @@ def find_rating_tier(rating):
 
 def make_high(range_string):
     if '>' in range_string: # for any negative ranges we must use > instead of - to not split twice
-        return range_string.split('>')[1]
+        return float(range_string.split('>')[1]) + 1
     if '-' not in range_string:
         return range_string
+    if '.' in range_string:
+        return ((float(range_string.split('-')[1]) * 100) + 1) / 100
     else:
-        return range_string.split('-')[1]
+        return int(range_string.split('-')[1]) + 1
 
 def make_low(range_string):
     if '>' in range_string: # for any negative ranges we must use > instead of - to not split twice
@@ -68,7 +70,6 @@ def trim_all_columns(df):
     """
     trim_strings = lambda x: x.strip() if isinstance(x, str) else x
     return df.applymap(trim_strings)
-# def find_stat_tier
 
 # Excel Sheet Dataframes (Player Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
@@ -127,9 +128,9 @@ conn = sqlite3.connect(":memory:")
 df_logic.to_sql("df_logic", conn, index=False)
 df_offensiveStats_unpivot.to_sql("df_offensiveStats_unpivot", conn, index=False)
 qry_off = '''
-SELECT df1.*, df2.StatTier, df2.StatHigh, df2.StatLow 
+SELECT df2.SkillPoint, df1.*, df2.StatTier, df2.StatHigh, df2.StatLow
 FROM df_offensiveStats_unpivot df1
-LEFT JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier);
+INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier) AND ((df1.value >= df2.StatLow and df1.value < df2.StatHigh) OR df1.value = df2.StatLow);
 '''
 df_off_points = pd.read_sql_query(qry_off,conn)
 df_off_points.to_csv('Files/Points.csv', sep=',',index=False)
