@@ -1,9 +1,7 @@
 # Imports
-import decimal
 from turtle import pos
 import pandas as pd
 import numpy as np
-import xlrd
 import sqlite3
 
 
@@ -123,17 +121,16 @@ df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHA
 
 # Melt (Unpivot) Offensive Dataframe
 df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmageYardsPerGame','ScrimmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
-df_offensiveStats_unpivot.to_csv('Files/Offense_Unpivot.csv', sep=',',index=False)
-conn = sqlite3.connect(":memory:") 
+conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
 df_logic.to_sql("df_logic", conn, index=False)
 df_offensiveStats_unpivot.to_sql("df_offensiveStats_unpivot", conn, index=False)
 qry_off = '''
 SELECT df2.SkillPoint, df1.*, df2.StatTier, df2.StatHigh, df2.StatLow
 FROM df_offensiveStats_unpivot df1
 INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier) AND ((df1.value >= df2.StatLow and df1.value < df2.StatHigh) OR df1.value = df2.StatLow);
-'''
-df_off_points = pd.read_sql_query(qry_off,conn)
-df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index()
+''' # our query
+df_off_points = pd.read_sql_query(qry_off,conn) # read query into a new DataFrame
+df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
 df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
@@ -141,7 +138,7 @@ df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_
 
 # Join worksheet DataFrames to player DataFrame
 
-# Export our new sheet to a file
+# Export our DataFrames to various test files
 df_offensiveStats.to_csv('Files/OffTest.csv', sep=',',index=False)
 df_defensiveStats.to_csv('Files/DefTest.csv', sep=',',index=False)
 df_olineStats.to_csv('Files/OLTest.csv', sep=',',index=False)
