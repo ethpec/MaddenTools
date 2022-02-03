@@ -71,7 +71,7 @@ def trim_all_columns(df):
 
 # Excel Sheet Dataframes (Player Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
-df_players['TeamName'] = df_players['TeamIndex'].apply(lambda x: team_dict[x]) # Create column with lambda
+df_players['TeamName'] = df_players['TeamIndex'].apply(lambda x: team_dict[x]) # Create column with lambda (returns the key in our team_dict for every row. Say it sees a 0 in a row, it will make a column for that row and enter CHI into it.)
 df_players['RatingTier'] = df_players['OverallRating'].apply(find_rating_tier) # applies our function to every row in the column and creates a new column based on its result
 df_players.to_csv('Files/PlayerTest.csv', sep=',',index=False)
 
