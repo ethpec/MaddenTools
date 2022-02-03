@@ -133,7 +133,8 @@ FROM df_offensiveStats_unpivot df1
 INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier) AND ((df1.value >= df2.StatLow and df1.value < df2.StatHigh) OR df1.value = df2.StatLow);
 '''
 df_off_points = pd.read_sql_query(qry_off,conn)
-df_off_points.to_csv('Files/Points.csv', sep=',',index=False)
+df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index()
+df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
 
 
 # Offensive Stats/Progression
