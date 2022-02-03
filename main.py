@@ -61,8 +61,7 @@ def make_low(range_string):
     else:
         return range_string.split('-')[0]
 
-
-# def make_tier_dict(logic_dataframe):
+# def find_stat_tier
 
 # Excel Sheet Dataframes (Player Data)
 df_players = pd.read_excel(file_path, sheet_name='124 Stuff')
@@ -114,6 +113,9 @@ df_defensiveStats['CBPassDeflPerGame'] = df_defensiveStats['DEFPASSDEFLECTIONS']
 df_defensiveStats['CBCatchAllowPer100Snaps'] = (df_defensiveStats['CTHALLOWED'] / df_defensiveStats['DOWNSPLAYED']) *100
 df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHALLOWED'] - df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['GAMESPLAYED']
 
+# Melt (Unpivot) Offensive Dataframe
+df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmmageYardsPerGame','ScrimmmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
+df_offensiveStats_unpivot.to_csv('Files/Unpivot.csv', sep=',',index=False)
 
 # Offensive Stats/Progression
 print('Running Offensive Progression')
