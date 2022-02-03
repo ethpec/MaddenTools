@@ -45,11 +45,22 @@ def find_rating_tier(rating):
     elif rating in tier_6:
         return 'tier_6'
 
-def make_range(range_string):
-    if '.' in range_string:
-        return np.round(np.arange(float(range_string.split('-')[0]), float(range_string.split('-')[1]),.01),2).tolist()
+def make_high(range_string):
+    if '>' in range_string: # for any negative ranges we must use > instead of - to not split twice
+        return range_string.split('>')[1]
+    if '-' not in range_string:
+        return range_string
     else:
-        return np.round(np.arange(int(range_string.split('-')[0]), int(range_string.split('-')[1]),1)).tolist()
+        return range_string.split('-')[1]
+
+def make_low(range_string):
+    if '>' in range_string: # for any negative ranges we must use > instead of - to not split twice
+        return range_string.split('>')[0]
+    if '-' not in range_string:
+        return range_string
+    else:
+        return range_string.split('-')[0]
+
 
 # def make_tier_dict(logic_dataframe):
 
@@ -60,8 +71,9 @@ df_players['RatingTier'] = df_players['OverallRating'].apply(find_rating_tier)
 df_players.to_csv('Files/PlayerTest.csv', sep=',',index=False)
 
 # Excel Sheets Dataframe (Logic)
-df_logic = pd.read_excel('Files/Progression Regression Logic.xlsx', sheet_name='Columnar')
-df_logic['StatRange'] = df_logic['StatValue'].apply(make_range)
+df_logic = pd.read_excel('Files/ProgRegLogicCheck.xlsx', sheet_name='Sheet1')
+df_logic['StatHigh'] = df_logic['StatValue'].apply(make_high)
+df_logic['StatLow'] = df_logic['StatValue'].apply(make_low)
 df_logic.to_csv('Files/LogicTest.csv', sep=',',index=False)
 
 # Excel Sheet Dataframes (Stats) and JOINS
