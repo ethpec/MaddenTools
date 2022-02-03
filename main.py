@@ -4,7 +4,8 @@ from turtle import pos
 import pandas as pd
 import numpy as np
 import xlrd
-from decimal import *
+import sqlite3
+
 
 # Your File Path
 file_path = 'Files/All.xlsm'
@@ -61,6 +62,12 @@ def make_low(range_string):
     else:
         return range_string.split('-')[0]
 
+def trim_all_columns(df):
+    """
+    Trim whitespace from ends of each value across all series in dataframe
+    """
+    trim_strings = lambda x: x.strip() if isinstance(x, str) else x
+    return df.applymap(trim_strings)
 # def find_stat_tier
 
 # Excel Sheet Dataframes (Player Data)
@@ -90,8 +97,8 @@ df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season)
 & (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 250)]
 
 # Add new DataFrame columns for Offense
-df_offensiveStats['ScrimmmageYardsPerGame'] = round((df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED'])
-df_offensiveStats['ScrimmmageTDsPerGame'] = round((df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED'],2)
+df_offensiveStats['ScrimmageYardsPerGame'] = (df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']
+df_offensiveStats['ScrimmageTDsPerGame'] = (df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED']
 
 # Add new DataFrame columns for OLine
 df_olineStats['SacksPer1000Snaps'] = (df_olineStats['OLINESACKSALLOWED'] / df_olineStats['DOWNSPLAYED']) * 1000
@@ -115,7 +122,18 @@ df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHA
 
 # Melt (Unpivot) Offensive Dataframe
 df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmmageYardsPerGame','ScrimmmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
-df_offensiveStats_unpivot.to_csv('Files/Unpivot.csv', sep=',',index=False)
+df_offensiveStats_unpivot.to_csv('Files/Offense_Unpivot.csv', sep=',',index=False)
+conn = sqlite3.connect(":memory:") 
+df_logic.to_sql("df_logic", conn, index=False)
+df_offensiveStats_unpivot.to_sql("df_offensiveStats_unpivot", conn, index=False)
+qry_off = '''
+SELECT df1.*, df2.StatTier, df2.StatHigh, df2.StatLow 
+FROM df_offensiveStats_unpivot df1
+LEFT JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier);
+'''
+df_off_points = pd.read_sql_query(qry_off,conn)
+df_off_points.to_csv('Files/Points.csv', sep=',',index=False)
+
 
 # Offensive Stats/Progression
 print('Running Offensive Progression')
