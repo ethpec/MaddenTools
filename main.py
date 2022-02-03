@@ -135,7 +135,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 df_off_points = pd.read_sql_query(qry_off,conn)
 df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index()
 df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
-# ... join back to original and update columns
+df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt other DataFrames
 
