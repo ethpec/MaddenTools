@@ -121,7 +121,7 @@ df_defensiveStats['CBCatchAllowPer100Snaps'] = (df_defensiveStats['CTHALLOWED'] 
 df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHALLOWED'] - df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['GAMESPLAYED']
 
 # Melt (Unpivot) Offensive Dataframe
-df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmmageYardsPerGame','ScrimmmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
+df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmageYardsPerGame','ScrimmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
 df_offensiveStats_unpivot.to_csv('Files/Offense_Unpivot.csv', sep=',',index=False)
 conn = sqlite3.connect(":memory:") 
 df_logic.to_sql("df_logic", conn, index=False)
