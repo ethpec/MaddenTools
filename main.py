@@ -136,7 +136,11 @@ df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['S
 df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
-# Melt other DataFrames
+# Melt Defensive DataFrame
+
+# Melt O-Line DataFrame
+
+# Melt Kicking DataFrame
 
 # Join worksheet DataFrames to player DataFrame and update column(s)
 
