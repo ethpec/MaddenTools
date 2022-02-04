@@ -150,3 +150,5 @@ df_defensiveStats.to_csv('Files/DefTest.csv', sep=',',index=False)
 df_olineStats.to_csv('Files/OLTest.csv', sep=',',index=False)
 df_kickingStats.to_csv('Files/KickingTest.csv', sep=',',index=False)
 print('Test Files created')
+
+# Export our Final Player DataFrame with updated skills points/regression points
