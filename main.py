@@ -93,7 +93,7 @@ df_offensiveStats = df_offensiveStats[(df_offensiveStats['SEAS_YEAR'] == season)
 df_defensiveStats = df_defensiveStats[(df_defensiveStats['SEAS_YEAR'] == season) 
 & (df_defensiveStats['ContractStatus'] == 'Signed') & (df_defensiveStats['GAMESPLAYED'] >= 10) & (df_defensiveStats['DOWNSPLAYED'] >= 250)]
 df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season) 
-& (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 250)]
+& (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 400)]
 df_kickingStats = df_kickingStats[(df_kickingStats['SEAS_YEAR'] == season) 
 & (df_kickingStats['ContractStatus'] == 'Signed')]
 
@@ -150,9 +150,36 @@ df_def_points = pd.read_sql_query(qry_def,conn) # read query into a new DataFram
 df_def_points_agg = df_def_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
 df_def_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
 df_defensiveStats = df_defensiveStats.merge(df_def_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
+
 # Melt O-Line DataFrame
+df_olineStats_unpivot = pd.melt(df_olineStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['SacksPer1000Snaps'],var_name='StatCheck',value_name='value')
+conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
+df_logic.to_sql("df_logic", conn, index=False)
+df_olineStats_unpivot.to_sql("df_olineStats_unpivot", conn, index=False)
+qry_oline = '''
+SELECT df2.SkillPoint, df1.*, df2.StatTier, df2.StatHigh, df2.StatLow
+FROM df_olineStats_unpivot df1
+INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier) AND ((df1.value >= df2.StatLow and df1.value < df2.StatHigh) OR df1.value = df2.StatLow);
+''' # our query
+df_oline_points = pd.read_sql_query(qry_oline,conn) # read query into a new DataFrame
+df_oline_points_agg = df_oline_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
+df_oline_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_olineStats = df_olineStats.merge(df_oline_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Kicking DataFrame
+df_kickingStats_unpivot = pd.melt(df_kickingStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['FGPercentage','EPPercentage','Over40YardPercentage','PuntTBPerIn20','YardsPerPunt','NetYardsToPuntYards'],var_name='StatCheck',value_name='value')
+conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
+df_logic.to_sql("df_logic", conn, index=False)
+df_kickingStats_unpivot.to_sql("df_kickingStats_unpivot", conn, index=False)
+qry_kicking = '''
+SELECT df2.SkillPoint, df1.*, df2.StatTier, df2.StatHigh, df2.StatLow
+FROM df_kickingStats_unpivot df1
+INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = df2.Position) AND (df1.RatingTier = df2.RatingTier) AND ((df1.value >= df2.StatLow and df1.value < df2.StatHigh) OR df1.value = df2.StatLow);
+''' # our query
+df_kicking_points = pd.read_sql_query(qry_kicking,conn) # read query into a new DataFrame
+df_kicking_points_agg = df_kicking_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
+df_kicking_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_kickingStats = df_kickingStats.merge(df_kicking_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Join worksheet DataFrames to player DataFrame and update column(s)
 
