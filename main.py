@@ -133,7 +133,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_off_points = pd.read_sql_query(qry_off,conn) # read query into a new DataFrame
 df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
-df_off_points_agg.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_off_points_agg.to_csv('Files/Points_off.csv', sep=',',index=False)
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Defensive DataFrame
@@ -148,7 +148,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_def_points = pd.read_sql_query(qry_def,conn) # read query into a new DataFrame
 df_def_points_agg = df_def_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
-df_def_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_def_points_agg.to_csv('Files/Points_def.csv', sep=',',index=False)
 df_defensiveStats = df_defensiveStats.merge(df_def_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt O-Line DataFrame
@@ -163,7 +163,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_oline_points = pd.read_sql_query(qry_oline,conn) # read query into a new DataFrame
 df_oline_points_agg = df_oline_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
-df_oline_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_oline_points_agg.to_csv('Files/Points_ol.csv', sep=',',index=False)
 df_olineStats = df_olineStats.merge(df_oline_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Kicking DataFrame
@@ -178,10 +178,11 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_kicking_points = pd.read_sql_query(qry_kicking,conn) # read query into a new DataFrame
 df_kicking_points_agg = df_kicking_points.groupby(['FullName','Position','TeamName'])['SkillPoint'].sum().reset_index() # add all the skill points up
-df_kicking_points.to_csv('Files/Points_agg.csv', sep=',',index=False)
+df_kicking_points_agg.to_csv('Files/Points_kick.csv', sep=',',index=False)
 df_kickingStats = df_kickingStats.merge(df_kicking_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Join worksheet DataFrames to player DataFrame and update column(s)
+
 
 # Export our DataFrames to various test files
 df_offensiveStats.to_csv('Files/OffTest.csv', sep=',',index=False)

@@ -1,6 +1,6 @@
 Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,GAMESSTARTED,OLINEPANCAKES,OLINESACKSALLOWED,DOWNSPLAYED,STAT_KEEP,GAMESPLAYED,YEARBYYEARTEAMINDEX,GAMERATING,SEAS_YEAR,FirstName_y,LastName_y,Row Excel,Row Editor,TeamIndex,ContractStatus,OverallRating,SkillPoints,RegressionPoints,TeamName_x,RatingTier,SacksPer1000Snaps,TeamName_y,SkillPoint
 90,RG,Mark,Glowinski,Mark Glowinski,DET,15,0,3,981,False,15,18,0,2,Mark,Glowinski,954.0,952.0,18.0,Signed,71.0,0.0,0.0,DET,tier_5,3.058103975535168,DET,0
-95,LT,Mekhi,Becton,Mekhi Becton,NYJ,14,2,14,956,False,14,17,0,2,Mekhi,Becton,172.0,170.0,17.0,Signed,93.0,0.0,0.0,NYJ,tier_1,14.644351464435147,NYJ,-5
+95,LT,Mekhi,Becton,Mekhi Becton,NYJ,14,2,14,956,False,14,17,0,2,Mekhi,Becton,172.0,170.0,17.0,Signed,93.0,0.0,0.0,NYJ,tier_1,14.644351464435147,NYJ,-4
 102,RG,Alex,Leatherwood,Alex Leatherwood,LV,14,0,4,942,False,14,22,0,2,Alex,Leatherwood,1569.0,1567.0,22.0,Signed,76.0,0.0,0.0,LV,tier_4,4.246284501061571,LV,-4
 121,LG,Ali,Marpet,Ali Marpet,TB,15,0,6,1082,False,15,5,0,2,Ali,Marpet,1688.0,1686.0,5.0,Signed,89.0,0.0,0.0,TB,tier_2,5.545286506469501,TB,-2
 146,C,Ryan,Jensen,Ryan Jensen,TB,14,0,2,922,False,14,5,0,2,Ryan,Jensen,1355.0,1353.0,5.0,Signed,85.0,0.0,0.0,TB,tier_2,2.1691973969631237,TB,0
@@ -18,7 +18,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,GAMESSTARTED,OLINEPA
 346,LG,Jalen,Mayfield,Jalen Mayfield,ATL,15,0,15,1082,False,15,13,0,2,Jalen,Mayfield,1717.0,1715.0,13.0,Signed,73.0,0.0,0.0,ATL,tier_5,13.863216266173753,ATL,-5
 440,LT,Greg,Little,Greg Little,MIA,12,0,9,828,False,12,11,0,2,Greg,Little,1614.0,1612.0,11.0,Signed,72.0,0.0,0.0,MIA,tier_5,10.869565217391305,MIA,3
 519,LT,David,Bakhtiari,David Bakhtiari,GB,15,0,15,1043,False,15,19,0,2,David,Bakhtiari,121.0,119.0,19.0,Signed,89.0,0.0,0.0,GB,tier_2,14.381591562799617,GB,-2
-521,LG,Elgton,Jenkins,Elgton Jenkins,GB,13,0,6,923,False,13,19,0,2,Elgton,Jenkins,1344.0,1342.0,19.0,Signed,90.0,0.0,0.0,GB,tier_1,6.500541711809317,GB,-5
+521,LG,Elgton,Jenkins,Elgton Jenkins,GB,13,0,6,923,False,13,19,0,2,Elgton,Jenkins,1344.0,1342.0,19.0,Signed,90.0,0.0,0.0,GB,tier_1,6.500541711809317,GB,-4
 522,LG,Austin,Jackson,Austin Jackson,MIA,15,0,3,1030,False,15,11,0,2,Austin,Jackson,1297.0,1295.0,11.0,Signed,75.0,0.0,0.0,MIA,tier_4,2.912621359223301,MIA,4
 529,RG,Robert,Hunt,Robert Hunt,MIA,15,0,2,1053,False,15,11,0,2,Robert,Hunt,1256.0,1254.0,11.0,Signed,76.0,0.0,0.0,MIA,tier_4,1.8993352326685662,MIA,2
 566,RG,Cameron,Clark,Cameron Clark,NYJ,15,0,4,1019,False,15,17,0,2,Cameron,Clark,461.0,459.0,17.0,Signed,68.0,0.0,0.0,NYJ,tier_6,3.9254170755642783,NYJ,-2
@@ -35,7 +35,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,GAMESSTARTED,OLINEPA
 715,RG,Brandon,Brooks,Brandon Brooks,PHI,14,1,2,925,False,14,12,0,2,Brandon,Brooks,292.0,290.0,12.0,Signed,87.0,0.0,0.0,PHI,tier_2,2.1621621621621623,PHI,0
 720,C,Ryan,Kelly,Ryan Kelly,IND,12,0,2,737,False,12,9,0,2,Ryan,Kelly,1484.0,1482.0,9.0,Signed,83.0,0.0,0.0,IND,tier_3,2.7137042062415193,IND,-2
 722,LG,Cody,Ford,Cody Ford,BUF,12,0,3,819,False,13,2,0,2,Cody,Ford,839.0,837.0,2.0,Signed,70.0,0.0,0.0,BUF,tier_5,3.663003663003663,BUF,3
-730,RT,Penei,Sewell,Penei Sewell,DET,14,0,14,934,False,14,18,0,2,Penei,Sewell,2349.0,2347.0,18.0,Signed,90.0,0.0,0.0,DET,tier_1,14.98929336188437,DET,-8
+730,RT,Penei,Sewell,Penei Sewell,DET,14,0,14,934,False,14,18,0,2,Penei,Sewell,2349.0,2347.0,18.0,Signed,90.0,0.0,0.0,DET,tier_1,14.98929336188437,DET,-7
 731,LG,Jonah,Jackson,Jonah Jackson,DET,15,0,5,1012,False,15,18,0,2,Jonah,Jackson,1308.0,1306.0,18.0,Signed,74.0,0.0,0.0,DET,tier_5,4.940711462450593,DET,3
 734,C,Frank,Ragnow,Frank Ragnow,DET,15,0,2,1075,False,15,18,0,2,Frank,Ragnow,2160.0,2158.0,18.0,Signed,89.0,0.0,0.0,DET,tier_2,1.86046511627907,DET,0
 735,RT,Bobby,Lawrence,Bobby Lawrence,SEA,15,0,7,1050,False,15,27,0,2,Bobby,Lawrence,3118.0,3116.0,27.0,Signed,63.0,0.0,0.0,SEA,tier_6,6.666666666666667,SEA,4
@@ -62,7 +62,7 @@ Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,GAMESSTARTED,OLINEPA
 780,LT,Laremy,Tunsil,Laremy Tunsil,HOU,15,0,10,1004,False,15,31,0,2,Laremy,Tunsil,2673.0,2671.0,31.0,Signed,89.0,0.0,0.0,HOU,tier_2,9.9601593625498,HOU,0
 783,LT,Elijah,Wilkinson,Elijah Wilkinson,NO,15,0,21,1060,False,15,26,0,2,Elijah,Wilkinson,2827.0,2825.0,26.0,Signed,72.0,0.0,0.0,NO,tier_5,19.81132075471698,NO,-2
 784,RG,Cesar,Ruiz,Cesar Ruiz,NO,15,0,3,1062,False,15,26,0,2,Cesar,Ruiz,2284.0,2282.0,26.0,Signed,81.0,0.0,0.0,NO,tier_3,2.824858757062147,NO,-2
-785,C,Erik,McCoy,Erik McCoy,NO,12,0,4,843,False,12,26,0,2,Erik,McCoy,1729.0,1727.0,26.0,Signed,91.0,0.0,0.0,NO,tier_1,4.744958481613287,NO,-8
+785,C,Erik,McCoy,Erik McCoy,NO,12,0,4,843,False,12,26,0,2,Erik,McCoy,1729.0,1727.0,26.0,Signed,91.0,0.0,0.0,NO,tier_1,4.744958481613287,NO,-7
 786,RT,Ryan,Ramczyk,Ryan Ramczyk,NO,15,0,7,1042,False,15,26,0,2,Ryan,Ramczyk,2162.0,2160.0,26.0,Signed,90.0,0.0,0.0,NO,tier_1,6.717850287907869,NO,-1
 787,RT,Warren,McClendon,Warren McClendon,GB,11,0,11,771,False,12,19,0,2,Warren,McClendon,3302.0,3300.0,19.0,Signed,73.0,0.0,0.0,GB,tier_5,14.267185473411153,GB,-3
 788,RT,Brandon,Parker,Brandon Parker,GB,4,0,3,400,False,14,19,0,2,Brandon,Parker,2037.0,2035.0,19.0,Signed,68.0,0.0,0.0,GB,tier_6,7.5,GB,4
