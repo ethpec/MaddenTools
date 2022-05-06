@@ -98,8 +98,9 @@ df_kickingStats = df_kickingStats[(df_kickingStats['SEAS_YEAR'] == season)
 & (df_kickingStats['ContractStatus'] == 'Signed')]
 
 # Add new DataFrame columns for Offense
-df_offensiveStats['ScrimmageYardsPerGame'] = (df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['GAMESPLAYED']
-df_offensiveStats['ScrimmageTDsPerGame'] = (df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED']
+df_offensiveStats['ScrimmageYardsPer1000DownsPlayed'] = ((df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / df_offensiveStats['DOWNSPLAYED']) * 1000
+df_offensiveStats['RBScrimmageTDsPerGame'] = (df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['GAMESPLAYED']
+df_offensiveStats['TDsPer1000DownsPlayed'] = ((df_offensiveStats['RUSHTDS'] + df_offensiveStats['RECEIVETDS']) / df_offensiveStats['DOWNSPLAYED']) * 1000
 
 # Add new DataFrame columns for OLine
 df_olineStats['SacksPer1000Snaps'] = (df_olineStats['OLINESACKSALLOWED'] / df_olineStats['DOWNSPLAYED']) * 1000
@@ -122,7 +123,7 @@ df_defensiveStats['CBCatchAllowPer100Snaps'] = (df_defensiveStats['CTHALLOWED'] 
 df_defensiveStats['SafetiesCatchAllowMinusPDPerGame'] = (df_defensiveStats['CTHALLOWED'] - df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['GAMESPLAYED']
 
 # Melt (Unpivot) Offensive Dataframe
-df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmageYardsPerGame','ScrimmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
+df_offensiveStats_unpivot = pd.melt(df_offensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['ScrimmageYardsPer1000DownsPlayed','TDsPer1000DownsPlayed','RBScrimmageTDsPerGame','RUSHFUMBLES'],var_name='StatCheck',value_name='value')
 conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
 df_logic.to_sql("df_logic", conn, index=False)
 df_offensiveStats_unpivot.to_sql("df_offensiveStats_unpivot", conn, index=False)
