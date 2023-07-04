@@ -119,6 +119,7 @@ df_defensiveStats['DLSacksAndTFLPer1000Snaps'] = (((1.50 * df_defensiveStats['DL
 df_defensiveStats['DTSacksAndTFLPer1000Snaps'] = (((1.75 * df_defensiveStats['DLINESACKS']) + df_defensiveStats['DEFTACKLESFORLOSS']) / df_defensiveStats['DOWNSPLAYED']) * 1000
 df_defensiveStats['TotalTurnoversPer1000Snaps'] = ((df_defensiveStats['DLINEFUMBLERECOVERIES'] + df_defensiveStats['DLINESAFETIES'] + df_defensiveStats['DSECINTS'] + df_defensiveStats['DSECINTTDS'] + df_defensiveStats['DLINEBLOCKS'] + df_defensiveStats['DLINEFORCEDFUMBLES'] + df_defensiveStats['DLINEFUMBLETDS'])/ df_defensiveStats['DOWNSPLAYED']) * 1000
 df_defensiveStats['LBSacksTFLPassDeflPer1000Snaps'] = (((1.50 * df_defensiveStats['DLINESACKS']) + df_defensiveStats['DEFTACKLESFORLOSS'] + df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['DOWNSPLAYED']) * 1000
+df_defensiveStats['MLBSacksTFLPassDeflPer1000Snaps'] = ((df_defensiveStats['DLINESACKS'] + df_defensiveStats['DEFTACKLESFORLOSS'] + df_defensiveStats['DEFPASSDEFLECTIONS']) / df_defensiveStats['DOWNSPLAYED']) * 1000
 df_defensiveStats['TacklesPer1000Snaps'] = ((df_defensiveStats['ASSDEFTACKLES'] + df_defensiveStats['DEFTACKLES']) / df_defensiveStats['DOWNSPLAYED']) * 1000
 df_defensiveStats['CBPassDeflPer1000Snaps'] = (df_defensiveStats['DEFPASSDEFLECTIONS'] / df_defensiveStats['DOWNSPLAYED']) * 1000
 df_defensiveStats['CBCatchAllowPer100Snaps'] = (df_defensiveStats['CTHALLOWED'] / df_defensiveStats['DOWNSPLAYED']) * 100
@@ -140,7 +141,7 @@ df_off_points_agg.to_csv('Files/IE/Season19/Points_off.csv', sep=',',index=False
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Defensive DataFrame
-df_defensiveStats_unpivot = pd.melt(df_defensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['DLSacksAndTFLPer1000Snaps','DTSacksAndTFLPer1000Snaps','TotalTurnoversPer1000Snaps','LBSacksTFLPassDeflPer1000Snaps','TacklesPer1000Snaps','CBPassDeflPer1000Snaps','CBCatchAllowPer100Snaps','SafetiesCatchAllowMinusPDPerGame'],var_name='StatCheck',value_name='value')
+df_defensiveStats_unpivot = pd.melt(df_defensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['DLSacksAndTFLPer1000Snaps','DTSacksAndTFLPer1000Snaps','TotalTurnoversPer1000Snaps','LBSacksTFLPassDeflPer1000Snaps','MLBSacksTFLPassDeflPer1000Snaps','TacklesPer1000Snaps','CBPassDeflPer1000Snaps','CBCatchAllowPer100Snaps','SafetiesCatchAllowMinusPDPerGame'],var_name='StatCheck',value_name='value')
 conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
 df_logic.to_sql("df_logic", conn, index=False)
 df_defensiveStats_unpivot.to_sql("df_defensiveStats_unpivot", conn, index=False)
