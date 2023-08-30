@@ -140,7 +140,7 @@ df_off_points_agg.to_csv('Files/Madden24/IE/Test/Points_off.csv', sep=',',index=
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Defensive DataFrame
-df_defensiveStats_unpivot = pd.melt(df_defensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['DLSacksAndTFLPer1000Snaps','DTSacksAndTFLPer1000Snaps','TotalTurnoversPer1000Snaps','LBSacksTFLPassDeflPer1000Snaps','MLBSacksTFLPassDeflPer1000Snaps','TacklesPer1000Snaps','CBPassDeflPer1000Snaps','CBCatchAllowPer100Snaps','SafetiesCatchAllowMinusPDPerGame'],var_name='StatCheck',value_name='value')
+df_defensiveStats_unpivot = pd.melt(df_defensiveStats,id_vars=['FullName', 'Position', 'TeamName','RatingTier'],value_vars=['DLSacksAndTFLPer1000Snaps','DTSacksAndTFLPer1000Snaps','TotalTurnoversPer1000Snaps','LBSacksTFLPassDeflPer1000Snaps','TacklesPer1000Snaps','CBPassDeflPer1000Snaps','CBCatchAllowPer100Snaps','SafetiesCatchAllowMinusPDPerGame'],var_name='StatCheck',value_name='value')
 conn = sqlite3.connect(":memory:") # connect to Python memory to be able to query DataFrame variables as if they were tables
 df_logic.to_sql("df_logic", conn, index=False)
 df_defensiveStats_unpivot.to_sql("df_defensiveStats_unpivot", conn, index=False)
@@ -204,4 +204,4 @@ df_kickingStats.to_csv('Files/Madden24/IE/Test/KickingTest.csv', sep=',',index=F
 # df_defensiveStats_unpivot.to_csv('Files/Madden24/IE/Test/Defense_Unpivot.csv', sep=',',index=False)
 
 # Export our Final Player DataFrame with updated skills points/regression points
-df_final.to_csv('Files/Madden24/IE/Test/Final.csv', sep=',',index=False)
+df_final.to_csv('Files/Madden24/IE/Test/Final_PreAdjustment.csv', sep=',',index=False)
