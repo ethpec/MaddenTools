@@ -25,10 +25,7 @@ def calculate_skill_points(row):
              probabilities = [0.00, 0.00, 0.20, 0.35, 0.20, 0.15, 0.10]
              skill_points = random.choices(chances, probabilities)[0]
              return skill_points
-        else:
-            return 0  # Handle other cases if needed
-    else:
-        return 0  # No skill points for players with 'YearsPro' > 0
+    return row['SkillPoints']  # Keep the existing skill points if conditions are not met
 
 df['SkillPoints'] = df.apply(calculate_skill_points, axis=1)
 
