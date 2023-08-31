@@ -11,7 +11,7 @@ def update_traits(row):
     # Check the player's position and apply changes to specific columns
     contract_status = row['ContractStatus']
     
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad']:
+    if contract_status in ['Draft']:
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -68,6 +68,9 @@ def update_traits(row):
             if new_injury_rating > 80:
                 new_injury_rating = 80
             row['InjuryRating'] = new_injury_rating
+
+    # Set TraitDevelopment to "Normal" for all positions
+    row['TraitDevelopment'] = 'Normal'
 
     # Add more conditions and changes for other columns and positions as needed
     return row
