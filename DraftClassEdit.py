@@ -69,14 +69,29 @@ def update_traits(row):
                 new_injury_rating = 80
             row['InjuryRating'] = new_injury_rating
 
-    # Set TraitDevelopment to "Normal" for all positions
-    row['TraitDevelopment'] = 'Normal'
+        # Set TraitDevelopment to "Normal" for all positions
+        row['TraitDevelopment'] = 'Normal'
 
     # Add more conditions and changes for other columns and positions as needed
     return row
 
+# Track the original DataFrame before applying updates
+original_df = df.copy()
+
 # Apply the new function to update the DataFrame
 df = df.apply(update_traits, axis=1)
+
+###
+columns_to_remove = []
+
+for column in df.columns:
+    # Check if the column values are equal, considering data type differences
+    if df[column].equals(original_df[column]):
+        columns_to_remove.append(column)
+
+# Drop columns with no edits
+df.drop(columns=columns_to_remove, inplace=True)
+###
 
 output_filename = 'DraftClassEdit.xlsx'
 df.to_excel('Files/Madden24/IE/Test/DraftClassEdit.xlsx', index=False)
