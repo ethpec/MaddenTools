@@ -16,7 +16,7 @@ def update_traits(row):
         # QB Edits
         if row['Position'] == 'QB':
             # For QBs, set a minimum of 70 and a maximum of 80 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 17
+            new_injury_rating = row['InjuryRating'] - 18
             # Ensure the new value is within the specified range
             if new_injury_rating < 70:
                 new_injury_rating = 70
@@ -35,7 +35,7 @@ def update_traits(row):
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 73 and a maximum of 85 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 12
+            new_injury_rating = row['InjuryRating'] - 13
             # Ensure the new value is within the specified range
             if new_injury_rating < 73:
                 new_injury_rating = 73
@@ -61,7 +61,7 @@ def update_traits(row):
         # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
-            new_injury_rating = row['InjuryRating'] - 17
+            new_injury_rating = row['InjuryRating'] - 18
             # Ensure the new value is within the specified range
             if new_injury_rating < 68:
                 new_injury_rating = 68
