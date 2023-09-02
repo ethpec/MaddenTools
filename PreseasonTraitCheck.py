@@ -16,7 +16,7 @@ def update_traits(row):
         # QB Edits
         if row['Position'] == 'QB':
             # For QBs, set a minimum of 70 and a maximum of 80 for InjuryRating
-            new_injury_rating = row['InjuryRating'] # - 17
+            new_injury_rating = row['InjuryRating'] # - 18
             # Ensure the new value is within the specified range
             if new_injury_rating < 70:
                 new_injury_rating = 70
@@ -35,7 +35,7 @@ def update_traits(row):
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 73 and a maximum of 85 for InjuryRating
-            new_injury_rating = row['InjuryRating'] # - 12
+            new_injury_rating = row['InjuryRating'] # - 13
             # Ensure the new value is within the specified range
             if new_injury_rating < 73:
                 new_injury_rating = 73
@@ -61,7 +61,7 @@ def update_traits(row):
         # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
-            new_injury_rating = row['InjuryRating'] # - 17
+            new_injury_rating = row['InjuryRating'] # - 18
             # Ensure the new value is within the specified range
             if new_injury_rating < 68:
                 new_injury_rating = 68
@@ -72,8 +72,66 @@ def update_traits(row):
     # Add more conditions and changes for other columns and positions as needed
     return row
 
-# Apply the new function to update the DataFrame
+# Define target values for ContractSalary0 and ContractSalary1 based on years_pro
+min_salary_values = {
+    0: 75,
+    1: 87,
+    2: 94,
+    3: 101,
+}
+
+# Set the same values for players with 4 through 6 YearsPro
+for years_pro in range(4, 7):
+    min_salary_values[years_pro] = 108  # Minimum for years_pro >= 4
+
+# Set the same values for players with 7 through 25 YearsPro
+for years_pro in range(7, 26):
+    min_salary_values[years_pro] = 116  # Minimum for years_pro >= 7
+
+# Function to adjust Salary to league minimum
+def adjust_contract_salary(row):
+    contract_status = row['ContractStatus']
+    years_pro = row['YearsPro']
+    contract_salary_0 = row['ContractSalary0']
+    contract_salary_1 = row['ContractSalary1']
+
+    if contract_status == 'Signed':
+        if years_pro in min_salary_values:
+            target_salary = min_salary_values[years_pro]
+            if contract_salary_0 < target_salary:
+                row['ContractSalary0'] = target_salary
+            if contract_salary_1 < target_salary:
+                row['ContractSalary1'] = target_salary
+
+    return row
+
+# Track the original DataFrame before applying updates
+original_df = df.copy()
+
+# Apply the update_traits function to update the DataFrame
 df = df.apply(update_traits, axis=1)
+
+# Apply the adjust_contract_salary function to update the DataFrame
+df = df.apply(adjust_contract_salary, axis=1)
+
+# Create a set to store column names with edits
+columns_with_edits = set()
+
+# Check if the column values in df are equal to original_df, considering data type differences
+for column in df.columns:
+    if not df[column].equals(original_df[column]):
+        columns_with_edits.add(column)
+
+# Create a list to store columns to be removed
+columns_to_remove = []
+
+# Check if a column doesn't have any edits, then add it to the list of columns to be removed
+for column in df.columns:
+    if column not in columns_with_edits:
+        columns_to_remove.append(column)
+
+# Drop columns with no edits
+df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
 df.to_excel('Files/Madden24/IE/Test/Player_PreseasonEdits.xlsx', index=False)
