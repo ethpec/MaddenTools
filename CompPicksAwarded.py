@@ -24,8 +24,8 @@ different_team_indices = merged_df[
 filtered_players = different_team_indices.query('CompPickValue in [3, 4, 5, 6, 7]')
 
 # Create the "PlayerValue" sheet with the required columns
-player_value_sheet = filtered_players[['FirstName', 'LastName', 'Position', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue']]
-player_value_sheet.columns = ['FirstName', 'LastName', 'Position', 'FormerTeam', 'CurrentTeam', 'CompPickValue']
+player_value_sheet = filtered_players[['FirstName', 'LastName', 'Position', 'YearsPro', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue']]
+player_value_sheet.columns = ['FirstName', 'LastName', 'Position', 'YearsPro', 'FormerTeam', 'CurrentTeam', 'CompPickValue']
 
 # Add the "TotalPoints" column from the CompPickPlayerValue document
 total_points_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'TotalPoints'])
@@ -91,8 +91,11 @@ with pd.ExcelWriter(output_filename, mode='a', engine='openpyxl', if_sheet_exist
     player_value_sheet.to_excel(writer, sheet_name='PlayerValue', index=False)
     team_gained_lost_sheet.to_excel(writer, sheet_name='TeamGainedLost', index=False)
 
-# Create an empty DataFrame for the report
-report_df = pd.DataFrame(columns=['TeamIndex', 'Status', 'PlayerName', 'Position', 'CompRank', 'CompPickValue'])
+# Create an empty DataFrame for the report of teams with NetPlayersLost >= 1
+report_df_picks = pd.DataFrame(columns=['TeamIndex', 'Status', 'PlayerName', 'Position', 'YearsPro', 'CompRank', 'CompPickValue'])
+
+# Create an empty DataFrame for the report of teams with NetPlayersLost <= 0
+report_df_nopicks = pd.DataFrame(columns=['TeamIndex', 'Status', 'PlayerName', 'Position','YearsPro', 'CompRank', 'CompPickValue'])
 
 # Loop through each TeamIndex and calculate CompPickEligible
 for team_index in team_gained_lost_sheet['TeamIndex']:
@@ -111,28 +114,53 @@ for team_index in team_gained_lost_sheet['TeamIndex']:
     ) else 'No'
 
     if comp_pick_eligible == 'Yes':
-        # Iterate through players lost and add them to the report with "PlayersLost" status
+        # Iterate through players lost and add them to the respective report with "PlayersLost" status
         for _, player in players_lost.iterrows():
-            report_df = pd.concat([report_df, pd.DataFrame({
-                'TeamIndex': [team_index],
-                'Status': ['PlayersLost'],
-                'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
-                'Position': [player['Position']],
-                'CompRank': [player['CompRank']],
-                'CompPickValue': [player['CompPickValue']]
-            })], ignore_index=True)
+            if team_counts.loc[team_counts['TeamIndex'] == team_index, 'NetPlayersLost'].values[0] >= 1:
+                report_df_picks = pd.concat([report_df_picks, pd.DataFrame({
+                    'TeamIndex': [team_index],
+                    'Status': ['PlayersLost'],
+                    'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
+                    'Position': [player['Position']],
+                    'YearsPro': [player['YearsPro']],
+                    'CompRank': [player['CompRank']],
+                    'CompPickValue': [player['CompPickValue']]
+                })], ignore_index=True)
+            else:
+                report_df_nopicks = pd.concat([report_df_nopicks, pd.DataFrame({
+                    'TeamIndex': [team_index],
+                    'Status': ['PlayersLost'],
+                    'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
+                    'Position': [player['Position']],
+                    'YearsPro': [player['YearsPro']],
+                    'CompRank': [player['CompRank']],
+                    'CompPickValue': [player['CompPickValue']]
+                })], ignore_index=True)
 
-        # Iterate through players gained and add them to the report with "PlayersGained" status
+        # Iterate through players gained and add them to the respective report with "PlayersGained" status
         for _, player in players_gained.iterrows():
-            report_df = pd.concat([report_df, pd.DataFrame({
-                'TeamIndex': [team_index],
-                'Status': ['PlayersGained'],
-                'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
-                'Position': [player['Position']],
-                'CompRank': [player['CompRank']],
-                'CompPickValue': [player['CompPickValue']]
-            })], ignore_index=True)
+            if team_counts.loc[team_counts['TeamIndex'] == team_index, 'NetPlayersLost'].values[0] >= 1:
+                report_df_picks = pd.concat([report_df_picks, pd.DataFrame({
+                    'TeamIndex': [team_index],
+                    'Status': ['PlayersGained'],
+                    'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
+                    'Position': [player['Position']],
+                    'YearsPro': [player['YearsPro']],
+                    'CompRank': [player['CompRank']],
+                    'CompPickValue': [player['CompPickValue']]
+                })], ignore_index=True)
+            else:
+                report_df_nopicks = pd.concat([report_df_nopicks, pd.DataFrame({
+                    'TeamIndex': [team_index],
+                    'Status': ['PlayersGained'],
+                    'PlayerName': [f"{player['FirstName']} {player['LastName']}"],
+                    'Position': [player['Position']],
+                    'YearsPro': [player['YearsPro']],
+                    'CompRank': [player['CompRank']],
+                    'CompPickValue': [player['CompPickValue']]
+                })], ignore_index=True)
 
-# Export the report DataFrame to a new sheet in the Excel file
+# Export the picks and nopicks reports to separate sheets in the Excel file
 with pd.ExcelWriter(output_filename, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-    report_df.to_excel(writer, sheet_name='CompPickReport', index=False)
+    report_df_picks.to_excel(writer, sheet_name='CompPickReport_picks', index=False)
+    report_df_nopicks.to_excel(writer, sheet_name='CompPickReport_nopicks', index=False)
