@@ -30,7 +30,7 @@ def update_traits(row):
             if row['SpeedRating'] < 80:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
             if row['SpeedRating'] >= 87:
-                row['TRAIT_QBSTYLE'] = 'Scrambler'
+                row['TRAIT_QBSTYLE'] = 'Scrambling'
 
         # HB Edits
         if row['Position'] == 'HB':
@@ -98,9 +98,9 @@ def adjust_contract_salary(row):
     if contract_status == 'Signed':
         if years_pro in min_salary_values:
             target_salary = min_salary_values[years_pro]
-            if contract_salary_0 < target_salary:
+            if contract_salary_0 != 0 and contract_salary_0 < target_salary:
                 row['ContractSalary0'] = target_salary
-            if contract_salary_1 < target_salary:
+            if contract_salary_1 != 0 and contract_salary_1 < target_salary:
                 row['ContractSalary1'] = target_salary
 
     return row
@@ -136,4 +136,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 output_filename = 'Player_PreseasonEdits.xlsx'
 df.to_excel('Files/Madden24/IE/Test/Player_PreseasonEdits.xlsx', index=False)
 
-### REWRITE DEF ADJUST_CONTRACT_SALARY TO ONLY CHANGE SALARY IF UNDER CONTRACT THAT YEAR (DON'T CHANGE IF CONTRACT_SALARY = 0) ###
+### CoverBall might get changed ###

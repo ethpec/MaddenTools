@@ -30,7 +30,7 @@ def update_traits(row):
             if row['SpeedRating'] < 80:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
             if row['SpeedRating'] >= 87:
-                row['TRAIT_QBSTYLE'] = 'Scrambler'
+                row['TRAIT_QBSTYLE'] = 'Scrambling'
 
         # HB Edits
         if row['Position'] == 'HB':
