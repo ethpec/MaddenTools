@@ -28,12 +28,12 @@ def update_trait_development(row):
     if trait_development == 'XFactor' and overall_rating >= 88 and contract_status in ['Signed', 'FreeAgent']:
         return trait_development        
     
-    # If not in the Superstar thresholds and between 80 and 87 OVR, update to Star
-    if trait_development in ['Superstar', 'XFactor'] and years_pro >= 4 and overall_rating >= 80 and overall_rating <= 87 and contract_status in ['Signed', 'FreeAgent']:
+    # If not in the Superstar thresholds and between 75 and 87 OVR, update to Star
+    if trait_development in ['Superstar', 'XFactor'] and years_pro >= 4 and overall_rating >= 75 and overall_rating <= 87 and contract_status in ['Signed', 'FreeAgent']:
         return 'Star'
     
     # If not in the Superstar thresholds, update to Normal
-    if trait_development in ['Superstar', 'XFactor'] and years_pro >= 4 and overall_rating < 80 and contract_status in ['Signed', 'FreeAgent']:
+    if trait_development in ['Superstar', 'XFactor'] and years_pro >= 4 and overall_rating < 75 and contract_status in ['Signed', 'FreeAgent']:
         return 'Normal'
     
     return trait_development  # Keep the existing value if no conditions are met
