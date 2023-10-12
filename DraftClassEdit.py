@@ -52,11 +52,28 @@ def update_traits(row):
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
 
-        # DEF Edits
+        # DEF Front Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
             row['TRAIT_DLSWIM'] = 'TRUE'
             row['TRAIT_DLSPIN'] = 'TRUE'
             row['TRAIT_DLBULLRUSH'] = 'TRUE'
+
+        # OLB Edits
+        if row['Position'] in ['LOLB', 'ROLB']:
+            if 'PassRush' in row['TRAIT_LBSTYLE']:
+                row['TRAIT_LBSTYLE'] = 'Balanced'
+            # Check and modify FinesseMoves if greater than 65
+            if row['FinesseMoves'] > 65:
+                row['FinesseMoves'] = random.randint(52, 65)
+            # Check and modify PowerMoves if greater than 65
+            if row['PowerMoves'] > 65:
+                row['PowerMoves'] = random.randint(52, 65)
+            # Check and modify ManCoverage if less than 50
+            if row['ManCoverage'] < 50:
+                row['ManCoverage'] = random.randint(50, 62)
+            # Check and modify ZoneCoverage if less than 50
+            if row['ZoneCoverage'] < 50:
+                row['ZoneCoverage'] = random.randint(50, 62)
 
         # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
