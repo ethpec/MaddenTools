@@ -16,7 +16,7 @@ def update_traits(row):
         # QB Edits
         if row['Position'] == 'QB':
             # For QBs, set a minimum of 70 and a maximum of 80 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 18
+            new_injury_rating = row['InjuryRating'] - 15
             # Ensure the new value is within the specified range
             if new_injury_rating < 70:
                 new_injury_rating = 70
@@ -35,7 +35,7 @@ def update_traits(row):
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 73 and a maximum of 85 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 13
+            new_injury_rating = row['InjuryRating'] - 11
             # Ensure the new value is within the specified range
             if new_injury_rating < 73:
                 new_injury_rating = 73
@@ -62,23 +62,29 @@ def update_traits(row):
         if row['Position'] in ['LOLB', 'ROLB']:
             if 'PassRush' in row['TRAIT_LBSTYLE']:
                 row['TRAIT_LBSTYLE'] = 'Balanced'
-            # Check and modify FinesseMoves if greater than 65
-            if row['FinesseMoves'] > 65:
-                row['FinesseMoves'] = random.randint(52, 65)
-            # Check and modify PowerMoves if greater than 65
-            if row['PowerMoves'] > 65:
-                row['PowerMoves'] = random.randint(52, 65)
-            # Check and modify ManCoverage if less than 50
-            if row['ManCoverage'] < 50:
-                row['ManCoverage'] = random.randint(50, 62)
-            # Check and modify ZoneCoverage if less than 50
-            if row['ZoneCoverage'] < 50:
-                row['ZoneCoverage'] = random.randint(50, 62)
+            # Subtract 8 from FinesseMoves if greater than or equal to 70
+            if row['FinesseMoves'] >= 70:
+                row['FinesseMoves'] -= 8
+            # Subtract 5 from FinesseMoves if between 55 and 69
+            elif 55 <= row['FinesseMoves'] <= 69:
+                row['FinesseMoves'] -= 5
+            # Subtract 8 from PowerMoves if greater than or equal to 70
+            if row['PowerMoves'] >= 70:
+                row['PowerMoves'] -= 8
+            # Subtract 5 from PowerMoves if between 55 and 69
+            elif 55 <= row['PowerMoves'] <= 69:
+                row['PowerMoves'] -= 5
+            # Set ManCoverage to 45 if below 45
+            if row['ManCoverage'] < 45:
+                row['ManCoverage'] = 45
+            # Set ZoneCoverage to 45 if below 45
+            if row['ZoneCoverage'] < 45:
+                row['ZoneCoverage'] = 45
 
         # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
-            new_injury_rating = row['InjuryRating'] - 18
+            new_injury_rating = row['InjuryRating'] - 16
             # Ensure the new value is within the specified range
             if new_injury_rating < 68:
                 new_injury_rating = 68

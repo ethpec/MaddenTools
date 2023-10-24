@@ -16,14 +16,14 @@ def update_traits(row):
         # QB Edits
         if row['Position'] == 'QB':
             # For QBs, set a minimum of 70 and a maximum of 80 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 18
+            new_injury_rating = row['InjuryRating'] - 15
             # Ensure the new value is within the specified range
             if new_injury_rating < 70:
                 new_injury_rating = 70
             if new_injury_rating > 80:
                 new_injury_rating = 80
             row['InjuryRating'] = new_injury_rating
-            row['TRAIT_THROWAWAY'] = 'TRUE'  # Change Trait_ThrowAway column for QBs to 'TRUE'
+            row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'ForAllHits'
             if 'Pocket' in row['TRAIT_QBSTYLE']:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
@@ -35,7 +35,7 @@ def update_traits(row):
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 73 and a maximum of 85 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 13
+            new_injury_rating = row['InjuryRating'] - 11
             # Ensure the new value is within the specified range
             if new_injury_rating < 73:
                 new_injury_rating = 73
@@ -61,7 +61,7 @@ def update_traits(row):
         # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
-            new_injury_rating = row['InjuryRating'] - 18
+            new_injury_rating = row['InjuryRating'] - 16
             # Ensure the new value is within the specified range
             if new_injury_rating < 68:
                 new_injury_rating = 68
