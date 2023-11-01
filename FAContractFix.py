@@ -128,9 +128,9 @@ player_df.loc[player_df['ContractLengthChanged'], :] = player_df[player_df['Cont
 player_df.loc[player_df['ContractLengthChanged'], :] = player_df[player_df['ContractLengthChanged']].apply(edit_contract_bonus, axis=1)
 
 # Select only the columns you want to keep in the exported sheet
-columns_to_export = ['ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3', 'ContractSalary4', 'ContractSalary5', 'ContractSalary6', 'ContractSalary7',
+columns_to_export = ['FirstName', 'LastName', 'ContractStatus', 'DidSalaryChange', 'StatusCheck', 'ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3', 'ContractSalary4', 'ContractSalary5', 'ContractSalary6', 'ContractSalary7',
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
-# Export the modified data to a new Excel file named "Player_ContractFix.xlsx"
-output_filename = 'Files/Madden24/IE/Test/Player_ContractFix.xlsx'
+# Export the modified data to a new Excel file named "Player_FAContractFix.xlsx"
+output_filename = 'Files/Madden24/IE/Test/Player_FAContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)
