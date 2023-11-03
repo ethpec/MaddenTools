@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season0/Player.xlsx'
+file_path = 'Files/Madden24/IE/Test/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -105,6 +105,50 @@ def adjust_contract_salary(row):
 
     return row
 
+def player_tag_updates(row):
+    tag1 = row['Tag1']
+    tag2 = row['Tag2']
+    contract_status = row['ContractStatus']
+    years_pro = row['YearsPro']
+    overall_rating = row['OverallRating']
+    position = row['Position']
+    
+    # Check if Tag1 and Tag2 have "NoRole"
+    if tag1 == 'NoRole' and tag2 == 'NoRole' and contract_status == 'Signed':
+        # General Young Player Checks
+        if 0 <= years_pro <= 2 and overall_rating >= 72 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
+            row['Tag1'] = 'Day1Starter'
+
+        if 0 <= years_pro <= 2 and 67 <= overall_rating <= 71 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
+            row['Tag1'] = 'FutureStarter'
+
+        # HB, WR, CB Young Player Checks
+        if 0 <= years_pro <= 2 and overall_rating >= 75 and position in ['HB', 'WR', 'CB']:
+            row['Tag1'] = 'Day1Starter'
+
+        if 0 <= years_pro <= 2 and 70 <= overall_rating <= 74 and position in ['HB', 'WR', 'CB']:
+            row['Tag1'] = 'FutureStarter'
+
+        # Veteran Checks
+        if 4 <= years_pro <= 9 and 65 <= overall_rating <= 79 and position not in ['QB', 'FB', 'K', 'P']:
+            row['Tag1'] = 'BridgePlayer'
+
+        if years_pro >= 10 and overall_rating >= 75 and position not in ['QB', 'FB', 'K', 'P']:
+            row['Tag1'] = 'Mentor'
+
+        # QB Checks
+        if 0 <= years_pro <= 3 and position == 'QB' and 68 <= overall_rating <= 79:
+            row['Tag1'] = 'QBofTheFuture'
+
+        if position == 'QB' and overall_rating >= 80:
+            row['Tag1'] = 'FranchiseQB'
+
+        if years_pro >= 4 and position == 'QB' and 68 <= overall_rating <= 72:
+            row['Tag1'] = 'BridgeQB'
+    
+    return row
+
+
 # Track the original DataFrame before applying updates
 original_df = df.copy()
 
@@ -113,6 +157,9 @@ df = df.apply(update_traits, axis=1)
 
 # Apply the adjust_contract_salary function to update the DataFrame
 df = df.apply(adjust_contract_salary, axis=1)
+
+# Apply the player_tag_updates function to update the DataFrame
+df = df.apply(player_tag_updates, axis=1)
 
 # Create a set to store column names with edits
 columns_with_edits = set()
@@ -134,6 +181,6 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden24/IE/Season0/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Test/Player_PreseasonEdits.xlsx', index=False)
 
 ### CoverBall might get changed ###
