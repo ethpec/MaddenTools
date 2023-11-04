@@ -32,8 +32,32 @@ differences['LG-RG'] = differences['LG'] - differences['RG']
 differences['LOLB-ROLB'] = differences['LOLB'] - differences['ROLB']
 differences['LE-RE'] = differences['LE'] - differences['RE']
 
+# Filter contracts for players with "ContractStatus" as "Signed"
+signed_contracts = player_df[player_df['ContractStatus'] == 'Signed']
+
+# Calculate AAV and Signing Bonus columns
+contract_salary_columns = ['ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3',
+                           'ContractSalary4', 'ContractSalary5', 'ContractSalary6', 'ContractSalary7']
+
+contract_bonus_columns = ['ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3',
+                          'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7']
+
+# Calculate AAV and Signing Bonus columns for signed contracts
+signed_contracts['AAV'] = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts['ContractLength']
+signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)  # Round to nearest 100th and divide by 100
+
+signed_contracts['SigningBonus'] = signed_contracts[contract_bonus_columns].sum(axis=1)
+signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100, 2)  # Round to nearest 100th and divide by 100
+
+contract_year_column = signed_contracts.pop('ContractYear') 
+signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)  # Insert at the desired position
+
+# Concatenate all relevant columns at once using pd.concat()
+contracts_data = pd.concat([signed_contracts[['FirstName', 'LastName', 'Position', 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']], contract_year_column], axis=1)
+
 # Export the differences to a new sheet named "Differences" within the same Excel file
 output_file_path = 'Files/Madden24/IE/Test/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
+    contracts_data.to_excel(writer, index=False, sheet_name='Contracts')
