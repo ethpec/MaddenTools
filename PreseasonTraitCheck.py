@@ -137,7 +137,10 @@ def player_tag_updates(row):
             row['Tag1'] = 'Mentor'
 
         # QB Checks
-        if 0 <= years_pro <= 2 and position == 'QB' and 70 <= overall_rating <= 79:
+        if 1 <= years_pro <= 2 and position == 'QB' and 74 <= overall_rating <= 79:
+            row['Tag1'] = 'QBofTheFuture'
+
+        if years_pro == 0 and position == 'QB' and 67 <= overall_rating <= 79:
             row['Tag1'] = 'QBofTheFuture'
 
         if position == 'QB' and overall_rating >= 80:
