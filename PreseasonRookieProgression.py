@@ -17,12 +17,12 @@ def calculate_skill_points(row):
             return skill_points
         elif development_trait == 'Star':
              chances = [0, 1, 2, 3, 4, 5, 6]
-             probabilities = [0.00, 0.20, 0.375, 0.20, 0.125, 0.075, 0.025]
+             probabilities = [0.00, 0.15, 0.475, 0.15, 0.125, 0.075, 0.025]
              skill_points = random.choices(chances, probabilities)[0]
              return skill_points
         elif development_trait == 'Superstar':
              chances = [0, 1, 2, 3, 4, 5, 6]
-             probabilities = [0.00, 0.00, 0.20, 0.35, 0.20, 0.15, 0.10]
+             probabilities = [0.00, 0.00, 0.15, 0.35, 0.25, 0.15, 0.10]
              skill_points = random.choices(chances, probabilities)[0]
              return skill_points
     return row['SkillPoints']  # Keep the existing skill points if conditions are not met
