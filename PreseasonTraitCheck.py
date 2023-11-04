@@ -116,17 +116,17 @@ def player_tag_updates(row):
     # Check if Tag1 and Tag2 have "NoRole"
     if tag1 == 'NoRole' and tag2 == 'NoRole' and contract_status == 'Signed':
         # General Young Player Checks
-        if 0 <= years_pro <= 2 and overall_rating >= 72 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
+        if 0 <= years_pro <= 1 and overall_rating >= 73 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
             row['Tag1'] = 'Day1Starter'
 
-        if 0 <= years_pro <= 2 and 67 <= overall_rating <= 71 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
+        if 0 <= years_pro <= 1 and 68 <= overall_rating <= 72 and position not in ['QB', 'HB', 'FB', 'WR', 'CB', 'K', 'P']:
             row['Tag1'] = 'FutureStarter'
 
         # HB, WR, CB Young Player Checks
-        if 0 <= years_pro <= 2 and overall_rating >= 75 and position in ['HB', 'WR', 'CB']:
+        if 0 <= years_pro <= 1 and overall_rating >= 75 and position in ['HB', 'WR', 'CB']:
             row['Tag1'] = 'Day1Starter'
 
-        if 0 <= years_pro <= 2 and 70 <= overall_rating <= 74 and position in ['HB', 'WR', 'CB']:
+        if 0 <= years_pro <= 1 and 70 <= overall_rating <= 74 and position in ['HB', 'WR', 'CB']:
             row['Tag1'] = 'FutureStarter'
 
         # Veteran Checks
@@ -137,7 +137,7 @@ def player_tag_updates(row):
             row['Tag1'] = 'Mentor'
 
         # QB Checks
-        if 0 <= years_pro <= 3 and position == 'QB' and 68 <= overall_rating <= 79:
+        if 0 <= years_pro <= 2 and position == 'QB' and 70 <= overall_rating <= 79:
             row['Tag1'] = 'QBofTheFuture'
 
         if position == 'QB' and overall_rating >= 80:
