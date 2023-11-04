@@ -2,19 +2,19 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-file_path = 'Files/Madden24/IE/Test/PlayerExpiringContracts.xlsx'
+file_path = 'Files/Madden24/IE/Test/Player_ExpiringContracts.xlsx'
 all_pros_path = 'Files/Madden24/IE/Test/AllPros.xlsx'
 all_xlsm_path = 'Files/Madden24/IE/Test/All.xlsm'
 
 # Specify the current season year
-current_season_year = 0  # Change this to the correct value
+current_season_year = 0  ####### Change this to the correct value #######
 
 def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
     """
     Calculate number value rankings for players based on conditions.
 
     Args:
-    - file_path (str): The path to the "PlayerExpiringContracts.xlsx" file.
+    - file_path (str): The path to the "Player_ExpiringContracts.xlsx" file.
     - all_pros_path (str): The path to the "AllPros.xlsx" file.
     - all_xlsm_path (str): The path to the "All.xlsm" file.
 
@@ -61,7 +61,7 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
         position = row['Position']
         downs_played = row['DOWNSPLAYED']
 
-        # Define the position-dependent values
+        # Define the position-dependent snap values
         position_values = {
             'QB': 1150,
             'LE': 1250,
