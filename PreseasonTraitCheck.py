@@ -15,13 +15,13 @@ def update_traits(row):
 
         # QB Edits
         if row['Position'] == 'QB':
-            # For QBs, set a minimum of 70 and a maximum of 80 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 15
+            # For QBs, set a minimum of 73 and a maximum of 85 for InjuryRating
+            new_injury_rating = row['InjuryRating'] - 10
             # Ensure the new value is within the specified range
-            if new_injury_rating < 70:
-                new_injury_rating = 70
-            if new_injury_rating > 80:
-                new_injury_rating = 80
+            if new_injury_rating < 73:
+                new_injury_rating = 73
+            if new_injury_rating > 85:
+                new_injury_rating = 85
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'ForAllHits'
@@ -34,13 +34,13 @@ def update_traits(row):
 
         # HB Edits
         if row['Position'] == 'HB':
-            # For HBs, set a minimum of 73 and a maximum of 85 for InjuryRating
-            new_injury_rating = row['InjuryRating'] - 11
+            # For HBs, set a minimum of 78 and a maximum of 90 for InjuryRating
+            new_injury_rating = row['InjuryRating'] - 5
             # Ensure the new value is within the specified range
-            if new_injury_rating < 73:
-                new_injury_rating = 73
-            if new_injury_rating > 85:
-                new_injury_rating = 85
+            if new_injury_rating < 78:
+                new_injury_rating = 78
+            if new_injury_rating > 90:
+                new_injury_rating = 90
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
@@ -58,15 +58,15 @@ def update_traits(row):
             row['TRAIT_DLSPIN'] = 'TRUE'
             row['TRAIT_DLBULLRUSH'] = 'TRUE'
 
-        # For all other positions, set a minimum of 68 and a maximum of 80 for InjuryRating
+        # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
-            new_injury_rating = row['InjuryRating'] - 16
+            new_injury_rating = row['InjuryRating'] - 10
             # Ensure the new value is within the specified range
-            if new_injury_rating < 68:
-                new_injury_rating = 68
-            if new_injury_rating > 80:
-                new_injury_rating = 80
+            if new_injury_rating < 73:
+                new_injury_rating = 73
+            if new_injury_rating > 85:
+                new_injury_rating = 85
             row['InjuryRating'] = new_injury_rating
 
     # Add more conditions and changes for other columns and positions as needed
