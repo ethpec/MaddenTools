@@ -53,7 +53,7 @@ contract_year_column = signed_contracts.pop('ContractYear')
 signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)  # Insert at the desired position
 
 # Concatenate all relevant columns at once using pd.concat()
-contracts_data = pd.concat([signed_contracts[['FirstName', 'LastName', 'Position', 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']], contract_year_column], axis=1)
+contracts_data = pd.concat([signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']], contract_year_column], axis=1)
 
 # Export the differences to a new sheet named "Differences" within the same Excel file
 output_file_path = 'Files/Madden24/IE/Test/Position_Report.xlsx'
