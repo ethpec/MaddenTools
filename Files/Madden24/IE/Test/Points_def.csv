@@ -1,576 +1,529 @@
 FullName,Position,TeamName,SkillPointDef
-A'Shawn Robinson,LE,NYG,-7
-A.J. Terrell Jr,CB,ATL,-1
-Aaron Donald,RE,LAR,-1
-Adam Butler,LE,LV,-6
-Adetomiwa Adebawore,RE,JAX,0
-Adoree' Jackson,CB,NYG,-3
-Adrian Amos,SS,NYJ,2
-Adrian Phillips,SS,PIT,2
-Ahkello Witherspoon,CB,LAR,3
-Aidan Hutchinson,LE,DET,-3
-Akeem Davis-Gaither,LOLB,CIN,-7
-Akiem Hicks,RE,GB,4
-Al Woods,DT,LAC,-4
-Alex Anzalone,ROLB,DET,-5
-Alex Highsmith,ROLB,PIT,-5
-Alex Singleton,MLB,DEN,-2
-Alexander Johnson,MLB,DET,-7
-Alim McNeill,DT,DET,-1
-Alontae Taylor,CB,NO,2
-Alton Robinson,ROLB,DAL,-3
-Amani Hooker,SS,TEN,-5
-Amani Oruwariye,CB,NYG,-4
-Ambry Thomas,CB,SF,-3
-Ameer Speed,CB,NE,-4
+A'Shawn Robinson,DT,NYG,0
+A.J. Terrell Jr,CB,ATL,2
+AJ Finley,FS,LAC,-3
+Aaron Donald,DT,LAR,-2
+Aaron Hansford,LOLB,GB,-5
+Aaron Robinson,CB,NYG,4
+Adoree' Jackson,CB,NYG,4
+Adrian Phillips,FS,NE,4
+Aidan Hutchinson,RE,DET,-2
+Akayleb Evans,CB,MIN,-3
+Akeem Davis-Gaither,LOLB,CIN,-4
+Akeem Dent,FS,TEN,-4
+Alex Highsmith,RE,PIT,-6
+Alex Singleton,LOLB,DEN,3
+Alim McNeill,DT,DET,-3
+Alontae Taylor,CB,NO,0
+Amani Hooker,SS,TEN,-1
+Amari Burney,MLB,LV,-5
 Andre Cisco,FS,JAX,-2
-Andrew Billings,DT,SEA,7
 Andrew Booth Jr,CB,MIN,0
-Andrew Van Ginkel,ROLB,KC,2
-Andrew Wingard,FS,SF,-5
-Anfernee Jennings,ROLB,NE,-4
-Anthony Averett,CB,JAX,0
-Anthony Brown,CB,BAL,1
-Anthony Nelson,LOLB,TB,-7
-Anthony Walker Jr,MLB,CLE,2
+Andrew Mukuba,SS,IND,10
+Andrew Wingard,SS,JAX,3
+Anfernee Orji,LOLB,CAR,1
+Anthony Barr,LOLB,TEN,-4
+Anthony Walker Jr,MLB,LAR,-1
 Antoine Winfield Jr,FS,TB,-2
-Ar'Darius Washington,SS,BAL,3
-Arden Key,LOLB,TEN,0
-Arik Armstead,DT,SF,-1
-Arnold Ebiketie,LOLB,ATL,3
-Asante Samuel Jr,CB,LAC,2
-Ashtyn Davis,SS,NYJ,13
-Avery Young,SS,TB,6
-Avonte Maddox,CB,PHI,-1
-Azeez Al-Shaair,MLB,TEN,-1
-Azeez Ojulari,LOLB,NYG,8
-B.J. Hill,DT,CIN,1
-BJ Ojulari,LOLB,ARI,-1
-Baron Browning,ROLB,DEN,-2
-Benjamin St-Juste,CB,WAS,-3
-Bilal Nichols,RE,LV,-2
-Bobby Brown III,DT,LAR,-2
-Bobby McCain,SS,NYG,-1
-Bobby Okereke,MLB,NYG,1
-Bobby Wagner,MLB,SEA,-4
-Boogie Basham Jr,LE,BUF,-7
-Boye Mafe,ROLB,SEA,-9
-Bradley Chubb,LOLB,MIA,-1
-Brandon Graham,LE,PHI,2
-Brandon Hill,FS,HOU,-5
-Brandon Jones,SS,MIA,-2
-Brenden Schooler,SS,NE,-1
-Brian Asamoah II,MLB,MIN,-1
+Arik Armstead,DT,SF,-2
+Arthur Maulet,CB,IND,1
+Asante Samuel Jr,CB,LAC,1
+Avonte Maddox,CB,PHI,-3
+Baron Browning,RE,DEN,2
+Barrett Carter,MLB,MIN,5
+Baylon Spector,MLB,BUF,-6
+Beau Brade,FS,IND,3
+Ben Bywater,ROLB,NO,-2
+Bilal Nichols,DT,NYJ,8
+Blake Cashman,LOLB,HOU,-1
+Bobby Okereke,MLB,NYG,-3
+Bobby Wagner,MLB,HOU,4
+Boogie Basham Jr,RE,NYG,12
+Boye Mafe,LE,SEA,3
+Braden Fiske,DT,ARI,3
+Bradley Chubb,RE,MIA,5
+Braiden McGregor,LE,LAR,2
+Bralen Trice,RE,WAS,5
+Brandon Dorlus,DT,MIA,-2
+Brandon Jones,SS,NYJ,-5
+Brandon Smith,MLB,KC,-5
+Brandon Stephens,CB,BAL,-3
+Brian Asamoah II,MLB,MIN,0
 Brian Branch,SS,DET,-3
-Brian Burns,LOLB,CAR,2
-Bryan Bresee,DT,NO,2
-Bryan Cook,SS,KC,5
-Bryce Callahan,CB,NYG,-4
-Bryce Hall,CB,NYJ,-1
-Bud Dupree,LOLB,SF,-6
+Brian Burns,RE,WAS,-3
+Broderick Washington Jr,DT,BAL,3
+Bryan Bresee,DT,NO,1
+Bryan Cook,FS,KC,5
+Bryce Huff,LE,ARI,6
 Budda Baker,SS,ARI,-3
-Byron Jones,CB,MIN,-4
-Byron Murphy Jr,CB,MIN,-1
-Byron Young,LOLB,LAR,-7
-C.J. Gardner-Johnson,SS,DET,-3
-C.J. Henderson,CB,CAR,0
+Buddy Johnson,ROLB,MIN,-2
+Byron Murphy Jr,CB,MIN,4
+Byron Young,DT,LV,4
+Byron Young,RE,LAR,1
+C.J. Gardner-Johnson,FS,DET,-2
 C.J. Mosley,MLB,NYJ,0
-Calais Campbell,RE,ATL,-4
-Caleb Farley,CB,TEN,-2
-Calijah Kancey,LE,TB,-5
-Cam Smith,CB,MIA,2
+Caden Sterns,SS,DEN,5
+Caelen Carson,CB,LV,2
+Caleb Farley,CB,TEN,2
+Cam Hart,CB,JAX,5
+Cam Sample,LE,CIN,-6
+Cam Smith,CB,MIA,1
 Cam Taylor-Britt,CB,CIN,0
-Cameron Goode,LOLB,MIA,-3
-Cameron Heyward,RE,PIT,-6
-Cameron Jordan,LE,NO,-4
-Cameron McGrone,LOLB,IND,0
-Cameron Mitchell,CB,CLE,-3
+Cameron Heyward,DT,PIT,-4
+Cameron Jordan,LE,NO,-2
+Cameron Mitchell,CB,CLE,-2
 Cameron Sutton,CB,DET,0
-Cameron Thomas,ROLB,ARI,1
-Cameron Young,DT,SEA,-4
-Camryn Bynum,FS,LAC,0
-Carl Lawson,RE,NYJ,-7
-Carl Nassib,ROLB,LAR,2
-Carlos Dunlap II,LE,ARI,-6
-Carlton Davis III,CB,TB,-2
-Casey Hayward Jr,CB,PHI,-2
-Casey Toohill,LE,WAS,-2
-Chad Muma,MLB,JAX,-5
-Chamarri Conner,FS,KC,6
-Chandler Jones,ROLB,LV,0
-Charles Omenihu,RE,KC,-2
-Charvarius Ward,CB,SF,-3
-Chase Young,RE,WAS,-3
-Chidobe Awuzie,CB,CIN,1
-Chris Jones,DT,KC,-6
-Chris Rumph II,ROLB,LAC,3
-Chris Wormley,LE,DEN,-6
-Christian Barmore,LE,NE,7
-Christian Gonzalez,CB,NE,1
-Christian Kirksey,MLB,HOU,1
-Christian Matthew,CB,ARI,2
-Christian Wilkins,RE,MIA,-10
-Christopher Smith II,FS,LV,0
-Clelin Ferrell,RE,ARI,-2
-Cobie Durant,CB,LAR,2
-Cody Barton,MLB,WAS,0
-Cole Holcomb,MLB,PIT,-1
-Cordale Flott,CB,NYG,-3
-Cory Littleton,LOLB,HOU,0
+Camryn Bynum,FS,MIN,0
+Carl Granderson,RE,NO,-2
+Carl Lawson,RE,NYJ,-2
+Carlton Davis III,CB,TB,0
+Cedric Gray,MLB,NYG,6
+Chad Muma,LOLB,JAX,-1
+Channing Tindall,LOLB,MIA,6
+Charles Omenihu,RE,KC,-3
+Charvarius Ward,CB,SF,2
+Chase Young,RE,JAX,3
+Chauncey Golston,DT,DAL,1
+Chazz Surratt,LOLB,NYJ,-5
+Chidobe Awuzie,CB,IND,2
+Chop Robinson,RE,DET,3
+Chris Garrett,LOLB,PIT,3
+Chris Jones,DT,KC,-3
+Christian Barmore,DT,NE,4
+Christian Gonzalez,CB,NE,3
+Christian Harris,ROLB,HOU,3
+Christian Wilkins,DT,NE,-4
+Christopher Smith II,SS,LV,2
+Chuck Clark,SS,LAR,2
+Clark Phillips III,CB,ATL,0
+Claudin Cherelus,MLB,CAR,1
+Cobie Durant,CB,LAR,0
+Cody Barton,MLB,WAS,-1
+Cole Bishop,FS,LAR,-2
+Cole Holcomb,MLB,PIT,4
+Collin Oliver,RE,CAR,-4
+Cordale Flott,CB,NYG,3
+Cory Trice Jr,CB,PIT,2
+Craig Young,LOLB,CIN,3
+Curtis Jacobs,LOLB,LAC,12
 D'Marco Jackson,MLB,NO,-6
-D.J. Reader,DT,CIN,-4
-D.J. Reed Jr,CB,NYJ,-1
-D.J. Wonnum,ROLB,MIN,0
-DJ Johnson,ROLB,CAR,-7
-DJ Turner,CB,CIN,-4
+D.J. James,CB,DEN,2
+D.J. Jones,DT,DEN,-3
+D.J. Reed Jr,CB,NYJ,-2
+DJ Johnson,LE,CAR,-6
+DJ Turner,CB,CIN,0
 Da'Ron Payne,DT,WAS,11
-DaQuan Jones,DT,LAR,5
-DaVon Hamilton,DT,JAX,-4
-Daiyan Henley,MLB,LAC,2
+DaQuan Jones,DT,BUF,-1
+DaRon Bland,CB,DAL,1
+DaVon Hamilton,DT,JAX,2
+Daiyan Henley,ROLB,LAC,5
+Dallas Turner,RE,IND,0
+Dallis Flowers,CB,IND,2
 Dalvin Tomlinson,DT,CLE,-4
-Damien Wilson,MLB,IND,6
-Damone Clark,ROLB,DAL,2
-Damontae Kazee,SS,NYG,-2
-Dane Jackson,CB,BUF,-1
-Danielle Hunter,LOLB,MIN,-2
-Danny Johnson,CB,WAS,-3
-Dante Fowler Jr,LE,LAR,-2
-Darious Williams,CB,JAX,0
-Darius Rush,CB,IND,0
-Darnell Savage,FS,GB,-6
-Darrell Taylor,LOLB,SEA,3
+Damarri Mathis,CB,DEN,3
+Damone Clark,ROLB,DAL,-3
+Dane Belton,SS,NYG,-1
+Danielle Hunter,LE,MIN,3
+Darious Williams,CB,JAX,1
+Darius Muasau,LOLB,CLE,2
+Darius Slay Jr,CB,PHI,4
+Darnell Savage,FS,GB,5
 Darrick Forrest,FS,WAS,0
-David Long Jr,CB,LV,-4
-David Long Jr,MLB,MIA,0
-David Mayo,LOLB,WAS,1
-David Ojabo,ROLB,BAL,-4
-David Onyemata,LE,ATL,-3
-Davon Godchaux,DT,NE,-6
-Dawuane Smoot,LE,CAR,-2
-Daxton Hill,FS,CIN,1
-Dayo Odeyingbo,LE,IND,-2
-De'Vondre Campbell,MLB,GB,-2
-DeForest Buckner,DT,IND,-4
-DeMarcco Hellams,SS,ATL,-8
-DeMarcus Lawrence,LE,DAL,-7
-DeMarcus Walker,LE,CHI,-5
-DeShon Elliott,SS,MIA,1
-Dean Lowry,LE,MIN,-2
-Deangelo Malone,LOLB,ATL,-5
-Deatrich Wise Jr,RE,NE,-4
-Dee Winters,LOLB,SF,-3
-Deion Jones,MLB,CAR,-2
-Delarrin Turner-Yell,FS,DEN,-3
-Demario Davis,MLB,NO,-2
-Denzel Perryman,ROLB,HOU,-2
-Denzel Ward,CB,CLE,0
-Deommodore Lenoir,CB,SF,0
-Deonte Banks,CB,NYG,4
-Derek Barnett,RE,PHI,-3
-Derek Stingley Jr,CB,HOU,0
-Derick Hall,LOLB,SEA,-1
-Derick Roberson,LOLB,DET,-5
-Derrick Brown,RE,CAR,-7
-Derrick Nnadi,DT,KC,-2
-Derwin James Jr,SS,LAC,-3
-Desmond King II,CB,HOU,1
-Devin Bush,MLB,SEA,-3
-Devin Harper,LOLB,DAL,-5
-Devin Lloyd,MLB,JAX,1
+David Long Jr,ROLB,MIA,-1
+David Onyemata,DT,ATL,1
+David Reese,LOLB,SEA,2
+Davion Taylor,ROLB,ARI,-4
+Dawuane Smoot,LE,LV,-6
+Daxton Hill,SS,CIN,-3
+De'Vondre Campbell,MLB,GB,0
+DeForest Buckner,DT,IND,11
+DeMarcus Lawrence,LE,DAL,-2
+DeMarcus Walker,LE,CHI,7
+DeMarvion Overshown,MLB,DAL,1
+Dean Lowry,LE,MIN,3
+Deane Leonard,CB,LAC,3
+Dee Alford,CB,ATL,-1
+Dee Winters,ROLB,SF,-1
+Deion Jones,LOLB,PHI,0
+Demario Davis,MLB,NO,-4
+Denzel Burke,CB,TB,4
+Denzel Ward,CB,CLE,3
+Deommodore Lenoir,CB,SF,-5
+Deonte Banks,CB,NYG,5
+Derek Barnett,RE,PHI,3
+Derek Stingley Jr,CB,HOU,7
+Derion Kendrick,CB,LAR,2
+Derrick Barnes,MLB,DET,-7
+Derrick Brown,DT,CAR,-2
+Derrick Nnadi,DT,KC,-1
+Derwin James Jr,SS,LAC,1
+Deshawn Pace,ROLB,LV,-3
+Desmond King II,CB,DAL,2
+Devin Bush,ROLB,SEA,-2
 Devin White,MLB,TB,-1
-Devon Witherspoon,CB,SEA,-3
-Dexter Lawrence II,DT,NYG,-7
-Divine Deablo,MLB,LV,1
-Donovan Wilson,SS,DAL,3
-Dorance Armstrong,RE,DAL,-1
-Dorian Williams,MLB,BUF,-1
+Devon Witherspoon,CB,SEA,0
+Devonte Wyatt,DT,GB,6
+Divine Deablo,MLB,LV,3
+Donovan Wilson,SS,DAL,-3
+Donte Jackson,CB,CAR,6
+Dorian Williams,ROLB,BUF,11
 Drake Jackson,LE,SF,-6
-Dre Greenlaw,ROLB,SF,-4
-Dre'Mont Jones,LE,SEA,6
-Drew Sanders,MLB,DEN,2
-Drue Tranquill,LOLB,KC,4
-Duke Shelley,CB,LV,-2
-Duron Harmon,FS,LAC,-1
-Dylan Cole,LOLB,CHI,0
-E.J. Speed,MLB,IND,-1
-Ed Oliver,DT,BUF,1
-Eddie Jackson,FS,CHI,-2
-Eli Apple,CB,MIA,-4
-Elijah Hicks,FS,CHI,-3
-Elijah Molden,CB,TEN,0
-Emmanuel Forbes Jr,CB,WAS,-1
-Emmanuel Moseley,CB,DET,-2
-Emmanuel Ogbah,LE,MIA,-8
-Eric Kendricks,MLB,LAC,-2
-Eric Rowe,FS,CAR,0
-Eric Scott Jr.,CB,DAL,-1
+Drake Thomas,ROLB,SEA,-5
+Dre Greenlaw,ROLB,SF,-8
+Dre'Mont Jones,RE,SEA,-4
+Drew Sanders,ROLB,DEN,-1
+Drue Tranquill,LOLB,DET,1
+Dwight McGlothern,CB,ARI,2
+Dylan Moses,MLB,MIA,-6
+E.J. Speed,ROLB,IND,6
+Easton Gibbs,ROLB,JAX,0
+Ed Oliver,DT,BUF,0
+Eddie Jackson,FS,CHI,-5
+Elandon Roberts,ROLB,PIT,2
+Elijah Molden,FS,TEN,4
+Emmanuel Forbes Jr,CB,WAS,5
+Emmanuel Moseley,CB,DET,2
+Emmanuel Ogbah,LE,MIA,1
+Eric Kendricks,MLB,LAC,2
 Eric Stokes,CB,GB,0
-Erick Hallett II,FS,JAX,-6
-Ernest Jones,MLB,LAR,-1
-Felix Anudike-Uzomah,RE,KC,1
-Fletcher Cox,DT,PHI,-3
-Folorunso Fatukasi,LE,JAX,-4
-Foyesade Oluokun,MLB,JAX,2
-Frank Clark,ROLB,DEN,-3
-Frankie Luvu,LOLB,CAR,-1
-Fred Warner,MLB,SF,-1
-Garrett Williams,CB,ARI,-2
-Geno Stone,FS,BAL,12
-George Karlaftis,LE,KC,0
-Germaine Pratt,MLB,CIN,4
-Gervon Dexter,DT,CHI,-1
-Grady Jarrett,RE,ATL,-5
-Grant Delpit,SS,CLE,5
-Greedy Williams,CB,JAX,0
-Greg Gaines,RE,TB,-6
-Greg Newsome II,CB,CLE,-2
-Greg Rousseau,LE,BUF,-5
-Grover Stewart,DT,IND,-4
-Haason Reddick,LOLB,PHI,0
-Harold Landry III,ROLB,TEN,4
-Harrison Phillips,RE,MIN,-5
-Harrison Smith,SS,MIN,-4
-Isaiah Foskey,RE,NO,-6
+Erick Hallett II,FS,ATL,-4
+Ernest Jones,MLB,LAR,0
+Ethan Downs,LE,HOU,-2
+Fletcher Cox,DT,PHI,7
+Foyesade Oluokun,MLB,JAX,-1
+Frankie Luvu,LE,CAR,-2
+Fred Warner,MLB,SF,2
+Gabriel Murphy,LE,WAS,-4
+Geno Stone,FS,CIN,4
+George Karlaftis,LE,KC,-5
+George Odum,SS,SF,-1
+Germaine Pratt,MLB,CIN,2
+Gervarrius Owens,FS,NYG,2
+Grady Jarrett,DT,ATL,-4
+Grant Delpit,SS,ATL,-2
+Greg Gaines,DT,TB,0
+Greg Newsome II,CB,CLE,2
+Greg Rousseau,LE,BUF,5
+Grover Stewart,DT,CAR,1
+Haason Reddick,LE,PHI,1
+Harrison Phillips,DT,MIN,2
+Harrison Smith,SS,MIN,-2
+Henry To'oTo'o,MLB,HOU,-6
+Isaiah Foskey,RE,NO,-5
+Isaiah McDuffie,ROLB,GB,-4
 Isaiah Oliver,CB,SF,0
-Isaiah Simmons,MLB,NYG,-2
-Ja'Sir Taylor,CB,LAC,0
-Ja'Whaun Bentley,MLB,NE,-8
-Jabril Cox,LOLB,DAL,-3
-Jabrill Peppers,FS,NE,-3
-Jack Campbell,MLB,DET,0
-Jack Jones,CB,NE,0
-Jack Sanborn,LOLB,CHI,5
-Jadeveon Clowney,LOLB,BAL,6
-Jahlani Tavai,MLB,LAR,1
-Jaire Alexander,CB,GB,-3
+Isaiah Rodgers Sr,CB,PHI,-1
+Isaiah Simmons,LOLB,NYG,9
+Israel Mukuamu,FS,DAL,-2
+Ivan Pace Jr,LOLB,MIN,5
+JC Jackson,CB,NE,1
+JL Skinner,SS,DEN,9
+JT Tuimoloau,RE,ARI,-5
+Ja'Sir Taylor,CB,LAC,2
+Ja'Whaun Bentley,MLB,NE,1
+Jabril Cox,LOLB,NO,5
+Jabrill Peppers,SS,NE,-1
+Jack Gibbens,LOLB,KC,-4
+Jack Howell,FS,BAL,-1
+Jack Jones,CB,LV,2
+Jack Sanborn,LOLB,CHI,0
+Jack Sawyer,RE,KC,5
+Jackson Mitchell,MLB,ARI,-3
+Jadeveon Clowney,LE,WAS,-4
+Jaelan Phillips,LE,MIA,-5
+Jahlani Tavai,ROLB,NE,-1
+Jaire Alexander,CB,GB,-1
+Jake Hummel,MLB,LAR,-6
 Jalen Carter,DT,PHI,-2
-Jalen Graham,MLB,SF,3
-Jalen Mills,CB,NO,-1
-Jalen Pitre,SS,HOU,-1
+Jalen Graham,LOLB,SF,7
+Jalen Pitre,FS,HOU,2
+Jalen Ramsey,CB,MIA,1
 Jalen Thompson,FS,ARI,-3
-Jalyn Holmes,DT,NYJ,1
-Jamal Adams,SS,SEA,-5
-Jamel Dean,CB,TB,-1
-James Bradberry IV,CB,PHI,-1
-Jamien Sherwood,LOLB,NYJ,-5
-Jammie Robinson,SS,CAR,-6
-Jaquan Brisker,SS,CHI,-2
-Jarran Reed,RE,SEA,3
-Jartavius Martin,FS,WAS,8
-Jason Pinnock,FS,NYG,-6
-Jason Taylor II,FS,LAR,-1
-Jason Verrett,CB,KC,-1
-Javon Hargrave,DT,SF,3
+Jamel Dean,CB,TB,4
+James Bradberry IV,CB,PHI,-2
+James Williams,SS,DAL,-4
+Jamin Davis,ROLB,WAS,-3
+Jammie Robinson,SS,CAR,1
+Jamon Dumas-Johnson,MLB,TEN,-1
+Jaquan Brisker,SS,CHI,2
+Jaquan Sheppard,CB,KC,2
+Jared Verse,LE,NE,-7
+Jarran Reed,DT,SEA,10
+Jartavius Martin,CB,WAS,1
+Jason Marshall Jr.,CB,TEN,5
+Jason Pinnock,SS,NYG,3
+Javon Bullard,FS,CAR,3
+Javon Hargrave,DT,SF,10
 Jay Tufele,DT,CIN,8
-Jay Ward,FS,MIN,7
 Jaycee Horn,CB,CAR,1
-Jaylen Watson,CB,KC,-2
-Jaylinn Hawkins,SS,ATL,2
-Jaylon Johnson,CB,CHI,-2
-Jaylon Smith,ROLB,NO,4
-Jayron Kearse,SS,DAL,0
-Jeff Okudah,CB,ATL,-1
-Jeffery Simmons,RE,TEN,-3
-Jeremiah Owusu-Koramoah,ROLB,CLE,-1
-Jeremy Chinn,CB,CAR,2
-Jermaine Johnson II,LE,NYJ,-6
-Jerome Baker,MLB,MIA,-2
-Jerrick Reed II,FS,SEA,-4
-Jerry Hughes Jr,LE,HOU,-3
-Jessie Bates III,FS,ATL,-2
-Jevon Holland,FS,MIA,-1
-Ji'Ayir Brown,SS,SF,13
-Jihad Ward,ROLB,NYG,-2
-Jimmie Ward,FS,HOU,-1
-Joe Schobert,MLB,LAR,-5
-Joe Tryon-Shoyinka,ROLB,TB,4
-Joey Bosa,LOLB,LAC,0
-Joey Porter Jr.,CB,PIT,-4
-John Franklin-Myers,LE,NYJ,-4
-John Johnson III,FS,LAR,-5
-Johnathan Abram,SS,NO,-2
-Johnathan Hankins,DT,DAL,2
-Jonathan Allen,DT,WAS,-3
-Jonathan Greenard,RE,HOU,-4
-Jonathan Jones,CB,NE,-2
-Jordan Battle,SS,CIN,-3
-Jordan Fuller,SS,LAR,-4
-Jordan Hicks,MLB,MIN,0
-Jordan Jenkins,LOLB,WAS,2
-Jordan Kunaszyk,MLB,CLE,-6
-Jordan Phillips,DT,MIA,-3
-Jordan Poyer,SS,BUF,-4
-Jordan Whitehead,FS,NYJ,-3
-Jordan Willis,LOLB,LV,-2
-Jordyn Brooks,MLB,SEA,-5
-Josey Jewell,MLB,DEN,-1
-Josh Allen,LOLB,JAX,5
-Josh Hayes,CB,TB,-2
-Josh Metellus,SS,GB,-4
-Josh Sweat,RE,PHI,-7
-Josh Uche,ROLB,NE,-2
-Joshua Williams,CB,KC,-1
-Jourdan Lewis,CB,DAL,-3
-JuJu Hughes,SS,ARI,-1
-Juan Thornhill,FS,CLE,0
-Julian Blackmon,FS,IND,4
-Julian Love,SS,MIA,-2
-Julius Brents,CB,IND,-2
-Justin Hollins,ROLB,GB,-9
-Justin Houston,ROLB,CAR,-9
-Justin Jones,DT,CHI,-3
-Justin Madubuike,LE,BAL,-5
-Justin Reid,FS,KC,-1
-Justin Simmons,FS,DEN,-5
-K'Lavon Chaisson,ROLB,JAX,-7
-K'Waun Williams,CB,LAR,0
+Jaylan Ford,MLB,HOU,-10
+Jaylen Harrell,LE,BUF,0
+Jaylen Watson,CB,KC,3
+Jaylon Carlies,SS,CLE,-1
+Jaylon Johnson,CB,CHI,0
+Jaylon Jones,CB,CHI,-2
+Jaylon Jones,CB,IND,6
+Jaylon Smith,ROLB,BAL,-1
+Jeffery Simmons,DT,TEN,-5
+Jeremiah Owusu-Koramoah,ROLB,CLE,4
+Jeremiah Trotter Jr.,LOLB,WAS,0
+Jeremy Chinn,CB,CAR,-1
+Jermaine Johnson II,RE,NYJ,-6
+Jerome Baker,MLB,MIA,-5
+Jerrin Thompson,FS,HOU,2
+Jessie Bates III,FS,ATL,1
+Jevon Holland,FS,MIA,0
+Ji'Ayir Brown,FS,SF,4
+Jimmie Ward,SS,HOU,1
+Joe Schobert,MLB,SEA,4
+Joey Bosa,RE,LAC,-11
+Joey Porter Jr,CB,PIT,3
+John Cominsky,LE,DET,-6
+John Franklin-Myers,LE,NYJ,-1
+Jonah Williams,LE,LAR,-4
+Jonas Griffith,MLB,TEN,-2
+Jonathan Allen,DT,WAS,-6
+Jonathon Cooper,LE,DEN,-6
+Jordan Battle,SS,CIN,-6
+Jordan Burch,DT,JAX,-2
+Jordan Davis,DT,PHI,-1
+Jordan Hicks,MLB,BAL,-5
+Jordan Poyer,SS,BUF,-3
+Jordan Whitehead,FS,NYJ,-2
+Jordyn Brooks,LOLB,SEA,-3
+Josey Jewell,MLB,DEN,2
+Josh Metellus,SS,MIN,3
+Josh Newton,CB,LAR,2
+Josh Proctor,FS,TB,-5
+Josh Sweat,RE,PHI,-3
+Josh Uche,LE,LAR,-3
+Juan Thornhill,FS,CLE,5
+Julian Blackmon,SS,IND,-2
+Julius Brents,CB,IND,1
+Junior Colson,MLB,ATL,-6
+Junior Tafuna,DT,LV,0
+Justin Jones,DT,CHI,0
+Justin Reid,SS,KC,2
+Justin Simmons,FS,DEN,3
+K.J. Britt,ROLB,TB,4
+Ka'Dar Hollman,CB,HOU,2
+Kaden Elliss,MLB,ATL,-5
 Kader Kohou,CB,MIA,2
-Kaevon Merriweather,FS,TB,-1
-Kaiir Elam,CB,BUF,-5
-Kamren Curl,SS,WAS,-1
-Kareem Jackson,SS,DEN,-5
-Kayvon Thibodeaux,ROLB,NYG,-2
-Keandre Jones,ROLB,CIN,-2
-Keanu Neal,SS,PIT,5
-Keeanu Benton,DT,PIT,7
-Keisean Nixon,CB,GB,-1
-Kelee Ringo,CB,PHI,3
-Kendall Fuller,CB,WAS,-2
-Kenny Clark,DT,GB,0
-Kenny Young,MLB,WAS,-1
-Kerby Joseph,FS,DET,1
-Kevin Byard,FS,TEN,-3
-Khaleke Hudson,ROLB,WAS,5
-Khalen Saunders,DT,NO,2
-Khalil Mack,ROLB,LAC,-4
-Khyiris Tonga,DT,MIN,-2
-Kingsley Enagbare,ROLB,NYG,-6
-Kingsley Keke,LE,LAR,-4
-Kobie Turner,RE,LAR,-4
-Krys Barnes,MLB,TEN,0
-Kwon Alexander,MLB,PIT,1
-Kyle Dugger,SS,NE,-3
-Kyle Fuller,CB,DEN,2
-Kyle Van Noy,ROLB,IND,-4
-Kyler Fackrell,LOLB,LAR,13
-Kyler Gordon,CB,CHI,2
-Kyu Blu Kelly,CB,BAL,-4
-Kyzir White,MLB,ARI,3
-Landon Collins,MLB,TEN,3
-Larry Ogunjobi,LE,PIT,-4
-Lavonte David,MLB,TB,-1
-Lawrence Guy,LE,NE,-2
+Kaevon Merriweather,SS,TB,0
+Kaiir Elam,CB,BUF,-1
+Kalen King,CB,GB,-2
+Kamari Lassiter,CB,CAR,1
+Kamren Curl,SS,WAS,-2
+Kamu Grugier-Hill,ROLB,NYG,3
+Karene Reid,ROLB,GB,-3
+Kayvon Thibodeaux,RE,NYG,13
+Keeanu Benton,DT,PIT,-3
+Keisean Nixon,CB,GB,1
+Keith Taylor Jr,CB,WAS,1
+Kendal Daniels,SS,GB,-2
+Kendall Fuller,CB,WAS,2
+Kenny Moore II,CB,DET,2
+Kenny Young,MLB,CLE,9
+Kevin Byard,FS,PHI,2
+Khalen Saunders,DT,NO,0
+Khari Coleman,LOLB,LV,-1
+Khyree Jackson,CB,BAL,0
+Kingsley Enagbare,RE,GB,-5
+Kobie Turner,DT,LAR,1
+Kool-Aid McKinstry,CB,NO,3
+Kris Abrams-Draine,CB,JAX,8
+Kris Jenkins,DT,HOU,0
+Krys Barnes,ROLB,ATL,3
+Kwity Paye,LE,IND,-7
+Kwon Alexander,LOLB,NE,3
+Kyle Dugger,SS,LV,-1
+Kyle Hamilton,SS,BAL,-5
+Kyle Van Noy,RE,BUF,-4
+Kyler Gordon,CB,CHI,-5
+L'Jarius Sneed,CB,CIN,3
+Larry Ogunjobi,DT,PIT,1
+Lavonte David,ROLB,TB,-2
 Leighton Vander Esch,MLB,DAL,-1
-Leo Chenal,MLB,KC,-9
-Leonard Floyd,LE,BUF,-2
-Leonard Williams,RE,NYG,-3
-Levi Onwuzurike,DT,DET,7
+Leo Chenal,ROLB,KC,-4
+Leonard Floyd,LE,NYG,-1
+Leonard Williams,DT,SEA,5
+Levi Onwuzurike,DT,DET,6
 Levi Wallace,CB,PIT,-1
-Lewis Cine,FS,MIN,-2
-Linval Joseph,DT,CAR,-4
-Logan Ryan,FS,PHI,5
-Logan Wilson,ROLB,CIN,-4
-Lorenzo Carter,ROLB,ATL,-3
-Lukas Van Ness,LOLB,GB,0
-Malcolm Rodriguez,ROLB,KC,2
-Maliek Collins,DT,HOU,7
-Malik Harrison,MLB,ATL,1
-Malik Hooker,FS,DAL,-1
-Malik Jefferson,MLB,DAL,-6
-Malik Reed,ROLB,MIA,0
-Marco Wilson,CB,ARI,0
-Marcus Davenport,ROLB,MIN,-1
-Marcus Epps,FS,LV,-2
-Marcus Jones,CB,NE,0
-Marcus Peters,CB,LV,3
-Marcus Williams,FS,BAL,-3
-Mark Webb Jr,SS,LAC,-5
-Markus Bailey,MLB,CIN,-6
-Markus Golden,LOLB,NO,-1
-Marlon Humphrey,CB,BAL,-4
-Marquis Haynes Sr,LOLB,DET,-1
-Marshon Lattimore,CB,NO,2
-Marte Mapu,MLB,NE,1
+Lewis Cine,FS,MIN,8
+Logan Hall,RE,TB,13
+Logan Wilson,ROLB,CIN,2
+Lorenzo Carter,LE,ATL,13
+Lukas Van Ness,LE,GB,-1
+M.J. Stewart Jr,SS,HOU,4
+M.J. Tafisi Jr.,MLB,NYJ,1
+Mack Wilson Sr,LOLB,BUF,4
+Malachi Moore,FS,DET,-2
+Malcolm Rodriguez,ROLB,DET,-1
+Malik Dunlap,CB,PIT,0
+Malik Harrison,LOLB,LAR,1
+Malik Hooker,FS,DAL,-5
+Marcellas Dial,CB,HOU,7
+Marco Wilson,CB,ARI,6
+Marcus Davenport,RE,MIN,-2
+Marcus Jones,CB,NE,-2
+Marcus Maye,SS,NO,3
+Marcus Peters,CB,BAL,3
+Mark Perry,SS,PIT,-2
+Marlon Humphrey,CB,BAL,4
+Marshon Lattimore,CB,NO,6
+Marte Mapu,SS,NE,-5
 Martin Emerson Jr,CB,CLE,-1
-Matt Milano,ROLB,BUF,-6
-Matthew Adams,LOLB,CLE,-8
-Matthew Ioannidis,DT,ARI,-3
-Matthew Judon,LOLB,NE,-1
-Maurice Hurst,DT,ARI,-1
-Maxx Crosby,LOLB,LV,-1
-Mazi Smith,DT,DAL,-3
-Mekhi Blackmon,CB,MIN,-3
-Melvin Ingram,LOLB,CIN,-2
-Micah Hyde,FS,BUF,-1
-Micah McFadden,MLB,NYG,-5
-Micah Parsons,RE,DAL,-8
-Michael Carter II,CB,NYJ,-5
-Michael Davis,CB,LAC,-2
-Michael Hoecht,ROLB,HOU,-5
-Michael Pierce,DT,BAL,-3
-Micheal Clemons,RE,NYJ,8
-Mike Edwards,SS,KC,-4
-Mike Hilton,CB,CIN,-2
-Mike Hughes,CB,ATL,0
-Mike Jackson Sr,CB,SEA,-3
-Mike Morris,LE,SEA,0
-Mike Purcell,DT,DEN,-4
-Minkah Fitzpatrick,FS,PIT,-6
-Montez Sweat,LE,WAS,2
-Montravius Adams,DT,PIT,0
-Monty Rice,MLB,TEN,-7
-Morgan Fox,RE,LAC,-3
-Myjai Sanders,LOLB,ARI,1
-Myles Garrett,RE,CLE,-3
-Myles Murphy,LE,CIN,-5
-Nakobe Dean,MLB,PHI,1
-Naquan Jones,LE,TEN,-4
+Matthew Adams,LOLB,KC,0
+Matthew Judon,LE,NE,-3
+Maxx Crosby,LE,LV,-10
+Mazi Smith,DT,DAL,7
+McKinnley Jackson,DT,KC,-2
+Mekhi Wingo,DT,ARI,-2
+Micah Hyde,FS,BUF,-3
+Micah Parsons,RE,DAL,-1
+Michael Carter II,CB,NYJ,1
+Michael Davis,CB,LV,0
+Mike Brown,SS,TEN,-3
+Mike Hilton,CB,CIN,5
+Mike Hughes,CB,ATL,-1
+Mike Rose,MLB,LAC,-4
+Mike Sainristil,CB,DAL,1
+Milo Eifler,ROLB,PIT,4
+Minkah Fitzpatrick,FS,PIT,-1
+Montez Sweat,LE,CHI,-3
+Monty Rice,ROLB,TEN,6
+Morgan Fox,RE,LAC,12
+Mykal Walker,ROLB,CAR,4
+Myles Garrett,RE,CLE,-4
+Myles Murphy,LE,CIN,-2
+Nakobe Dean,MLB,PHI,-2
+Naquan Jones,DT,TEN,1
 Nate Hobbs,CB,LV,-5
-Ndamukong Suh,DT,LV,-2
-Nicholas Morrow,ROLB,PHI,-4
-Nick Bolton,MLB,KC,-5
-Nick Bosa,RE,SF,-1
-Nick Cross,SS,CHI,7
-Nick Herbig,ROLB,PIT,-1
-Nick Vigil,MLB,NYJ,-6
-Nik Bonitto,ROLB,DEN,-7
-Nik Needham,CB,SEA,1
-Noah Sewell,MLB,CHI,-3
-Nolan Smith Jr,LOLB,PHI,-5
-Odafe Oweh,LOLB,BAL,0
-Ogbonnia Okoronkwo,LE,GB,-3
-Osa Odighizuwa,DT,DAL,-3
-Oshane Ximines,LOLB,HOU,-1
-Owen Pappoe,MLB,ARI,9
-Patrick Jones II,LOLB,MIN,-8
-Patrick Peterson,CB,PIT,-3
-Patrick Queen,MLB,BAL,1
-Patrick Surtain II,CB,DEN,1
-Paulson Adebo,CB,NO,2
-Percy Butler,SS,WAS,-3
-Poona Ford,DT,BUF,-4
-Preston Smith,ROLB,GB,1
-Quandre Diggs,FS,SEA,-1
-Quay Walker,MLB,GB,-5
-Quentin Lake,SS,LAR,-2
-Quincy Roche,LOLB,PIT,-3
-Quincy Williams,ROLB,NYJ,4
-Quinnen Williams,DT,NYJ,-3
-Quinton Bell,ROLB,PHI,-2
-Raekwon Davis,DT,MIA,-2
-Rashaan Evans,MLB,BUF,2
-Rashad Weaver,LOLB,TEN,-5
-Rashan Gary,LOLB,GB,1
-Rasheem Green,LE,CHI,-1
-Rasul Douglas,CB,GB,-3
-Rayshawn Jenkins,SS,JAX,-6
-Reed Blankenship,FS,PHI,5
-Richie Grant,SS,ATL,7
-Riley Moss,CB,DEN,2
-Robert Quinn,RE,BAL,-4
-Robert Spillane,MLB,LV,2
-Rock Ya-Sin,CB,BAL,-1
-Roderic Teamer Jr,SS,LV,1
-Rodney McLeod Jr,SS,CLE,-3
-Rodney Thomas II,FS,IND,4
-Roger McCreary,CB,TEN,3
-Romeo Okwara,RE,DET,-2
-Ronald Darby,CB,DET,2
-Ronnie Harrison Jr,SS,IND,1
-Ronnie Perkins,LOLB,NE,-2
-Roquan Smith,MLB,BAL,-1
-Russ Yeast,FS,BUF,-3
-Ryan Neal,SS,TB,-2
-Sam Eguavoen,ROLB,NYJ,2
-Sam Hubbard,LE,CIN,-7
-Sam Okuayinonu,ROLB,TEN,-5
-Samson Ebukam,RE,IND,-6
-Sauce Gardner,CB,NYJ,-1
-Sean Murphy-Bunting,CB,TEN,2
-Sebastian Joseph-Day,LE,LAC,-3
-Shaq Lawson,RE,ARI,15
-Shaq Thompson,MLB,CAR,-2
-Shaquil Barrett,LOLB,TB,5
-Shaquill Griffin,CB,HOU,-2
-Shaquille Leonard,LOLB,IND,-2
-Shelby Harris,DT,HOU,5
-Sheldon Rankins,DT,HOU,10
-Sheldrick Redwine,FS,DAL,5
-Sidney Jones IV,CB,CIN,0
-Sione Takitaki,LOLB,CLE,0
-SirVocea Dennis,MLB,TB,1
-Solomon Thomas,DT,NYJ,9
-Stephon Gilmore,CB,DAL,-4
-Steven Nelson,CB,HOU,-3
-Sydney Brown,SS,PHI,-2
-T.J. Edwards,ROLB,CHI,5
-T.J. Watt,LOLB,PIT,-1
-Tae Crowder,MLB,HOU,-7
-Talanoa Hufanga,SS,SF,-3
-Tariq Woolen,CB,SEA,-2
+Nate Landman,LOLB,BAL,4
+Nate Wiggins,CB,SF,-1
+Nathan Shepherd,DT,NO,7
+Nazeeh Johnson,SS,KC,-4
+Nicholas Morrow,LOLB,KC,8
+Nick Bolton,MLB,KC,-4
+Nick Bosa,RE,SF,-7
+Nick Herbig,RE,PIT,-3
+Nick Jackson,LOLB,IND,0
+Nick Niemann,ROLB,LAC,-4
+Nik Needham,CB,LAC,1
+Noah Sewell,MLB,CHI,-6
+Ogbonnia Okoronkwo,RE,CLE,-6
+Omar Speights,ROLB,WAS,-4
+Oren Burks,LOLB,DAL,4
+Osa Odighizuwa,DT,DAL,-1
+Ovie Oghoufo,LE,TEN,7
+Owen Pappoe,MLB,ARI,2
+P.J. Jules,SS,LAC,10
+Patrick Payton,LE,ARI,0
+Patrick Peterson,CB,PIT,5
+Patrick Queen,ROLB,ARI,-7
+Patrick Surtain II,CB,DEN,-1
+Paulson Adebo,CB,NO,-1
+Payton Wilson,ROLB,TB,-4
+Percy Butler,FS,WAS,-4
+Pete Werner,ROLB,NO,3
+Preston Smith,RE,GB,-1
+Quadric Bullard,FS,CLE,-3
+Quandre Diggs,FS,SEA,4
+Quay Walker,LOLB,GB,0
+Quincy Williams,ROLB,NYJ,-3
+Quinnen Williams,DT,NYJ,4
+Quinyon Mitchell,CB,NYJ,1
+Rashad Fenton,CB,ARI,1
+Rashad Weaver,LE,TEN,1
+Rasul Douglas,CB,BUF,1
+Rayshawn Jenkins,SS,JAX,2
+Reed Blankenship,FS,PHI,7
+Richie Grant,SS,ATL,6
+Riley Moss,CB,DEN,0
+Robert Beal Jr,RE,SF,-3
+Robert Spillane,ROLB,LV,-1
+Rock Ya-Sin,CB,MIN,-2
+Rodarius Williams,CB,HOU,-1
+Rodney Thomas II,FS,IND,-2
+Roger McCreary,CB,TEN,4
+Ron Stone Jr.,LOLB,NE,0
+Ronnie Perkins,LE,DEN,-2
+Roquan Smith,MLB,BAL,-4
+Roy Robertson-Harris,RE,JAX,2
+Sam Hubbard,LE,CIN,-5
+Sam Williams,RE,DAL,-6
+Samson Ebukam,RE,IND,1
+Sauce Gardner,CB,NYJ,0
+Sean Murphy-Bunting,CB,TEN,7
+Sebastian Joseph-Day,DT,LAC,0
+Shane Lee,MLB,MIN,-6
+Shaq Thompson,MLB,CAR,3
+Shaquil Barrett,RE,TB,-6
+Shaquill Griffin,CB,LAR,-2
+Shilo Sanders,SS,BUF,14
+Shy Tuttle,DT,CAR,9
+Sione Takitaki,LOLB,LV,5
+SirVocea Dennis,LOLB,TB,10
+Smael Mondon,LOLB,ATL,2
+Steele Chambers,ROLB,NE,-7
+Steven Nelson,CB,SEA,0
+Sydney Brown,SS,PHI,-3
+T.J. Edwards,ROLB,CHI,0
+T.J. Slaton Jr,DT,GB,14
+T.J. Watt,LE,PIT,-7
+Tarheeb Still,CB,BAL,2
+Tariq Woolen,CB,SEA,4
 Taron Johnson,CB,BUF,-2
-Tashaun Gipson Sr,FS,SF,-3
-Tavius Robinson,ROLB,BAL,0
-Tavon Young,CB,NO,1
-Taylor Rapp,SS,GB,0
-Teair Tart,DT,TEN,-1
-Terrel Bernard,LOLB,BUF,9
-Terrell Burgess,FS,WAS,11
-Terrell Edmunds,SS,PHI,4
-Tershawn Wharton,DT,NO,-2
-Theo Jackson,SS,MIN,0
-Thomas Booker IV,DT,HOU,10
-Titus Leo,RE,IND,-6
-Tony Adams,FS,NYJ,-3
-Tony Brown,CB,IND,1
-Tracy Walker III,FS,DET,-2
-Travin Howard,ROLB,BUF,9
-Travon Walker,ROLB,JAX,-4
-Tre Flowers,CB,ATL,6
-Tre'Davious White,CB,BUF,-1
-Tre'Vius Hodges-Tomlinson,CB,LAR,-3
-Tre'von Moehrig,SS,LV,1
-Tremaine Edmunds,MLB,CHI,0
-Trent McDuffie,CB,KC,-5
-Trenton Simpson,MLB,BAL,-9
-Trevis Gipson,RE,CHI,-6
-Trevon Diggs,CB,DAL,2
-Trevor Denbow,SS,IND,-5
-Trey Flowers,RE,JAX,-4
-Trey Hendrickson,RE,CIN,5
-Troy Andersen,MLB,ATL,2
-Troy Hill,CB,ARI,2
-Truman Jones,LOLB,KC,3
-Trysten Hill,DT,CLE,3
-Tuli Tuipulotu,LOLB,LAC,1
-Tyler Matakevich,LOLB,BUF,-1
-Tyrann Mathieu,FS,NO,-1
-Tyree Wilson,ROLB,LV,-8
-Tyson Campbell,CB,JAX,1
-Tyus Bowser,LOLB,SF,0
-Uchenna Nwosu,ROLB,SEA,-1
-Ugo Amadi,CB,NO,-1
-Verone McKinley III,FS,MIA,-6
-Vita Vea,DT,TB,0
-Von Miller,RE,BUF,3
-Vonn Bell,SS,CAR,-4
-Will Anderson Jr.,LE,HOU,0
-Will Harris,CB,DET,-4
-William Gholston,LE,TB,-3
-William Jackson III,CB,DEN,2
-Willie Gay,ROLB,DET,-1
-Xavien Howard,CB,MIA,4
-Xavier McKinney,FS,NYG,5
-Xavier Woods,FS,CAR,-1
-YaYa Diaby,LOLB,TB,-8
-Yannick Ngakoue,RE,CHI,-4
-Yasir Abdullah,LOLB,JAX,6
-Yetur Gross-Matos,ROLB,LAR,-2
-Za'Darius Smith,LE,CLE,-5
-Zach Allen,RE,DEN,-6
-Zach Cunningham,MLB,PHI,0
-Zach Harrison,ROLB,ATL,-7
-Zack Baun,LOLB,NO,-5
-Zaire Franklin,ROLB,IND,3
-Zaven Collins,MLB,ARI,-3
-Zyon McCollum,CB,TB,0
+Tashaun Gipson Sr,FS,SF,9
+Tavius Robinson,LE,BAL,3
+Taylor Rapp,SS,CLE,1
+Terell Smith,CB,CHI,1
+Terrel Bernard,MLB,BUF,11
+Thor Griffith,DT,IND,8
+Tommy Eichenberg,MLB,NE,-6
+Tony Fields II,ROLB,CLE,6
+Tracy Walker III,FS,DET,14
+Travis Jones,DT,BAL,1
+Travon Walker,RE,JAX,-1
+Tre Brown,CB,SEA,7
+Tre Flowers,CB,KC,0
+Tre'Davious White,CB,BUF,5
+Tre'von Moehrig,FS,LV,0
+Tremaine Edmunds,MLB,CHI,-5
+Tremon Smith,CB,DEN,1
+Trent McDuffie,CB,KC,-3
+Trenton Simpson,MLB,BAL,-7
+Trevon Diggs,CB,DAL,3
+Trey Dean III,SS,SEA,4
+Trey Hendrickson,RE,CIN,-5
+Troy Warner,SS,MIA,-1
+Tuli Tuipulotu,LE,LAC,-6
+TyRon Hopper,ROLB,BAL,3
+Tyler Nubin,FS,SEA,3
+Tyrann Mathieu,FS,NO,-3
+Tyree Gillespie,SS,CHI,-3
+Tyree Wilson,RE,LV,-6
+Tyrique Stevenson,CB,CHI,2
+Tyson Campbell,CB,JAX,-4
+Tyus Bowser,LE,BAL,-3
+Uchenna Nwosu,RE,SEA,5
+Viliami Fehoko,LE,DAL,-2
+Vita Vea,DT,TB,8
+Vonn Bell,SS,CAR,2
+Will Anderson Jr,LE,HOU,-6
+Willie Gay,ROLB,PHI,-8
+Xavien Howard,CB,MIA,0
+Xavier McKinney,FS,NE,-1
+Xavier Woods,FS,CAR,-2
+Yannick Ngakoue,RE,CHI,-6
+Yasir Abdullah,LOLB,JAX,-5
+Yetur Gross-Matos,RE,ATL,-4
+Yusuf Corker,FS,MIA,-5
+Za'Darius Smith,LE,CLE,-8
+Zach Allen,LE,DEN,-5
+Zach Cunningham,ROLB,LAR,-6
+Zach Sieler,DT,MIA,-1
+Zaire Franklin,MLB,IND,-2
+Zaven Collins,LOLB,ARI,1
+Zemaiah Vaughn,CB,LAC,-1
+Zyon McCollum,CB,TB,4
