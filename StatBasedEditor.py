@@ -9,7 +9,7 @@ import sqlite3
 file_path = 'Files/Madden24/IE/Test/All.xlsm'
 
 # Season
-season = 0
+season = 1
 
 # Rating Tier
 tier_0 = range(95,100)

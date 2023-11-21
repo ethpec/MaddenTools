@@ -11,7 +11,7 @@ player_value_df = pd.read_excel(player_value_file)
 expiring_contracts_df = pd.read_excel(expiring_contracts_file)
 
 # Merge the two dataframes on the specified columns
-merged_df = pd.merge(player_value_df, expiring_contracts_df, on=['FirstName', 'LastName', 'Position', 'YearsPro'], suffixes=('_Current', '_Former'))
+merged_df = pd.merge(player_value_df, expiring_contracts_df, on=['FirstName', 'LastName', 'Position', 'YearDrafted'], suffixes=('_Current', '_Former'))
 
 # Filter for rows where the TeamIndex values are different and not equal to 32
 different_team_indices = merged_df[
@@ -24,18 +24,18 @@ different_team_indices = merged_df[
 filtered_players = different_team_indices.query('CompPickValue in [3, 4, 5, 6, 7]')
 
 # Create the "PlayerValue" sheet with the required columns
-player_value_sheet = filtered_players[['FirstName', 'LastName', 'Position', 'YearsPro', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue']]
+player_value_sheet = filtered_players[['FirstName', 'LastName', 'Position', 'YearsPro_Current', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue']]
 player_value_sheet.columns = ['FirstName', 'LastName', 'Position', 'YearsPro', 'FormerTeam', 'CurrentTeam', 'CompPickValue']
 
 # Add the "TotalPoints" column from the CompPickPlayerValue document
-total_points_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'TotalPoints'])
-player_value_sheet = player_value_sheet.merge(total_points_df, on=['FirstName', 'LastName'])
+total_points_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'Position', 'TotalPoints'])
+player_value_sheet = player_value_sheet.merge(total_points_df, on=['FirstName', 'LastName', 'Position'])
 
 # Read the "CompPickPlayerValue.xlsx" file to extract the "CompRank" column
-comp_rank_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'CompRank'])
+comp_rank_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'Position', 'CompRank'])
 
 # Merge the "CompRank" column into the "player_value_sheet" DataFrame based on "FirstName," "LastName," and "Position"
-player_value_sheet = player_value_sheet.merge(comp_rank_df, on=['FirstName', 'LastName'], how='left')
+player_value_sheet = player_value_sheet.merge(comp_rank_df, on=['FirstName', 'LastName', 'Position'], how='left')
 
 # Ensure uniqueness based on FirstName, LastName, and Position
 player_value_sheet.drop_duplicates(subset=['FirstName', 'LastName', 'Position'], inplace=True)
@@ -109,8 +109,7 @@ for team_index in team_gained_lost_sheet['TeamIndex']:
 
     # Check if CompPickEligible is 'Yes' for this team
     comp_pick_eligible = 'Yes' if (
-        (players_lost['CompPickValue'].isin([3, 4, 5, 6, 7])).any() and
-        (players_gained['CompPickValue'].isin([3, 4, 5, 6, 7])).any()
+        (players_lost['CompPickValue'].isin([3, 4, 5, 6, 7])).any()
     ) else 'No'
 
     if comp_pick_eligible == 'Yes':

@@ -2,19 +2,19 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-file_path = 'Files/Madden24/IE/Test/Player_ExpiringContracts.xlsx'
+file_path = 'Files/Madden24/IE/Test/Player.xlsx'
 all_pros_path = 'Files/Madden24/IE/Test/AllPros.xlsx'
 all_xlsm_path = 'Files/Madden24/IE/Test/All.xlsm'
 
 # Specify the current season year
-current_season_year = 0  ####### Change this to the correct value #######
+current_season_year = 1  ####### Change this to the correct value #######
 
 def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
     """
     Calculate number value rankings for players based on conditions.
 
     Args:
-    - file_path (str): The path to the "Player_ExpiringContracts.xlsx" file.
+    - file_path (str): The path to the "Player.xlsx" file.
     - all_pros_path (str): The path to the "AllPros.xlsx" file.
     - all_xlsm_path (str): The path to the "All.xlsm" file.
 
@@ -51,7 +51,7 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
             season_year = all_xlsm[sheet_name]['SEAS_YEAR'].max()
             if season_year == current_season_year:
                 # Search for the player in the corresponding sheet of All.xlsm
-                matching_player = all_xlsm[sheet_name][(all_xlsm[sheet_name]['FirstName'] == first_name) & (all_xlsm[sheet_name]['LastName'] == last_name)]
+                matching_player = all_xlsm[sheet_name][(all_xlsm[sheet_name]['FirstName'] == first_name) & (all_xlsm[sheet_name]['LastName'] == last_name) & (all_xlsm[sheet_name]['Position'] == position)]
                 if not matching_player.empty:
                     return matching_player['DOWNSPLAYED'].values[0]
 
@@ -143,11 +143,11 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
     # Function to update the "APY" and add "AwardedPoints" column
     def update_rank(row):
         awarded_points = 0
-        matching_player = all_pros_df[(all_pros_df['FirstName'] == row['FirstName']) & (all_pros_df['LastName'] == row['LastName'])]
+        matching_player = all_pros_df[(all_pros_df['FirstName'] == row['FirstName']) & (all_pros_df['LastName'] == row['LastName']) & (all_pros_df['Position'] == row['Position'])]
         if not matching_player.empty:
-            if matching_player['AllPro'].values[0] == 'Y':
+            if matching_player['1st Team'].values[0] == 'Y':
                 awarded_points = 20
-            elif matching_player['AllConf'].values[0] == 'Y':
+            elif matching_player['2nd Team'].values[0] == 'Y':
                 awarded_points = 5
         row['AwardedPoints'] = awarded_points
         return row
