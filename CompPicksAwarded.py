@@ -2,9 +2,9 @@
 import pandas as pd
 
 # Your File Paths
-player_value_file = 'Files/Madden24/IE/Test/CompPickPlayerValue.xlsx'
-expiring_contracts_file = 'Files/Madden24/IE/Test/Player_ExpiringContracts.xlsx'
-output_filename = 'Files/Madden24/IE/Test/CompPicksAwarded.xlsx'
+player_value_file = 'Files/Madden24/IE/Season0/CompPickPlayerValue.xlsx'
+expiring_contracts_file = 'Files/Madden24/IE/Season0/Player_ExpiringContracts.xlsx'
+output_filename = 'Files/Madden24/IE/Season0/CompPicksAwarded.xlsx'
 
 # Read the "CompPickPlayerValue.xlsx" and "Player_ExpiringContracts.xlsx" sheets into DataFrames
 player_value_df = pd.read_excel(player_value_file)
