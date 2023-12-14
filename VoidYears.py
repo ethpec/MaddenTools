@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season0/Player.xlsx'
 
 # Read the Player.xlsx file into a DataFrame
 df = pd.read_excel(file_path)
@@ -50,5 +50,5 @@ result_df['VoidThisYear'] = result_df.apply(lambda row: row['ContractYear'] > ro
 result_df = result_df[(result_df['HasVoidYears']) | (result_df['ContractYear'] > result_df['WhenVoid'])]
 
 # Export the DataFrame to a new Excel file
-output_filename = 'Files/Madden24/IE/Test/Player_VoidYears.xlsx'
+output_filename = 'Files/Madden24/IE/Season0/Player_VoidYears.xlsx'
 result_df.to_excel(output_filename, index=False)
