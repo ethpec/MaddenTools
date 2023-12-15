@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Your File Paths
-player_file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+player_file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -56,7 +56,7 @@ signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'Contr
 contracts_data = pd.concat([signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']], contract_year_column], axis=1)
 
 # Export the differences to a new sheet named "Differences" within the same Excel file
-output_file_path = 'Files/Madden24/IE/Test/Position_Report.xlsx'
+output_file_path = 'Files/Madden24/IE/Season1/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
