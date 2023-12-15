@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -12,7 +12,7 @@ def calculate_skill_points(row):
         development_trait = row['TraitDevelopment']
         if development_trait == 'Normal':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
-            probabilities = [0.20, 0.435, 0.20, 0.10, 0.04, 0.012, 0.007, 0.004, 0.002] ### Average = 1.5 ###
+            probabilities = [0.20, 0.41, 0.20, 0.12, 0.04, 0.017, 0.008, 0.004, 0.001] ### Average = 1.5 ###
             skill_points = random.choices(chances, probabilities)[0]
             return skill_points
         elif development_trait == 'Star':
@@ -30,4 +30,4 @@ def calculate_skill_points(row):
 df['SkillPoints'] = df.apply(calculate_skill_points, axis=1)
 
 output_filename = 'Player_RookieProgression.xlsx'
-df.to_excel('Files/Madden24/IE/Test/Player_RookieProgression.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season1/Player_RookieProgression.xlsx', index=False)
