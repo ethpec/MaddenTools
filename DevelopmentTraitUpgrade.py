@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -16,7 +16,7 @@ def update_trait_development(row):
 
     # Create a dictionary to specify the rating threshold for each position
     position_thresholds = {
-        'QB': 88, 'HB': 88, 'WR': 88, 'TE': 88, 'LT': 88, 'LG': 88, 'C': 88, 'RG': 88, 'RT': 88, 'LE': 88, 'RE': 88, 'DT': 88, 'LOLB': 88, 'ROLB': 88, 'MLB': 88, 'CB': 88, 'FS': 88, 'SS': 88, 'FB': 80, 'K': 82, 'P': 82
+        'QB': 88, 'HB': 88, 'WR': 88, 'TE': 88, 'LT': 88, 'LG': 88, 'C': 88, 'RG': 88, 'RT': 88, 'LE': 88, 'RE': 88, 'DT': 88, 'LOLB': 85, 'ROLB': 85, 'MLB': 88, 'CB': 88, 'FS': 88, 'SS': 88, 'FB': 80, 'K': 82, 'P': 82
     }
     
     if position in position_thresholds and contract_status in ['Signed', 'FreeAgent'] and trait_development in ['Normal', 'Star']:
@@ -41,4 +41,4 @@ def update_trait_development(row):
 df['TraitDevelopment'] = df.apply(update_trait_development, axis=1)
 
 output_filename = 'DevTraitChange.xlsx'
-df.to_excel('Files/Madden24/IE/Test/DevTraitChange.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season1/DevTraitChange.xlsx', index=False)
