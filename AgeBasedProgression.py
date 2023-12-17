@@ -35,12 +35,12 @@ def calculate_age_based_skill_points(row):
         development_trait = row['TraitDevelopment']
         if development_trait == 'Normal':
             chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.635, 0.26, 0.085, 0.01, 0.01, 0.00]
+            probabilities = [0.00, 0.63, 0.28, 0.06, 0.02, 0.01, 0.00]
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points  # Add skill points to the existing value
         elif development_trait == 'Star':
             chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.10, 0.40, 0.25, 0.15, 0.10, 0.00]
+            probabilities = [0.00, 0.10, 0.20, 0.40, 0.20, 0.10, 0.00]
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
         elif development_trait == 'Superstar':
