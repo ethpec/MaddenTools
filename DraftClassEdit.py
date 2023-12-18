@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -64,13 +64,13 @@ def update_traits(row):
                 row['TRAIT_LBSTYLE'] = 'Balanced'
 
             if row['FinesseMovesRating'] >= 70:
-                row['FinesseMovesRating'] -= 10
+                row['FinesseMovesRating'] -= 8
 
             elif 55 <= row['FinesseMovesRating'] <= 69:
                 row['FinesseMovesRating'] -= 7
 
             if row['PowerMovesRating'] >= 70:
-                row['PowerMovesRating'] -= 12
+                row['PowerMovesRating'] -= 10
 
             elif 55 <= row['PowerMovesRating'] <= 69:
                 row['PowerMovesRating'] -= 8
@@ -117,4 +117,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Test/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season1/DraftClassEdit.xlsx', index=False)
