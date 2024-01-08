@@ -51,8 +51,8 @@ player_df['YearlySalary'], player_df['YearlyBonus'] = zip(*player_df.apply(compu
 def update_contractlength(row):
     if row['StatusCheck'] and row['AddedYears'] >= 1:
         new_contract_length = row['ExpectedContractLength']
-        # Apply randomness (25% chance to subtract 1 from the contract length)
-        if random.random() < 0.25:
+        # Apply randomness (50% chance to subtract 1 from the contract length)
+        if random.random() < 0.50:
             new_contract_length -= 1
         # Check if the new contract length is different from the original value
         if new_contract_length != row['ContractLength']:
