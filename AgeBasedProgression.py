@@ -34,23 +34,23 @@ def calculate_age_based_skill_points(row):
     ):
         development_trait = row['TraitDevelopment']
         if development_trait == 'Normal':
-            chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.63, 0.28, 0.06, 0.02, 0.01, 0.00]
+            chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
+            probabilities = [0.00, 0.70, 0.20, 0.05, 0.025, 0.01, 0.01, 0.005, 0.00] # Avg = 1.5 #
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points  # Add skill points to the existing value
         elif development_trait == 'Star':
-            chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.10, 0.20, 0.40, 0.20, 0.10, 0.00]
+            chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
+            probabilities = [0.00, 0.10, 0.20, 0.45, 0.15, 0.05, 0.03, 0.015, 0.005] # Avg ~ 3 #
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
         elif development_trait == 'Superstar':
-            chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.00, 0.00, 0.20, 0.55, 0.20, 0.05]
+            chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
+            probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01] # Avg = 4.25 #
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
         elif development_trait == 'XFactor':
-            chances = [0, 1, 2, 3, 4, 5, 6]
-            probabilities = [0.00, 0.00, 0.00, 0.20, 0.55, 0.20, 0.05]
+            chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
+            probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01] # Avg = 4.25 #
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
     return row['SkillPoints']  # Keep the existing skill points if conditions are not met
@@ -73,6 +73,12 @@ def calculate_age_based_regression(row):
                     start_age, end_age = age_range
                     if start_age <= age <= end_age:
                         return row['RegressionPoints'] + regression_points
+                elif isinstance(age_range, str) and '-' in age_range:
+                    range_parts = age_range.split('-')
+                    if len(range_parts) == 2:
+                        start_age, end_age = map(int, range_parts)
+                        if start_age <= age <= end_age:
+                            return row['RegressionPoints'] + regression_points
                 elif age == age_range:
                     return row['RegressionPoints'] + regression_points
 
@@ -82,6 +88,44 @@ def calculate_age_based_regression(row):
 df['RegressionPoints'] = df.apply(calculate_freeagent_regression_points, axis=1)
 df['SkillPoints'] = df.apply(calculate_age_based_skill_points, axis=1)
 df['RegressionPoints'] = df.apply(calculate_age_based_regression, axis=1)
+
+def zero_out_points(row):
+    position_age_threshold = {
+        'QB': 38,
+        'RB': 30,
+        'HB': 30,
+        'FB': 32,
+        'WR': 32,
+        'TE': 32,
+        'LT': 34,
+        'LG': 34,
+        'C': 34,
+        'RG': 34,
+        'RT': 34,
+        'LE': 32,
+        'RE': 32,
+        'DT': 32,
+        'LOLB': 32,
+        'MLB': 32,
+        'ROLB': 32,
+        'CB': 32,
+        'FS': 32,
+        'SS': 32,
+        'K': 38,
+        'P': 38,
+    }
+
+    position = row['Position']
+    age_threshold = position_age_threshold.get(position)
+
+    if age_threshold is not None and row['Age'] >= age_threshold and row['SkillPoints'] > row['RegressionPoints']:
+        row['SkillPoints'] = 0
+        row['RegressionPoints'] = 0
+
+    return row
+
+# Apply the functions to the DataFrame
+df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
 df.to_csv('Files/Madden24/IE/Test/Final.csv', index=False)
