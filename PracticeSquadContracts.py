@@ -15,15 +15,15 @@ min_salary_values = {
 
 def update_pscontracts(row):
     contract_status = row['ContractStatus']
-    years_pro = int(row['YearsPro'])  # Convert to int for numerical comparison
-    contract_length = int(row['ContractLength'])  # Convert to int for numerical comparison
+    years_pro = int(row['YearsPro'])
+    contract_length = int(row['ContractLength'])
     contract_salary_0 = row['ContractSalary0']
     contract_salary_1 = row['ContractSalary1']
     contract_salary_2 = row['ContractSalary2']
 
     if contract_status == 'Signed' and years_pro in [0, 1] and contract_length == 1:
         row['ContractLength'] = 3
-        row['ContractYear'] = str(years_pro)  # Convert back to str if needed
+        row['ContractYear'] = str(years_pro)
 
         if years_pro in min_salary_values:
             target_salary = min_salary_values[years_pro]
