@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
+file_path = 'Files/Madden24/IE/Test/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -98,11 +98,43 @@ def update_traits(row):
     # Add more conditions and changes for other columns and positions as needed
     return row
 
+def update_sleevetemp(row):
+    # Check the player's position and apply changes to specific columns
+    if row['ContractStatus'] in ['Draft']:
+        # Change SleeveTemp for all players
+        if row['Position'] in ['QB', 'K', 'P']:
+            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
+            probabilities = [0.05, 0.05, 0.05, 0.05, 0.05, 0.10, 0.30, 0.20, 0.10, 0.05] ### Average = 30 ###
+            sleeve_temp = random.choices(chances, probabilities)[0]
+            return sleeve_temp
+        elif row['Position'] in ['RB', 'HB', 'FB']:
+            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
+            probabilities = [0.15, 0.05, 0.10, 0.05, 0.30, 0.15, 0.075, 0.05, 0.05, 0.025] ### Average = 20 ###
+            sleeve_temp = random.choices(chances, probabilities)[0]
+            return sleeve_temp
+        elif row['Position'] in ['WR', 'TE', 'CB', 'FS', 'SS']:
+            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
+            probabilities = [0.05, 0.05, 0.10, 0.10, 0.05, 0.30, 0.15, 0.10, 0.075, 0.025] ### Average = 25 ###
+            sleeve_temp = random.choices(chances, probabilities)[0]
+            return sleeve_temp
+        elif row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT', 'LE', 'RE', 'DT']:
+            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
+            probabilities = [0.25, 0.05, 0.05, 0.30, 0.10, 0.05, 0.10, 0.05, 0.025, 0.025] ### Average = 16.25 ###
+            sleeve_temp = random.choices(chances, probabilities)[0]
+            return sleeve_temp
+        elif row['Position'] in ['LOLB', 'MLB', 'ROLB']:
+            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
+            probabilities = [0.35, 0.10, 0.30, 0.075, 0.05, 0.05, 0.025, 0.025, 0.015, 0.01] ### Average = 10 ###
+            sleeve_temp = random.choices(chances, probabilities)[0]
+            return sleeve_temp
+    return row['PLYR_SLEEVETEMPERATURE']
+
 # Track the original DataFrame before applying updates
 original_df = df.copy()
 
 # Apply the new function to update the DataFrame
 df = df.apply(update_traits, axis=1)
+df['PLYR_SLEEVETEMPERATURE'] = df.apply(update_sleevetemp, axis=1)
 
 ###
 columns_to_remove = []
@@ -117,4 +149,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Season1/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Test/DraftClassEdit.xlsx', index=False)
