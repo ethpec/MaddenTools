@@ -53,7 +53,10 @@ contract_year_column = signed_contracts.pop('ContractYear')
 signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)  # Insert at the desired position
 
 # Concatenate all relevant columns at once using pd.concat() for 'Contracts' sheet
-contracts_data = pd.concat([signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex']], contract_year_column], axis=1)
+contracts_data = pd.concat([
+    signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro', 'OverallRating', 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex']],
+    signed_contracts['ContractYear'],  # Use only 'ContractYear' here
+], axis=1)
 
 # Add 'TeamName' to 'contracts_data' based on 'TeamIndex'
 contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
@@ -76,5 +79,12 @@ with pd.ExcelWriter(output_file_path) as writer:
                                       .groupby(['TeamIndex', 'Position']) \
                                       .cumcount() + 1
     
-    contracts_data_team_depth = contracts_data_team_depth[['Rank', 'TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']]
+    # Convert 'ContractYear' and 'ContractLength' columns to numeric, handling errors
+    contracts_data_team_depth[['ContractYear', 'ContractLength']] = contracts_data_team_depth[['ContractYear', 'ContractLength']].apply(pd.to_numeric, errors='coerce')
+
+    # Calculate the ContractYearsLeft column
+    contracts_data_team_depth['ContractYearsLeft'] = contracts_data_team_depth['ContractLength'] - contracts_data_team_depth['ContractYear']
+
+    # Reorder columns for the 'Team Position Depth' DataFrame
+    contracts_data_team_depth = contracts_data_team_depth[['Rank', 'TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'ContractYearsLeft', 'AAV', 'SigningBonus']]
     contracts_data_team_depth.to_excel(writer, index=False, sheet_name='Team Position Depth')
