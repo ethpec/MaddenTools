@@ -8,7 +8,7 @@ file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
 df = pd.read_excel(file_path)
 
 def calculate_skill_points(row):
-    if row['YearsPro'] == 0 and row['ContractStatus'] in ['FreeAgent', 'Signed', 'PracticeSquad'] and 'QB' not in row['Position']:
+    if row['YearsPro'] == 0 and row['ContractStatus'] in ['FreeAgent', 'Signed', 'PracticeSquad']:
         development_trait = row['TraitDevelopment']
         if development_trait == 'Normal':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
