@@ -103,28 +103,28 @@ def update_sleevetemp(row):
     if row['ContractStatus'] in ['Draft']:
         # Change SleeveTemp for all players
         if row['Position'] in ['QB', 'K', 'P']:
-            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
-            probabilities = [0.05, 0.05, 0.05, 0.05, 0.05, 0.10, 0.30, 0.20, 0.10, 0.05] ### Average = 30 ###
+            chances = [0, 10, 20, 30, 40, 50, 60]
+            probabilities = [0.05, 0.10, 0.20, 0.30, 0.20, 0.10, 0.05] ### Average = 30 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
         elif row['Position'] in ['RB', 'HB', 'FB']:
-            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
-            probabilities = [0.15, 0.05, 0.10, 0.05, 0.30, 0.15, 0.075, 0.05, 0.05, 0.025] ### Average = 20 ###
+            chances = [0, 10, 20, 30, 40, 50, 60]
+            probabilities = [0.30, 0.10, 0.25, 0.15, 0.10, 0.05, 0.05] ### Average = 20 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
         elif row['Position'] in ['WR', 'TE', 'CB', 'FS', 'SS']:
-            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
-            probabilities = [0.05, 0.05, 0.10, 0.10, 0.05, 0.30, 0.15, 0.10, 0.075, 0.025] ### Average = 25 ###
+            chances = [0, 10, 20, 30, 40, 50, 60]
+            probabilities = [0.15, 0.10, 0.25, 0.25, 0.15, 0.05, 0.05] ### Average = 25 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
         elif row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT', 'LE', 'RE', 'DT']:
-            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
-            probabilities = [0.25, 0.05, 0.05, 0.30, 0.10, 0.05, 0.10, 0.05, 0.025, 0.025] ### Average = 16.25 ###
+            chances = [0, 10, 20, 30, 40, 50, 60]
+            probabilities = [0.40, 0.10, 0.20, 0.15, 0.10, 0.025, 0.025] ### Average = 16.25 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
         elif row['Position'] in ['LOLB', 'MLB', 'ROLB']:
-            chances = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60]
-            probabilities = [0.35, 0.10, 0.30, 0.075, 0.05, 0.05, 0.025, 0.025, 0.015, 0.01] ### Average = 10 ###
+            chances = [0, 10, 20, 30, 40, 50, 60]
+            probabilities = [0.50, 0.20, 0.05, 0.15, 0.05, 0.025, 0.025] ### Average = 12.25 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
     return row['PLYR_SLEEVETEMPERATURE']
