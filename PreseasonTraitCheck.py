@@ -24,7 +24,7 @@ def update_traits(row):
                 new_injury_rating = 85
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'
-            row['TRAIT_COVER_BALL'] = 'ForAllHits'
+            row['TRAIT_COVER_BALL'] = 'OnMediumHits'
             if 'Pocket' in row['TRAIT_QBSTYLE']:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
             if row['SpeedRating'] < 80:
