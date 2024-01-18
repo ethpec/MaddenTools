@@ -7,7 +7,7 @@ position_report_file_path = 'Files/Madden24/IE/Test/Position_Report.xlsx'
 output_file_path = 'Files/Madden24/IE/Test/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Preseason"  # Change this to "Preseason", "TradeDeadline", or "Offseason" #
+season_phase = "Offseason"  # Change this to "Preseason", "TradeDeadline", or "Offseason" #
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -168,6 +168,24 @@ def injury_offseason(row):
     
 # Apply the function to create the OffseasonInjury column
 merged_df['OffseasonInjury'] = merged_df.apply(injury_offseason, axis=1)
+
+# Function to determine Retirement based on conditions
+def vet_earlyretirement(row):
+
+    if season_phase == "Offseason":
+        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 35 and row['OverallRating'] >= 70:
+            return 'Yes' if random.random() <= 0.01 else 'No'
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 27 and row['OverallRating'] >= 70:
+            return 'Yes' if random.random() <= 0.01 else 'No'
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 30 and row['OverallRating'] >= 70:
+            return 'Yes' if random.random() <= 0.01 else 'No'
+        else:
+            return 'No'
+    else:
+        return 'No'
+    
+# Apply the function to create the Retire column
+merged_df['Retire'] = merged_df.apply(vet_earlyretirement, axis=1)
 
 # Save the merged dataframe to a new Excel file
 merged_df.to_excel(output_file_path, index=False)
