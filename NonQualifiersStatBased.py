@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season0/Final_PreAdjustment.csv'
+file_path = 'Files/Madden24/IE/Season1/Final_PreAdjustment.csv'
 
 df = pd.read_csv(file_path)
 
@@ -48,4 +48,4 @@ def add_regression_points(row):
 df = df.apply(add_regression_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden24/IE/Season0/Final_AllStatBased.csv', index=False)
+df.to_csv('Files/Madden24/IE/Season1/Final_AllStatBased.csv', index=False)
