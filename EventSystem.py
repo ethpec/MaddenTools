@@ -2,9 +2,9 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden24/IE/Test/Player.xlsx'
-position_report_file_path = 'Files/Madden24/IE/Test/Position_Report.xlsx'
-output_file_path = 'Files/Madden24/IE/Test/EventSystem_Results.xlsx'
+player_file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
+position_report_file_path = 'Files/Madden24/IE/Season1/Position_Report.xlsx'
+output_file_path = 'Files/Madden24/IE/Season1/EventSystem_Results.xlsx'
 
 # Set the season phase
 season_phase = "Offseason"  # Change this to "Preseason", "TradeDeadline", or "Offseason" #
