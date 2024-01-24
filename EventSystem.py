@@ -2,12 +2,12 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
-position_report_file_path = 'Files/Madden24/IE/Season1/Position_Report.xlsx'
-output_file_path = 'Files/Madden24/IE/Season1/EventSystem_Results.xlsx'
+player_file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+position_report_file_path = 'Files/Madden24/IE/Season2/Position_Report.xlsx'
+output_file_path = 'Files/Madden24/IE/Season2/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Offseason"  # Change this to "Preseason", "TradeDeadline", or "Offseason" #
+season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
