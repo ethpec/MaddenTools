@@ -31,6 +31,18 @@ def update_traits(row):
                 row['TRAIT_QBSTYLE'] = 'Balanced'
             if row['SpeedRating'] >= 87:
                 row['TRAIT_QBSTYLE'] = 'Scrambling'
+            if row['SpeedRating'] >= 90:
+                row['TRAIT_TUCK_RUN'] = '2'
+            if 85 <= row['SpeedRating'] <= 89:
+                tuck_run_value = random.choice(['1', '2'])
+            if 80 <= row['SpeedRating'] <= 84:
+                tuck_run_value = random.choice(['0', '1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if 77 <= row['SpeedRating'] <= 79:
+                tuck_run_value = random.choice(['0', '1'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_TUCK_RUN'] = '0'
 
         # HB Edits
         if row['Position'] == 'HB':
