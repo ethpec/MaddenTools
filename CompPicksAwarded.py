@@ -2,9 +2,9 @@
 import pandas as pd
 
 # Your File Paths
-player_value_file = 'Files/Madden24/IE/Season1/CompPickPlayerValue.xlsx'
-expiring_contracts_file = 'Files/Madden24/IE/Season1/LastSeason_ExpiringContracts.xlsx'
-output_filename = 'Files/Madden24/IE/Season1/CompPicksAwarded.xlsx'
+player_value_file = 'Files/Madden24/IE/Test/CompPickPlayerValue.xlsx'
+expiring_contracts_file = 'Files/Madden24/IE/Test/CompPick_ContractStatusUpdated.xlsx'
+output_filename = 'Files/Madden24/IE/Test/CompPicksAwarded.xlsx'
 
 # Read the "CompPickPlayerValue.xlsx" and "LastSeason_ExpiringContracts.xlsx" sheets into DataFrames
 player_value_df = pd.read_excel(player_value_file)
@@ -24,8 +24,11 @@ different_team_indices = merged_df[
 filtered_players = different_team_indices.query('CompPickValue in [3, 4, 5, 6, 7]')
 
 # Create the "PlayerValue" sheet with the required columns
-player_value_sheet = filtered_players[['FirstName', 'LastName', 'Position', 'YearsPro_Current', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue']]
-player_value_sheet.columns = ['FirstName', 'LastName', 'Position', 'YearsPro', 'FormerTeam', 'CurrentTeam', 'CompPickValue']
+player_value_sheet = filtered_players[
+    (filtered_players['ContractStatus_Former'] == 'Expiring')
+][['FirstName', 'LastName', 'Position', 'YearsPro_Current', 'TeamIndex_Former', 'TeamIndex_Current', 'CompPickValue', 'ContractStatus_Former', 'ContractStatus_Current']]
+
+player_value_sheet.columns = ['FirstName', 'LastName', 'Position', 'YearsPro', 'FormerTeam', 'CurrentTeam', 'CompPickValue', 'ContractStatus_Former', 'ContractStatus_Current']
 
 # Add the "TotalPoints" column from the CompPickPlayerValue document
 total_points_df = pd.read_excel(player_value_file, usecols=['FirstName', 'LastName', 'Position', 'TotalPoints'])
