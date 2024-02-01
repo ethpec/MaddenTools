@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-file_path = 'Files/Madden24/IE/Season1/Player.xlsx'
-all_pros_path = 'Files/Madden24/IE/Season1/AllPros.xlsx'
-all_xlsm_path = 'Files/Madden24/IE/Season1/All.xlsm'
+file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+all_pros_path = 'Files/Madden24/IE/Test/AllPros.xlsx'
+all_xlsm_path = 'Files/Madden24/IE/Test/All.xlsm'
 
 # Specify the current season year
 current_season_year = 1  ####### Change this to the correct value #######
@@ -49,11 +49,20 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
         # Check if the SEAS_YEAR column matches the current season year
         if sheet_name in all_xlsm and 'SEAS_YEAR' in all_xlsm[sheet_name]:
             season_year = all_xlsm[sheet_name]['SEAS_YEAR'].max()
+
             if season_year == current_season_year:
                 # Search for the player in the corresponding sheet of All.xlsm
                 matching_player = all_xlsm[sheet_name][(all_xlsm[sheet_name]['FirstName'] == first_name) & (all_xlsm[sheet_name]['LastName'] == last_name) & (all_xlsm[sheet_name]['Position'] == position)]
+                # Ensure the player is from the correct season year
+                matching_player = matching_player[matching_player['SEAS_YEAR'] == current_season_year]
+
                 if not matching_player.empty:
-                    return matching_player['DOWNSPLAYED'].values[0]
+                    downs_played = matching_player[matching_player['SEAS_YEAR'] == current_season_year]['DOWNSPLAYED'].max()
+                    if pd.isna(downs_played):
+                        downs_played = 0
+                    return downs_played
+                else:
+                    return 0
 
         return None  # Return None if player not found or SEAS_YEAR doesn't match
 
@@ -180,4 +189,4 @@ result_df['CompRank'] = result_df['TotalPoints'].rank(method='min', ascending=Fa
 
 # Export the resulting DataFrame to an Excel document
 output_filename = 'CompPickPlayerValue.xlsx'
-result_df.to_excel('Files/Madden24/IE/Season1/CompPickPlayerValue.xlsx', index=False)
+result_df.to_excel('Files/Madden24/IE/Test/CompPickPlayerValue.xlsx', index=False)
