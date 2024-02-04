@@ -43,6 +43,8 @@ def update_traits(row):
                 row['TRAIT_TUCK_RUN'] = tuck_run_value
             if row['SpeedRating'] <= 76:
                 row['TRAIT_TUCK_RUN'] = '0'
+            if 'Conservative' in row['TRAIT_FORCE_PASS']:
+                row['TRAIT_FORCE_PASS'] = 'Ideal'
 
         # HB Edits
         if row['Position'] == 'HB':
