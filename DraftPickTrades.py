@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import random
+import string
 
 # Your File Paths
 pick_file_path = 'Files/Madden24/IE/Test/DraftPicks.xlsx'
@@ -127,22 +128,26 @@ trade_down_rows = draft_order_df[draft_order_df['TradeDown'] == 'Yes']
 # Seed the random number generator for reproducibility
 random.seed()
 
-# Loop through each row where TradeDown is Yes
-for index, row in trade_down_rows.iterrows():
-    # Find the minimum value for selecting trade team
-    min_trade_value = row['Value'] * 0.4
-    
-    # Filter rows where Value is at least 40% of the current pick value
-    potential_trade_teams = draft_order_df[(draft_order_df['Value'] >= min_trade_value) & (draft_order_df['TradeDown'] != 'Yes')]
-    
-    # Randomly select a trade team
-    if not potential_trade_teams.empty:
-        trade_team = random.choice(potential_trade_teams['Team Name'])
-    else:
-        trade_team = None
+# Function to generate a random team name
+def generate_random_team():
+    return ''.join(random.choices(string.ascii_uppercase, k=3))
 
-    # Assign the selected trade team to the current row
-    draft_order_df.at[index, 'TradeTeam'] = trade_team
+# Function to fill 'TradeWith' column with a random team that owns a pick meeting specified criteria
+def fill_trade_with(row):
+    if row['TradeDown'] == 'Yes':
+        # Get all team names that own a pick meeting specified criteria
+        eligible_teams = draft_order_df[(draft_order_df['Value'] >= row['Value'] * 0.5) & (draft_order_df['Value'] <= row['Value'])]['Team Name'].unique()
+        # Remove current team from eligible teams
+        current_team = row['Team Name']
+        eligible_teams = [team for team in eligible_teams if team != current_team]
+        # Randomly select a team name from eligible teams
+        if eligible_teams:
+            random_team = random.choice(eligible_teams)
+            return random_team
+    return ''
+
+# Fill 'TradeWith' column
+draft_order_df['TradeWith'] = draft_order_df.apply(fill_trade_with, axis=1)
 
 # Write to Excel under 'DraftOrder' tab
 with pd.ExcelWriter(output_file_path, mode='a') as writer:
