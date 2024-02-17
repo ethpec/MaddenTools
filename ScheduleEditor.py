@@ -1,6 +1,3 @@
-### ASSIGN WEEK 18 MATCHUPS (LINE 15) ###
-### ASSIGN THE FIRST GAME OF THE SEASON BELOW IN THE CODE (LINE 105) ###
-
 import pandas as pd
 from pulp import LpVariable, LpProblem, lpSum, LpMinimize
 
@@ -135,3 +132,9 @@ for game, week in x:
 
 # Write updated schedule to a new Excel file
 df.to_excel('Files/Madden24/IE/Test/TestNewSchedule.xlsx', index=False)
+
+# Combine TestNewSchedule and Week18Games sheets into a single Excel file
+test_schedule_df = pd.read_excel('Files/Madden24/IE/Test/TestNewSchedule.xlsx')
+week_18_df = pd.read_excel('Files/Madden24/IE/Test/Week18Games.xlsx')
+combined_df = pd.concat([test_schedule_df, week_18_df], ignore_index=True)
+combined_df.to_excel('Files/Madden24/IE/Test/CombinedSchedule.xlsx', index=False)
