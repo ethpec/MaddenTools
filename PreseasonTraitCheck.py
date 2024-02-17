@@ -1,6 +1,7 @@
 # Imports
 import pandas as pd
 import random
+import math
 
 # Your File Path
 file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
@@ -25,13 +26,44 @@ def update_traits(row):
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'OnMediumHits'
-            if 'Pocket' in row['TRAIT_QBSTYLE']:
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_QBSTYLE'] = 'Pocket'
+            if 77 <= row['SpeedRating'] <= 79:
+                qbstyle_value = random.choice(['Pocket', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if 80 <= row['SpeedRating'] <= 82:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
-            if row['SpeedRating'] < 80:
-                row['TRAIT_QBSTYLE'] = 'Balanced'
-            if row['SpeedRating'] >= 87:
+            if 83 <= row['SpeedRating'] <= 84:
+                qbstyle_value = random.choice(['Scrambling', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if row['SpeedRating'] >= 85:
                 row['TRAIT_QBSTYLE'] = 'Scrambling'
-
+            if row['SpeedRating'] >= 90:
+                row['TRAIT_TUCK_RUN'] = '2'
+            if 85 <= row['SpeedRating'] <= 89:
+                tuck_run_value = random.choice(['1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if 80 <= row['SpeedRating'] <= 84:
+                tuck_run_value = random.choice(['0', '1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if 77 <= row['SpeedRating'] <= 79:
+                tuck_run_value = random.choice(['0', '1'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_TUCK_RUN'] = '0'
+            if 'Conservative' in row['TRAIT_FORCE_PASS']:
+                row['ZoneCoverageRating'] = 65
+            if 'Ideal' in row['TRAIT_FORCE_PASS']:
+                row['ZoneCoverageRating'] = 55
+            if 'Aggressive' in row['TRAIT_FORCE_PASS']:
+                row['ZoneCoverageRating'] = 45
+            # Calculate the average of ThrowAccuracyShortRating, ThrowAccuracyMidRating, and ThrowAccuracyDeepRating
+            throw_accuracy_average = (row['ThrowAccuracyShortRating'] + row['ThrowAccuracyMidRating'] + row['ThrowAccuracyDeepRating']) / 3
+            # Round up to the nearest whole value
+            throw_accuracy_average = math.ceil(throw_accuracy_average)
+            # Update ThrowAccuracyRating column with the new value
+            row['ThrowAccuracyRating'] = throw_accuracy_average
+          
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 78 and a maximum of 90 for InjuryRating
@@ -45,12 +77,49 @@ def update_traits(row):
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            row['ZoneCoverageRating'] = row['CatchingRating'] + 5
 
-        # OFF Edits
-        if row['Position'] in ['WR', 'TE']:
+        # WR Edits
+        if row['Position'] == 'WR':
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            overall_rating = row['OverallRating']
+            if 95 <= overall_rating <= 99:
+                row['ZoneCoverageRating'] = 99
+            elif 90 <= overall_rating <= 94:
+                row['ZoneCoverageRating'] = 90
+            elif 85 <= overall_rating <= 89:
+                row['ZoneCoverageRating'] = 75
+            elif 80 <= overall_rating <= 84:
+                row['ZoneCoverageRating'] = 65
+            elif 75 <= overall_rating <= 79:
+                row['ZoneCoverageRating'] = 55
+            elif 70 <= overall_rating <= 74:
+                row['ZoneCoverageRating'] = 40
+            elif 1 <= overall_rating <= 69:
+                row['ZoneCoverageRating'] = 30
+
+        # TE Edits
+        if row['Position'] == 'TE':
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            overall_rating = row['OverallRating']
+            if 95 <= overall_rating <= 99:
+                row['ZoneCoverageRating'] = 90
+            elif 90 <= overall_rating <= 94:
+                row['ZoneCoverageRating'] = 80
+            elif 85 <= overall_rating <= 89:
+                row['ZoneCoverageRating'] = 65
+            elif 80 <= overall_rating <= 84:
+                row['ZoneCoverageRating'] = 55
+            elif 75 <= overall_rating <= 79:
+                row['ZoneCoverageRating'] = 45
+            elif 70 <= overall_rating <= 74:
+                row['ZoneCoverageRating'] = 35
+            elif 1 <= overall_rating <= 69:
+                row['ZoneCoverageRating'] = 25
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
