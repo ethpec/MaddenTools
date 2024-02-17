@@ -1,3 +1,5 @@
+### MUST DELETE OUT 16 DIVISONAL GAMES PRIOR TO RUNNING CODE, THOSE WILL BE THE WEEK 18 MATCHUPS ###
+
 import pandas as pd
 from pulp import LpVariable, LpProblem, lpSum, LpMinimize
 
@@ -12,7 +14,7 @@ df = pd.read_excel('Files/Madden24/IE/Test/TestSeasonGame.xlsx')
 games_per_week = {
     0: 16, 1: 16, 2: 16, 3: 16, 4: 14, 5: 15, 6: 13, 7: 16,
     8: 14, 9: 14, 10: 14, 11: 16, 12: 13, 13: 15, 14: 16,
-    15: 16, 16: 16, 17: 16
+    15: 16, 16: 16
 }
 
 # Define the divisional opponents for each team
