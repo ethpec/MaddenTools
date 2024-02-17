@@ -25,16 +25,23 @@ def update_traits(row):
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'  # Change Trait_ThrowAway column for QBs to 'TRUE'
             row['TRAIT_COVER_BALL'] = 'ForAllHits'
-            if 'Pocket' in row['TRAIT_QBSTYLE']:
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_QBSTYLE'] = 'Pocket'
+            if 77 <= row['SpeedRating'] <= 79:
+                qbstyle_value = random.choice(['Pocket', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if 80 <= row['SpeedRating'] <= 82:
                 row['TRAIT_QBSTYLE'] = 'Balanced'
-            if row['SpeedRating'] < 80:
-                row['TRAIT_QBSTYLE'] = 'Balanced'
-            if row['SpeedRating'] >= 87:
+            if 83 <= row['SpeedRating'] <= 84:
+                qbstyle_value = random.choice(['Scrambling', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if row['SpeedRating'] >= 85:
                 row['TRAIT_QBSTYLE'] = 'Scrambling'
             if row['SpeedRating'] >= 90:
                 row['TRAIT_TUCK_RUN'] = '2'
             if 85 <= row['SpeedRating'] <= 89:
                 tuck_run_value = random.choice(['1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
             if 80 <= row['SpeedRating'] <= 84:
                 tuck_run_value = random.choice(['0', '1', '2'])
                 row['TRAIT_TUCK_RUN'] = tuck_run_value
@@ -44,7 +51,8 @@ def update_traits(row):
             if row['SpeedRating'] <= 76:
                 row['TRAIT_TUCK_RUN'] = '0'
             if 'Conservative' in row['TRAIT_FORCE_PASS']:
-                row['TRAIT_FORCE_PASS'] = 'Ideal'
+                qbforcepass_value = random.choice(['Ideal', 'Conservative'])
+                row['TRAIT_FORCE_PASS'] = qbforcepass_value
 
         # HB Edits
         if row['Position'] == 'HB':
