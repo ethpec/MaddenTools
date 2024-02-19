@@ -1,3 +1,5 @@
+### Assign Week 18 Matchups, Number of Games Per Week (Match Existing Schedule), & Super Bowl Champion Week 1 Home Game ###
+
 import pandas as pd
 from pulp import LpVariable, LpProblem, lpSum, LpMinimize
 import random
@@ -38,7 +40,7 @@ def generate_schedule(file_path):
         # Drop the rows from the original DataFrame
         df = df.drop(week_18_games.index)
 
-    # Define the number of games per week
+    # Define the number of games per week ############ Match what EA produces for the schedule
     games_per_week = {
         0: 16, 1: 16, 2: 16, 3: 16, 4: 16, 5: 14, 6: 13, 7: 15,
         8: 14, 9: 14, 10: 15, 11: 15, 12: 14, 13: 14, 14: 16,
