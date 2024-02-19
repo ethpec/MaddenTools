@@ -14,7 +14,7 @@ def generate_schedule(file_path):
     week_18_games = df[
         (((df['HomeTeam'] == 'Jets') & (df['AwayTeam'] == 'Bills')) |
         ((df['HomeTeam'] == 'Dolphins') & (df['AwayTeam'] == 'Patriots'))) |
-        (((df['HomeTeam'] == 'Browns') & (df['AwayTeam'] == 'Ravens')) |
+        (((df['HomeTeam'] == 'Ravens') & (df['AwayTeam'] == 'Browns')) |
         ((df['HomeTeam'] == 'Steelers') & (df['AwayTeam'] == 'Bengals'))) |
         (((df['HomeTeam'] == 'Texans') & (df['AwayTeam'] == 'Titans')) |
         ((df['HomeTeam'] == 'Jaguars') & (df['AwayTeam'] == 'Colts'))) |
@@ -40,8 +40,8 @@ def generate_schedule(file_path):
 
     # Define the number of games per week
     games_per_week = {
-        0: 16, 1: 16, 2: 16, 3: 16, 4: 14, 5: 15, 6: 13, 7: 16,
-        8: 14, 9: 14, 10: 14, 11: 16, 12: 13, 13: 15, 14: 16,
+        0: 16, 1: 16, 2: 16, 3: 16, 4: 16, 5: 14, 6: 13, 7: 15,
+        8: 14, 9: 14, 10: 15, 11: 15, 12: 14, 13: 14, 14: 16,
         15: 16, 16: 16
     }
 
@@ -61,7 +61,7 @@ def generate_schedule(file_path):
     x = LpVariable.dicts("x", [(game, week) for game in games for week in weeks], 0, 1, cat='Binary')
 
     ##### Ensure SuperBowl Champs are HomeTeam for first game ###############################################
-    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Chiefs']) == 1
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == '49ers']) == 1
 
     # Ensure Lions and Cowboys each are HomeTeam for a game on Thansgiving
     prob += lpSum([x[(game, 11)] for game in games if df.at[game, 'HomeTeam'] == 'Lions']) == 1
