@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Test/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -23,7 +23,7 @@ def update_traits(row):
             if new_injury_rating > 85:
                 new_injury_rating = 85
             row['InjuryRating'] = new_injury_rating
-            row['TRAIT_THROWAWAY'] = 'TRUE'  # Change Trait_ThrowAway column for QBs to 'TRUE'
+            row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'ForAllHits'
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
@@ -171,4 +171,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Test/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season2/DraftClassEdit.xlsx', index=False)
