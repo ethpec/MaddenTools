@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season1/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden24/IE/Season1/RegressionValues.xlsx'
+file_path = 'Files/Madden24/IE/Season2/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden24/IE/Season2/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -128,4 +128,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden24/IE/Season1/Final.csv', index=False)
+df.to_csv('Files/Madden24/IE/Season2/Final.csv', index=False)
