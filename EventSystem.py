@@ -7,7 +7,7 @@ position_report_file_path = 'Files/Madden24/IE/Season2/Position_Report.xlsx'
 output_file_path = 'Files/Madden24/IE/Season2/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "TradeDeadline"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -58,7 +58,7 @@ def vet_wantscontract(row):
         multiplier = 2.0
 
     if season_phase == "Preseason" or season_phase == "Offseason":
-        if row['OverallRating'] >= 90 and row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
+        if row['OverallRating'] >= 90 and row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] <= 2:
             return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
         elif 85 <= row['OverallRating'] <= 89 and row['Position'] not in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
             return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
