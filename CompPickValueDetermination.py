@@ -7,7 +7,7 @@ all_pros_path = 'Files/Madden24/IE/Season2/AllPros.xlsx'
 all_xlsm_path = 'Files/Madden24/IE/Season2/All.xlsm'
 
 # Specify the current season year
-current_season_year = 1  ####### Change this to the correct value #######
+current_season_year = 2  ####### Change this to the correct value #######
 
 def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
     """
@@ -126,7 +126,7 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
                 row['ContractSalary6'] + row['ContractBonus6'] +
                 row['ContractSalary7'] + row['ContractBonus7']
             )
-            contract_length = row['ContractLength']
+            contract_length = min(row['ContractLength'], sum(1 for salary in range(8) if row[f'ContractSalary{salary}'] != 0))
             if contract_length > 0:
                 ranking = total_contract_value / contract_length
             else:
@@ -134,6 +134,9 @@ def calculate_number_value_ranking(file_path, all_pros_path, all_xlsm_path):
         else:
             ranking = None  # Players with other contract statuses get a None value
         return ranking
+
+    # Create a new column 'AAV' using apply function
+    df['AAV'] = df.apply(lambda row: calculate_rank(row), axis=1)
 
     # Calculate number value rankings for each player
     df['NumberValueRanking'] = df.apply(calculate_rank, axis=1)
