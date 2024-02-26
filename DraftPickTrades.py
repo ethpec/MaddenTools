@@ -4,10 +4,10 @@ import random
 import string
 
 # Your File Paths
-pick_file_path = 'Files/Madden24/IE/Test/DraftPicks.xlsx'
-index_file_path = 'Files/Madden24/IE/Test/DraftTeamIndex.xlsx'
-value_file_path = 'Files/Madden24/IE/Test/DraftPickValue.xlsx'
-output_file_path = 'Files/Madden24/IE/Test/Draft_Trades.xlsx'
+pick_file_path = 'Files/Madden24/IE/Season2/DraftPicks.xlsx'
+index_file_path = 'Files/Madden24/IE/Season2/DraftTeamIndex.xlsx'
+value_file_path = 'Files/Madden24/IE/Season2/DraftPickValue.xlsx'
+output_file_path = 'Files/Madden24/IE/Season2/Draft_Trades.xlsx'
 
 # Read DraftTeamIndex Excel file
 team_index_df = pd.read_excel(index_file_path)
@@ -16,7 +16,7 @@ team_index_df = pd.read_excel(index_file_path)
 team_picks_df = team_index_df[['Team Name', 'Team Index', 'Binary']]
 
 # Convert the 'Binary' column to string and pad with leading zeros
-team_picks_df['Binary'] = team_picks_df['Binary'].astype(str).str.zfill(16)
+team_picks_df.loc[:, 'Binary'] = team_picks_df['Binary'].astype(str).str.zfill(16)
 
 # Read DraftPicks Excel file
 draft_picks_df = pd.read_excel(pick_file_path)
@@ -25,7 +25,7 @@ draft_picks_df = pd.read_excel(pick_file_path)
 draft_picks_df_year_0 = draft_picks_df[draft_picks_df['YearOffset'] == 0]
 
 # Extract right 16 digits of the 'CurrentTeam' column and convert to string
-draft_picks_df_year_0['CurrentTeam'] = draft_picks_df_year_0['CurrentTeam'].astype(str).str[-16:]
+draft_picks_df_year_0.loc[:, 'CurrentTeam'] = draft_picks_df_year_0['CurrentTeam'].astype(str).str[-16:]
 
 # Count the number of picks with YearOffset = 0 each team has
 num_draft_picks_year_0 = draft_picks_df_year_0.groupby('CurrentTeam').size().reset_index(name='PicksThisYear')
@@ -150,5 +150,5 @@ def fill_trade_with(row):
 draft_order_df['TradeWith'] = draft_order_df.apply(fill_trade_with, axis=1)
 
 # Write to Excel under 'DraftOrder' tab
-with pd.ExcelWriter(output_file_path, mode='a') as writer:
+with pd.ExcelWriter(output_file_path, mode='a', engine='openpyxl') as writer:
     draft_order_df.to_excel(writer, sheet_name='DraftOrder', index=False)
