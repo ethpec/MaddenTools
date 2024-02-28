@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -30,4 +30,4 @@ def calculate_skill_points(row):
 df['SkillPoints'] = df.apply(calculate_skill_points, axis=1)
 
 output_filename = 'Player_RookieProgression.xlsx'
-df.to_excel('Files/Madden24/IE/Season2/Player_RookieProgression.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season3/Player_RookieProgression.xlsx', index=False)
