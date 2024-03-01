@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -28,40 +28,14 @@ def update_traits(row):
             row['TRAIT_COVER_BALL'] = 'OnMediumHits'
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
-            if 77 <= row['SpeedRating'] <= 79:
-                qbstyle_value = random.choice(['Pocket', 'Balanced'])
-                row['TRAIT_TUCK_RUN'] = qbstyle_value
-            if 80 <= row['SpeedRating'] <= 82:
-                row['TRAIT_QBSTYLE'] = 'Balanced'
-            if 83 <= row['SpeedRating'] <= 84:
-                qbstyle_value = random.choice(['Scrambling', 'Balanced'])
-                row['TRAIT_TUCK_RUN'] = qbstyle_value
-            if row['SpeedRating'] >= 85:
-                row['TRAIT_QBSTYLE'] = 'Scrambling'
-            if row['SpeedRating'] >= 90:
-                row['TRAIT_TUCK_RUN'] = '2'
-            if 85 <= row['SpeedRating'] <= 89:
-                tuck_run_value = random.choice(['1', '2'])
-                row['TRAIT_TUCK_RUN'] = tuck_run_value
-            if 80 <= row['SpeedRating'] <= 84:
-                tuck_run_value = random.choice(['0', '1', '2'])
-                row['TRAIT_TUCK_RUN'] = tuck_run_value
-            if 77 <= row['SpeedRating'] <= 79:
-                tuck_run_value = random.choice(['0', '1'])
-                row['TRAIT_TUCK_RUN'] = tuck_run_value
-            if row['SpeedRating'] <= 76:
-                row['TRAIT_TUCK_RUN'] = '0'
             if 'Conservative' in row['TRAIT_FORCE_PASS']:
                 row['ZoneCoverageRating'] = 65
             if 'Ideal' in row['TRAIT_FORCE_PASS']:
                 row['ZoneCoverageRating'] = 55
             if 'Aggressive' in row['TRAIT_FORCE_PASS']:
                 row['ZoneCoverageRating'] = 45
-            # Calculate the average of ThrowAccuracyShortRating, ThrowAccuracyMidRating, and ThrowAccuracyDeepRating
             throw_accuracy_average = (row['ThrowAccuracyShortRating'] + row['ThrowAccuracyMidRating'] + row['ThrowAccuracyDeepRating']) / 3
-            # Round up to the nearest whole value
             throw_accuracy_average = math.ceil(throw_accuracy_average)
-            # Update ThrowAccuracyRating column with the new value
             row['ThrowAccuracyRating'] = throw_accuracy_average
           
         # HB Edits
@@ -109,13 +83,13 @@ def update_traits(row):
             if 95 <= overall_rating <= 99:
                 row['ZoneCoverageRating'] = 90
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = 80
+                row['ZoneCoverageRating'] = 85
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = 65
+                row['ZoneCoverageRating'] = 70
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = 55
+                row['ZoneCoverageRating'] = 60
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = 45
+                row['ZoneCoverageRating'] = 50
             elif 70 <= overall_rating <= 74:
                 row['ZoneCoverageRating'] = 35
             elif 1 <= overall_rating <= 69:
@@ -253,6 +227,6 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden24/IE/Season2/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season3/Player_PreseasonEdits.xlsx', index=False)
 
 ### CoverBall might get changed ###
