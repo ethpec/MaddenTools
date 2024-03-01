@@ -3,9 +3,9 @@ import math
 import random
 
 # Your File Paths
-free_agents_file_path = 'Files/Madden24/IE/Season2/Player_FreeAgents.xlsx'
-player_file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
-expected_salary_file_path = 'Files/Madden24/IE/Season2/ExpectedSalary.xlsx'
+free_agents_file_path = 'Files/Madden24/IE/Season3/Player_FreeAgents.xlsx'
+player_file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
+expected_salary_file_path = 'Files/Madden24/IE/Season3/ExpectedSalary.xlsx'
 
 # Read data from the specified Excel files
 free_agents_df = pd.read_excel(free_agents_file_path)
@@ -52,7 +52,7 @@ def update_contractlength(row):
     if row['StatusCheck'] and row['AddedYears'] >= 1:
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness (50% chance to subtract 1 from the contract length)
-        if random.random() < 0.50:
+        if random.random() < 0.40:
             new_contract_length -= 1
         # Check if the new contract length is different from the original value
         if new_contract_length != row['ContractLength']:
@@ -132,5 +132,5 @@ columns_to_export = ['FirstName', 'LastName', 'ContractStatus', 'DidSalaryChange
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_FAContractFix.xlsx"
-output_filename = 'Files/Madden24/IE/Season2/Player_FAContractFix.xlsx'
+output_filename = 'Files/Madden24/IE/Season3/Player_FAContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)
