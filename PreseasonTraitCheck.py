@@ -29,11 +29,11 @@ def update_traits(row):
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
             if 'Conservative' in row['TRAIT_FORCE_PASS']:
-                row['ZoneCoverageRating'] = 65
+                row['ZoneCoverageRating'] = 63 + random.randint(0, 5)
             if 'Ideal' in row['TRAIT_FORCE_PASS']:
-                row['ZoneCoverageRating'] = 55
+                row['ZoneCoverageRating'] = 60 + random.randint(0, 5)
             if 'Aggressive' in row['TRAIT_FORCE_PASS']:
-                row['ZoneCoverageRating'] = 45
+                row['ZoneCoverageRating'] = 57 + random.randint(0, 5)
             throw_accuracy_average = (row['ThrowAccuracyShortRating'] + row['ThrowAccuracyMidRating'] + row['ThrowAccuracyDeepRating']) / 3
             throw_accuracy_average = math.ceil(throw_accuracy_average)
             row['ThrowAccuracyRating'] = throw_accuracy_average
@@ -51,7 +51,9 @@ def update_traits(row):
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
-            row['ZoneCoverageRating'] = row['CatchingRating'] + 5
+            rb_targets = row['CatchingRating']
+            adjusted_rbtargets = rb_targets + 5
+            row['ZoneCoverageRating'] = min(99, adjusted_rbtargets)
 
         # WR Edits
         if row['Position'] == 'WR':
@@ -62,17 +64,17 @@ def update_traits(row):
             if 95 <= overall_rating <= 99:
                 row['ZoneCoverageRating'] = 99
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = 90
+                row['ZoneCoverageRating'] = overall_rating
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = 75
+                row['ZoneCoverageRating'] = overall_rating - 10 + random.randint(0, 5)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = 65
+                row['ZoneCoverageRating'] = overall_rating - 20 + random.randint(0, 5)
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = 55
+                row['ZoneCoverageRating'] = overall_rating - 35 + random.randint(0, 5)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = 40
+                row['ZoneCoverageRating'] = overall_rating - 40 + random.randint(0, 5)
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 30
+                row['ZoneCoverageRating'] = 20 + random.randint(0, 10)
 
         # TE Edits
         if row['Position'] == 'TE':
@@ -81,25 +83,34 @@ def update_traits(row):
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = 90
+                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 2)
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = 85
+                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 5)
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = 70
+                row['ZoneCoverageRating'] = overall_rating - 15 + random.randint(0, 5)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = 60
+                row['ZoneCoverageRating'] = overall_rating - 25 + random.randint(0, 5)
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = 50
+                row['ZoneCoverageRating'] = overall_rating - 40 + random.randint(0, 5)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = 35
+                row['ZoneCoverageRating'] = overall_rating - 45 + random.randint(0, 5)
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 25
+                row['ZoneCoverageRating'] = 15 + random.randint(0, 10)
 
         # DEF Edits
-        if row['Position'] in ['LE', 'RE', 'DT']:
+        if row['Position'] in ['LE', 'RE']:
             row['TRAIT_DLSWIM'] = 'TRUE'
             row['TRAIT_DLSPIN'] = 'TRUE'
             row['TRAIT_DLBULLRUSH'] = 'TRUE'
+            overall_rating = row['OverallRating']
+            row['ThrowOnTheRunRating'] = overall_rating
+
+        if row['Position'] in ['DT']:
+            row['TRAIT_DLSWIM'] = 'TRUE'
+            row['TRAIT_DLSPIN'] = 'TRUE'
+            row['TRAIT_DLBULLRUSH'] = 'TRUE'
+            overall_rating = row['OverallRating']
+            row['ThrowOnTheRunRating'] = overall_rating
 
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
