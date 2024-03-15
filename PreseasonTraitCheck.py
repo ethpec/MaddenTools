@@ -62,7 +62,7 @@ def update_traits(row):
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = 99
+                row['ZoneCoverageRating'] = overall_rating
             elif 90 <= overall_rating <= 94:
                 row['ZoneCoverageRating'] = overall_rating
             elif 85 <= overall_rating <= 89:
