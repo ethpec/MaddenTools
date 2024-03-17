@@ -33,15 +33,19 @@ player_df['ExpectedContractLength'] = player_df.apply(calculate_expected_contrac
 # Create a new column 'AddedYears' by subtracting 'ContractLength' from 'ExpectedContractLength'
 player_df['AddedYears'] = player_df['ExpectedContractLength'] - player_df['ContractLength']
 
-# Compute YearlySalary and YearlyBonus for players with True StatusCheck and AddedYears >= 1, round up to nearest integer
+# Compute YearlySalary and YearlyBonus for players with True StatusCheck and AddedYears >= -1, round up to nearest integer
 def compute_yearly_salary(row):
-    if row['StatusCheck'] and row['AddedYears'] >= 1:
+    if row['StatusCheck'] and row['AddedYears'] >= -1:
         non_zero_salaries = [row[f'ContractSalary{i}'] for i in range(8) if row[f'ContractSalary{i}'] != 0]
         non_zero_bonuses = [row[f'ContractBonus{i}'] for i in range(8) if row[f'ContractBonus{i}'] != 0]
         if non_zero_salaries and non_zero_bonuses:
             avg_salary = sum(non_zero_salaries) / len(non_zero_salaries)
             avg_bonus = sum(non_zero_bonuses) / len(non_zero_bonuses)
-            return math.ceil(avg_salary), math.ceil(avg_bonus)  # Round up to nearest integer
+            return math.ceil(avg_salary), math.ceil(avg_bonus)  # Round up to nearest integer  
+        elif non_zero_salaries and not non_zero_bonuses:
+            avg_salary = sum(non_zero_salaries) / len(non_zero_salaries)
+            avg_bonus = 0
+            return math.ceil(avg_salary), None  # Bonus is None since there are no non-zero bonuses
     return None, None
 
 # Apply compute_yearly_salary function to all players without filtering
@@ -49,40 +53,69 @@ player_df['YearlySalary'], player_df['YearlyBonus'] = zip(*player_df.apply(compu
 
 # Function to update the contract length for qualified players
 def update_contractlength(row):
+    
     if row['StatusCheck'] and row['AddedYears'] >= 1:
         new_contract_length = row['ExpectedContractLength']
-        # Apply randomness (50% chance to subtract 1 from the contract length)
-        if random.random() < 0.40:
+        # Apply randomness
+        random_number = random.random()
+        if random_number < 0.25:  # 25% chance to subtract 1 from the contract length
             new_contract_length -= 1
-        # Check if the new contract length is different from the original value
-        if new_contract_length != row['ContractLength']:
+        elif random_number >= 0.25 and random_number < 0.35:  # 10% chance to add 1 to the contract length
+            new_contract_length += 1
+        # Check if the new contract length is different from the original value and not NaN
+        if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
             return new_contract_length, True  # Return the updated length and True for ContractLengthChanged
+        
+    elif row['StatusCheck'] and row['AddedYears'] == 0:
+        new_contract_length = row['ExpectedContractLength']
+        # Apply randomness
+        random_number = random.random()
+        if random_number < 0.10:  # 10% chance to subtract 1 from the contract length
+            new_contract_length -= 1
+        elif random_number >= 0.10 and random_number < 0.20:  # 10% chance to add 1 to the contract length
+            new_contract_length += 1
+        # Check if the new contract length is different from the original value and not NaN
+        if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
+            return new_contract_length, True  # Return the updated length and True for ContractLengthChanged
+        
     return row['ContractLength'], False  # Keep the existing contract length and mark ContractLengthChanged as False
 
 # Function to edit ContractSalary based on new ContractLength value
 def edit_contract_salary(row):
     if row['ContractLengthChanged']:
         original_salaries = [row[f'ContractSalary{i}'] for i in range(8)]
-        if row['ContractLength'] == 1:
-            row['ContractSalary0'] = row['YearlySalary']
-        elif row['ContractLength'] == 2:
-            row['ContractSalary0'] = int(0.95 * row['YearlySalary'])
-            row['ContractSalary1'] = int(1.05 * row['YearlySalary'])
-        elif row['ContractLength'] == 3:
-            row['ContractSalary0'] = int(0.90 * row['YearlySalary'])
-            row['ContractSalary1'] = row['YearlySalary']
-            row['ContractSalary2'] = int(1.10 * row['YearlySalary'])
-        elif row['ContractLength'] == 4:
-            row['ContractSalary0'] = int(0.85 * row['YearlySalary'])
-            row['ContractSalary1'] = int(0.95 * row['YearlySalary'])
-            row['ContractSalary2'] = int(1.05 * row['YearlySalary'])
-            row['ContractSalary3'] = int(1.15 * row['YearlySalary'])
-        elif row['ContractLength'] == 5:
-            row['ContractSalary0'] = int(0.80 * row['YearlySalary'])
-            row['ContractSalary1'] = int(0.90 * row['YearlySalary'])
-            row['ContractSalary2'] = row['YearlySalary']
-            row['ContractSalary3'] = int(1.10 * row['YearlySalary'])
-            row['ContractSalary4'] = int(1.20 * row['YearlySalary'])
+        if not pd.isna(row['YearlySalary']):  # Check if 'YearlySalary' is not NaN
+            new_contract_length = int(row['ContractLength'])
+            for i in range(new_contract_length, 8):
+                row[f'ContractSalary{i}'] = 0 # Zero out ContractSalary columns beyond new_contract_length
+
+            if row['ContractLength'] == 1:
+                row['ContractSalary0'] = int(row['YearlySalary'])
+            elif row['ContractLength'] == 2:
+                row['ContractSalary0'] = int(0.95 * row['YearlySalary'])
+                row['ContractSalary1'] = int(1.05 * row['YearlySalary'])
+            elif row['ContractLength'] == 3:
+                row['ContractSalary0'] = int(0.90 * row['YearlySalary'])
+                row['ContractSalary1'] = row['YearlySalary']
+                row['ContractSalary2'] = int(1.10 * row['YearlySalary'])
+            elif row['ContractLength'] == 4:
+                row['ContractSalary0'] = int(0.85 * row['YearlySalary'])
+                row['ContractSalary1'] = int(0.95 * row['YearlySalary'])
+                row['ContractSalary2'] = int(1.05 * row['YearlySalary'])
+                row['ContractSalary3'] = int(1.15 * row['YearlySalary'])
+            elif row['ContractLength'] == 5:
+                row['ContractSalary0'] = int(0.80 * row['YearlySalary'])
+                row['ContractSalary1'] = int(0.90 * row['YearlySalary'])
+                row['ContractSalary2'] = row['YearlySalary']
+                row['ContractSalary3'] = int(1.10 * row['YearlySalary'])
+                row['ContractSalary4'] = int(1.20 * row['YearlySalary'])
+            elif row['ContractLength'] == 6:
+                row['ContractSalary0'] = int(0.75 * row['YearlySalary'])
+                row['ContractSalary1'] = int(0.90 * row['YearlySalary'])
+                row['ContractSalary2'] = row['YearlySalary']
+                row['ContractSalary3'] = row['YearlySalary']
+                row['ContractSalary4'] = int(1.10 * row['YearlySalary'])
+                row['ContractSalary5'] = int(1.25 * row['YearlySalary'])
 
         # Check if any ContractSalary(i) values were changed
         new_salaries = [row[f'ContractSalary{i}'] for i in range(8)]
@@ -95,26 +128,22 @@ def edit_contract_salary(row):
 # Function to edit ContractBonus based on new ContractLength value
 def edit_contract_bonus(row):
     if row['ContractLengthChanged']:
-        if row['ContractLength'] == 1:
-            row['ContractBonus0'] = row['YearlyBonus']
-        elif row['ContractLength'] == 2:
-            row['ContractBonus0'] = row['YearlyBonus']
-            row['ContractBonus1'] = row['YearlyBonus']
-        elif row['ContractLength'] == 3:
-            row['ContractBonus0'] = row['YearlyBonus']
-            row['ContractBonus1'] = row['YearlyBonus']
-            row['ContractBonus2'] = row['YearlyBonus']
-        elif row['ContractLength'] == 4:
-            row['ContractBonus0'] = row['YearlyBonus']
-            row['ContractBonus1'] = row['YearlyBonus']
-            row['ContractBonus2'] = row['YearlyBonus']
-            row['ContractBonus3'] = row['YearlyBonus']
-        elif row['ContractLength'] >= 5 and row['ContractLength'] <= 7:
-            row['ContractBonus0'] = row['YearlyBonus']
-            row['ContractBonus1'] = row['YearlyBonus']
-            row['ContractBonus2'] = row['YearlyBonus']
-            row['ContractBonus3'] = row['YearlyBonus']
-            row['ContractBonus4'] = row['YearlyBonus']
+        if not pd.isna(row['YearlyBonus']):  # Check if 'YearlyBonus' is not NaN
+            new_contract_length = int(row['ContractLength'])
+            for i in range(new_contract_length, 8):
+                row[f'ContractBonus{i}'] = 0  # Zero out ContractBonus columns beyond new_contract_length
+                
+            if new_contract_length == 1:
+                row['ContractBonus0'] = row['YearlyBonus']
+            elif new_contract_length == 2:
+                row['ContractBonus1'] = row['YearlyBonus']
+            elif new_contract_length == 3:
+                row['ContractBonus2'] = row['YearlyBonus']
+            elif new_contract_length == 4:
+                row['ContractBonus3'] = row['YearlyBonus']
+            elif 5 <= new_contract_length <= 7:
+                row['ContractBonus4'] = row['YearlyBonus']
+
     return row
 
 # Apply the update_contractlength function to modify ContractLength column for qualified players and add ContractLengthChanged column
@@ -128,7 +157,7 @@ player_df.loc[player_df['ContractLengthChanged'], :] = player_df[player_df['Cont
 player_df.loc[player_df['ContractLengthChanged'], :] = player_df[player_df['ContractLengthChanged']].apply(edit_contract_bonus, axis=1)
 
 # Select only the columns you want to keep in the exported sheet
-columns_to_export = ['FirstName', 'LastName', 'ContractStatus', 'DidSalaryChange', 'StatusCheck', 'ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3', 'ContractSalary4', 'ContractSalary5', 'ContractSalary6', 'ContractSalary7',
+columns_to_export = ['Position', 'FirstName', 'LastName', 'ContractStatus', 'DidSalaryChange', 'ContractLengthChanged', 'StatusCheck', 'ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3', 'ContractSalary4', 'ContractSalary5', 'ContractSalary6', 'ContractSalary7',
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_FAContractFix.xlsx"
