@@ -7,7 +7,7 @@ position_report_file_path = 'Files/Madden24/IE/Season3/Position_Report.xlsx'
 output_file_path = 'Files/Madden24/IE/Season3/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "TradeDeadline"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
