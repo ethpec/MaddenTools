@@ -2,15 +2,15 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
 # Define target values for ContractSalary0 and ContractSalary1 based on years_pro
 min_salary_values = {
-    0: 75,
-    1: 87,
-    2: 94
+    0: 80,
+    1: 92,
+    2: 98
 }
 
 def update_pscontracts(row):
@@ -23,7 +23,7 @@ def update_pscontracts(row):
 
     if contract_status == 'Signed' and years_pro in [0, 1] and contract_length == 1:
         row['ContractLength'] = 3
-        row['ContractYear'] = str(years_pro)
+        row['ContractYear'] = years_pro
 
         if years_pro in min_salary_values:
             target_salary = min_salary_values[years_pro]
@@ -63,4 +63,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden24/IE/Season2/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season3/PracticeSquad_Contracts.xlsx', index=False)
