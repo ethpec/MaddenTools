@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
 
 # Read the Player.xlsx file into a DataFrame
 df = pd.read_excel(file_path)
@@ -62,5 +62,5 @@ result_df['TeamName'] = result_df['TeamIndex'].map(team_dict)
 result_df = result_df[['FirstName', 'LastName', 'Position', 'TeamIndex', 'TeamName', 'ContractLength', 'ContractYear', 'HasVoidYears', 'VoidYears', 'WhenVoid', 'VoidThisYear']]
 
 # Export the DataFrame to a new Excel file
-output_filename = 'Files/Madden24/IE/Season2/Player_VoidYears.xlsx'
+output_filename = 'Files/Madden24/IE/Season3/Player_VoidYears.xlsx'
 result_df.to_excel(output_filename, index=False)
