@@ -3,9 +3,9 @@ import math
 import random
 
 # Your File Paths
-resign_file_path = 'Files/Madden24/IE/Season3/PlayerExpiringContracts.xlsx'
-player_file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
-expected_salary_file_path = 'Files/Madden24/IE/Season3/ExpectedSalary.xlsx'
+resign_file_path = 'Files/Madden24/IE/Season4/PlayerExpiringContracts.xlsx'
+player_file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
+expected_salary_file_path = 'Files/Madden24/IE/Season4/ExpectedContractLength.xlsx'
 
 # Read data from the specified Excel files
 resign_df = pd.read_excel(resign_file_path)
@@ -55,7 +55,7 @@ player_df['YearlySalary'], player_df['YearlyBonus'] = zip(*player_df.apply(compu
 def update_contractlength(row):
     initial_contract_length = row['ContractLength']  # Get the initial value of ContractLength
     
-    if row['StatusCheck'] and row['AddedYears'] >= 1 and initial_contract_length >= 2:
+    if row['StatusCheck'] and row['AddedYears'] >= 1 and 2 <= initial_contract_length <= 4:
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness
         random_number = random.random()
@@ -67,7 +67,7 @@ def update_contractlength(row):
         if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
             return new_contract_length, True  # Return the updated length and True for ContractLengthChanged
         
-    elif row['StatusCheck'] and row['AddedYears'] == 0 and initial_contract_length >= 2:
+    elif row['StatusCheck'] and row['AddedYears'] == 0 and 2 <= initial_contract_length <= 4:
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness
         random_number = random.random()
@@ -162,5 +162,5 @@ columns_to_export = ['Position', 'FirstName', 'LastName', 'ContractStatus', 'Did
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_ContractFix.xlsx"
-output_filename = 'Files/Madden24/IE/Season3/Player_ResignContractFix.xlsx'
+output_filename = 'Files/Madden24/IE/Season4/Player_ResignContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)

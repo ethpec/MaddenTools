@@ -3,9 +3,9 @@ import math
 import random
 
 # Your File Paths
-free_agents_file_path = 'Files/Madden24/IE/Season3/Player_FreeAgents.xlsx'
-player_file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
-expected_salary_file_path = 'Files/Madden24/IE/Season3/ExpectedSalary.xlsx'
+free_agents_file_path = 'Files/Madden24/IE/Season4/Player_FreeAgents.xlsx'
+player_file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
+expected_salary_file_path = 'Files/Madden24/IE/Season4/ExpectedContractLength.xlsx'
 
 # Read data from the specified Excel files
 free_agents_df = pd.read_excel(free_agents_file_path)
@@ -53,20 +53,21 @@ player_df['YearlySalary'], player_df['YearlyBonus'] = zip(*player_df.apply(compu
 
 # Function to update the contract length for qualified players
 def update_contractlength(row):
-    
-    if row['StatusCheck'] and row['AddedYears'] >= 1:
+    initial_contract_length = row['ContractLength']  # Get the initial value of ContractLength
+
+    if row['StatusCheck'] and row['AddedYears'] >= 1 and row['Position'] not in ['QB'] and 2 <= initial_contract_length <= 4:
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness
         random_number = random.random()
-        if random_number < 0.25:  # 25% chance to subtract 1 from the contract length
+        if random_number < 0.40:  # 40% chance to subtract 1 from the contract length
             new_contract_length -= 1
-        elif random_number >= 0.25 and random_number < 0.35:  # 10% chance to add 1 to the contract length
+        elif random_number >= 0.40 and random_number < 0.50:  # 10% chance to add 1 to the contract length
             new_contract_length += 1
         # Check if the new contract length is different from the original value and not NaN
         if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
             return new_contract_length, True  # Return the updated length and True for ContractLengthChanged
         
-    elif row['StatusCheck'] and row['AddedYears'] == 0:
+    elif row['StatusCheck'] and row['AddedYears'] == 0 and row['Position'] not in ['QB'] and 2 <= initial_contract_length <= 4:
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness
         random_number = random.random()
@@ -161,5 +162,5 @@ columns_to_export = ['Position', 'FirstName', 'LastName', 'ContractStatus', 'Did
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_FAContractFix.xlsx"
-output_filename = 'Files/Madden24/IE/Season3/Player_FAContractFix.xlsx'
+output_filename = 'Files/Madden24/IE/Season4/Player_FAContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)
