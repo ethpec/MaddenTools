@@ -148,6 +148,7 @@ def adjust_contract_salary(row):
     years_pro = row['YearsPro']
     contract_salary_0 = row['ContractSalary0']
     contract_salary_1 = row['ContractSalary1']
+    contract_salary_2 = row['ContractSalary2']
 
     if contract_status == 'Signed':
         if years_pro in min_salary_values:
@@ -156,6 +157,8 @@ def adjust_contract_salary(row):
                 row['ContractSalary0'] = target_salary
             if contract_salary_1 != 0 and contract_salary_1 < target_salary:
                 row['ContractSalary1'] = target_salary
+            if contract_salary_2 != 0 and contract_salary_2 < target_salary:
+                row['ContractSalary2'] = target_salary
 
     return row
 
