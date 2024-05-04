@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season3/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -66,15 +66,15 @@ def update_traits(row):
             elif 90 <= overall_rating <= 94:
                 row['ZoneCoverageRating'] = overall_rating
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 10 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 10 + random.randint(0, 4)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 20 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 20 + random.randint(0, 6)
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = overall_rating - 35 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 30 + random.randint(0, 8)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 40 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 40 + random.randint(0, 10)
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 20 + random.randint(0, 10)
+                row['ZoneCoverageRating'] = 25 + random.randint(0, 12)
 
         # TE Edits
         if row['Position'] == 'TE':
@@ -83,19 +83,19 @@ def update_traits(row):
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 2)
+                row['ZoneCoverageRating'] = overall_rating - 2 + random.randint(0, 2)
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 2 + random.randint(0, 4)
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 15 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 15 + random.randint(0, 6)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 25 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 25 + random.randint(0, 8)
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = overall_rating - 40 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 35 + random.randint(0, 9)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 45 + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 45 + random.randint(0, 10)
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 15 + random.randint(0, 10)
+                row['ZoneCoverageRating'] = 20 + random.randint(0, 12)
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE']:
@@ -128,19 +128,19 @@ def update_traits(row):
 
 # Define target values for ContractSalary0 and ContractSalary1 based on years_pro
 min_salary_values = {
-    0: 75,
-    1: 87,
-    2: 94,
-    3: 101,
+    0: 80,
+    1: 92,
+    2: 98,
+    3: 105,
 }
 
 # Set the same values for players with 4 through 6 YearsPro
 for years_pro in range(4, 7):
-    min_salary_values[years_pro] = 108  # Minimum for years_pro >= 4
+    min_salary_values[years_pro] = 112  # Minimum for years_pro >= 4
 
 # Set the same values for players with 7 through 25 YearsPro
 for years_pro in range(7, 26):
-    min_salary_values[years_pro] = 116  # Minimum for years_pro >= 7
+    min_salary_values[years_pro] = 121  # Minimum for years_pro >= 7
 
 # Function to adjust Salary to league minimum
 def adjust_contract_salary(row):
@@ -238,6 +238,6 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden24/IE/Season3/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season4/Player_PreseasonEdits.xlsx', index=False)
 
 ### CoverBall might get changed ###
