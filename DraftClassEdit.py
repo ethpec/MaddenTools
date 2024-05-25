@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -171,4 +171,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Season2/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season4/DraftClassEdit.xlsx', index=False)
