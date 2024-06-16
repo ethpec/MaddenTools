@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season3/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden24/IE/Season3/RegressionValues.xlsx'
+file_path = 'Files/Madden24/IE/Season4/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden24/IE/Season4/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -43,12 +43,7 @@ def calculate_age_based_skill_points(row):
             probabilities = [0.00, 0.10, 0.20, 0.45, 0.15, 0.05, 0.03, 0.015, 0.005] # Avg ~ 3 #
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
-        elif development_trait == 'Superstar':
-            chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
-            probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01] # Avg = 4.25 #
-            skill_points = random.choices(chances, probabilities)[0]
-            return row['SkillPoints'] + skill_points
-        elif development_trait == 'XFactor':
+        elif development_trait in ['Superstar', 'XFactor']:
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
             probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01] # Avg = 4.25 #
             skill_points = random.choices(chances, probabilities)[0]
@@ -128,4 +123,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden24/IE/Season3/Final.csv', index=False)
+df.to_csv('Files/Madden24/IE/Season4/Final.csv', index=False)
