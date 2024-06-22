@@ -5,7 +5,7 @@ from pulp import LpVariable, LpProblem, lpSum, LpMinimize
 import random
 
 # Load the existing schedule from Excel
-file_path = 'Files/Madden24/IE/Season4/SeasonGame.xlsx'
+file_path = 'Files/Madden24/IE/Season5/SeasonGame.xlsx'
 
 # Define a function to generate a schedule
 def generate_schedule(file_path):
@@ -14,20 +14,20 @@ def generate_schedule(file_path):
 
     ### Assign Week 18 Matchups Here #################
     week_18_games = df[
-    (((df['HomeTeam'] == 'Bills') & (df['AwayTeam'] == 'Dolphins')) |
-     ((df['HomeTeam'] == 'Patriots') & (df['AwayTeam'] == 'Jets'))) |
-    (((df['HomeTeam'] == 'Ravens') & (df['AwayTeam'] == 'Steelers')) |
-     ((df['HomeTeam'] == 'Bengals') & (df['AwayTeam'] == 'Browns'))) |
-    (((df['HomeTeam'] == 'Titans') & (df['AwayTeam'] == 'Jaguars')) |
-     ((df['HomeTeam'] == 'Colts') & (df['AwayTeam'] == 'Texans'))) |
-    (((df['HomeTeam'] == 'Chargers') & (df['AwayTeam'] == 'Raiders')) |
-     ((df['HomeTeam'] == 'Broncos') & (df['AwayTeam'] == 'Chiefs'))) |
+    (((df['HomeTeam'] == 'Bills') & (df['AwayTeam'] == 'Patriots')) |
+     ((df['HomeTeam'] == 'Jets') & (df['AwayTeam'] == 'Dolphins'))) |
+    (((df['HomeTeam'] == 'Steelers') & (df['AwayTeam'] == 'Bengals')) |
+     ((df['HomeTeam'] == 'Ravens') & (df['AwayTeam'] == 'Browns'))) |
+    (((df['HomeTeam'] == 'Titans') & (df['AwayTeam'] == 'Colts')) |
+     ((df['HomeTeam'] == 'Jaguars') & (df['AwayTeam'] == 'Texans'))) |
+    (((df['HomeTeam'] == 'Raiders') & (df['AwayTeam'] == 'Broncos')) |
+     ((df['HomeTeam'] == 'Chiefs') & (df['AwayTeam'] == 'Chargers'))) |
     (((df['HomeTeam'] == 'Eagles') & (df['AwayTeam'] == 'Giants')) |
      ((df['HomeTeam'] == 'Commanders') & (df['AwayTeam'] == 'Cowboys'))) |
-    (((df['HomeTeam'] == 'Lions') & (df['AwayTeam'] == 'Bears')) |
-     ((df['HomeTeam'] == 'Vikings') & (df['AwayTeam'] == 'Packers'))) |
-    (((df['HomeTeam'] == 'Saints') & (df['AwayTeam'] == 'Buccaneers')) |
-     ((df['HomeTeam'] == 'Falcons') & (df['AwayTeam'] == 'Panthers'))) |
+    (((df['HomeTeam'] == 'Packers') & (df['AwayTeam'] == 'Bears')) |
+     ((df['HomeTeam'] == 'Vikings') & (df['AwayTeam'] == 'Lions'))) |
+    (((df['HomeTeam'] == 'Panthers') & (df['AwayTeam'] == 'Buccaneers')) |
+     ((df['HomeTeam'] == 'Falcons') & (df['AwayTeam'] == 'Saints'))) |
     (((df['HomeTeam'] == '49ers') & (df['AwayTeam'] == 'Rams')) |
      ((df['HomeTeam'] == 'Cardinals') & (df['AwayTeam'] == 'Seahawks')))
     ].copy()
@@ -63,7 +63,7 @@ def generate_schedule(file_path):
     x = LpVariable.dicts("x", [(game, week) for game in games for week in weeks], 0, 1, cat='Binary')
 
     ##### Ensure SuperBowl Champs are HomeTeam for first game ###############################################
-    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Chiefs']) == 1
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Bengals']) == 1
 
     # Ensure Lions and Cowboys each are HomeTeam for a game on Thansgiving
     prob += lpSum([x[(game, 11)] for game in games if df.at[game, 'HomeTeam'] == 'Lions']) == 1
@@ -99,7 +99,7 @@ def generate_schedule(file_path):
 schedules = [generate_schedule(file_path) for _ in range(3)]
 
 # Combine schedules into the same Excel document with each on a different tab
-with pd.ExcelWriter('Files/Madden24/IE/Season4/CombinedSchedules.xlsx') as writer:
+with pd.ExcelWriter('Files/Madden24/IE/Season5/CombinedSchedules.xlsx') as writer:
     for i, (schedule, week_18_df) in enumerate(schedules):
         schedule.to_excel(writer, sheet_name=f'Schedule_{i+1}', index=False)
     week_18_df.to_excel(writer, sheet_name='Week18Games', index=False)
