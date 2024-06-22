@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 
-file_path = 'Files/Madden24/IE/Test/TestPotentialInput2.xlsx'
+file_path = 'Files/Madden24/IE/Season5/PotentialInput.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -9,6 +9,9 @@ df = pd.read_excel(file_path)
 for col_name in ['SkillPointsRookieRoll', 'SkillPoints0', 'SkillPoints1', 'SkillPoints2']:
     if col_name not in df.columns:
         df[col_name] = 0  # Initialize the column with zeros
+
+# Fill NaN values in the 'SkillPointsRookieRoll' column with 0
+df['SkillPointsRookieRoll'] = df['SkillPointsRookieRoll'].fillna(0)
 
 def calculate_total_skill_points(row):
     # Calculate TotalSkillPoints by summing SkillPoints0 to SkillPoints2 and SkillPointsRookieRoll
@@ -61,18 +64,18 @@ def calculate_skill_points_rookieroll(row):
         for col in skill_points_columns:
             skill_points = row[col]
             chance = random.random() 
-            if chance < 0.25:  # 25% chance to take out 0%
+            if chance < 0.30:  # 30% chance to take out 0%
                 # No change to skill_points or skill_points_rookie_roll
                 pass
-            elif 0.25 <= chance < 0.5:  # 25% chance to take out 25%
+            elif 0.30 <= chance < 0.60:  # 30% chance to take out 25%
                 amount_taken = min(skill_points, int(skill_points_rookie_roll * 0.25))  # Take minimum of the two values
                 skill_points -= amount_taken  # Subtract the amount taken from the current column
                 skill_points_rookie_roll += amount_taken  # Add the amount taken to SkillPointsRookieRoll
-            elif 0.5 <= chance < 0.75:  # 25% chance to take out 50%
+            elif 0.60 <= chance < 0.90:  # 30% chance to take out 50%
                 amount_taken = min(skill_points, int(skill_points_rookie_roll * 0.5))  # Take minimum of the two values
                 skill_points -= amount_taken  # Subtract the amount taken from the current column
                 skill_points_rookie_roll += amount_taken  # Add the amount taken to SkillPointsRookieRoll
-            else:  # 25% chance to take out 75%
+            else:  # 10% chance to take out 75%
                 amount_taken = min(skill_points, int(skill_points_rookie_roll * 0.75))  # Take minimum of the two values
                 skill_points -= amount_taken  # Subtract the amount taken from the current column
                 skill_points_rookie_roll += amount_taken  # Add the amount taken to SkillPointsRookieRoll
@@ -100,22 +103,25 @@ def calculate_remaining_skill_points(row):
     return row
 
 def distribute_remaining_skill_points(row):
-    remaining_points = row['RemainingSkillPoints']
-    new_skill_points = [0, 0, 0]
+    if row['YearsPro'] == 0:
+        remaining_points = row['RemainingSkillPoints']
+        new_skill_points = [0, 0, 0]
 
-    while True:
-        total_new_skill_points = sum(new_skill_points)
+        while True:
+            total_new_skill_points = sum(new_skill_points)
 
-        # Ensure the sum of NewSkillPoints0 through NewSkillPoints2 equals RemainingSkillPoints
-        if total_new_skill_points == remaining_points and all(x >= 0 for x in new_skill_points):
-            break
+            # Ensure the sum of NewSkillPoints0 through NewSkillPoints2 equals RemainingSkillPoints
+            if total_new_skill_points == remaining_points and all(x >= 0 for x in new_skill_points):
+                break
 
-        new_skill_points = [random.randint(0, remaining_points) for _ in range(3)]
-        if sum(new_skill_points) > remaining_points:
-            new_skill_points[-1] -= sum(new_skill_points) - remaining_points
+            new_skill_points = [random.randint(0, remaining_points) for _ in range(3)]
+            if sum(new_skill_points) > remaining_points:
+                # Randomly pick one of the new_skill_points to adjust
+                adjust_index = random.choice([0, 1, 2])
+                new_skill_points[adjust_index] -= sum(new_skill_points) - remaining_points
 
-    # Assign the new skill points to the respective columns
-    row['NewSkillPoints0'], row['NewSkillPoints1'], row['NewSkillPoints2'] = new_skill_points
+        # Assign the new skill points to the respective columns
+        row['NewSkillPoints0'], row['NewSkillPoints1'], row['NewSkillPoints2'] = new_skill_points
 
     return row
 
@@ -123,4 +129,4 @@ df = df.apply(calculate_remaining_skill_points, axis=1)
 df = df.apply(distribute_remaining_skill_points, axis=1)
 
 # Save the modified DataFrame to Excel
-df.to_excel('Files/Madden24/IE/Test/TestPotentialOutput.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season5/Player_Potential.xlsx', index=False)
