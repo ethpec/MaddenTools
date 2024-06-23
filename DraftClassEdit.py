@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season5/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -149,7 +149,6 @@ def update_sleevetemp(row):
             probabilities = [0.50, 0.20, 0.05, 0.15, 0.05, 0.025, 0.025] ### Average = 12.25 ###
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
-    return row['PLYR_SLEEVETEMPERATURE']
 
 # Track the original DataFrame before applying updates
 original_df = df.copy()
@@ -171,4 +170,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Season4/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season5/DraftClassEdit.xlsx', index=False)
