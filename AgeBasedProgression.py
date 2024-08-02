@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season4/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden24/IE/Season4/RegressionValues.xlsx'
+file_path = 'Files/Madden24/IE/Season5/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden24/IE/Season5/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -27,7 +27,7 @@ for _, row in regression_values_df.iterrows():
 
 def calculate_age_based_skill_points(row):
     if (
-        row['YearsPro'] in [0, 1, 2, 3]
+        row['YearsPro'] in [2] ### SEASON 6 IS LAST SEASON WHERE WE NEED THIS, ONLY NEED POTENTIAL AFTER THIS ###
         and row['ContractStatus'] in ['Signed', 'PracticeSquad']
         and row['Age'] in [20, 21, 22, 23, 24, 25]
         and row['Position'] not in ['QB', 'K', 'P']
@@ -90,7 +90,7 @@ def zero_out_points(row):
         'RB': 30,
         'HB': 30,
         'FB': 32,
-        'WR': 32,
+        'WR': 31,
         'TE': 32,
         'LT': 34,
         'LG': 34,
@@ -103,9 +103,9 @@ def zero_out_points(row):
         'LOLB': 32,
         'MLB': 32,
         'ROLB': 32,
-        'CB': 32,
-        'FS': 32,
-        'SS': 32,
+        'CB': 31,
+        'FS': 31,
+        'SS': 31,
         'K': 38,
         'P': 38,
     }
@@ -123,4 +123,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden24/IE/Season4/Final.csv', index=False)
+df.to_csv('Files/Madden24/IE/Season5/Final.csv', index=False)
