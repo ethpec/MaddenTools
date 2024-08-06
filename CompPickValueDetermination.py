@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-file_path = 'Files/Madden24/IE/Season4/Player.xlsx'
-all_pros_path = 'Files/Madden24/IE/Season4/AllPros.xlsx'
-all_xlsm_path = 'Files/Madden24/IE/Season4/All.xlsm'
+file_path = 'Files/Madden24/IE/Season5/Player.xlsx'
+all_pros_path = 'Files/Madden24/IE/Season5/AllPros.xlsx'
+all_xlsm_path = 'Files/Madden24/IE/Season5/All.xlsm'
 
 # Specify the current season year
 current_season_year = 4  ####### Change this to the correct value #######
@@ -192,4 +192,4 @@ result_df['CompRank'] = result_df['TotalPoints'].rank(method='min', ascending=Fa
 
 # Export the resulting DataFrame to an Excel document
 output_filename = 'CompPickPlayerValue.xlsx'
-result_df.to_excel('Files/Madden24/IE/Season4/CompPickPlayerValue.xlsx', index=False)
+result_df.to_excel('Files/Madden24/IE/Season5/CompPickPlayerValue.xlsx', index=False)
