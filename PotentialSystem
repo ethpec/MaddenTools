@@ -3,7 +3,7 @@ import random
 
 ############# Make Rookies have 'R' as YearsPro #############
 
-file_path = 'Files/Madden24/IE/Test/PotentialInput2.xlsx'
+file_path = 'Files/Madden24/IE/Season6/PotentialInput.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -225,4 +225,4 @@ def adjust_skill_points_based_on_dev_trait(row):
 df = df.apply(adjust_skill_points_based_on_dev_trait, axis=1)
 
 # Save the modified DataFrame to Excel
-df.to_excel('Files/Madden24/IE/Test/Player_Potential2.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season6/Player_Potential.xlsx', index=False)
