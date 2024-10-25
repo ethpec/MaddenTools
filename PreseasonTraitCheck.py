@@ -4,15 +4,17 @@ import random
 import math
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season6/Player.xlsx'
+file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
 def update_traits(row):
     # Check the player's position and apply changes to specific columns
     contract_status = row['ContractStatus']
+    years_pro = row['YearsPro']
     
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad']:
+    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
+    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -72,19 +74,19 @@ def update_traits(row):
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = overall_rating
+                row['ZoneCoverageRating'] = '99'
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = overall_rating - random.randint(0, 2) + random.randint(0, 2)
+                row['ZoneCoverageRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 4) #94
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 4) + random.randint(0, 4)
+                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 4) + random.randint(0, 12) #83
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 7) + random.randint(0, 7)
+                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 6) + random.randint(0, 24) #73
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 10) + random.randint(0, 10)
+                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24) #60
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 12)
+                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 24) #50
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 33 - random.randint(0, 15) + random.randint(0, 15)
+                row['ZoneCoverageRating'] = 35 - random.randint(0, 15) + random.randint(0, 25) #40
 
         # TE Edits
         if row['Position'] == 'TE':
@@ -93,19 +95,19 @@ def update_traits(row):
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = overall_rating - 2 + random.randint(0, 2)
+                row['ZoneCoverageRating'] = overall_rating - 6 + random.randint(0, 2) #94
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = overall_rating - random.randint(0, 2) + random.randint(0, 4)
+                row['ZoneCoverageRating'] = overall_rating - 15 - random.randint(0, 4) + random.randint(0, 12) #83
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 3) + random.randint(0, 3)
+                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 6) + random.randint(0, 20) #71
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 5) + random.randint(0, 5)
+                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 24) #60
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 10) + random.randint(0, 10)
+                row['ZoneCoverageRating'] = overall_rating - 35 - random.randint(0, 12) + random.randint(0, 24) #50
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 12)
+                row['ZoneCoverageRating'] = overall_rating - 40 - random.randint(0, 14) + random.randint(0, 26) #40
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 33 - random.randint(0, 15) + random.randint(0, 15)
+                row['ZoneCoverageRating'] = 30 - random.randint(0, 25) + random.randint(0, 25) #30
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE']:
@@ -126,7 +128,7 @@ def update_traits(row):
             elif 70 <= overall_rating <= 74:
                 row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 12) + random.randint(0, 12)
             elif 1 <= overall_rating <= 69:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 14) + random.randint(0, 14)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 15) + random.randint(0, 15)
 
         if row['Position'] in ['DT']:
             row['TRAIT_DLSWIM'] = 'TRUE'
@@ -280,6 +282,6 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden24/IE/Season6/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel('Files/Madden24/IE/Season7/Player_PreseasonEdits.xlsx', index=False)
 
 ### CoverBall might get changed ###
