@@ -3,9 +3,9 @@ import math
 import random
 
 # Your File Paths
-free_agents_file_path = 'Files/Madden24/IE/Season6/Player_FreeAgents.xlsx'
-player_file_path = 'Files/Madden24/IE/Season6/Player.xlsx'
-expected_salary_file_path = 'Files/Madden24/IE/Season6/ExpectedContractLength.xlsx'
+free_agents_file_path = 'Files/Madden24/IE/Season7/Player_FreeAgents.xlsx'
+player_file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
+expected_salary_file_path = 'Files/Madden24/IE/Season7/ExpectedContractLength.xlsx'
 
 # Read data from the specified Excel files
 free_agents_df = pd.read_excel(free_agents_file_path)
@@ -162,5 +162,5 @@ columns_to_export = ['Position', 'FirstName', 'LastName', 'ContractStatus', 'Did
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_FAContractFix.xlsx"
-output_filename = 'Files/Madden24/IE/Season6/Player_FAContractFix.xlsx'
+output_filename = 'Files/Madden24/IE/Season7/Player_FAContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)
