@@ -1,7 +1,8 @@
 import pandas as pd
+import numpy as np
 
 # Your File Paths
-player_file_path = 'Files/Madden24/IE/Season6/Player.xlsx'
+player_file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -43,8 +44,11 @@ contract_bonus_columns = ['ContractBonus0', 'ContractBonus1', 'ContractBonus2', 
                           'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7']
 
 # Calculate AAV and Signing Bonus columns for signed contracts
-signed_contracts['AAV'] = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts['ContractLength']
-signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)  # Round to nearest 100th and divide by 100
+
+aav_contract_length = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts['ContractLength']
+aav_non_zero_count = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts[contract_salary_columns].astype(bool).sum(axis=1)
+signed_contracts['AAV'] = np.maximum(aav_contract_length, aav_non_zero_count)
+signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)  # Round to the nearest 100th and divide by 100
 
 signed_contracts['SigningBonus'] = signed_contracts[contract_bonus_columns].sum(axis=1)
 signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100, 2)  # Round to nearest 100th and divide by 100
@@ -65,7 +69,7 @@ contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
 contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
 
 # Export the differences to a new sheet named "Differences" and add "Team Position Depth"
-output_file_path = 'Files/Madden24/IE/Season6/Position_Report.xlsx'
+output_file_path = 'Files/Madden24/IE/Season7/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
