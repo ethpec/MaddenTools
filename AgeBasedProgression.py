@@ -51,9 +51,15 @@ def calculate_age_based_skill_points(row):
     return row['SkillPoints']  # Keep the existing skill points if conditions are not met
 
 def calculate_freeagent_regression_points(row):
-    if row['Age'] >= 26 and row['Position'] != 'QB' and row['ContractStatus'] == 'FreeAgent':
-        return row['RegressionPoints'] + 3  # Add 3 points to the existing value
-    return row['RegressionPoints']  # Keep the existing regression points if conditions are not met
+    # Check the common conditions first
+    if row['YearsPro'] >= 3 and row['ContractStatus'] == 'FreeAgent':
+        if row['Position'] == 'QB':
+            return row['RegressionPoints'] + 1
+        elif row['OverallRating'] <= 64:
+            return row['RegressionPoints'] + 6
+        elif row['OverallRating'] >= 65:
+            return row['RegressionPoints'] + 3
+    return row['RegressionPoints']
 
 def calculate_age_based_regression(row):
     contract_status = row['ContractStatus']
