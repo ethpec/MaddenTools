@@ -30,6 +30,8 @@ def update_traits(row):
             row['TRAIT_COVER_BALL'] = 'OnMediumHits'
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
+            if row['SpeedRating'] <= 79 and row['TRAIT_QBSTYLE'] == 'Scrambling':
+                row['TRAIT_QBSTYLE'] = 'Balanced'
             if 'Conservative' in row['TRAIT_FORCE_PASS']:
                 row['ZoneCoverageRating'] = 63 + random.randint(0, 5)
             if 'Ideal' in row['TRAIT_FORCE_PASS']:
@@ -46,6 +48,19 @@ def update_traits(row):
                 row['ManCoverageRating'] = 60 + random.randint (-5, 10)
             if row['TRAIT_SENSE_PRESSURE'] == 'Oblivious':
                 row['ManCoverageRating'] = 60 + random.randint (-5, 10)
+            if row['TRAIT_QBSTYLE'] =='Pocket':
+                row['FinesseMovesRating'] = 5
+            if row['TRAIT_QBSTYLE'] =='Balanced':
+                row['FinesseMovesRating'] = 15
+            if row['TRAIT_QBSTYLE'] =='Scrambling':
+                row['FinesseMovesRating'] = 50
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88:
+                row['FinesseMovesRating'] = 75
+            if row['Age'] >= 30:
+                row['SpeedRating'] = max(50, row['SpeedRating'] - 1)
+                row['AccelerationRating'] = max(50, row['AccelerationRating'] - 1)
+                row['AgilityRating'] = max(50, row['AgilityRating'] - 1)
+                row['ChangeOfDirectionRating'] = max(50, row['ChangeOfDirectionRating'] - 1)
             throw_accuracy_average = (row['ThrowAccuracyShortRating'] + row['ThrowAccuracyMidRating'] + row['ThrowAccuracyDeepRating']) / 3
             throw_accuracy_average = math.ceil(throw_accuracy_average)
             row['ThrowAccuracyRating'] = throw_accuracy_average
@@ -136,19 +151,19 @@ def update_traits(row):
             row['TRAIT_DLBULLRUSH'] = 'TRUE'
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ThrowOnTheRunRating'] = overall_rating - 3 + random.randint(0, 2)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 + random.randint(0, 2)
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 5) + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 5) + random.randint(0, 4)
             elif 85 <= overall_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 7) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 7) + random.randint(0, 6)
             elif 80 <= overall_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 9) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 9) + random.randint(0, 8)
             elif 75 <= overall_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 11) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 11) + random.randint(0, 10)
             elif 70 <= overall_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 13) + random.randint(0, 12)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 13) + random.randint(0, 12)
             elif 1 <= overall_rating <= 69:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 15) + random.randint(0, 14)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 15) + random.randint(0, 14)
 
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
