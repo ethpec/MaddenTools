@@ -150,12 +150,15 @@ def update_sleevetemp(row):
             sleeve_temp = random.choices(chances, probabilities)[0]
             return sleeve_temp
 
+    # Default value if no conditions are met
+    return 0
+
 # Track the original DataFrame before applying updates
 original_df = df.copy()
 
 # Apply the new function to update the DataFrame
 df = df.apply(update_traits, axis=1)
-df['PLYR_SLEEVETEMPERATURE'] = df.apply(update_sleevetemp, axis=1)
+df['PLYR_SLEEVETEMPERATURE'] = df.apply(lambda row: update_sleevetemp(row), axis=1)
 
 ###
 columns_to_remove = []
