@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -13,8 +13,8 @@ def update_traits(row):
     contract_status = row['ContractStatus']
     years_pro = row['YearsPro']
     
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
-    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
+    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
+    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -28,15 +28,16 @@ def update_traits(row):
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'OnMediumHits'
+            row['PowerMovesRating'] = 25
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
             if row['SpeedRating'] <= 79 and row['TRAIT_QBSTYLE'] == 'Scrambling':
                 row['TRAIT_QBSTYLE'] = 'Balanced'
-            if 'Conservative' in row['TRAIT_FORCE_PASS']:
+            if 'Conservative' in row['TRAIT_DECISION_MAKER']:
                 row['ZoneCoverageRating'] = 63 + random.randint(0, 5)
-            if 'Ideal' in row['TRAIT_FORCE_PASS']:
+            if 'Ideal' in row['TRAIT_DECISION_MAKER']:
                 row['ZoneCoverageRating'] = 60 + random.randint(0, 5)
-            if 'Aggressive' in row['TRAIT_FORCE_PASS']:
+            if 'Aggressive' in row['TRAIT_DECISION_MAKER']:
                 row['ZoneCoverageRating'] = 57 + random.randint(0, 5)
             if row['TRAIT_SENSE_PRESSURE'] == 'Ideal':
                 row['ManCoverageRating'] = 80 + random.randint (-5, 10)
@@ -79,7 +80,7 @@ def update_traits(row):
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             rb_targets = row['CatchingRating']
-            adjusted_rbtargets = rb_targets + 5 + random.randint (0, 3)
+            adjusted_rbtargets = rb_targets + 7 + random.randint (0, 3)
             row['ZoneCoverageRating'] = min(99, adjusted_rbtargets)
 
         # WR Edits
@@ -153,17 +154,23 @@ def update_traits(row):
             if 95 <= overall_rating <= 99:
                 row['ThrowOnTheRunRating'] = overall_rating - 5 + random.randint(0, 2)
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 5) + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 5) + random.randint(0, 4)
             elif 85 <= overall_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 7) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 7) + random.randint(0, 6)
             elif 80 <= overall_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 9) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 9) + random.randint(0, 8)
             elif 75 <= overall_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 11) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 11) + random.randint(0, 10)
             elif 70 <= overall_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 13) + random.randint(0, 12)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 13) + random.randint(0, 12)
             elif 1 <= overall_rating <= 69:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 - random.randint(0, 15) + random.randint(0, 14)
+                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 15) + random.randint(0, 14)
+
+        if row['Position'] in ['LOLB', 'MLB', 'ROLB']:
+            row['ThrowOnTheRunRating'] = 50 + random.randint(0, 20)
+
+        if row['Position'] in ['CB', 'FS', 'SS']:
+            row['ThrowOnTheRunRating'] = 70 + random.randint(0, 20)          
 
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
@@ -297,6 +304,6 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden24/IE/Season7/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season8/Player_PreseasonEdits.xlsx', index=False)
 
 ### CoverBall might get changed ###
