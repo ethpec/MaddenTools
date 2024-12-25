@@ -13,8 +13,8 @@ def update_traits(row):
     contract_status = row['ContractStatus']
     years_pro = row['YearsPro']
     
-    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
+    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
+    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -154,17 +154,17 @@ def update_traits(row):
             if 95 <= overall_rating <= 99:
                 row['ThrowOnTheRunRating'] = overall_rating - 5 + random.randint(0, 2)
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 5) + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 5) + random.randint(0, 4)
             elif 85 <= overall_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 7) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 7) + random.randint(0, 6)
             elif 80 <= overall_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 9) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 9) + random.randint(0, 8)
             elif 75 <= overall_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 11) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 11) + random.randint(0, 10)
             elif 70 <= overall_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 13) + random.randint(0, 12)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 13) + random.randint(0, 12)
             elif 1 <= overall_rating <= 69:
-                row['ThrowOnTheRunRating'] = overall_rating - 8 - random.randint(0, 15) + random.randint(0, 14)
+                row['ThrowOnTheRunRating'] = overall_rating - 10 - random.randint(0, 15) + random.randint(0, 14)
 
         if row['Position'] in ['LOLB', 'MLB', 'ROLB']:
             row['ThrowOnTheRunRating'] = 50 + random.randint(0, 20)
