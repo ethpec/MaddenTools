@@ -82,7 +82,7 @@ def update_traits(row):
             row['PowerMovesRating'] = 25
             row['ThrowUnderPressureRating'] = 25
             row['PlayActionRating'] = 25
-            rb_targets = row['CatchingRating']
+            rb_targets = row['CatchingRating'] + 2
             if 80 <= rb_targets <= 99:
                 adjusted_rbtargets = rb_targets - 5 + random.randint(0, 5) - random.randint(0, 5)
             elif 75 <= rb_targets <= 79:
