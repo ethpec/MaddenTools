@@ -32,6 +32,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [7, 90, 3])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [6, 92, 2])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 96, 4])
 
             elif 80 <= row['InjuryRating'] <= 84:
                 # InjuryRating between 80-84
@@ -39,6 +41,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [5, 90, 5])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [4, 92, 4])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 94, 6])
 
             elif 1 <= row['InjuryRating'] <= 79:
                 # InjuryRating between 1-79 (lower chance to subtract)
@@ -46,6 +50,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [3, 90, 7])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [2, 92, 6])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 92, 8])
 
         # Apply the same logic for other positions (non-HB/RB)
         else:
@@ -56,6 +62,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [7, 90, 3])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [6, 92, 2])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 96, 4])
 
             elif 75 <= row['InjuryRating'] <= 79:
                 # InjuryRating between 75-79
@@ -63,6 +71,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [5, 90, 5])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [4, 92, 4])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 94, 6])
 
             elif 1 <= row['InjuryRating'] <= 74:
                 # InjuryRating between 1-74 (lower chance to subtract)
@@ -70,6 +80,8 @@ def update_injuries(row):
                     row = adjust_durations(row, [3, 90, 7])
                 elif row['MaxInjuryDuration'] >= 5:
                     row = adjust_durations(row, [2, 92, 6])
+                elif row['MaxInjuryDuration'] == 1:
+                    row = adjust_durations(row, [0, 92, 8])
 
     return row
 
