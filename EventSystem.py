@@ -107,6 +107,45 @@ def traderequest_lowmorale(row):
 # Apply the function to create the TradeUnhappy column
 merged_df['TradeUnhappy'] = merged_df.apply(traderequest_lowmorale, axis=1)
 
+
+# Function to determine trade request based on conditions
+def traderequest_wr(row):
+    # Check if the position is WR
+    if row['Position'] != 'WR':
+        return 'No'  # Early return if the position is not WR
+    
+    multiplier = 1.0
+    if row['ConfidenceRating'] < 20:
+        multiplier = 10.0
+    elif 20 <= row['ConfidenceRating'] < 30:
+        multiplier = 5.0
+    elif 30 <= row['ConfidenceRating'] < 40:
+        multiplier = 1.5
+    elif 40 <= row['ConfidenceRating'] < 50:
+        multiplier = 0.75
+    elif 50 <= row['ConfidenceRating'] < 60:
+        multiplier = 0.25
+    elif 60 <= row['ConfidenceRating'] < 70:
+        multiplier = 0.1
+    elif row['ConfidenceRating'] >= 70:
+        multiplier = 0.05
+    
+    if season_phase == "Preseason" or season_phase == "TradeDeadline" or season_phase == "Offseason":
+        if 73 <= row['OverallRating'] <= 84 and 2 <= row['YearsPro'] <= 3 and row['PLYR_DRAFTROUND'] <= 2 and row['ContractYearsLeft'] <= 3:
+            return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
+        elif row['OverallRating'] >= 85 and 2 <= row['YearsPro'] <= 4 and row['ContractYearsLeft'] <= 3:
+            return 'Yes' if random.random() <= 0.075 * multiplier else 'No'
+        elif row['OverallRating'] >= 85 and row['YearsPro'] >= 5 and row['ContractYearsLeft'] <= 5:
+            return 'Yes' if random.random() <= 0.10 * multiplier else 'No'
+        else:
+            return 'No'
+    else:
+        return 'No'
+    
+# Apply the function to create the TradeUnhappy column
+merged_df['TradeWR'] = merged_df.apply(traderequest_wr, axis=1)
+
+
 # Function to determine trade request based on conditions
 def traderequest_playingtime(row):
     multiplier = 0.0
