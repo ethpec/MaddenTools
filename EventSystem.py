@@ -7,14 +7,14 @@ position_report_file_path = 'Files/Madden25/IE/Season8/Position_Report.xlsx'
 output_file_path = 'Files/Madden25/IE/Season8/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "TradeDeadline"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
 position_report_df = pd.read_excel(position_report_file_path, sheet_name='Team Position Depth')
 
 # Specify relevant columns from player_df
-relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration']
+relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'PLYR_DRAFTROUND','InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration']
 
 # Select only the relevant columns from player_df
 player_subset_df = player_df[relevant_columns_player]
@@ -107,7 +107,6 @@ def traderequest_lowmorale(row):
 # Apply the function to create the TradeUnhappy column
 merged_df['TradeUnhappy'] = merged_df.apply(traderequest_lowmorale, axis=1)
 
-
 # Function to determine trade request based on conditions
 def traderequest_wr(row):
     # Check if the position is WR
@@ -144,7 +143,6 @@ def traderequest_wr(row):
     
 # Apply the function to create the TradeUnhappy column
 merged_df['TradeWR'] = merged_df.apply(traderequest_wr, axis=1)
-
 
 # Function to determine trade request based on conditions
 def traderequest_playingtime(row):
