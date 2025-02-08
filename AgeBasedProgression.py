@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season7/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden24/IE/Season7/RegressionValues.xlsx'
+file_path = 'Files/Madden25/IE/Season7/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden25/IE/Season7/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -25,27 +25,27 @@ for _, row in regression_values_df.iterrows():
 
     position_age_thresholds[position].append((age, regression_points))
 
-def calculate_age_based_skill_points(row):
+def calculate_qb_firstround_skill_points(row):
     if (
-        row['YearsPro'] in [99] ### SEASON 6 IS LAST SEASON WHERE WE NEED THIS, ONLY NEED POTENTIAL AFTER THIS ###
-        and row['ContractStatus'] in ['Signed', 'PracticeSquad']
+        row['YearsPro'] in [99]
+        and row['ContractStatus'] in ['Signed']
         and row['Age'] in [20, 21, 22, 23, 24, 25]
-        and row['Position'] not in ['QB', 'K', 'P']
+        and row['Position'] not in ['QB']
     ):
         development_trait = row['TraitDevelopment']
         if development_trait == 'Normal':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
-            probabilities = [0.00, 0.70, 0.20, 0.05, 0.025, 0.01, 0.01, 0.005, 0.00] # Avg = 1.5 #
+            probabilities = [0.00, 0.30, 0.30, 0.30, 0.05, 0.025, 0.015, 0.005, 0.00]
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points  # Add skill points to the existing value
         elif development_trait == 'Star':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
-            probabilities = [0.00, 0.10, 0.20, 0.45, 0.15, 0.05, 0.03, 0.015, 0.005] # Avg ~ 3 #
+            probabilities = [0.00, 0.00, 0.15, 0.25, 0.325, 0.20, 0.05, 0.025, 0.00]
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
         elif development_trait in ['Superstar', 'XFactor']:
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
-            probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01] # Avg = 4.25 #
+            probabilities = [0.00, 0.00, 0.00, 0.075, 0.15, 0.25, 0.40, 0.10, 0.025]
             skill_points = random.choices(chances, probabilities)[0]
             return row['SkillPoints'] + skill_points
     return row['SkillPoints']  # Keep the existing skill points if conditions are not met
@@ -87,7 +87,7 @@ def calculate_age_based_regression(row):
 
 # Apply the functions to the DataFrame
 df['RegressionPoints'] = df.apply(calculate_freeagent_regression_points, axis=1)
-df['SkillPoints'] = df.apply(calculate_age_based_skill_points, axis=1)
+df['SkillPoints'] = df.apply(calculate_qb_firstround_skill_points, axis=1)
 df['RegressionPoints'] = df.apply(calculate_age_based_regression, axis=1)
 
 def zero_out_points(row):
@@ -129,4 +129,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden24/IE/Season7/Final.csv', index=False)
+df.to_csv('Files/Madden25/IE/Season7/Final.csv', index=False)
