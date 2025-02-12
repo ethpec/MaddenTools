@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season7/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -13,6 +13,7 @@ min_salary_values = {
     2: 98
 }
 
+# Practice Squad contract updates - signing them to "future deals" essentially
 def update_pscontracts(row):
     contract_status = row['ContractStatus']
     years_pro = int(row['YearsPro'])
@@ -63,4 +64,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden24/IE/Season7/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season7/PracticeSquad_Contracts.xlsx', index=False)
