@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season7/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season7/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -50,9 +50,9 @@ def update_traits(row):
                 row['TRAIT_TUCK_RUN'] = tuck_run_value
             if row['SpeedRating'] <= 76:
                 row['TRAIT_TUCK_RUN'] = '0'
-            if 'Conservative' in row['TRAIT_FORCE_PASS']:
+            if 'Conservative' in row['TRAIT_DECISION_MAKER']:
                 qbforcepass_value = random.choice(['Ideal', 'Conservative'])
-                row['TRAIT_FORCE_PASS'] = qbforcepass_value
+                row['TRAIT_DECISION_MAKER'] = qbforcepass_value
 
         # HB Edits
         if row['Position'] == 'HB':
@@ -173,4 +173,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden24/IE/Season7/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season7/DraftClassEdit.xlsx', index=False)
