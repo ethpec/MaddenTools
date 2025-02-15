@@ -14,22 +14,23 @@ def generate_schedule(file_path):
 
     ### Assign Week 18 Matchups Here #################
     week_18_games = df[
-    (((df['HomeTeam'] == 'Patriots') & (df['AwayTeam'] == 'Dolphins')) |
-    ((df['HomeTeam'] == 'Jets') & (df['AwayTeam'] == 'Bills'))) |
-    (((df['HomeTeam'] == 'Steelers') & (df['AwayTeam'] == 'Browns')) |
-    ((df['HomeTeam'] == 'Bengals') & (df['AwayTeam'] == 'Ravens'))) |
-    (((df['HomeTeam'] == 'Jaguars') & (df['AwayTeam'] == 'Colts')) |
-    ((df['HomeTeam'] == 'Texans') & (df['AwayTeam'] == 'Titans'))) |
-    (((df['HomeTeam'] == 'Broncos') & (df['AwayTeam'] == 'Raiders')) |
-    ((df['HomeTeam'] == 'Chargers') & (df['AwayTeam'] == 'Chiefs'))) |
-    (((df['HomeTeam'] == 'Cowboys') & (df['AwayTeam'] == 'Eagles')) |
-    ((df['HomeTeam'] == 'Commanders') & (df['AwayTeam'] == 'Giants'))) |
-    (((df['HomeTeam'] == 'Bears') & (df['AwayTeam'] == 'Packers')) |
-    ((df['HomeTeam'] == 'Lions') & (df['AwayTeam'] == 'Vikings'))) |
-    (((df['HomeTeam'] == 'Buccaneers') & (df['AwayTeam'] == 'Falcons')) |
-    ((df['HomeTeam'] == 'Panthers') & (df['AwayTeam'] == 'Saints'))) |
-    (((df['HomeTeam'] == 'Rams') & (df['AwayTeam'] == '49ers')) |
-    ((df['HomeTeam'] == 'Cardinals') & (df['AwayTeam'] == 'Seahawks')))
+    (((df['HomeTeam'] == 'Dolphins') & (df['AwayTeam'] == 'Bills')) |
+    ((df['HomeTeam'] == 'Jets') & (df['AwayTeam'] == 'Patriots'))) |
+    (((df['HomeTeam'] == 'Ravens') & (df['AwayTeam'] == 'Steelers')) |
+    ((df['HomeTeam'] == 'Browns') & (df['AwayTeam'] == 'Bengals'))) |
+    (((df['HomeTeam'] == 'Colts') & (df['AwayTeam'] == 'Texans')) |
+    ((df['HomeTeam'] == 'Titans') & (df['AwayTeam'] == 'Jaguars'))) |
+    (((df['HomeTeam'] == 'Raiders') & (df['AwayTeam'] == 'Chiefs')) |
+    ((df['HomeTeam'] == 'Broncos') & (df['AwayTeam'] == 'Chargers'))) |
+    (((df['HomeTeam'] == 'Eagles') & (df['AwayTeam'] == 'Commanders')) |
+    ((df['HomeTeam'] == 'Cowboys') & (df['AwayTeam'] == 'Giants'))) |
+    (((df['HomeTeam'] == 'Packers') & (df['AwayTeam'] == 'Lions')) |
+    ((df['HomeTeam'] == 'Bears') & (df['AwayTeam'] == 'Vikings'))) |
+    (((df['HomeTeam'] == 'Saints') & (df['AwayTeam'] == 'Panthers')) |
+    ((df['HomeTeam'] == 'Falcons') & (df['AwayTeam'] == 'Buccaneers'))) |
+    (((df['HomeTeam'] == 'Seahawks') & (df['AwayTeam'] == '49ers')) |
+    ((df['HomeTeam'] == 'Rams') & (df['AwayTeam'] == 'Cardinals')))
+
 
     ].copy()
 
@@ -64,8 +65,10 @@ def generate_schedule(file_path):
     x = LpVariable.dicts("x", [(game, week) for game in games for week in weeks], 0, 1, cat='Binary')
 
     ##### Ensure SuperBowl Champs are HomeTeam for first game ###############################################
-    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Eagles']) == 1
-
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Bengals' and df.at[game, 'AwayTeam'] == 'Browns']) == 1
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Giants' and df.at[game, 'AwayTeam'] == 'Steelers']) == 1
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Chargers' and df.at[game, 'AwayTeam'] == 'Broncos']) == 1
+    prob += lpSum([x[(game, 0)] for game in games if df.at[game, 'HomeTeam'] == 'Cowboys' and df.at[game, 'AwayTeam'] == 'Eagles']) == 1
     # Ensure Lions and Cowboys each are HomeTeam for a game on Thansgiving
     prob += lpSum([x[(game, 11)] for game in games if df.at[game, 'HomeTeam'] == 'Lions']) == 1
     prob += lpSum([x[(game, 11)] for game in games if df.at[game, 'HomeTeam'] == 'Cowboys']) == 1
