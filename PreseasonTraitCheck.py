@@ -13,8 +13,11 @@ def update_traits(row):
     contract_status = row['ContractStatus']
     years_pro = row['YearsPro']
     
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad']: ###USE FOR ROOKIES###
+    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
     #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro != 0: ###USE FOR NON-ROOKIES###
+
+        # Set ExperiencePoints to 0 for these contract statuses
+        row['ExperiencePoints'] = 0
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -109,13 +112,13 @@ def update_traits(row):
             elif 90 <= overall_rating <= 94:
                 row['ZoneCoverageRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 4)
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 4) + random.randint(0, 12)
+                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 6) + random.randint(0, 12)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 6) + random.randint(0, 24)
+                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 8) + random.randint(0, 24)
             elif 75 <= overall_rating <= 79:
                 row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 24)
+                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 14) + random.randint(0, 24)
             elif 1 <= overall_rating <= 69:
                 row['ZoneCoverageRating'] = 35 - random.randint(0, 15) + random.randint(0, 25)
 
@@ -127,19 +130,19 @@ def update_traits(row):
             row['PowerMovesRating'] = 50
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 2)
+                row['ZoneCoverageRating'] = overall_rating - 5 + random.randint(0, 3)
             elif 90 <= overall_rating <= 94:
-                row['ZoneCoverageRating'] = overall_rating - 15 - random.randint(0, 4) + random.randint(0, 12)
+                row['ZoneCoverageRating'] = overall_rating - 10 - random.randint(0, 4) + random.randint(0, 12)
             elif 85 <= overall_rating <= 89:
-                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 6) + random.randint(0, 20)
+                row['ZoneCoverageRating'] = overall_rating - 15 - random.randint(0, 6) + random.randint(0, 20)
             elif 80 <= overall_rating <= 84:
-                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24)
+                row['ZoneCoverageRating'] = overall_rating - 20 - random.randint(0, 12) + random.randint(0, 24)
             elif 75 <= overall_rating <= 79:
-                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 24)
+                row['ZoneCoverageRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24)
             elif 70 <= overall_rating <= 74:
-                row['ZoneCoverageRating'] = overall_rating - 35 - random.randint(0, 14) + random.randint(0, 26)
+                row['ZoneCoverageRating'] = overall_rating - 30 - random.randint(0, 14) + random.randint(0, 26)
             elif 1 <= overall_rating <= 69:
-                row['ZoneCoverageRating'] = 30 - random.randint(0, 25) + random.randint(0, 25)
+                row['ZoneCoverageRating'] = 30 - random.randint(0, 20) + random.randint(0, 25)
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE']:
@@ -149,17 +152,17 @@ def update_traits(row):
             row['PlayActionRating'] = 45 + random.randint(0, 15)
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ThrowOnTheRunRating'] = overall_rating - 3 + random.randint(0, 3)
+                row['ThrowOnTheRunRating'] = overall_rating - 5 + random.randint(0, 4)
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 6)
             elif 85 <= overall_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 6) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 6) + random.randint(0, 8)
             elif 80 <= overall_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 8) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 8) + random.randint(0, 10)
             elif 75 <= overall_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 10) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 10) + random.randint(0, 12)
             elif 70 <= overall_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 12) + random.randint(0, 12)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 12) + random.randint(0, 15)
             elif 1 <= overall_rating <= 69:
                 row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 15) + random.randint(0, 15)
 
@@ -170,19 +173,19 @@ def update_traits(row):
             row['PlayActionRating'] = 30 + random.randint(0, 15)
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ThrowOnTheRunRating'] = overall_rating - 10 + random.randint(0, 3)
+                row['ThrowOnTheRunRating'] = overall_rating - 15 + random.randint(0, 4)
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - 15 - random.randint(0, 4) + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating - 20 - random.randint(0, 4) + random.randint(0, 6)
             elif 85 <= overall_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_rating - 20 - random.randint(0, 6) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - 25 - random.randint(0, 6) + random.randint(0, 8)
             elif 80 <= overall_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_rating - 25 - random.randint(0, 8) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = overall_rating - 30 - random.randint(0, 8) + random.randint(0, 10)
             elif 75 <= overall_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_rating - 30 - random.randint(0, 10) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = overall_rating - 35 - random.randint(0, 10) + random.randint(0, 12)
             elif 70 <= overall_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_rating - 35 - random.randint(0, 12) + random.randint(0, 12)
-            elif 1 <= overall_rating <= 69:
                 row['ThrowOnTheRunRating'] = overall_rating - 40 - random.randint(0, 12) + random.randint(0, 15)
+            elif 1 <= overall_rating <= 69:
+                row['ThrowOnTheRunRating'] = max(1, overall_rating - 40 - random.randint(0, 12) + random.randint(0, 15))
 
         if row['Position'] in ['LOLB', 'MLB', 'ROLB']:
             row['ThrowOnTheRunRating'] = 45 + random.randint(0, 20)
@@ -259,6 +262,9 @@ def player_tag_updates(row):
     years_pro = row['YearsPro']
     overall_rating = row['OverallRating']
     position = row['Position']
+
+    # Set ExperiencePoints = 0 for all players
+    row['ExperiencePoints'] = 0
     
     # Check if Tag1 and Tag2 have "NoRole"
     if tag1 == 'NoRole' and tag2 == 'NoRole' and contract_status == 'Signed':
