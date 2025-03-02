@@ -19,7 +19,7 @@ def fix_contract_salaries(row):
         leftover = total_salary
         
         if row['ContractLength'] == 2 and row['ContractSalary0'] >= 0.45 * total_salary and row['ContractSalary1'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.3, 0.4) * total_salary / 5) * 5
+            new_salary_0 = math.ceil(random.uniform(0.33, 0.44) * total_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
@@ -27,11 +27,11 @@ def fix_contract_salaries(row):
             row['ContractSalary1'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(2, 7))
         
         elif row['ContractLength'] == 3 and row['ContractSalary0'] >= 0.3 * total_salary and row['ContractSalary2'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.15, 0.20) * total_salary / 5) * 5
+            new_salary_0 = math.ceil(random.uniform(0.22, 0.26) * total_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
-            new_salary_1 = math.ceil(random.uniform(0.35, 0.40) * total_salary / 5) * 5
+            new_salary_1 = math.ceil(random.uniform(0.33, 0.37) * total_salary / 5) * 5
             if new_salary_1 != row['ContractSalary1']:
                 salary_changed = True
             leftover -= new_salary_1
@@ -39,8 +39,8 @@ def fix_contract_salaries(row):
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(3, 7))
         
-        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.3 * total_salary and row['ContractSalary3'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.15, 0.2) * total_salary / 5) * 5
+        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.225 * total_salary and row['ContractSalary3'] > 0:
+            new_salary_0 = math.ceil(random.uniform(0.17, 0.21) * total_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
@@ -50,20 +50,15 @@ def fix_contract_salaries(row):
                 salary_changed = True
             leftover -= new_salary_1
             
-            new_salary_2 = math.ceil(0.28 * total_salary / 5) * 5
+            new_salary_2 = math.ceil(0.27 * total_salary / 5) * 5
             if new_salary_2 != row['ContractSalary2']:
                 salary_changed = True
             leftover -= new_salary_2
             
-            new_salary_3 = math.ceil(0.32 * total_salary / 5) * 5
-            if new_salary_3 != row['ContractSalary3']:
-                salary_changed = True
-            leftover -= new_salary_3
-            
             row['ContractSalary0'] = new_salary_0
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = new_salary_2
-            row['ContractSalary3'] = new_salary_3
+            row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
     
     row['StatusCheck'] = salary_changed  # Add StatusCheck column
     return row
