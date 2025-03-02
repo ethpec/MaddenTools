@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season7/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -103,6 +103,14 @@ def update_traits(row):
             if row['ZoneCoverageRating'] < 45:
                 row['ZoneCoverageRating'] = 45
 
+            if row['SpeedRating'] >= 90:
+                row['SpeedRating'] += 2
+
+        # OLB Edits
+        if row['Position'] in ['MLB']:
+            if row['SpeedRating'] >= 90:
+                row['SpeedRating'] += 1
+
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
@@ -173,4 +181,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden25/IE/Season7/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season8/DraftClassEdit.xlsx', index=False)
