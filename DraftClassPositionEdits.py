@@ -12,14 +12,14 @@ def update_position_ratings(row):
     
     if contract_status in ['Draft']:
         # Change Edited Position Here
-        if row['Position'] == 'WR':
-            row['AwarenessRating'] -= 3
-            row['CatchingRating'] -= 2
-            row['ShortRouteRunningRating'] -= 2
-            row['MediumRouteRunningRating'] -= 2
-            row['DeepRouteRunningRating'] -= 2
-            row['CatchInTrafficRating'] -= 2
-            row['SpectacularCatchRating'] -= 2
+        if row['Position'] in ['CB'] and row['OverallRating'] >= 64:
+            row['AwarenessRating'] -= 1
+            row['PlayRecognitionRating'] -= 1
+            row['TackleRating'] -= 1
+            row['PursuitRating'] -= 1
+            row['PressRating'] -= 1
+            row['ZoneCoverageRating'] -= 2
+            row['ManCoverageRating'] -= 2
     # Add more conditions and changes for other columns and positions as needed
     return row
 
