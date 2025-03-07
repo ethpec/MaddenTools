@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season7/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -64,4 +64,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden25/IE/Season7/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season8/PracticeSquad_Contracts.xlsx', index=False)
