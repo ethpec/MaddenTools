@@ -2,9 +2,11 @@
 import pandas as pd
 
 # Your File Paths
-player_value_file = 'Files/Madden25/IE/Season7/CompPickPlayerValue.xlsx'
-expiring_contracts_file = 'Files/Madden25/IE/Season7/CompPick_ContractStatusUpdated.xlsx'
-output_filename = 'Files/Madden25/IE/Season7/CompPicksAwarded.xlsx'
+player_value_file = 'Files/Madden25/IE/Season8/CompPickPlayerValue.xlsx'
+expiring_contracts_file = 'Files/Madden25/IE/Season8/CompPick_ContractStatusUpdated.xlsx'
+output_filename = 'Files/Madden25/IE/Season8/CompPicksAwarded.xlsx'
+
+excluded_year_drafted = 8  # Change this as needed - Match current season number ###
 
 # Read the "CompPickPlayerValue.xlsx" and "LastSeason_ExpiringContracts.xlsx" sheets into DataFrames
 player_value_df = pd.read_excel(player_value_file)
@@ -163,9 +165,17 @@ for team_index in team_gained_lost_sheet['TeamIndex']:
                 })], ignore_index=True)
 
 print("Players in player_value_df but not in expiring_contracts_df:")
-missing_players = player_value_df.merge(expiring_contracts_df, on=['FirstName', 'LastName', 'Position', 'YearDrafted'], how='left', indicator=True)
-print(missing_players[missing_players['_merge'] == 'left_only'][['FirstName', 'LastName', 'Position', 'YearDrafted']])
 
+missing_players = player_value_df.merge(
+    expiring_contracts_df, on=['FirstName', 'LastName', 'Position', 'YearDrafted'], how='left', indicator=True
+)
+
+# Filter for players that are only in player_value_df and exclude the specified YearDrafted value
+filtered_missing_players = missing_players[
+    (missing_players['_merge'] == 'left_only') & (missing_players['YearDrafted'] != excluded_year_drafted)
+]
+
+print(filtered_missing_players[['FirstName', 'LastName', 'Position', 'YearDrafted']])
 
 # Export the picks and nopicks reports to separate sheets in the Excel file
 with pd.ExcelWriter(output_filename, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
