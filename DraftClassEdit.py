@@ -12,6 +12,8 @@ def update_traits(row):
     contract_status = row['ContractStatus']
     
     if contract_status in ['Draft']:
+        if row['Position'] not in ['K', 'P']:
+            row['AwarenessRating'] = row['OverallRating']
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -53,7 +55,13 @@ def update_traits(row):
             if 'Conservative' in row['TRAIT_DECISION_MAKER']:
                 qbforcepass_value = random.choice(['Ideal', 'Conservative'])
                 row['TRAIT_DECISION_MAKER'] = qbforcepass_value
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['ShortAccuracyRating'] = min(row['ShortAccuracyRating'] + 1, 99)
+                row['MediumAccuracyRating'] = min(row['MediumAccuracyRating'] + 1, 99)
+                row['DeepAccuracyRating'] = min(row['DeepAccuracyRating'] + 1, 99)
 
+                
         # HB Edits
         if row['Position'] == 'HB':
             # For HBs, set a minimum of 78 and a maximum of 90 for InjuryRating
@@ -67,18 +75,45 @@ def update_traits(row):
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['BCVisionRating'] = min(row['BCVisionRating'] + 1, 99)
+                row['BreakTackleRating'] = min(row['BreakTackleRating'] + 1, 99)
+                row['CarryingRating'] = min(row['CarryingRating'] + 1, 99)
+
 
         # OFF Edits
         if row['Position'] in ['WR', 'TE']:
             row['TRAIT_YACCATCH'] = 'TRUE'
             row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
             row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['CatchingRating'] = min(row['CatchingRating'] + 1, 99)
+                row['ShortRouteRunningRating'] = min(row['ShortRouteRunningRating'] + 1, 99)
+                row['MediumRouteRunningRating'] = min(row['MediumRouteRunningRating'] + 1, 99)
+                row['DeepRouteRunningRating'] = min(row['DeepRouteRunningRating'] + 1, 99)
+            if row['KickReturnRating'] >= 90:
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 2, 68))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 3, 72))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 3, 70))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 3, 65))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 2, 60))
+
 
         # DEF Front Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
             row['TRAIT_DLSWIM'] = 'TRUE'
             row['TRAIT_DLSPIN'] = 'TRUE'
             row['TRAIT_DLBULLRUSH'] = 'TRUE'
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['FinesseMovesRating'] = min(row['FinesseMovesRating'] + 1, 99)
+                row['PowerMovesRating'] = min(row['PowerMovesRating'] + 1, 99)
+                row['PursuitRating'] = min(row['PursuitRating'] + 1, 99)
+                row['TackleRating'] = min(row['TackleRating'] + 1, 99)
+                row['BlockSheddingRating'] = min(row['BlockSheddingRating'] + 1, 99)
+
 
         # OLB Edits
         if row['Position'] in ['LOLB', 'ROLB']:
@@ -97,19 +132,85 @@ def update_traits(row):
             elif 55 <= row['PowerMovesRating'] <= 69:
                 row['PowerMovesRating'] -= 8
 
-            if row['ManCoverageRating'] < 45:
-                row['ManCoverageRating'] = 45
+            if row['ManCoverageRating'] >= 50:
+                row['ManCoverageRating'] = min(99, 50 + random.randint(0, 5))
 
-            if row['ZoneCoverageRating'] < 45:
-                row['ZoneCoverageRating'] = 45
+            if row['ZoneCoverageRating'] >= 50:
+                row['ZoneCoverageRating'] = min(99, 50 + random.randint(0, 5))
 
-            if row['SpeedRating'] >= 90:
+            if row['ManCoverageRating'] < 50:
+                row['ManCoverageRating'] = 50 + random.randint(0, 10)
+
+            if row['ZoneCoverageRating'] < 50:
+                row['ZoneCoverageRating'] = 50 + random.randint(0, 10)
+
+            if row['SpeedRating'] <= 90:
                 row['SpeedRating'] += 2
+
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['PlayRecognitionRating'] = min(row['PlayRecognitionRating'] + 1, 99)
+                row['HitPowerRating'] = min(row['HitPowerRating'] + 1, 99)
+                row['PursuitRating'] = min(row['PursuitRating'] + 1, 99)
+                row['TackleRating'] = min(row['TackleRating'] + 1, 99)
+                row['BlockSheddingRating'] = min(row['BlockSheddingRating'] + 1, 99)
+
 
         # OLB Edits
         if row['Position'] in ['MLB']:
-            if row['SpeedRating'] >= 90:
+            if row['SpeedRating'] <= 90:
                 row['SpeedRating'] += 1
+
+            if row['ManCoverageRating'] >= 50:
+                row['ManCoverageRating'] = min(99, 50 + random.randint(0, 5))
+
+            if row['ZoneCoverageRating'] >= 50:
+                row['ZoneCoverageRating'] = min(99, 50 + random.randint(0, 5))
+
+            if row['ManCoverageRating'] < 50:
+                row['ManCoverageRating'] = 50 + random.randint(0, 10)
+
+            if row['ZoneCoverageRating'] < 50:
+                row['ZoneCoverageRating'] = 50 + random.randint(0, 10)
+            
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['PlayRecognitionRating'] = min(row['PlayRecognitionRating'] + 1, 99)
+                row['HitPowerRating'] = min(row['HitPowerRating'] + 1, 99)
+                row['PursuitRating'] = min(row['PursuitRating'] + 1, 99)
+                row['TackleRating'] = min(row['TackleRating'] + 1, 99)
+                row['BlockSheddingRating'] = min(row['BlockSheddingRating'] + 1, 99)
+
+        # CB Edits
+        if row['Position'] in ['CB']:
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['PlayRecognitionRating'] = min(row['PlayRecognitionRating'] + 1, 99)
+                row['ZoneCoverageRating'] = min(row['ZoneCoverageRating'] + 1, 99)
+                row['ManCoverageRating'] = min(row['ManCoverageRating'] + 1, 99)
+                row['PressRating'] = min(row['PressRating'] + 1, 99)
+            if row['KickReturnRating'] >= 90:
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 5, 68))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 5, 72))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 5, 70))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 5, 64))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 10, 60))
+
+        # S Edits
+        if row['Position'] in ['FS', 'SS']:
+            if row['OverallRating'] <= 60:
+                row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
+                row['PlayRecognitionRating'] = min(row['PlayRecognitionRating'] + 1, 99)
+                row['ZoneCoverageRating'] = min(row['ZoneCoverageRating'] + 1, 99)
+                row['PursuitRating'] = min(row['PursuitRating'] + 1, 99)
+                row['TackleRating'] = min(row['TackleRating'] + 1, 99)
+                row['ManCoverageRating'] = min(row['ManCoverageRating'] + 1, 99)
+            if row['KickReturnRating'] >= 90:
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 5, 68))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 5, 72))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 5, 70))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 5, 64))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 10, 60))
 
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
