@@ -4,10 +4,10 @@ import random
 import string
 
 # Your File Paths
-pick_file_path = 'Files/Madden25/IE/Season7/DraftPicks.xlsx'
-index_file_path = 'Files/Madden25/IE/Season7/DraftTeamIndex.xlsx'
-value_file_path = 'Files/Madden25/IE/Season7/DraftPickValue.xlsx'
-output_file_path = 'Files/Madden25/IE/Season7/Draft_Trades.xlsx'
+pick_file_path = 'Files/Madden25/IE/Season8/DraftPicks.xlsx'
+index_file_path = 'Files/Madden25/IE/Season8/DraftTeamIndex.xlsx'
+value_file_path = 'Files/Madden25/IE/Season8/DraftPickValue.xlsx'
+output_file_path = 'Files/Madden25/IE/Season8/Draft_Trades.xlsx'
 
 # Read DraftTeamIndex Excel file
 team_index_df = pd.read_excel(index_file_path)
