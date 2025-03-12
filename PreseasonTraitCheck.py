@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -31,7 +31,6 @@ def update_traits(row):
             row['InjuryRating'] = new_injury_rating
             row['TRAIT_THROWAWAY'] = 'TRUE'
             row['TRAIT_COVER_BALL'] = 'OnMediumHits'
-            row['PowerMovesRating'] = 25
             if row['SpeedRating'] <= 76:
                 row['TRAIT_QBSTYLE'] = 'Pocket'
             if row['SpeedRating'] <= 79 and row['TRAIT_QBSTYLE'] == 'Scrambling':
@@ -54,12 +53,22 @@ def update_traits(row):
                 row['ManCoverageRating'] = 60 + random.randint (-5, 10)
             if row['TRAIT_QBSTYLE'] =='Pocket':
                 row['FinesseMovesRating'] = 5
+                row['PowerMovesRating'] = 25
             if row['TRAIT_QBSTYLE'] =='Balanced':
                 row['FinesseMovesRating'] = 20
-            if row['TRAIT_QBSTYLE'] =='Scrambling':
+                row['PowerMovesRating'] = 20
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['Age'] >= 30:
+                row['FinesseMovesRating'] = 40
+                row['PowerMovesRating'] = 15
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['Age'] < 30:
                 row['FinesseMovesRating'] = 50
-            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88:
+                row['PowerMovesRating'] = 15
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88 and row['Age'] >= 30:
+                row['FinesseMovesRating'] = 60
+                row['PowerMovesRating'] = 10
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88 and row['Age'] < 30:
                 row['FinesseMovesRating'] = 75
+                row['PowerMovesRating'] = 10
             if row['Age'] >= 30:
                 row['SpeedRating'] = max(50, row['SpeedRating'] - 1)
                 row['AccelerationRating'] = max(50, row['AccelerationRating'] - 1)
@@ -337,6 +346,4 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden25/IE/Season8/Player_PreseasonEdits.xlsx', index=False)
-
-### CoverBall might get changed ###
+df.to_excel('Files/Madden25/IE/Season9/Player_PreseasonEdits.xlsx', index=False)
