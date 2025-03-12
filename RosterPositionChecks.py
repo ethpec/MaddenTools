@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -69,7 +69,7 @@ contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
 contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
 
 # Export the differences to a new sheet named "Differences" and add "Team Position Depth"
-output_file_path = 'Files/Madden25/IE/Season8/Position_Report.xlsx'
+output_file_path = 'Files/Madden25/IE/Season9/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')

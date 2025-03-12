@@ -2,12 +2,12 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
-position_report_file_path = 'Files/Madden25/IE/Season8/Position_Report.xlsx'
-output_file_path = 'Files/Madden25/IE/Season8/EventSystem_Results.xlsx'
+player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+position_report_file_path = 'Files/Madden25/IE/Season9/Position_Report.xlsx'
+output_file_path = 'Files/Madden25/IE/Season9/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -214,8 +214,8 @@ def vet_earlyretirement(row):
             return 'Yes' if random.random() <= 0.01 else 'No'
         if row['Position'] in ['RB', 'HB'] and row['Age'] >= 27 and row['OverallRating'] >= 70:
             return 'Yes' if random.random() <= 0.01 else 'No'
-        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 30 and row['OverallRating'] >= 70:
-            return 'Yes' if random.random() <= 0.01 else 'No'
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 70:
+            return 'Yes' if random.random() <= 0.005 else 'No'
         else:
             return 'No'
     else:

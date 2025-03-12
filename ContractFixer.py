@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-player_file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
 
 # Load DataFrame
 df = pd.read_excel(player_file_path)
@@ -71,5 +71,5 @@ cols = ['StatusCheck'] + [col for col in result_df.columns if col != 'StatusChec
 result_df = result_df[cols]
 
 # Export the DataFrame to a new Excel file
-output_filename = 'Files/Madden25/IE/Season8/Player_ContractsFixed.xlsx'
+output_filename = 'Files/Madden25/IE/Season9/Player_ContractsFixed.xlsx'
 result_df.to_excel(output_filename, index=False)
