@@ -1,9 +1,10 @@
 # Imports
 import pandas as pd
 import random
+import numpy as np
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -57,10 +58,9 @@ def update_traits(row):
                 row['TRAIT_DECISION_MAKER'] = qbforcepass_value
             if row['OverallRating'] <= 60:
                 row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
-                row['ShortAccuracyRating'] = min(row['ShortAccuracyRating'] + 1, 99)
-                row['MediumAccuracyRating'] = min(row['MediumAccuracyRating'] + 1, 99)
-                row['DeepAccuracyRating'] = min(row['DeepAccuracyRating'] + 1, 99)
-
+                row['ThrowAccuracyShortRating'] = min(row['ThrowAccuracyShortRating'] + 1, 99)
+                row['ThrowAccuracyMidRating'] = min(row['ThrowAccuracyMidRating'] + 1, 99)
+                row['ThrowAccuracyDeepRating'] = min(row['ThrowAccuracyDeepRating'] + 1, 99)
                 
         # HB Edits
         if row['Position'] == 'HB':
@@ -81,7 +81,6 @@ def update_traits(row):
                 row['BreakTackleRating'] = min(row['BreakTackleRating'] + 1, 99)
                 row['CarryingRating'] = min(row['CarryingRating'] + 1, 99)
 
-
         # OFF Edits
         if row['Position'] in ['WR', 'TE']:
             row['TRAIT_YACCATCH'] = 'TRUE'
@@ -94,12 +93,11 @@ def update_traits(row):
                 row['MediumRouteRunningRating'] = min(row['MediumRouteRunningRating'] + 1, 99)
                 row['DeepRouteRunningRating'] = min(row['DeepRouteRunningRating'] + 1, 99)
             if row['KickReturnRating'] >= 90:
-                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 2, 68))
-                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 3, 72))
-                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 3, 70))
-                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 3, 65))
-                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 2, 60))
-
+                row['BCVisionRating'] = min(98, max(row['BCVisionRating'] + 2, 68))
+                row['JukeMoveRating'] = min(98, max(row['JukeMoveRating'] + 3, 72))
+                row['SpinMoveRating'] = min(98, max(row['SpinMoveRating'] + 3, 70))
+                row['CarryingRating'] = min(98, max(row['CarryingRating'] + 3, 65))
+                row['BreakTackleRating'] = min(98, max(row['BreakTackleRating'] + 2, 60))
 
         # DEF Front Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
@@ -113,7 +111,6 @@ def update_traits(row):
                 row['PursuitRating'] = min(row['PursuitRating'] + 1, 99)
                 row['TackleRating'] = min(row['TackleRating'] + 1, 99)
                 row['BlockSheddingRating'] = min(row['BlockSheddingRating'] + 1, 99)
-
 
         # OLB Edits
         if row['Position'] in ['LOLB', 'ROLB']:
@@ -132,20 +129,11 @@ def update_traits(row):
             elif 55 <= row['PowerMovesRating'] <= 69:
                 row['PowerMovesRating'] -= 8
 
-            if row['ManCoverageRating'] >= 50:
-                row['ManCoverageRating'] = min(99, 50 + random.randint(0, 5))
-
-            if row['ZoneCoverageRating'] >= 50:
-                row['ZoneCoverageRating'] = min(99, 50 + random.randint(0, 5))
-
             if row['ManCoverageRating'] < 50:
-                row['ManCoverageRating'] = 50 + random.randint(0, 10)
+                row['ManCoverageRating'] = 48 + random.randint(0, 5)
 
             if row['ZoneCoverageRating'] < 50:
-                row['ZoneCoverageRating'] = 50 + random.randint(0, 10)
-
-            if row['SpeedRating'] <= 90:
-                row['SpeedRating'] += 2
+                row['ZoneCoverageRating'] = 48 + random.randint(0, 5)
 
             if row['OverallRating'] <= 60:
                 row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
@@ -155,23 +143,28 @@ def update_traits(row):
                 row['TackleRating'] = min(row['TackleRating'] + 1, 99)
                 row['BlockSheddingRating'] = min(row['BlockSheddingRating'] + 1, 99)
 
-
-        # OLB Edits
+        # MLB Edits
         if row['Position'] in ['MLB']:
-            if row['SpeedRating'] <= 90:
-                row['SpeedRating'] += 1
+            if 'PassRush' in row['TRAIT_LBSTYLE']:
+                row['TRAIT_LBSTYLE'] = 'Balanced'
 
-            if row['ManCoverageRating'] >= 50:
-                row['ManCoverageRating'] = min(99, 50 + random.randint(0, 5))
+            if row['FinesseMovesRating'] >= 70:
+                row['FinesseMovesRating'] -= 8
 
-            if row['ZoneCoverageRating'] >= 50:
-                row['ZoneCoverageRating'] = min(99, 50 + random.randint(0, 5))
+            elif 55 <= row['FinesseMovesRating'] <= 69:
+                row['FinesseMovesRating'] -= 7
+
+            if row['PowerMovesRating'] >= 70:
+                row['PowerMovesRating'] -= 10
+
+            elif 55 <= row['PowerMovesRating'] <= 69:
+                row['PowerMovesRating'] -= 8
 
             if row['ManCoverageRating'] < 50:
-                row['ManCoverageRating'] = 50 + random.randint(0, 10)
+                row['ManCoverageRating'] = 48 + random.randint(0, 5)
 
             if row['ZoneCoverageRating'] < 50:
-                row['ZoneCoverageRating'] = 50 + random.randint(0, 10)
+                row['ZoneCoverageRating'] = 48 + random.randint(0, 5)
             
             if row['OverallRating'] <= 60:
                 row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
@@ -190,11 +183,17 @@ def update_traits(row):
                 row['ManCoverageRating'] = min(row['ManCoverageRating'] + 1, 99)
                 row['PressRating'] = min(row['PressRating'] + 1, 99)
             if row['KickReturnRating'] >= 90:
-                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 5, 68))
-                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 5, 72))
-                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 5, 70))
-                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 5, 64))
-                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 10, 60))
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 6, 68))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 6, 72))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 6, 70))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 6, 65))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 20, 60))
+            if 89 >= row['KickReturnRating'] >= 85:
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 3, 65))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 3, 70))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 3, 68))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 3, 62))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 15, 55))
 
         # S Edits
         if row['Position'] in ['FS', 'SS']:
@@ -206,11 +205,17 @@ def update_traits(row):
                 row['TackleRating'] = min(row['TackleRating'] + 1, 99)
                 row['ManCoverageRating'] = min(row['ManCoverageRating'] + 1, 99)
             if row['KickReturnRating'] >= 90:
-                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 5, 68))
-                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 5, 72))
-                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 5, 70))
-                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 5, 64))
-                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 10, 60))
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 6, 68))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 6, 72))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 6, 70))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 6, 65))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 20, 60))
+            if 89 >= row['KickReturnRating'] >= 85:
+                row['BCVisionRating'] = min(99, max(row['BCVisionRating'] + 3, 65))
+                row['JukeMoveRating'] = min(99, max(row['JukeMoveRating'] + 3, 70))
+                row['SpinMoveRating'] = min(99, max(row['SpinMoveRating'] + 3, 68))
+                row['CarryingRating'] = min(99, max(row['CarryingRating'] + 3, 62))
+                row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 15, 55))
 
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
@@ -227,6 +232,30 @@ def update_traits(row):
         row['TraitDevelopment'] = 'Normal'
 
     # Add more conditions and changes for other columns and positions as needed
+    return row
+
+def assign_home_states(row):
+    if row['ContractStatus'] == 'Draft' and row['Position'] not in ['K', 'P']:
+        states = [
+            "Alaska", "Alabama", "Arizona", "Arkansas", "California", "CanadaAlberta",
+            "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii",
+            "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+            "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+            "Missouri", "Montana", "Nebraska", "Nevada", "NewHampshire", "NewJersey",
+            "NewMexico", "NewYork", "NonUS", "NorthCarolina", "NorthDakota", "Ohio",
+            "Oklahoma", "Oregon", "Pennsylvania", "RhodeIsland", "SouthCarolina",
+            "SouthDakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+            "Washington", "WestVirginia", "Wisconsin", "Wyoming"
+        ]
+
+        probabilities = np.array([
+            0.3, 3, 2, 2, 6.5, 0.3, 2, 1.5, 0.6, 5, 4, 0.6, 0.6, 3, 2, 2, 2, 2, 2, 0.6, 
+            2, 1.5, 2, 2, 2, 2, 0.6, 1.5, 1.5, 0.6, 2, 2, 4, 0.1, 2, 1.5, 2, 2, 2, 2, 
+            0.6, 2, 1.5, 2, 5, 2, 0.6, 2, 2, 2, 2, 1
+        ]) / 100  # Convert to decimal probabilities
+
+        # Randomly select a state based on the probabilities
+        row['PLYR_HOME_STATE'] = np.random.choice(states, p=probabilities)
     return row
 
 def update_sleevetemp(row):
@@ -267,6 +296,7 @@ original_df = df.copy()
 
 # Apply the new function to update the DataFrame
 df = df.apply(update_traits, axis=1)
+df = df.apply(assign_home_states, axis=1)
 df['PLYR_SLEEVETEMPERATURE'] = df.apply(lambda row: update_sleevetemp(row), axis=1)
 
 ###
@@ -282,4 +312,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden25/IE/Season8/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season9/DraftClassEdit.xlsx', index=False)
