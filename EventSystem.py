@@ -197,7 +197,16 @@ def injury_offseason(row):
 
     if season_phase == "Preseason":
         if row['InjuryStatus'] == 'Uninjured':
-            return 'ACL' if random.random() <= 0.001 * multiplier else 'Achilles' if random.random() <= 0.002 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.002 * multiplier else 'No'
+            return 'ACL' if random.random() <= 0.001 * multiplier else 'Achilles' if random.random() <= 0.001 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.001 * multiplier else 'No'
+        else:
+            return 'No'
+    if season_phase == "Offseason":
+        if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] >= 8 and row['Position'] in ['QB']:
+            return 'ExtendedSeasonEndingInjury' if random.random() <= 0.1 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.1 * multiplier else 'No'
+        if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] >= 8 and row['Position'] not in ['QB']:
+            return 'ExtendedSeasonEndingInjury' if random.random() <= 0.025 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.025 * multiplier else 'No'
+        if row['InjuryStatus'] == 'Uninjured':
+            return 'ACL' if random.random() <= 0.0005 * multiplier else 'Achilles' if random.random() <= 0.0005 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.0005 * multiplier else 'No'
         else:
             return 'No'
     else:
