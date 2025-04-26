@@ -98,23 +98,45 @@ draft_order_df.reset_index(drop=True, inplace=True)
 
 # Define the multipliers using conditional statements
 def get_multiplier(num_picks):
-    if num_picks >= 9:
+    if num_picks >= 10:
         return 0.5
-    elif num_picks == 8:
+    elif num_picks == 9:
         return 0.75
-    elif num_picks == 7:
+    elif num_picks == 8:
         return 1
-    elif num_picks == 6:
+    elif num_picks == 7:
         return 1.25
-    elif num_picks <= 5:
+    elif num_picks == 6:
         return 1.5
+    elif num_picks == 5:
+        return 2.0
+    elif num_picks <= 4:
+        return 2.5
     else:
         return 1
 
 # Function to calculate trade down probability with adjusted multiplier
 def calculate_trade_down(row):
     multiplier = get_multiplier(row['PicksThisYear'])
-    if np.random.rand() < 0.05 * multiplier:  # 5% chance of "Yes"
+    
+    base_chance = 0.100 * multiplier  # Normal chance
+
+    if 20 <= row['PickNumber'] <= 29:
+        base_chance += 0.05
+    
+    if 30 <= row['PickNumber'] <= 34:
+        base_chance += 0.20
+
+    if 35 <= row['PickNumber'] <= 39:
+        base_chance += 0.125
+
+    if 40 <= row['PickNumber'] <= 44:
+        base_chance += 0.075
+
+    if 45 <= row['PickNumber'] <= 49:
+        base_chance += 0.025
+
+    if np.random.rand() < base_chance:
         return 'Yes'
     else:
         return 'No'
@@ -142,8 +164,9 @@ def fill_trade_with(row):
         eligible_teams = [team for team in eligible_teams if team != current_team]
         # Randomly select a team name from eligible teams
         if eligible_teams:
-            random_team = random.choice(eligible_teams)
-            return random_team
+            num_choices = min(3, len(eligible_teams))  # In case fewer than 3 teams available
+            random_teams = random.sample(list(eligible_teams), num_choices)
+            return ', '.join(random_teams)  # Return as a comma-separated string
     return ''
 
 # Fill 'TradeWith' column
