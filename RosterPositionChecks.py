@@ -43,13 +43,17 @@ contract_salary_columns = ['ContractSalary0', 'ContractSalary1', 'ContractSalary
 contract_bonus_columns = ['ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3',
                           'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7']
 
-# Calculate AAV and Signing Bonus columns for signed contracts
+# Calculate AAV for signed contracts
 
 aav_contract_length = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts['ContractLength']
 aav_non_zero_count = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts[contract_salary_columns].astype(bool).sum(axis=1)
 signed_contracts['AAV'] = np.maximum(aav_contract_length, aav_non_zero_count)
-signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)  # Round to the nearest 100th and divide by 100
+signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)
+contract_year_multipliers = {0: 1, 1: 1.05, 2: 1.12, 3: 1.18, 4: 1.25, 5: 1.3, 6: 1.4}
+signed_contracts['AAV'] *= signed_contracts['ContractYear'].map(contract_year_multipliers).fillna(1)
+signed_contracts['AAV'] = round(signed_contracts['AAV'], 2)
 
+# Calculate Signing Bonus for signed contracts
 signed_contracts['SigningBonus'] = signed_contracts[contract_bonus_columns].sum(axis=1)
 signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100, 2)  # Round to nearest 100th and divide by 100
 
