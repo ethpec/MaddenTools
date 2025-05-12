@@ -59,9 +59,9 @@ def update_contractlength(row):
         new_contract_length = row['ExpectedContractLength']
         # Apply randomness
         random_number = random.random()
-        if random_number < 0.10:  # 10% chance to subtract 1 from the contract length
+        if random_number < 0.05:  # 5% chance to subtract 1 from the contract length
             new_contract_length -= 1
-        elif random_number >= 0.10 and random_number < 0.20:  # 10% chance to add 1 to the contract length
+        elif random_number >= 0.05 and random_number < 0.20:  # 15% chance to add 1 to the contract length
             new_contract_length += 1
         # Check if the new contract length is different from the original value and not NaN
         if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
@@ -74,6 +74,16 @@ def update_contractlength(row):
         if random_number < 0.10:  # 10% chance to subtract 1 from the contract length
             new_contract_length -= 1
         elif random_number >= 0.10 and random_number < 0.20:  # 10% chance to add 1 to the contract length
+            new_contract_length += 1
+        # Check if the new contract length is different from the original value and not NaN
+        if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
+            return new_contract_length, True  # Return the updated length and True for ContractLengthChanged
+        
+    elif row['StatusCheck'] and initial_contract_length == 1:
+        new_contract_length = row['ExpectedContractLength']
+        # Apply randomness
+        random_number = random.random()
+        if random_number < 0.10:  # 10% chance to subtract 1 from the contract length
             new_contract_length += 1
         # Check if the new contract length is different from the original value and not NaN
         if not pd.isna(new_contract_length) and new_contract_length != row['ContractLength']:
