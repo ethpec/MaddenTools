@@ -59,6 +59,32 @@ def fix_contract_salaries(row):
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = new_salary_2
             row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
+
+    if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        row['ContractLength'] == 1
+        row['ContractSalary0'] = '96'
+        row['ContractBonus0'] = '0'
+        row['ContractSalary1'] = '0'
+        row['ContractSalary2'] = '0'
+        row['ContractSalary3'] = '0'
+        row['ContractSalary4'] = '0'
+        row['ContractBonus1'] = '0'
+        row['ContractBonus2'] = '0'
+        row['ContractBonus3'] = '0'
+        row['ContractBonus4'] = '0'
+
+    if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        row['ContractLength'] == 1
+        row['ContractSalary0'] = '103'
+        row['ContractBonus0'] = '0'
+        row['ContractSalary1'] = '0'
+        row['ContractSalary2'] = '0'
+        row['ContractSalary3'] = '0'
+        row['ContractSalary4'] = '0'
+        row['ContractBonus1'] = '0'
+        row['ContractBonus2'] = '0'
+        row['ContractBonus3'] = '0'
+        row['ContractBonus4'] = '0'
     
     row['StatusCheck'] = salary_changed  # Add StatusCheck column
     return row
