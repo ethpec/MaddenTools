@@ -61,31 +61,130 @@ def fix_contract_salaries(row):
             row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
 
     if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
-        row['ContractLength'] == 1
-        row['ContractSalary0'] = '96'
-        row['ContractBonus0'] = '0'
-        row['ContractSalary1'] = '0'
-        row['ContractSalary2'] = '0'
-        row['ContractSalary3'] = '0'
-        row['ContractSalary4'] = '0'
-        row['ContractBonus1'] = '0'
-        row['ContractBonus2'] = '0'
-        row['ContractBonus3'] = '0'
-        row['ContractBonus4'] = '0'
+        row['ContractLength'] = 1
+        row['ContractSalary0'] = 96
+        row['ContractBonus0'] = 0
+        row['ContractSalary1'] = 0
+        row['ContractSalary2'] = 0
+        row['ContractSalary3'] = 0
+        row['ContractSalary4'] = 0
+        row['ContractBonus1'] = 0
+        row['ContractBonus2'] = 0
+        row['ContractBonus3'] = 0
+        row['ContractBonus4'] = 0
+        row['PLYR_CAPSALARY'] = 96
+        row['StatusCheck'] = 'Adjusted'
 
     if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
-        row['ContractLength'] == 1
-        row['ContractSalary0'] = '103'
-        row['ContractBonus0'] = '0'
-        row['ContractSalary1'] = '0'
-        row['ContractSalary2'] = '0'
-        row['ContractSalary3'] = '0'
-        row['ContractSalary4'] = '0'
-        row['ContractBonus1'] = '0'
-        row['ContractBonus2'] = '0'
-        row['ContractBonus3'] = '0'
-        row['ContractBonus4'] = '0'
-    
+        row['ContractLength'] = 1
+        row['ContractSalary0'] = 103
+        row['ContractBonus0'] = 0
+        row['ContractSalary1'] = 0
+        row['ContractSalary2'] = 0
+        row['ContractSalary3'] = 0
+        row['ContractSalary4'] = 0
+        row['ContractBonus1'] = 0
+        row['ContractBonus2'] = 0
+        row['ContractBonus3'] = 0
+        row['ContractBonus4'] = 0
+        row['PLYR_CAPSALARY'] = 103
+        row['StatusCheck'] = 'Adjusted'
+
+    ### Veteran Age 29 ###
+    if row['Age'] >= 29 and row['Position'] in ['RB', 'HB'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Adjusted'
+
+    ### Veteran Age 30 ###
+    if row['Age'] >= 30 and row['Position'] in ['CB'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Adjusted'
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+
+    ### Veteran Age 31 ###
+    if row['Age'] >= 31 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Adjusted'
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+
+    ### Veteran Age 32 ###
+    if row['Age'] >= 32 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Adjusted'
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+
+    ### Veteran Age 33 ###
+    if row['Age'] >= 33 and row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Adjusted'
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+                    
     row['StatusCheck'] = salary_changed  # Add StatusCheck column
     return row
 
