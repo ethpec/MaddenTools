@@ -4,7 +4,7 @@ import random
 import math
 
 # Your File Path
-player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Test/Player.xlsx'
 
 # Load DataFrame
 df = pd.read_excel(player_file_path)
@@ -59,6 +59,7 @@ def fix_contract_salaries(row):
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = new_salary_2
             row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
+    row['StatusCheck'] = salary_changed  # Add StatusCheck column
 
     if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         row['ContractLength'] = 1
@@ -73,7 +74,7 @@ def fix_contract_salaries(row):
         row['ContractBonus3'] = 0
         row['ContractBonus4'] = 0
         row['PLYR_CAPSALARY'] = 96
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Young_Adjusted'
 
     if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         row['ContractLength'] = 1
@@ -88,10 +89,10 @@ def fix_contract_salaries(row):
         row['ContractBonus3'] = 0
         row['ContractBonus4'] = 0
         row['PLYR_CAPSALARY'] = 103
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Young_Adjusted'
 
     ### Veteran Age 29 ###
-    if row['Age'] >= 29 and row['Position'] in ['RB', 'HB'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 29 and row['Position'] in ['RB', 'HB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -107,10 +108,10 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Vet_Adjusted'
 
     ### Veteran Age 30 ###
-    if row['Age'] >= 30 and row['Position'] in ['CB'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 30 and row['Position'] in ['CB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -119,7 +120,7 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * salary_multiplier) / 5) * 5
 
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
         bonus_multiplier = random.uniform(0.75, 0.95)
@@ -129,7 +130,7 @@ def fix_contract_salaries(row):
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 31 ###
-    if row['Age'] >= 31 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 31 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -138,7 +139,7 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * salary_multiplier) / 5) * 5
 
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
         bonus_multiplier = random.uniform(0.75, 0.95)
@@ -148,7 +149,7 @@ def fix_contract_salaries(row):
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 32 ###
-    if row['Age'] >= 32 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 32 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -157,7 +158,7 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * salary_multiplier) / 5) * 5
 
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
         bonus_multiplier = random.uniform(0.75, 0.95)
@@ -167,7 +168,7 @@ def fix_contract_salaries(row):
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 33 ###
-    if row['Age'] >= 33 and row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT'] and ['ContractSalary0'] >= 250 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 33 and row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -176,7 +177,7 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * salary_multiplier) / 5) * 5
 
-        row['StatusCheck'] = 'Adjusted'
+        row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
         bonus_multiplier = random.uniform(0.75, 0.95)
@@ -185,7 +186,6 @@ def fix_contract_salaries(row):
             if col in row:
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
                     
-    row['StatusCheck'] = salary_changed  # Add StatusCheck column
     return row
 
 # Apply function to DataFrame
@@ -196,5 +196,5 @@ cols = ['StatusCheck'] + [col for col in result_df.columns if col != 'StatusChec
 result_df = result_df[cols]
 
 # Export the DataFrame to a new Excel file
-output_filename = 'Files/Madden25/IE/Season9/Player_ContractsFixed.xlsx'
+output_filename = 'Files/Madden25/IE/Test/Player_ContractsFixed.xlsx'
 result_df.to_excel(output_filename, index=False)
