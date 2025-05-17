@@ -133,7 +133,7 @@ def fix_contract_salaries(row):
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(3, 7))
 
-        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.22 * total_salary and row['ContractSalary3'] > 0:
+        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.21 * total_salary and row['ContractSalary3'] > 0:
             
             if row['CurrentAAV'] >= row['ExpectedAAV']:
                 base_salary = total_salary
@@ -289,16 +289,31 @@ def fix_contract_salaries(row):
             col = f'ContractBonus{i}'
             if col in row:
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
-                    
+
     return row
 
-# Apply function to DataFrame
-result_df = df.apply(fix_contract_salaries, axis=1)
+#Assign expected salary info
+result_df = df.apply(assign_salaryinfo, axis=1)
 
-# Ensure StatusCheck is the first column
-cols = ['StatusCheck'] + [col for col in result_df.columns if col != 'StatusCheck']
-result_df = result_df[cols]
+# Adjust contracts based on that info
+result_df = result_df.apply(fix_contract_salaries, axis=1)
 
-# Export the DataFrame to a new Excel file
-output_filename = 'Files/Madden25/IE/Test/Player_ContractsFixed.xlsx'
+# List of newly created columns
+created_cols = [
+    'SalaryCheck', 'StatusCheck',
+    'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength',
+    'CurrentAAV', 'CurrentBonus'
+]
+
+# Original columns order from the player DataFrame
+original_cols = df.columns.tolist()
+
+# Filter out created columns to keep the rest in their original order
+remaining_cols = [col for col in original_cols if col not in created_cols]
+
+# Final column order: created columns first, then the rest as in original
+result_df = result_df[created_cols + remaining_cols]
+
+# Export
+output_filename = 'Files/Madden25/IE/Test/Player_ExpectedSalary.xlsx'
 result_df.to_excel(output_filename, index=False)
