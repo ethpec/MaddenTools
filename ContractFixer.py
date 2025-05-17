@@ -2,12 +2,71 @@
 import pandas as pd
 import random
 import math
+import numpy as np
 
-# Your File Path
+# File Paths
 player_file_path = 'Files/Madden25/IE/Test/Player.xlsx'
+salary_expectation_file_path = 'Files/Madden25/IE/Test/Expected Salary Sheet.xlsx'
 
-# Load DataFrame
+# Load DataFrames
 df = pd.read_excel(player_file_path)
+salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (Values Only) (279)')
+
+# Parse Salary Table
+def parse_salary_table(salary_df):
+    salary_data = {}
+
+    # Group rows by Position (last column)
+    for pos, group in salary_df.groupby('Position'):
+        pos = str(pos).strip().upper()
+
+        # Extract numeric values for each Type ignoring first column (Type) and last (Position)
+        overall = group[group['Type'] == 'OverallRating'].iloc[0, 1:-1].astype(float).tolist()
+        aav = group[group['Type'] == 'AAV'].iloc[0, 1:-1].astype(float).tolist()
+        bonus = group[group['Type'] == 'Bonus'].iloc[0, 1:-1].astype(float).tolist()
+        length = group[group['Type'] == 'Length'].iloc[0, 1:-1].astype(float).tolist()
+
+        salary_data[pos] = {
+            'Overall': overall,
+            'AAV': aav,
+            'Bonus': bonus,
+            'Length': length
+        }
+
+    return salary_data
+
+salary_lookup = parse_salary_table(salary_df)
+
+# Salary Interpolation
+def salary_interpolation(position, overall, salary_lookup):
+    if position not in salary_lookup:
+        return None, None, None
+
+    data = salary_lookup[position]
+    x = data['Overall']
+
+    def interpolate(y_values):
+        return float(np.interp(overall, x, y_values))
+
+    aav = round(interpolate(data['AAV']))
+    bonus = round(interpolate(data['Bonus']))
+    length = round(interpolate(data['Length']))
+
+    return aav, bonus, length
+
+# Apply to Each Row
+def assign_salaryinfo(row):
+    position = str(row['Position']).strip().upper()
+    overall = row['OverallRating']
+
+    aav, bonus, length = salary_interpolation(position, overall, salary_lookup)
+
+    row['ExpectedAAV'] = aav
+    row['ExpectedBonus'] = bonus
+    row['ExpectedContractLength'] = length
+    row['SalaryCheck'] = 'Updated' if aav is not None else 'Position Missing'
+
+    return row
 
 def fix_contract_salaries(row):
     salary_changed = False  # Flag to check if any salary value changes
