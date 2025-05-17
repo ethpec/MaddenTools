@@ -73,51 +73,96 @@ def fix_contract_salaries(row):
     
     if row['YearsPro'] >= 4 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         total_salary = sum(row[f'ContractSalary{i}'] for i in range(7))
+        total_bonus = sum(row[f'ContractBonus{i}'] for i in range(7))
+        contract_length = sum(1 for i in range(7) if row.get(f'ContractSalary{i}', 0) > 0)
+        contract_length = contract_length if contract_length > 0 else 1  # prevent divide by zero
+
+
+        # Calculate current AAV and Bonus
+        current_aav = round((total_salary + total_bonus) / contract_length)
+        current_bonus = round(total_bonus / contract_length)
+
+        row['CurrentAAV'] = current_aav
+        row['CurrentBonus'] = current_bonus
         
         # Calculate the leftover salary once
         leftover = total_salary
         
         if row['ContractLength'] == 2 and row['ContractSalary0'] >= 0.45 * total_salary and row['ContractSalary1'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.33, 0.44) * total_salary / 5) * 5
+            
+            if row['CurrentAAV'] >= row['ExpectedAAV']:
+                base_salary = total_salary
+            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] > row['ExpectedBonus']:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                row['ContractBonus0'] = row['ExpectedBonus']
+                row['ContractBonus1'] = row['ExpectedBonus']
+            else:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+
+            new_salary_0 = math.ceil(random.uniform(0.33, 0.44) * base_salary / 5) * 5
+
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
-            leftover -= new_salary_0
+
+            leftover = base_salary - new_salary_0
             row['ContractSalary0'] = new_salary_0
             row['ContractSalary1'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(2, 7))
-        
-        elif row['ContractLength'] == 3 and row['ContractSalary0'] >= 0.3 * total_salary and row['ContractSalary2'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.22, 0.26) * total_salary / 5) * 5
+
+        elif row['ContractLength'] == 3 and row['ContractSalary0'] >= 0.27 * total_salary and row['ContractSalary2'] > 0:
+
+            if row['CurrentAAV'] >= row['ExpectedAAV']:
+                base_salary = total_salary
+            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] > row['ExpectedBonus']:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                row['ContractBonus0'] = row['ExpectedBonus']
+                row['ContractBonus1'] = row['ExpectedBonus']
+            else:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+
+            leftover = base_salary
+            
+            new_salary_0 = math.ceil(random.uniform(0.22, 0.26) * base_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
-            new_salary_1 = math.ceil(random.uniform(0.33, 0.37) * total_salary / 5) * 5
+            new_salary_1 = math.ceil(random.uniform(0.33, 0.37) * base_salary / 5) * 5
             if new_salary_1 != row['ContractSalary1']:
                 salary_changed = True
             leftover -= new_salary_1
             row['ContractSalary0'] = new_salary_0
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(3, 7))
-        
-        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.225 * total_salary and row['ContractSalary3'] > 0:
-            new_salary_0 = math.ceil(random.uniform(0.17, 0.21) * total_salary / 5) * 5
+
+        elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.22 * total_salary and row['ContractSalary3'] > 0:
+            
+            if row['CurrentAAV'] >= row['ExpectedAAV']:
+                base_salary = total_salary
+            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] > row['ExpectedBonus']:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                row['ContractBonus0'] = row['ExpectedBonus']
+                row['ContractBonus1'] = row['ExpectedBonus']
+            else:
+                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+
+            leftover = base_salary
+
+            new_salary_0 = math.ceil(random.uniform(0.17, 0.21) * base_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
-            
-            new_salary_1 = math.ceil(0.25 * total_salary / 5) * 5
+            new_salary_1 = math.ceil(0.25 * base_salary / 5) * 5
             if new_salary_1 != row['ContractSalary1']:
                 salary_changed = True
             leftover -= new_salary_1
-            
-            new_salary_2 = math.ceil(0.27 * total_salary / 5) * 5
+            new_salary_2 = math.ceil(0.27 * base_salary / 5) * 5
             if new_salary_2 != row['ContractSalary2']:
                 salary_changed = True
             leftover -= new_salary_2
-            
             row['ContractSalary0'] = new_salary_0
             row['ContractSalary1'] = new_salary_1
             row['ContractSalary2'] = new_salary_2
             row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
+
     row['StatusCheck'] = salary_changed  # Add StatusCheck column
 
     if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
