@@ -7,7 +7,7 @@ position_report_file_path = 'Files/Madden25/IE/Season9/Position_Report.xlsx'
 output_file_path = 'Files/Madden25/IE/Season9/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -30,7 +30,7 @@ def young_newcontract(row):
     elif row['Position'] == 'QB':
         multiplier = 1.5
     
-    if season_phase == "Preseason" or season_phase == "Offseason":
+    if season_phase in ["Preseason", "Offseason"]:
         if row['OverallRating'] >= 90 and row['YearsPro'] == 3 and row['ContractYearsLeft'] <= 2:
             return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
         elif 85 <= row['OverallRating'] <= 89 and row['YearsPro'] == 3 and row['ContractYearsLeft'] <= 2:
@@ -57,7 +57,7 @@ def vet_wantscontract(row):
     elif row['Position'] == 'QB':
         multiplier = 2.0
 
-    if season_phase == "Preseason" or season_phase == "Offseason":
+    if season_phase in ["Preseason", "Offseason"]:
         if row['OverallRating'] >= 90 and row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] <= 2:
             return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
         elif 85 <= row['OverallRating'] <= 89 and row['Position'] not in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
@@ -92,7 +92,7 @@ def traderequest_lowmorale(row):
     elif row['ConfidenceRating'] >= 70:
         multiplier = 0.05
     
-    if season_phase == "Preseason" or season_phase == "TradeDeadline" or season_phase == "Offseason":
+    if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if row['OverallRating'] >= 80 and row['YearsPro'] >= 2 and row['Age'] <= 26 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.025 * multiplier else 'No'
         elif row['OverallRating'] >= 80 and row['YearsPro'] >= 2 and 27 <= row['Age'] >= 29 and row['ContractYearsLeft'] <= 3:
@@ -121,19 +121,19 @@ def traderequest_wr(row):
     elif 30 <= row['ConfidenceRating'] < 40:
         multiplier = 1.5
     elif 40 <= row['ConfidenceRating'] < 50:
-        multiplier = 0.75
+        multiplier = 1.0
     elif 50 <= row['ConfidenceRating'] < 60:
-        multiplier = 0.25
+        multiplier = 0.5
     elif 60 <= row['ConfidenceRating'] < 70:
         multiplier = 0.1
     elif row['ConfidenceRating'] >= 70:
         multiplier = 0.05
     
-    if season_phase == "Preseason" or season_phase == "TradeDeadline" or season_phase == "Offseason":
+    if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if 73 <= row['OverallRating'] <= 84 and 2 <= row['YearsPro'] <= 3 and row['PLYR_DRAFTROUND'] <= 2 and row['ContractYearsLeft'] <= 3:
-            return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
+            return 'Yes' if random.random() <= 0.15 * multiplier else 'No'
         elif row['OverallRating'] >= 85 and 2 <= row['YearsPro'] <= 4 and row['ContractYearsLeft'] <= 3:
-            return 'Yes' if random.random() <= 0.075 * multiplier else 'No'
+            return 'Yes' if random.random() <= 0.125 * multiplier else 'No'
         elif row['OverallRating'] >= 85 and row['YearsPro'] >= 5 and row['ContractYearsLeft'] <= 5:
             return 'Yes' if random.random() <= 0.10 * multiplier else 'No'
         else:
@@ -154,7 +154,7 @@ def traderequest_playingtime(row):
     elif row['Position'] in ['WR', 'CB'] and row['Rank'] >= 4:
         multiplier = 1.0
 
-    if season_phase == "Preseason" or season_phase == "TradeDeadline" or season_phase == "Offseason":
+    if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if row['OverallRating'] >= 90 and row['YearsPro'] >= 2:
             return 'Yes' if random.random() <= 1.0 * multiplier else 'No'
         elif 80 <= row['OverallRating'] < 90 and row['YearsPro'] >= 2 and row['ContractYearsLeft'] <= 3 and row['ConfidenceRating'] <= 55:
@@ -170,6 +170,93 @@ def traderequest_playingtime(row):
     
 # Apply the function to create the TradePlayingTime column
 merged_df['TradePlayingTime'] = merged_df.apply(traderequest_playingtime, axis=1)
+
+def tradecut_youngplayer(row):
+    # Multiplier based on confidence
+    confidencerating = row['ConfidenceRating']
+    if confidencerating < 20:
+        multiplier = 10.0
+    elif confidencerating < 30:
+        multiplier = 5.0
+    elif confidencerating < 40:
+        multiplier = 1.5
+    elif confidencerating < 50:
+        multiplier = 1.0
+    elif confidencerating < 60:
+        multiplier = 0.5
+    elif confidencerating < 70:
+        multiplier = 0.1
+    else:
+        multiplier = 0.05
+
+    # Only consider trades during allowed phases
+    if season_phase not in ["Preseason", "TradeDeadline", "Offseason"]:
+        return 'No'
+
+    # Define position groups
+    position_group_one = ['TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS']
+    position_group_two = ['RB', 'HB', 'DT', 'LE', 'RE']
+    position_group_three = ['WR', 'CB']
+
+    position = row['Position']
+    rank = row['Rank']
+    overall = row['OverallRating']
+    years_pro = row['YearsPro']
+    draft_round = row['PLYR_DRAFTROUND']
+
+    # Only 2nd or 3rd year players
+    if not (2 <= years_pro <= 3):
+        return 'No'
+
+    # 1st Round Logic
+    if draft_round == 1:
+        if position in position_group_one and rank >= 3:
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+        elif position in position_group_one and rank == 2:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+        elif position in position_group_two and rank >= 4:
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+        elif position in position_group_two and rank == 3:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+        elif position in position_group_three and rank >= 4:
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+        elif position in position_group_three and rank == 3 and overall <= 79:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+
+    # Day 2 Logic
+    elif 2 <= draft_round <= 3:
+        if position in position_group_one and rank >= 3:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+        elif position in position_group_one and rank == 2:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+        elif position in position_group_two and rank >= 4:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+        elif position in position_group_two and rank == 3:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+        elif position in position_group_three and rank >= 4:
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+        elif position in position_group_three and rank == 3 and overall <= 74:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+
+    # Day 3 Logic
+    elif 4 <= draft_round <= 7:
+        if position in position_group_one and rank >= 3 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+        elif position in position_group_one and rank == 2 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+        elif position in position_group_two and rank >= 4 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+        elif position in position_group_two and rank == 3 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+        elif position in position_group_three and rank >= 4 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+        elif position in position_group_three and rank == 3 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+
+    return 'No'
+    
+# Apply the function to create the TradeUnhappy column
+merged_df['TradeCutYoungPlayer'] = merged_df.apply(tradecut_youngplayer, axis=1)
 
 # Function to determine offseason injury based on conditions
 def injury_offseason(row):
@@ -197,7 +284,7 @@ def injury_offseason(row):
 
     if season_phase == "Preseason":
         if row['InjuryStatus'] == 'Uninjured':
-            return 'ACL' if random.random() <= 0.001 * multiplier else 'Achilles' if random.random() <= 0.001 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.001 * multiplier else 'No'
+            return 'ACL' if random.random() <= 0.001 * multiplier else 'Achilles' if random.random() <= 0.001 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.001 * multiplier else 'FullSeasonInjury' if random.random() <= 0.001 * multiplier else 'No'
         else:
             return 'No'
     if season_phase == "Offseason":
@@ -206,7 +293,7 @@ def injury_offseason(row):
         if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] >= 8 and row['Position'] not in ['QB']:
             return 'ExtendedSeasonEndingInjury' if random.random() <= 0.025 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.025 * multiplier else 'No'
         if row['InjuryStatus'] == 'Uninjured':
-            return 'ACL' if random.random() <= 0.0005 * multiplier else 'Achilles' if random.random() <= 0.0005 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.0005 * multiplier else 'No'
+            return 'ACL' if random.random() <= 0.001 * multiplier else 'Achilles' if random.random() <= 0.001 * multiplier else 'PartialSeasonInjury' if random.random() <= 0.001 * multiplier else 'FullSeasonInjury' if random.random() <= 0.001 * multiplier else 'No'
         else:
             return 'No'
     else:
