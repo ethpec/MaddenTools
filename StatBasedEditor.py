@@ -5,10 +5,10 @@ import numpy as np
 import sqlite3
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/All.xlsm'
+file_path = 'Files/Madden25/IE/Season9/All.xlsm'
 
 # Season
-season = 8 ###Change This###
+season = 9 ###Change This###
 
 # Rating Tier
 tier_0 = range(95,100)
@@ -72,13 +72,13 @@ def trim_all_columns(df):
 df_players = pd.read_excel(file_path, sheet_name='Player Info')
 df_players['TeamName'] = df_players['TeamIndex'].apply(lambda x: team_dict[x]) # Create column with lambda (returns the key in our team_dict for every row. Say it sees a 0 in a row, it will make a column for that row and enter CHI into it.)
 df_players['RatingTier'] = df_players['OverallRating'].apply(find_rating_tier) # applies our function to every row in the column and creates a new column based on its result
-df_players.to_csv('Files/Madden25/IE/Season8/PlayerTest.csv', sep=',',index=False)
+df_players.to_csv('Files/Madden25/IE/Season9/PlayerTest.csv', sep=',',index=False)
 
 # Excel Sheets Dataframe (Logic)
-df_logic = pd.read_excel('Files/Madden25/IE/Season8/ProgRegLogicCheck.xlsx', sheet_name='Sheet1')
+df_logic = pd.read_excel('Files/Madden25/IE/Season9/ProgRegLogicCheck.xlsx', sheet_name='Sheet1')
 df_logic['StatHigh'] = df_logic['StatValue'].apply(make_high)
 df_logic['StatLow'] = df_logic['StatValue'].apply(make_low)
-df_logic.to_csv('Files/Madden25/IE/Season8/LogicTest.csv', sep=',',index=False)
+df_logic.to_csv('Files/Madden25/IE/Season9/LogicTest.csv', sep=',',index=False)
 
 # Excel Sheet Dataframes (Stats) and JOINS
 df_offensiveStats = pd.read_excel(file_path, sheet_name='Offensive Stats').merge(df_players, how='left', left_on=['FullName', 'Position', 'TeamPrefixName'], right_on=['FullName','Position','TeamName'])
@@ -102,7 +102,7 @@ df_defensiveStats = df_defensiveStats[(df_defensiveStats['SEAS_YEAR'] == season)
 df_olineStats = df_olineStats[(df_olineStats['SEAS_YEAR'] == season) 
 & (df_olineStats['ContractStatus'] == 'Signed') & (df_olineStats['GAMESPLAYED'] >= 10) & (df_olineStats['DOWNSPLAYED'] >= 400)]
 df_kickingStats = df_kickingStats[(df_kickingStats['SEAS_YEAR'] == season)
-& (df_kickingStats['ContractStatus'] == 'Signed') & (df_kickingStats['GAMESPLAYED'] >= 8) & ((df_kickingStats['KICKFGATTEMPTS'] >= 15) | (df_kickingStats['PUNTATTEMPTS'] >= 30))]
+& (df_kickingStats['GAMESPLAYED'] >= 6) & ((df_kickingStats['KICKFGATTEMPTS'] >= 15) | (df_kickingStats['PUNTATTEMPTS'] >= 30))]
 
 # Add new DataFrame columns for Offense
 df_offensiveStats['ScrimmageYardsPer1000DownsPlayed'] = ((df_offensiveStats['RUSHYARDS'] + df_offensiveStats['RECEIVEYARDS']) / (df_offensiveStats['DOWNSPLAYED'])) * 1000
@@ -114,7 +114,7 @@ team_passing_ypg = df_offensiveStats.groupby('TeamIndex')['PASSYARDS'].transform
 df_offensiveStats['WRPercentageofTeamPassYards'] = (df_offensiveStats['RECEIVEYARDS'] / df_offensiveStats['GAMESPLAYED']) / team_passing_ypg
 
 # Update the 'OffTest.csv' file
-df_offensiveStats.to_csv('Files/Madden25/IE/Season8/OffTest.csv', sep=',', index=False)
+df_offensiveStats.to_csv('Files/Madden25/IE/Season9/OffTest.csv', sep=',', index=False)
 
 # Add new DataFrame columns for OLine
 df_olineStats['SacksPer1000Snaps'] = (df_olineStats['OLINESACKSALLOWED'] / df_olineStats['DOWNSPLAYED']) * 1000
@@ -149,7 +149,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_off_points = pd.read_sql_query(qry_off,conn) # read query into a new DataFrame
 df_off_points_agg = df_off_points.groupby(['FullName','Position','TeamName'])['SkillPointOff'].sum().reset_index() # add all the skill points up
-df_off_points_agg.to_csv('Files/Madden25/IE/Season8/Points_off.csv', sep=',',index=False)
+df_off_points_agg.to_csv('Files/Madden25/IE/Season9/Points_off.csv', sep=',',index=False)
 df_offensiveStats = df_offensiveStats.merge(df_off_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Defensive DataFrame
@@ -164,7 +164,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_def_points = pd.read_sql_query(qry_def,conn) # read query into a new DataFrame
 df_def_points_agg = df_def_points.groupby(['FullName','Position','TeamName'])['SkillPointDef'].sum().reset_index() # add all the skill points up
-df_def_points_agg.to_csv('Files/Madden25/IE/Season8/Points_def.csv', sep=',',index=False)
+df_def_points_agg.to_csv('Files/Madden25/IE/Season9/Points_def.csv', sep=',',index=False)
 df_defensiveStats = df_defensiveStats.merge(df_def_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt O-Line DataFrame
@@ -179,7 +179,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_oline_points = pd.read_sql_query(qry_oline,conn) # read query into a new DataFrame
 df_oline_points_agg = df_oline_points.groupby(['FullName','Position','TeamName'])['SkillPointOL'].sum().reset_index() # add all the skill points up
-df_oline_points_agg.to_csv('Files/Madden25/IE/Season8/Points_ol.csv', sep=',',index=False)
+df_oline_points_agg.to_csv('Files/Madden25/IE/Season9/Points_ol.csv', sep=',',index=False)
 df_olineStats = df_olineStats.merge(df_oline_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Melt Kicking DataFrame
@@ -194,7 +194,7 @@ INNER JOIN df_logic df2 ON (df1.StatCheck = df2.StatCheck) AND (df1.Position = d
 ''' # our query
 df_kicking_points = pd.read_sql_query(qry_kicking,conn) # read query into a new DataFrame
 df_kicking_points_agg = df_kicking_points.groupby(['FullName','Position','TeamName'])['SkillPointKick'].sum().reset_index() # add all the skill points up
-df_kicking_points_agg.to_csv('Files/Madden25/IE/Season8/Points_kick.csv', sep=',',index=False)
+df_kicking_points_agg.to_csv('Files/Madden25/IE/Season9/Points_kick.csv', sep=',',index=False)
 df_kickingStats = df_kickingStats.merge(df_kicking_points_agg, how='left', left_on=['FullName', 'Position','TeamPrefixName'], right_on=['FullName','Position','TeamName'])
 
 # Join worksheet DataFrames to player DataFrame
@@ -210,11 +210,11 @@ df_final.loc[df_final['SkillPoints'] < 0, 'RegressionPoints'] = abs(df_final['Sk
 df_final.loc[df_final['SkillPoints'] < 0, 'SkillPoints'] = 0
 
 # # Export our DataFrames to various test files
-df_offensiveStats.to_csv('Files/Madden25/IE/Season8/OffTest.csv', sep=',',index=False)
-df_defensiveStats.to_csv('Files/Madden25/IE/Season8/DefTest.csv', sep=',',index=False)
-df_olineStats.to_csv('Files/Madden25/IE/Season8/OLTest.csv', sep=',',index=False)
-df_kickingStats.to_csv('Files/Madden25/IE/Season8/KickingTest.csv', sep=',',index=False)
-# df_defensiveStats_unpivot.to_csv('Files/Madden25/IE/Season8/Defense_Unpivot.csv', sep=',',index=False)
+df_offensiveStats.to_csv('Files/Madden25/IE/Season9/OffTest.csv', sep=',',index=False)
+df_defensiveStats.to_csv('Files/Madden25/IE/Season9/DefTest.csv', sep=',',index=False)
+df_olineStats.to_csv('Files/Madden25/IE/Season9/OLTest.csv', sep=',',index=False)
+df_kickingStats.to_csv('Files/Madden25/IE/Season9/KickingTest.csv', sep=',',index=False)
+# df_defensiveStats_unpivot.to_csv('Files/Madden25/IE/Season9/Defense_Unpivot.csv', sep=',',index=False)
 
 # Export our Final Player DataFrame with updated skills points/regression points
-df_final.to_csv('Files/Madden25/IE/Season8/Final_PreAdjustment.csv', sep=',',index=False)
+df_final.to_csv('Files/Madden25/IE/Season9/Final_PreAdjustment.csv', sep=',',index=False)

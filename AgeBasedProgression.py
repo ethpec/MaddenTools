@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden25/IE/Season8/RegressionValues.xlsx'
+file_path = 'Files/Madden25/IE/Season9/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden25/IE/Season9/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -56,8 +56,10 @@ def calculate_freeagent_regression_points(row):
     if row['YearsPro'] >= 3 and row['ContractStatus'] == 'FreeAgent':
         if row['Position'] == 'QB':
             return row['RegressionPoints'] + 1
-        elif row['OverallRating'] <= 64:
-            return row['RegressionPoints'] + 6
+        elif row['OverallRating'] <= 57:
+            return row['RegressionPoints'] + 2
+        elif 58 <= row['OverallRating'] <= 64:
+            return row['RegressionPoints'] + 3 # Used to be 6, but not needed as of now #
         elif row['OverallRating'] >= 65:
             return row['RegressionPoints'] + 3
     return row['RegressionPoints']
@@ -130,4 +132,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden25/IE/Season8/Final.csv', index=False)
+df.to_csv('Files/Madden25/IE/Season9/Final.csv', index=False)
