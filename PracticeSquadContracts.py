@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -16,6 +16,7 @@ min_salary_values = {
 # Practice Squad contract updates - signing them to "future deals" essentially
 def update_pscontracts(row):
     contract_status = row['ContractStatus']
+    draft_status = int(row['PLYR_DRAFTROUND'])
     years_pro = int(row['YearsPro'])
     contract_length = int(row['ContractLength'])
     contract_salary_0 = row['ContractSalary0']
@@ -34,6 +35,25 @@ def update_pscontracts(row):
                 row['ContractSalary1'] = target_salary
             if contract_salary_2 == 0:
                 row['ContractSalary2'] = target_salary
+
+### Keep your eyes on this one (Check if a player that hits this actually shows up as expiring in the game)
+    if contract_status == 'Signed' and years_pro in [2] and draft_status == 63 and contract_length == 2:
+        row['ContractLength'] = 2
+        row['ContractYear'] = 1
+        target_salary = min_salary_values[years_pro]
+        row['ContractSalary0'] = target_salary
+        row['ContractSalary1'] = target_salary
+        row['ContractSalary2'] = 0
+        row['ContractSalary3'] = 0
+
+    if contract_status == 'Signed' and years_pro in [2] and draft_status != 63 and contract_length == 2:
+        row['ContractLength'] = 2
+        row['ContractYear'] = 0
+        target_salary = min_salary_values[years_pro]
+        row['ContractSalary0'] = target_salary
+        row['ContractSalary1'] = target_salary
+        row['ContractSalary2'] = 0
+        row['ContractSalary3'] = 0
 
     return row
 
@@ -64,4 +84,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden25/IE/Season8/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season9/PracticeSquad_Contracts.xlsx', index=False)
