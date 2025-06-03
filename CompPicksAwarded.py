@@ -2,11 +2,11 @@
 import pandas as pd
 
 # Your File Paths
-player_value_file = 'Files/Madden25/IE/Season8/CompPickPlayerValue.xlsx'
-expiring_contracts_file = 'Files/Madden25/IE/Season8/CompPick_ContractStatusUpdated.xlsx'
-output_filename = 'Files/Madden25/IE/Season8/CompPicksAwarded.xlsx'
+player_value_file = 'Files/Madden25/IE/Season9/CompPickPlayerValue.xlsx'
+expiring_contracts_file = 'Files/Madden25/IE/Season9/CompPick_ContractStatusUpdated.xlsx'
+output_filename = 'Files/Madden25/IE/Season9/CompPicksAwarded.xlsx'
 
-excluded_year_drafted = 8  # Change this as needed - Match current season number ###
+excluded_year_drafted = 9  # Change this as needed - Match current season number ###
 
 # Read the "CompPickPlayerValue.xlsx" and "LastSeason_ExpiringContracts.xlsx" sheets into DataFrames
 player_value_df = pd.read_excel(player_value_file)
