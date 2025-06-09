@@ -2,12 +2,12 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
-position_report_file_path = 'Files/Madden25/IE/Season9/Position_Report.xlsx'
-output_file_path = 'Files/Madden25/IE/Season9/EventSystem_Results.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+position_report_file_path = 'Files/Madden25/IE/Season10/Position_Report.xlsx'
+output_file_path = 'Files/Madden25/IE/Season10/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -195,7 +195,7 @@ def tradecut_youngplayer(row):
 
     # Define position groups
     position_group_one = ['TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS']
-    position_group_two = ['RB', 'HB', 'DT', 'LE', 'RE']
+    position_group_two = ['RB', 'HB', 'DT', 'LE', 'RE', 'QB']
     position_group_three = ['WR', 'CB']
 
     position = row['Position']
@@ -211,47 +211,47 @@ def tradecut_youngplayer(row):
     # 1st Round Logic
     if draft_round == 1:
         if position in position_group_one and rank >= 3:
-            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'Maybe'
         elif position in position_group_one and rank == 2:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_two and rank >= 4:
-            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'Maybe'
         elif position in position_group_two and rank == 3:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_three and rank >= 4:
-            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'Maybe'
         elif position in position_group_three and rank == 3 and overall <= 79:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
 
     # Day 2 Logic
     elif 2 <= draft_round <= 3:
         if position in position_group_one and rank >= 3:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_one and rank == 2:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
         elif position in position_group_two and rank >= 4:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_two and rank == 3:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
         elif position in position_group_three and rank >= 4:
-            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_three and rank == 3 and overall <= 74:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
 
     # Day 3 Logic
     elif 4 <= draft_round <= 7:
         if position in position_group_one and rank >= 3 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
         elif position in position_group_one and rank == 2 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'Maybe'
         elif position in position_group_two and rank >= 4 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
         elif position in position_group_two and rank == 3 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'Maybe'
         elif position in position_group_three and rank >= 4 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
         elif position in position_group_three and rank == 3 and overall <= 69:
-            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'No'
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'Maybe'
 
     return 'No'
     
@@ -306,11 +306,11 @@ merged_df['OffseasonInjury'] = merged_df.apply(injury_offseason, axis=1)
 def vet_earlyretirement(row):
 
     if season_phase == "Offseason":
-        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 35 and row['OverallRating'] >= 70:
+        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 35 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.01 else 'No'
-        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 27 and row['OverallRating'] >= 70:
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 27 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.01 else 'No'
-        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 70:
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.005 else 'No'
         else:
             return 'No'

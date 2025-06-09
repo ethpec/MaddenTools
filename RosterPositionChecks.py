@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -49,16 +49,16 @@ aav_contract_length = (signed_contracts[contract_salary_columns].sum(axis=1) + s
 aav_non_zero_count = (signed_contracts[contract_salary_columns].sum(axis=1) + signed_contracts[contract_bonus_columns].sum(axis=1)) / signed_contracts[contract_salary_columns].astype(bool).sum(axis=1)
 signed_contracts['AAV'] = np.maximum(aav_contract_length, aav_non_zero_count)
 signed_contracts['AAV'] = round(signed_contracts['AAV'] / 100, 2)
-contract_year_multipliers = {0: 1, 1: 1.05, 2: 1.12, 3: 1.18, 4: 1.25, 5: 1.3, 6: 1.4}
+contract_year_multipliers = {0: 1, 1: 1, 2: 1.09, 3: 1.15, 4: 1.22, 5: 1.35, 6: 1.45} ### Change these multipliers back next season since cap stays same now (multiplier for year 1) ###
 signed_contracts['AAV'] *= signed_contracts['ContractYear'].map(contract_year_multipliers).fillna(1)
 signed_contracts['AAV'] = round(signed_contracts['AAV'], 2)
 
 # Calculate Signing Bonus for signed contracts
 signed_contracts['SigningBonus'] = signed_contracts[contract_bonus_columns].sum(axis=1)
-signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100, 2)  # Round to nearest 100th and divide by 100
+signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100, 2)
 
 contract_year_column = signed_contracts.pop('ContractYear') 
-signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)  # Insert at the desired position
+signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)
 
 # Concatenate all relevant columns at once using pd.concat() for 'Contracts' sheet
 contracts_data = pd.concat([
@@ -73,7 +73,7 @@ contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
 contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
 
 # Export the differences to a new sheet named "Differences" and add "Team Position Depth"
-output_file_path = 'Files/Madden25/IE/Season9/Position_Report.xlsx'
+output_file_path = 'Files/Madden25/IE/Season10/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
@@ -86,7 +86,7 @@ with pd.ExcelWriter(output_file_path) as writer:
     contracts_data_team_depth['Rank'] = contracts_data_team_depth.sort_values(by=['OverallRating', 'YearsPro', 'AAV'], ascending=[False, True, True]) \
                                       .groupby(['TeamIndex', 'Position']) \
                                       .cumcount() + 1
-    
+
     # Convert 'ContractYear' and 'ContractLength' columns to numeric, handling errors
     contracts_data_team_depth[['ContractYear', 'ContractLength']] = contracts_data_team_depth[['ContractYear', 'ContractLength']].apply(pd.to_numeric, errors='coerce')
 
