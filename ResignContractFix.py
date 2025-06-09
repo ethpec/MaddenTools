@@ -3,9 +3,9 @@ import math
 import random
 
 # Your File Paths
-resign_file_path = 'Files/Madden25/IE/Test/PlayerExpiringContracts.xlsx'
-player_file_path = 'Files/Madden25/IE/Test/Player.xlsx'
-expected_length_file_path = 'Files/Madden25/IE/Test/ExpectedContractLength.xlsx'
+resign_file_path = 'Files/Madden25/IE/Season10/PlayerExpiringContracts.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+expected_length_file_path = 'Files/Madden25/IE/Season10/ExpectedContractLength.xlsx'
 
 # Read data from the specified Excel files
 resign_df = pd.read_excel(resign_file_path)
@@ -182,5 +182,5 @@ columns_to_export = ['Position', 'FirstName', 'LastName', 'ContractStatus', 'Did
                     'ContractBonus0', 'ContractBonus1', 'ContractBonus2', 'ContractBonus3', 'ContractBonus4', 'ContractBonus5', 'ContractBonus6', 'ContractBonus7', 'ContractLength']
 
 # Export the modified data to a new Excel file named "Player_ContractFix.xlsx"
-output_filename = 'Files/Madden25/IE/Test/Player_ResignContractFix.xlsx'
+output_filename = 'Files/Madden25/IE/Season10/Player_ResignContractFix.xlsx'
 player_df[columns_to_export].to_excel(output_filename, index=False)

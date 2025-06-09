@@ -5,12 +5,12 @@ import math
 import numpy as np
 
 # File Paths
-player_file_path = 'Files/Madden25/IE/Test/Player.xlsx'
-salary_expectation_file_path = 'Files/Madden25/IE/Test/Expected Salary Sheet.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+salary_expectation_file_path = 'Files/Madden25/IE/Season10/ExpectedSalarySheet.xlsx'
 
 # Load DataFrames
 df = pd.read_excel(player_file_path)
-salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (Values Only) (279)')
+salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
 
 # Parse Salary Table
 def parse_salary_table(salary_df):
@@ -195,8 +195,8 @@ def fix_contract_salaries(row):
         row['PLYR_CAPSALARY'] = 103
         row['StatusCheck'] = 'Young_Adjusted'
 
-    ### Veteran Age 29 ###
-    if row['Age'] >= 29 and row['Position'] in ['RB', 'HB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    ### Veteran Age 28 ###
+    if row['Age'] >= 28 and row['Position'] in ['RB', 'HB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -214,8 +214,27 @@ def fix_contract_salaries(row):
 
         row['StatusCheck'] = 'Vet_Adjusted'
 
+    ### Veteran Age 29 ###
+    if row['Age'] >= 29 and row['Position'] in ['CB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        # Adjust salaries
+        salary_multiplier = random.uniform(0.65, 0.9)
+
+        for i in range(7):
+            col = f'ContractSalary{i}'
+            if col in row:
+                row[col] = round((row[col] * salary_multiplier) / 5) * 5
+
+        row['StatusCheck'] = 'Vet_Adjusted'
+
+        # Adjust bonuses
+        bonus_multiplier = random.uniform(0.75, 0.95)
+        for i in range(5):
+            col = f'ContractBonus{i}'
+            if col in row:
+                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
+
     ### Veteran Age 30 ###
-    if row['Age'] >= 30 and row['Position'] in ['CB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 30 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -234,26 +253,7 @@ def fix_contract_salaries(row):
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 31 ###
-    if row['Age'] >= 31 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
-        # Adjust salaries
-        salary_multiplier = random.uniform(0.65, 0.9)
-
-        for i in range(7):
-            col = f'ContractSalary{i}'
-            if col in row:
-                row[col] = round((row[col] * salary_multiplier) / 5) * 5
-
-        row['StatusCheck'] = 'Vet_Adjusted'
-
-        # Adjust bonuses
-        bonus_multiplier = random.uniform(0.75, 0.95)
-        for i in range(5):
-            col = f'ContractBonus{i}'
-            if col in row:
-                row[col] = round((row[col] * bonus_multiplier) / 5) * 5
-
-    ### Veteran Age 32 ###
-    if row['Age'] >= 32 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+    if row['Age'] >= 31 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         # Adjust salaries
         salary_multiplier = random.uniform(0.65, 0.9)
 
@@ -315,5 +315,5 @@ remaining_cols = [col for col in original_cols if col not in created_cols]
 result_df = result_df[created_cols + remaining_cols]
 
 # Export
-output_filename = 'Files/Madden25/IE/Test/Player_ExpectedSalary.xlsx'
+output_filename = 'Files/Madden25/IE/Season10/Player_ExpectedSalary.xlsx'
 result_df.to_excel(output_filename, index=False)
