@@ -2,7 +2,7 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player_ExpectedSalary.xlsx' ### Replaced Player sheet, Run ContractFixer first ###
 position_report_file_path = 'Files/Madden25/IE/Season10/Position_Report.xlsx'
 output_file_path = 'Files/Madden25/IE/Season10/EventSystem_Results.xlsx'
 
@@ -14,7 +14,7 @@ player_df = pd.read_excel(player_file_path)
 position_report_df = pd.read_excel(position_report_file_path, sheet_name='Team Position Depth')
 
 # Specify relevant columns from player_df
-relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'PLYR_DRAFTROUND','InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration']
+relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'PLYR_DRAFTROUND','InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration', "ExpectedAAV"]
 
 # Select only the relevant columns from player_df
 player_subset_df = player_df[relevant_columns_player]
@@ -22,34 +22,42 @@ player_subset_df = player_df[relevant_columns_player]
 # Merge player_subset_df with position_report_df based on specified columns
 merged_df = pd.merge(player_subset_df, position_report_df, on=['FirstName', 'LastName', 'Position', 'YearsPro'], how='inner')
 
-# Function to determine WantsContractNow based on conditions
+def determine_contract_status(hold_out_chance, hold_in_chance, multiplier):
+    chance = random.random()
+    if chance <= hold_out_chance * multiplier:
+        return 'Hold Out'
+    elif chance <= (hold_out_chance + hold_in_chance) * multiplier:
+        return 'Hold In'
+    else:
+        return 'No'
+
 def young_newcontract(row):
     multiplier = 1.0
     if row['Position'] in ['WR', 'LT', 'RT', 'LE', 'RE', 'CB']:
         multiplier = 1.25
     elif row['Position'] == 'QB':
         multiplier = 1.5
-    
-    if season_phase in ["Preseason", "Offseason"]:
-        if row['OverallRating'] >= 90 and row['YearsPro'] == 3 and row['ContractYearsLeft'] <= 2:
-            return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
-        elif 85 <= row['OverallRating'] <= 89 and row['YearsPro'] == 3 and row['ContractYearsLeft'] <= 2:
-            return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
-        elif 80 <= row['OverallRating'] <= 84 and row['YearsPro'] == 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
-        elif 85 <= row['OverallRating'] <= 89 and row['YearsPro'] == 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.15 * multiplier else 'No'
-        elif row['OverallRating'] >= 90 and row['YearsPro'] == 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.30 * multiplier else 'No'
-        else:
-            return 'No'
+
+    if season_phase not in ["Preseason", "Offseason"]:
+        return 'No'
+
+    rating = row['OverallRating']
+    years_pro = row['YearsPro']
+    years_left = row['ContractYearsLeft']
+
+    if rating >= 90 and years_pro == 3 and years_left <= 2:
+        return determine_contract_status(0.05, 0.20, multiplier)
+    elif 85 <= rating <= 89 and years_pro == 3 and years_left <= 2:
+        return determine_contract_status(0.01, 0.04, multiplier)
+    elif 80 <= rating <= 84 and years_pro == 4 and years_left == 1:
+        return determine_contract_status(0.01, 0.04, multiplier)
+    elif 85 <= rating <= 89 and years_pro == 4 and years_left == 1:
+        return determine_contract_status(0.03, 0.12, multiplier)
+    elif rating >= 90 and years_pro == 4 and years_left == 1:
+        return determine_contract_status(0.05, 0.25, multiplier)
     else:
         return 'No'
 
-# Apply the function to create the WantsContractNow column
-merged_df['WantsContractNow'] = merged_df.apply(young_newcontract, axis=1)
-
-# Function to determine Holdout based on conditions
 def vet_wantscontract(row):
     multiplier = 1.0
     if row['Position'] in ['WR', 'LT', 'RT', 'LE', 'RE', 'CB']:
@@ -57,22 +65,57 @@ def vet_wantscontract(row):
     elif row['Position'] == 'QB':
         multiplier = 2.0
 
-    if season_phase in ["Preseason", "Offseason"]:
-        if row['OverallRating'] >= 90 and row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] <= 2:
-            return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
-        elif 85 <= row['OverallRating'] <= 89 and row['Position'] not in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.05 * multiplier else 'No'
-        elif 90 <= row['OverallRating'] <= 94 and row['Position'] not in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.15 * multiplier else 'No'
-        elif row['OverallRating'] >= 95 and row['Position'] not in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['ContractYearsLeft'] == 1:
-            return 'Yes' if random.random() <= 0.25 * multiplier else 'No'
-        else:
-            return 'No'
+    if season_phase not in ["Preseason", "Offseason"]:
+        return 'No'
+
+    rating = row['OverallRating']
+    pos = row['Position']
+    years_pro = row['YearsPro']
+    years_left = row['ContractYearsLeft']
+    current_aav = row['AAV']
+    expected_aav = row['ExpectedAAV'] / 100
+
+    if rating >= 90 and pos in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.50 * current_aav:
+        return determine_contract_status(0.25, 0.25, multiplier)
+    elif rating >= 90 and pos in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.25 * current_aav:
+        return determine_contract_status(0.08, 0.25, multiplier)
+    elif rating >= 90 and pos in ['HB', 'RB'] and years_pro >= 5 and 2 >= years_left and expected_aav >= current_aav:
+        return determine_contract_status(0.05, 0.20, multiplier)
+    
+    elif rating >= 95 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.50 * current_aav:
+        return determine_contract_status(0.25, 0.25, multiplier)
+    elif rating >= 95 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.25 * current_aav:
+        return determine_contract_status(0.08, 0.25, multiplier)
+    elif rating >= 95 and pos not in ['HB', 'RB'] and years_pro >= 5 and 2 >= years_left and expected_aav >= current_aav:
+        return determine_contract_status(0.05, 0.20, multiplier)
+    
+    elif 90 <= rating <= 94 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.50 * current_aav:
+        return determine_contract_status(0.20, 0.25, multiplier)
+    elif 90 <= rating <= 94 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.25 * current_aav:
+        return determine_contract_status(0.08, 0.25, multiplier)
+    elif 90 <= rating <= 94 and pos not in ['HB', 'RB'] and years_pro >= 5 and 2 >= years_left and expected_aav >= current_aav:
+        return determine_contract_status(0.03, 0.12, multiplier)
+    
+    elif 85 <= rating <= 89 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.50 * current_aav:
+        return determine_contract_status(0.15, 0.20, multiplier)
+    elif 85 <= rating <= 89 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.25 * current_aav:
+        return determine_contract_status(0.03, 0.07, multiplier)
+    elif 85 <= rating <= 89 and pos not in ['HB', 'RB'] and years_pro >= 5 and 2 >= years_left and expected_aav >= current_aav:
+        return determine_contract_status(0.01, 0.04, multiplier)
+    
+    elif 80 <= rating <= 84 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.50 * current_aav:
+        return determine_contract_status(0.05, 0.15, multiplier)
+    elif 80 <= rating <= 84 and pos not in ['HB', 'RB'] and years_pro >= 5 and 4 >= years_left and expected_aav >= 1.25 * current_aav:
+        return determine_contract_status(0.02, 0.08, multiplier)
+    elif 80 <= rating <= 84 and pos not in ['HB', 'RB'] and years_pro >= 5 and 2 >= years_left and expected_aav >= current_aav:
+        return determine_contract_status(0.00, 0.01, multiplier)
+    
     else:
         return 'No'
-    
-# Apply the function to create the HoldoutForContract column
-merged_df['HoldoutForContract'] = merged_df.apply(vet_wantscontract, axis=1)
+
+# Apply the functions
+merged_df['Young_NewContract'] = merged_df.apply(young_newcontract, axis=1)
+merged_df['Vet_NewContract'] = merged_df.apply(vet_wantscontract, axis=1)
 
 # Function to determine trade request based on conditions
 def traderequest_lowmorale(row):
@@ -290,6 +333,8 @@ def injury_offseason(row):
     if season_phase == "Offseason":
         if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] >= 8 and row['Position'] in ['QB']:
             return 'ExtendedSeasonEndingInjury' if random.random() <= 0.1 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.1 * multiplier else 'No'
+        if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] <= 8 and row['Position'] in ['QB']:
+            return 'ExtendedSeasonEndingInjury' if random.random() <= 0.05 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.05 * multiplier else 'No'
         if row['InjuryStatus'] == 'Injured' and row['TotalInjuryDuration'] >= 8 and row['Position'] not in ['QB']:
             return 'ExtendedSeasonEndingInjury' if random.random() <= 0.025 * multiplier else 'ExtendedPartialSeasonInjury' if random.random() <= 0.025 * multiplier else 'No'
         if row['InjuryStatus'] == 'Uninjured':
@@ -308,10 +353,19 @@ def vet_earlyretirement(row):
     if season_phase == "Offseason":
         if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 35 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.01 else 'No'
-        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 27 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 26 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.01 else 'No'
-        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 27 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.005 else 'No'
+        else:
+            return 'No'
+    elif season_phase == "Preseason":
+        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 35 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
+            return 'Yes' if random.random() <= 0.001 else 'No'
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 26 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
+            return 'Yes' if random.random() <= 0.001 else 'No'
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 27 and row['OverallRating'] >= 70 and row['ContractYearsLeft'] <= 3:
+            return 'Yes' if random.random() <= 0.001 else 'No'
         else:
             return 'No'
     else:
