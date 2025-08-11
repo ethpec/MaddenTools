@@ -91,12 +91,14 @@ def update_ratings(row):
             row['TruckingRating'] = max(0, min(row['TruckingRating'] + random.randint(-3, 4) + mod, 99))
             row['ReleaseRating'] = max(0, min(row['ReleaseRating'] + random.randint(0, 3) + mod, 99))
             row['BCVisionRating'] = max(0, min(row['BCVisionRating'] + random.randint(-4, 3) + mod, 99))
+            row['PassBlockingRating'] = max(0, min(row['PassBlockingRating'] + random.randint(-3, 3) + mod, 99))
+            row['KickReturnRating'] = max(0, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
 
         # Boost Top 5 HB Ratings
             rating_columns = [
                 'CarryingRating', 'BreakTackleRating', 'CatchingRating', 'DeepRouteRunningRating', 'JukeMoveRating',
-                'MediumRouteRunningRating', 'SpinMoveRating', 'ShortRouteRunningRating',
-                'StiffArmRating', 'TruckingRating', 'ReleaseRating', 'BCVisionRating'
+                'MediumRouteRunningRating', 'SpinMoveRating', 'ShortRouteRunningRating', 'StiffArmRating', 
+                'TruckingRating', 'ReleaseRating', 'BCVisionRating', 'PassBlockingRating', 'KickReturnRating'
             ]
 
             for col in rating_columns:
@@ -120,11 +122,14 @@ def update_ratings(row):
             row['ReleaseRating'] = max(0, min(row['ReleaseRating'] + random.randint(-4, 4) + mod, 99))
             row['CatchInTrafficRating'] = max(0, min(row['CatchInTrafficRating'] + random.randint(-7, 4) + mod, 99))
             row['SpectacularCatchRating'] = max(0, min(row['SpectacularCatchRating'] + random.randint(-8, 4) + mod, 99))
+            row['RunBlockingRating'] = max(0, min(row['RunBlockingRating'] + random.randint(-3, 3) + mod, 99))
+            row['KickReturnRating'] = max(0, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
 
             # Boost Top 8 WR Ratings
             rating_columns = [
                 'CatchingRating', 'DeepRouteRunningRating', 'MediumRouteRunningRating',
-                'ShortRouteRunningRating', 'ReleaseRating', 'CatchInTrafficRating', 'SpectacularCatchRating'
+                'ShortRouteRunningRating', 'ReleaseRating', 'CatchInTrafficRating',
+                'SpectacularCatchRating', 'RunBlockingRating', 'KickReturnRating'
             ]
 
             for col in rating_columns:
@@ -149,12 +154,18 @@ def update_ratings(row):
             row['TruckingRating'] = max(0, min(row['TruckingRating'] + random.randint(-3, 4) + mod, 99))
             row['JukeMoveRating'] = max(0, min(row['JukeMoveRating'] + random.randint(-2, 4) + mod, 99))
             row['SpinMoveRating'] = max(0, min(row['SpinMoveRating'] + random.randint(-2, 4) + mod, 99))
+            row['ImpactBlockingRating'] = max(0, min(row['ImpactBlockingRating'] + random.randint(-3, 4) + mod, 99))
+            row['LeadBlockRating'] = max(0, min(row['LeadBlockRating'] + random.randint(-3, 4) + mod, 99))
+            row['RunBlockFinesseRating'] = max(0, min(row['RunBlockFinesseRating'] + random.randint(-3, 4) + mod, 99))
+            row['RunBlockPowerRating'] = max(0, min(row['RunBlockPowerRating'] + random.randint(-3, 4) + mod, 99))
+            row['RunBlockRating'] = max(0, min(row['RunBlockRating'] + random.randint(-3, 4) + mod, 99))
 
             # Boost Top 4 TE Ratings
             rating_columns = [
                 'CatchingRating', 'DeepRouteRunningRating', 'MediumRouteRunningRating',
                 'ShortRouteRunningRating', 'ReleaseRating', 'CatchInTrafficRating', 'SpectacularCatchRating',
-                'BreakTackleRating', 'StiffArmRating', 'TruckingRating', 'JukeMoveRating'
+                'BreakTackleRating', 'StiffArmRating', 'TruckingRating', 'JukeMoveRating',
+                'ImpactBlockingRating', 'LeadBlockRating', 'RunBlockFinesseRating', 'RunBlockPowerRating', 'RunBlockRating'
             ]
 
             for col in rating_columns:
@@ -225,8 +236,8 @@ def update_ratings(row):
             ]
 
             for col in rating_columns:
-                top_tes = df[df['Position'] == 'C'][col].nlargest(3)
-                if row[col] in top_tes.values:
+                top_centers = df[df['Position'] == 'C'][col].nlargest(3)
+                if row[col] in top_centers.values:
                     row[col] = max(0, min(row[col] + random.randint(1, 5), 99))
 
         # DL Edits
@@ -349,11 +360,12 @@ def update_ratings(row):
             row['ManCoverageRating'] = max(0, min(row['ManCoverageRating'] + random.randint(-8, 4) + mod, 99))
             row['PressRating'] = max(0, min(row['PressRating'] + random.randint(-5, 4) + mod, 99))
             row['ZoneCoverageRating'] = max(0, min(row['ZoneCoverageRating'] + random.randint(-5, 4) + mod, 99))
+            row['KickReturnRating'] = max(0, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
 
             # Boost Top 8 CB Ratings
             rating_columns = [
                 'PursuitRating', 'TackleRating', 'PlayRecognitionRating', 'CatchingRating',
-                'CatchInTrafficRating', 'ManCoverageRating', 'PressRating', 'ZoneCoverageRating'
+                'CatchInTrafficRating', 'ManCoverageRating', 'PressRating', 'ZoneCoverageRating', 'KickReturnRating'
             ]
 
             for col in rating_columns:
@@ -376,11 +388,12 @@ def update_ratings(row):
             row['PressRating'] = max(0, min(row['PressRating'] + random.randint(-6, 4) + mod, 99))
             row['ZoneCoverageRating'] = max(0, min(row['ZoneCoverageRating'] + random.randint(-8, 4) + mod, 99))
             row['HitPowerRating'] = max(0, min(row['HitPowerRating'] + random.randint(-5, 5) + mod, 99))
+            row['KickReturnRating'] = max(0, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
 
             # Boost Top 6 FS/SS Ratings
             rating_columns = [
-                'PursuitRating', 'TackleRating', 'PlayRecognitionRating', 'CatchingRating',
-                'CatchInTrafficRating', 'ManCoverageRating', 'PressRating', 'ZoneCoverageRating', 'HitPowerRating'
+                'PursuitRating', 'TackleRating', 'PlayRecognitionRating', 'CatchingRating', 'CatchInTrafficRating',
+                'ManCoverageRating', 'PressRating', 'ZoneCoverageRating', 'HitPowerRating', 'KickReturnRating'
             ]
 
             for col in rating_columns:
@@ -399,8 +412,8 @@ def update_ratings(row):
             ]
 
             for col in rating_columns:
-                top_cbs = df[df['Position'] == 'K'][col].nlargest(2)
-                if row[col] in top_cbs.values:
+                top_kickers = df[df['Position'] == 'K'][col].nlargest(2)
+                if row[col] in top_kickers.values:
                     row[col] = max(0, min(row[col] + random.randint(1, 2), 99))
 
         if row['Position'] in ['P']:
@@ -413,9 +426,22 @@ def update_ratings(row):
             ]
 
             for col in rating_columns:
-                top_cbs = df[df['Position'] == 'P'][col].nlargest(2)
-                if row[col] in top_cbs.values:
+                top_punters = df[df['Position'] == 'P'][col].nlargest(2)
+                if row[col] in top_punters.values:
                     row[col] = max(0, min(row[col] + random.randint(1, 2), 99))
+
+        if row['Position'] in ['LS']:
+            row['LongSnapRating'] = max(0, min(row['KickAccuracyRating'] + random.randint(-4, 3), 99))
+
+            # Boost Top 1 LS Ratings
+            rating_columns = [
+                'LongSnapRating'
+            ]
+
+            for col in rating_columns:
+                top_ls = df[df['Position'] == 'LS'][col].nlargest(1)
+                if row[col] in top_ls.values:
+                    row[col] = max(0, min(row[col] + random.randint(1, 3), 99))
 
     # Add more conditions and changes for other columns and positions as needed
     return row
