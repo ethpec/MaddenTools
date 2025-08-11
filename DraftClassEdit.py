@@ -4,7 +4,7 @@ import random
 import numpy as np
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -13,8 +13,42 @@ def update_traits(row):
     contract_status = row['ContractStatus']
     
     if contract_status in ['Draft']:
+        # Non-Specialists
         if row['Position'] not in ['K', 'P']:
             row['AwarenessRating'] = row['OverallRating']
+            row['KickPowerRating'] = max(row['KickPowerRating'] - 5, 15)
+            row['KickAccuracyRating'] = max(row['KickPowerRating'] - 10, 10)
+
+        # Non-LongSnappers
+        if row['Position'] not in ['LS']:
+            row['LongSnapRating'] = 10
+
+        # Kick-Returning
+        if row['Position'] not in ['X']:
+            row['KickReturnRating'] = max(row['KickReturnRating'] - 5, 5)
+
+        # Non-QBs
+        if row['Position'] not in ['QB']:
+            row['ThrowPowerRating'] = min(row['ThrowPowerRating'] + 5, 90)
+
+        if row['Position'] in ['WR', 'TE']:
+            # List of tuples: (ThrowPower, ThrowUnderPressure, ThrowOnTheRun, ThrowAccuracy, ThrowAccuracyShort, ThrowAccuracyMedium, ThrowAccuracyDeep, chance)
+            throw_rating_changes = [
+                (65, 50, 55, 60, 65, 60, 55, 0.005),   # 0.5% chance to set these values
+                (75, 55, 60, 65, 70, 65, 60, 0.003),
+                (80, 60, 70, 70, 75, 70, 65, 0.002),
+            ]
+
+            for power, under_pressure, on_run, accuracy, acc_short, acc_med, acc_deep, chance in throw_rating_changes:
+                if random.random() <= chance:
+                    row['ThrowPowerRating'] = power
+                    row['ThrowUnderPressureRating'] = under_pressure
+                    row['ThrowOnTheRunRating'] = on_run
+                    row['ThrowAccuracyRating'] = accuracy
+                    row['ThrowAccuracyShortRating'] = acc_short
+                    row['ThrowAccuracyMediumRating'] = acc_med
+                    row['ThrowAccuracyDeepRating'] = acc_deep
+                    break
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -98,6 +132,34 @@ def update_traits(row):
                 row['SpinMoveRating'] = min(98, max(row['SpinMoveRating'] + 3, 70))
                 row['CarryingRating'] = min(98, max(row['CarryingRating'] + 3, 65))
                 row['BreakTackleRating'] = min(98, max(row['BreakTackleRating'] + 2, 60))
+
+            long_snap_te_chances = [
+                (20, 0.005),
+                (30, 0.005),
+                (40, 0.005),
+                (50, 0.005),
+                (60, 0.005),
+            ]
+
+            if row['Position'] == 'TE':
+                for value, chance in long_snap_te_chances:
+                    if random.random() <= chance:
+                        row['LongSnapRating'] = value
+                        break
+
+        # OL LS Edits
+        if row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT']:
+            long_snap_ol_chances = [
+                (20, 0.003),
+                (30, 0.002),
+                (40, 0.001),
+                (50, 0.001),
+                (60, 0.001),
+            ]
+            for value, chance in long_snap_ol_chances:
+                if random.random() <= chance:
+                    row['LongSnapRating'] = value
+                    break
 
         # DEF Front Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
@@ -217,6 +279,65 @@ def update_traits(row):
                 row['CarryingRating'] = min(99, max(row['CarryingRating'] + 3, 62))
                 row['BreakTackleRating'] = min(99, max(row['BreakTackleRating'] + 15, 55))
 
+        # Non-Kicker/Punter Kicking Edits
+        if row['Position'] in ['WR', 'SS', 'FS']:
+            # Example list of tuples: (KickAccuracyRating value, KickPowerRating value, chance)
+            kick_rating_changes = [
+                (50, 55, 0.002),  # 0.2% chance to set Accuracy=50 and Power=55
+                (55, 65, 0.001),
+                (60, 75, 0.001),
+                (65, 85, 0.001),
+            ]
+
+            for acc_value, power_value, chance in kick_rating_changes:
+                if random.random() <= chance:
+                    row['KickAccuracyRating'] = acc_value
+                    row['KickPowerRating'] = power_value
+                    break
+
+        # WR Coverage Edits
+        if row['Position'] in ['WR'] and row['Height'] <= 74:
+            # Example list of tuples: (ManCoverageRating value, ZoneCoverageRating value, PressRating value, chance)
+            wr_cover_changes = [
+                (50, 50, 50, 0.003),  # 0.3% chance to set Man=50 and Zone=55
+                (55, 60, 50, 0.003),
+                (60, 55, 55, 0.003),
+                (60, 65, 55, 0.003),
+                (65, 60, 60, 0.003),
+                (65, 70, 60, 0.002),
+                (70, 65, 65, 0.002),
+                (75, 75, 70, 0.001),
+            ]
+
+            for mancov_value, zonecove_value, presscov_value, chance in wr_cover_changes:
+                if random.random() <= chance:
+                    row['ManCoverageRating'] = mancov_value
+                    row['ZoneCoverageRating'] = zonecove_value
+                    row['PressRating'] = presscov_value
+                    break
+
+        # CB Route-Running Edits
+        if row['Position'] in ['CB'] and row['JukeMoveRating'] >= 75:
+            # Example list of tuples: (ShortRouteRunningRating value, MediumRouteRunningRating value, DeepRouteRunningRating value, chance)
+            cb_route_changes = [
+                (50, 50, 50, 0.002),
+                (60, 60, 60, 0.001),
+                (60, 55, 50, 0.001),
+                (65, 60, 55, 0.001),
+                (70, 65, 60, 0.001),
+                (75, 60, 60, 0.001),
+                (55, 50, 60, 0.001),
+                (60, 55, 65, 0.001),
+                (65, 60, 70, 0.001),
+            ]
+
+            for shortroutecb_value, medroutecb_value, deeproutecb_Value , chance in cb_route_changes:
+                if random.random() <= chance:
+                    row['ShortRouteRunningRating'] = shortroutecb_value
+                    row['MediumRouteRunningRating'] = medroutecb_value
+                    row['DeepRouteRunningRating'] = deeproutecb_Value
+                    break
+
         # For all other positions, set a minimum of 73 and a maximum of 85 for InjuryRating
         if row['Position'] not in ['HB', 'QB']:
 
@@ -312,4 +433,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden25/IE/Season9/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden25/IE/Season10/DraftClassEdit.xlsx', index=False)
