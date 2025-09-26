@@ -54,16 +54,24 @@ def salary_interpolation(position, overall, salary_lookup):
 
     return aav, bonus, length
 
+# Weighted random adjustment for OverallRating
+def random_overall_adjustment():
+    choices = [0, 1, 2]
+    probabilities = [0.75, 0.2, 0.05]  # adjust as needed
+    return np.random.choice(choices, p=probabilities)
+
 # Apply to Each Row
 def assign_salaryinfo(row):
     position = str(row['Position']).strip().upper()
-    overall = row['OverallRating']
+    # Apply random adjustment to OverallRating
+    adjusted_overall = row['OverallRating'] + random_overall_adjustment()
 
-    aav, bonus, length = salary_interpolation(position, overall, salary_lookup)
+    aav, bonus, length = salary_interpolation(position, adjusted_overall, salary_lookup)
 
     row['ExpectedAAV'] = aav
     row['ExpectedBonus'] = bonus
     row['ExpectedContractLength'] = length
+    row['AdjustedOverall'] = adjusted_overall
     row['SalaryCheck'] = 'Updated' if aav is not None else 'Position Missing'
 
     return row
@@ -302,7 +310,7 @@ result_df = result_df.apply(fix_contract_salaries, axis=1)
 created_cols = [
     'SalaryCheck', 'StatusCheck',
     'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength',
-    'CurrentAAV', 'CurrentBonus'
+    'CurrentAAV', 'CurrentBonus', 'AdjustedOverall'
 ]
 
 # Original columns order from the player DataFrame
