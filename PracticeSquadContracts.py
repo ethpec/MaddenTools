@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+file_path = 'Files/Madden26/IE/Season0/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -36,7 +36,7 @@ def update_pscontracts(row):
             if contract_salary_2 == 0:
                 row['ContractSalary2'] = target_salary
 
-### Keep your eyes on this one (Check if a player that hits this actually shows up as expiring in the game)
+### Keep your eyes on this one (Check if a player that hits this actually shows up as expiring in the game) (IT DOES NOT)
     if contract_status == 'Signed' and years_pro in [2] and draft_status == 63 and contract_length == 2:
         row['ContractLength'] = 2
         row['ContractYear'] = 1
@@ -84,4 +84,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden25/IE/Season9/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel('Files/Madden26/IE/Season0/PracticeSquad_Contracts.xlsx', index=False)
