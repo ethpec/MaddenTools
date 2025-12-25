@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season9/Final_AllStatBased.csv'
-regression_values_file_path = 'Files/Madden25/IE/Season9/RegressionValues.xlsx'
+file_path = 'Files/Madden26/IE/Season0/Final_AllStatBased.csv'
+regression_values_file_path = 'Files/Madden26/IE/Season0/RegressionValues.xlsx'
 
 df = pd.read_csv(file_path)
 
@@ -77,38 +77,41 @@ def calculate_vet_skill_point_addition(row):
     if season_phase == "Offseason":
         if row['ContractStatus'] in ['Signed', 'PracticeSquad', 'FreeAgent']:
             chance = random.random()
-            if row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 4 and row['OverallRating'] <= 75:
+            if row['Position'] in ['HB', 'RB'] and row['YearsPro'] >= 3 and row['OverallRating'] <= 75:
                 if chance < 0.03:
                     return row['SkillPoints'] + 2
                 elif chance < 0.10:
                     return row['SkillPoints'] + 1
-            elif row['Position'] in ['QB', 'FB', 'TE', 'LE', 'RE', 'DT', 'LOLB', 'ROLB', 'MLB', 'CB', 'FS', 'SS'] and row['YearsPro'] >= 4 and row['OverallRating'] <= 75:
+            elif row['Position'] in ['QB', 'FB', 'TE', 'LE', 'RE', 'DT', 'LOLB', 'ROLB', 'MLB', 'CB', 'FS', 'SS'] and row['YearsPro'] >= 3 and row['OverallRating'] <= 75:
                 if chance < 0.01:
                     return row['SkillPoints'] + 2
                 elif chance < 0.06:
                     return row['SkillPoints'] + 1
-            elif row['Position'] in ['WR', 'LT', 'LG', 'C', 'RG', 'RT', 'K', 'P'] and row['YearsPro'] >= 4 and row['OverallRating'] <= 75:
+            elif row['Position'] in ['WR', 'LT', 'LG', 'C', 'RG', 'RT', 'K', 'P'] and row['YearsPro'] >= 3 and row['OverallRating'] <= 75:
                 if chance < 0.02:
                     return row['SkillPoints'] + 2
                 elif chance < 0.07:
                     return row['SkillPoints'] + 1
             elif row['Position'] in ['LS']:
-                if chance < 0.05:
+                if chance < 0.10:
                     return row['SkillPoints'] + 2
-                elif chance < 0.20:
+                elif chance < 0.33:
                     return row['SkillPoints'] + 1
 
     return row['SkillPoints']
 
-def calculate_LS_random_regression(row):
+def calculate_random_regression(row):
     if season_phase == "Offseason":
-        if row['ContractStatus'] in ['Signed', 'PracticeSquad', 'FreeAgent'] and row['Position'] in ['LS']:
+        if row['ContractStatus'] in ['Signed', 'PracticeSquad', 'FreeAgent']:
             chance = random.random()
-            if chance < 0.05:
-                return row['RegressionPoints'] + 2
-            elif chance < 0.20:
-                return row['RegressionPoints'] + 1
-            
+            if row['Position'] in ['LS']:
+                if chance < 0.10:
+                    return row['RegressionPoints'] + 2
+                elif chance < 0.33:
+                    return row['RegressionPoints'] + 1
+            elif row['Position'] not in ['LS'] and row['YearsPro'] >= 3 and row['OverallRating'] <= 75:
+                if chance < 0.03:
+                    return row['RegressionPoints'] + 1
     return row['RegressionPoints']
 
 def calculate_age_based_regression(row):
@@ -138,10 +141,15 @@ def calculate_age_based_regression(row):
     return row['RegressionPoints']
 
 # Apply the functions to the DataFrame
-df['RegressionPoints'] = df.apply(calculate_freeagent_regression_points, axis=1)
+#df['RegressionPoints'] = df.apply(calculate_freeagent_regression_points, axis=1)
+df['RegressionPoints'] = df.apply(
+    calculate_freeagent_regression_points,
+    axis=1,
+    season_phase=season_phase
+)
 df['SkillPoints'] = df.apply(calculate_qb_firstround_skill_points, axis=1)
 df['SkillPoints'] = df.apply(calculate_vet_skill_point_addition, axis=1)
-df['RegressionPoints'] = df.apply(calculate_LS_random_regression, axis=1)
+df['RegressionPoints'] = df.apply(calculate_random_regression, axis=1)
 df['RegressionPoints'] = df.apply(calculate_age_based_regression, axis=1)
 
 def zero_out_points(row):
@@ -183,4 +191,4 @@ def zero_out_points(row):
 df = df.apply(zero_out_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden25/IE/Season9/Final.csv', index=False)
+df.to_csv('Files/Madden26/IE/Season0/Final.csv', index=False)
