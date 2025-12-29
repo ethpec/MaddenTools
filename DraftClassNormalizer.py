@@ -75,11 +75,11 @@ def update_ratings(row):
 
         # HB Edits
         if row['Position'] == 'HB':
-            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 2), 99)) #-1
+            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-1, 2), 99))
             row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
             row['CarryingRating'] = max(1, min(row['CarryingRating'] + random.randint(-5, 3) + mod, 99))
             row['BreakTackleRating'] = max(1, min(row['BreakTackleRating'] + random.randint(-4, 4) + mod, 99))
-            row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-5, 4), 99)) #-3
+            row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-3, 4), 99))
             row['CatchingRating'] = max(1, min(row['CatchingRating'] + random.randint(-5, 3) + mod, 99))
             row['DeepRouteRunningRating'] = max(1, min(row['DeepRouteRunningRating'] + random.randint(-4, 4) + mod, 99))
             row['JukeMoveRating'] = max(1, min(row['JukeMoveRating'] + random.randint(-4, 3) + mod, 99))
@@ -112,17 +112,17 @@ def update_ratings(row):
 
         # WR Edits
         if row['Position'] == 'WR':
-            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-3, 2), 99)) # -2
-            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-3, 2), 99)) #-2
+            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 2), 99))
+            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
             row['CatchingRating'] = max(1, min(row['CatchingRating'] + random.randint(-6, 4) + mod, 99))
             row['DeepRouteRunningRating'] = max(1, min(row['DeepRouteRunningRating'] + random.randint(-5, 4) + mod, 99))
             row['MediumRouteRunningRating'] = max(1, min(row['MediumRouteRunningRating'] + random.randint(-6, 4) + mod, 99))
             row['ShortRouteRunningRating'] = max(1, min(row['ShortRouteRunningRating'] + random.randint(-7, 4) + mod, 99))
             row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-1, 1), 99))
             row['ReleaseRating'] = max(1, min(row['ReleaseRating'] + random.randint(-4, 4) + mod, 99))
-            row['CatchInTrafficRating'] = max(1, min(row['CatchInTrafficRating'] + random.randint(-3, 4) + mod, 99)) #-7
+            row['CatchInTrafficRating'] = max(1, min(row['CatchInTrafficRating'] + random.randint(-7, 4) + mod, 99))
             row['SpectacularCatchRating'] = max(1, min(row['SpectacularCatchRating'] + random.randint(-8, 4) + mod, 99))
-            row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-4, 2), 99)) #-3 3
+            row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-3, 3), 99))
             row['RunBlockRating'] = max(1, min(row['RunBlockRating'] + random.randint(-3, 4) + mod, 99))
             row['KickReturnRating'] = max(1, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
 

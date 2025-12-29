@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 # File Paths
-player_file_path = 'Files/Madden25/IE/Season9/Player.xlsx'
+player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
 
 # Load DataFrames
 df = pd.read_excel(player_file_path)
@@ -76,4 +76,4 @@ position_counts['HasPracticeSquadPlayer'] = position_counts.apply(has_ps_player,
 position_counts = position_counts[['Team', 'Position', 'ActiveCount', 'NotEnoughActivePlayers', 'HasPracticeSquadPlayer']]
 
 # Export to Excel
-position_counts.to_excel('Files/Madden25/IE/Season9/ActivePlayerCounts.xlsx', index=False)
+position_counts.to_excel('Files/Madden25/IE/Season10/ActivePlayerCounts.xlsx', index=False)

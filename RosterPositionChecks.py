@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+player_file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -34,7 +34,7 @@ differences['LOLB-ROLB'] = differences['LOLB'] - differences['ROLB']
 differences['LE-RE'] = differences['LE'] - differences['RE']
 
 # Filter contracts for players with "ContractStatus" as "Signed"
-signed_contracts = player_df[player_df['ContractStatus'] == 'Signed']
+signed_contracts = player_df[player_df['ContractStatus'] == 'Signed'].copy()
 
 # Calculate AAV and Signing Bonus columns
 contract_salary_columns = ['ContractSalary0', 'ContractSalary1', 'ContractSalary2', 'ContractSalary3',
@@ -60,27 +60,28 @@ signed_contracts['SigningBonus'] = round(signed_contracts['SigningBonus'] / 100,
 contract_year_column = signed_contracts.pop('ContractYear') 
 signed_contracts.insert(signed_contracts.columns.get_loc('Position') + 1, 'ContractYear', contract_year_column)
 
-# Concatenate all relevant columns at once using pd.concat() for 'Contracts' sheet
-contracts_data = pd.concat([
-    signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro', 'OverallRating', 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex']],
-    signed_contracts['ContractYear'],  # Use only 'ContractYear' here
-], axis=1)
+# Include InjuryStatus here so we can use it later for HealthyRank
+contracts_data = signed_contracts[['FirstName', 'LastName', 'Position', 'YearsPro', 'OverallRating', 
+                                   'ContractYear', 'ContractLength', 'AAV', 'SigningBonus', 
+                                   'TeamIndex', 'InjuryStatus']]
+
 
 # Add 'TeamName' to 'contracts_data' based on 'TeamIndex'
 contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
 
 # Reorder columns for the final 'contracts_data' DataFrame
-contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
+contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'InjuryStatus', 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
 
 # Export the differences to a new sheet named "Differences" and add "Team Position Depth"
-output_file_path = 'Files/Madden25/IE/Season10/Position_Report.xlsx'
+output_file_path = 'Files/Madden26/IE/Season1/Position_Report.xlsx'
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
     contracts_data.to_excel(writer, index=False, sheet_name='Contracts')
 
     # Add the 'Team Position Depth' sheet
-    contracts_data_team_depth = contracts_data[['TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus']]
+    contracts_data_team_depth = contracts_data[['TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro',
+                                            'OverallRating', 'ContractYear', 'ContractLength', 'AAV', 'SigningBonus', 'InjuryStatus']]
     
     # Add a 'Rank' column based on 'OverallRating' within each group of 'TeamIndex' and 'Position'
     contracts_data_team_depth['Rank'] = contracts_data_team_depth.sort_values(by=['OverallRating', 'YearsPro', 'AAV'], ascending=[False, True, True]) \
@@ -93,6 +94,23 @@ with pd.ExcelWriter(output_file_path) as writer:
     # Calculate the ContractYearsLeft column
     contracts_data_team_depth['ContractYearsLeft'] = contracts_data_team_depth['ContractLength'] - contracts_data_team_depth['ContractYear']
 
+    # Compute HealthyRank only for uninjured players
+    healthy_players = contracts_data_team_depth[contracts_data_team_depth['InjuryStatus'] == 'Uninjured'].copy()
+
+    healthy_players['HealthyRank'] = healthy_players.sort_values(by=['OverallRating', 'YearsPro', 'AAV'],
+                                                                ascending=[False, True, True]) \
+                                                    .groupby(['TeamIndex', 'Position']) \
+                                                    .cumcount() + 1
+
+    # Merge HealthyRank back into the full dataset
+    contracts_data_team_depth = contracts_data_team_depth.merge(
+        healthy_players[['TeamIndex', 'Position', 'FirstName', 'LastName', 'HealthyRank']],
+        on=['TeamIndex', 'Position', 'FirstName', 'LastName'],
+        how='left'
+    )
+
     # Reorder columns for the 'Team Position Depth' DataFrame
-    contracts_data_team_depth = contracts_data_team_depth[['Rank', 'TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'ContractYear' , 'ContractLength', 'ContractYearsLeft', 'AAV', 'SigningBonus']]
+    contracts_data_team_depth = contracts_data_team_depth[['Rank', 'HealthyRank', 'TeamIndex', 'TeamName', 'FirstName', 'LastName', 
+                                                       'Position', 'YearsPro', 'OverallRating', 'ContractYear', 'ContractLength', 
+                                                       'ContractYearsLeft', 'AAV', 'SigningBonus']]
     contracts_data_team_depth.to_excel(writer, index=False, sheet_name='Team Position Depth')
