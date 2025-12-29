@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season8/Player.xlsx'
+file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -26,72 +26,49 @@ def update_injuries(row):
     if (row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and
         row['InjuryStatus'] == 'Uninjured' and
         row['IsInjuredReserve'] == True and 
-        row['MinInjuryDuration'] == 63 and 
-        row['MaxInjuryDuration'] == 63):
+        row['MinInjuryDuration'] >= 55 and 
+        row['MaxInjuryDuration'] >= 55):
         row['MinInjuryDuration'] = 0
         row['MaxInjuryDuration'] = 0
+        row['InjuryType'] = 'Invalid_'
 
     if row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and row['InjuryStatus'] == 'Injured':
-        
-        # Check for players with Position 'HB' or 'RB'
-        if row['Position'] in ['HB', 'RB']:
-            # Apply logic based on InjuryRating for 'HB' and 'RB'
-            if 85 <= row['InjuryRating'] <= 99:
-                # InjuryRating between 85-99 (higher chance to subtract)
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [10, 85, 5])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [7, 90, 3])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 95, 5])
+            
+        if 85 <= row['InjuryRating'] <= 99:
+            # InjuryRating between 85-99 (higher chance to subtract)
+            if 2 <= row['MaxInjuryDuration'] <= 4:
+                row = adjust_durations(row, [10, 85, 5])
+            elif row['MaxInjuryDuration'] >= 5:
+                row = adjust_durations(row, [12, 80, 8])
+            elif row['MaxInjuryDuration'] == 1:
+                row = adjust_durations(row, [0, 97, 3])
 
-            elif 80 <= row['InjuryRating'] <= 84:
-                # InjuryRating between 80-84
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [8, 85, 7])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [5, 90, 5])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 94, 6])
+        elif 80 <= row['InjuryRating'] <= 84:
+            
+            if 2 <= row['MaxInjuryDuration'] <= 4:
+                row = adjust_durations(row, [8, 85, 7])
+            elif row['MaxInjuryDuration'] >= 5:
+                row = adjust_durations(row, [11, 80, 9])
+            elif row['MaxInjuryDuration'] == 1:
+                row = adjust_durations(row, [0, 95, 5])
 
-            elif 1 <= row['InjuryRating'] <= 79:
-                # InjuryRating between 1-79 (lower chance to subtract)
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [5, 85, 10])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [3, 90, 7])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 93, 7])
+        elif 75 <= row['InjuryRating'] <= 79:
+            
+            if 2 <= row['MaxInjuryDuration'] <= 4:
+                row = adjust_durations(row, [7, 85, 8])
+            elif row['MaxInjuryDuration'] >= 5:
+                row = adjust_durations(row, [9, 80, 11])
+            elif row['MaxInjuryDuration'] == 1:
+                row = adjust_durations(row, [0, 93, 7])
 
-        # Apply the same logic for other positions (non-HB/RB)
-        else:
-            # Apply logic based on InjuryRating for other positions
-            if 80 <= row['InjuryRating'] <= 99:
-                # InjuryRating between 80-99 (higher chance to subtract)
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [10, 85, 5])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [7, 90, 3])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 95, 5])
-
-            elif 75 <= row['InjuryRating'] <= 79:
-                # InjuryRating between 75-79
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [8, 85, 7])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [5, 90, 5])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 94, 6])
-
-            elif 1 <= row['InjuryRating'] <= 74:
-                # InjuryRating between 1-74 (lower chance to subtract)
-                if 2 <= row['MaxInjuryDuration'] <= 4:
-                    row = adjust_durations(row, [5, 85, 10])
-                elif row['MaxInjuryDuration'] >= 5:
-                    row = adjust_durations(row, [3, 90, 7])
-                elif row['MaxInjuryDuration'] == 1:
-                    row = adjust_durations(row, [0, 93, 7])
+        elif 1 <= row['InjuryRating'] <= 74:
+            # InjuryRating between 1-74 (lower chance to subtract)
+            if 2 <= row['MaxInjuryDuration'] <= 4:
+                row = adjust_durations(row, [5, 85, 10])
+            elif row['MaxInjuryDuration'] >= 5:
+                row = adjust_durations(row, [8, 80, 12])
+            elif row['MaxInjuryDuration'] == 1:
+                row = adjust_durations(row, [0, 91, 9])
 
     return row
 
@@ -110,7 +87,7 @@ columns_to_remove = [
 df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to Excel
-output_filename = 'Files/Madden25/IE/Season8/Player_InjuryChanges.xlsx'
+output_filename = 'Files/Madden25/IE/Season10/Player_InjuryChanges.xlsx'
 df.to_excel(output_filename, index=False)
 
 print(df.dtypes)
