@@ -13,6 +13,18 @@ team_dict = {0: 'CHI', 1: 'CIN', 2: 'BUF', 3: 'DEN', 4: 'CLE', 5: 'TB', 6: 'ARI'
              19: 'GB', 20: 'CAR', 21: 'NE', 22: 'LV', 23: 'LAR', 24: 'BAL', 25: 'WAS', 26: 'NO', 27: 'SEA',
              28: 'PIT', 29: 'TEN', 30: 'MIN', 31: 'HOU', 32: 'FA'}
 
+# Position grouping for depth chart logic
+position_group_map = {
+    'LG': 'G',
+    'RG': 'G',
+    'LT': 'T',
+    'RT': 'T',
+    'LE': 'EDGE',
+    'RE': 'EDGE',
+    'LOLB': 'OLB',
+    'ROLB': 'OLB',
+}
+
 # Group by 'TeamIndex' and 'Position' and count occurrences
 position_counts = player_df.groupby(['TeamIndex', 'Position']).size().reset_index(name='Count')
 
@@ -83,10 +95,16 @@ with pd.ExcelWriter(output_file_path) as writer:
     contracts_data_team_depth = contracts_data[['TeamIndex', 'TeamName', 'FirstName', 'LastName', 'Position', 'YearsPro',
                                             'OverallRating', 'ContractYear', 'ContractLength', 'AAV', 'SigningBonus', 'InjuryStatus']]
     
+    contracts_data_team_depth['PositionGroup'] = (
+        contracts_data_team_depth['Position']
+            .map(position_group_map)
+            .fillna(contracts_data_team_depth['Position'])
+)
     # Add a 'Rank' column based on 'OverallRating' within each group of 'TeamIndex' and 'Position'
-    contracts_data_team_depth['Rank'] = contracts_data_team_depth.sort_values(by=['OverallRating', 'YearsPro', 'AAV'], ascending=[False, True, True]) \
-                                      .groupby(['TeamIndex', 'Position']) \
-                                      .cumcount() + 1
+    contracts_data_team_depth['Rank'] = contracts_data_team_depth.sort_values(
+        by=['OverallRating', 'YearsPro', 'AAV'], ascending=[False, True, True]
+    ).groupby(['TeamIndex', 'PositionGroup']) \
+    .cumcount() + 1
 
     # Convert 'ContractYear' and 'ContractLength' columns to numeric, handling errors
     contracts_data_team_depth[['ContractYear', 'ContractLength']] = contracts_data_team_depth[['ContractYear', 'ContractLength']].apply(pd.to_numeric, errors='coerce')
@@ -97,20 +115,20 @@ with pd.ExcelWriter(output_file_path) as writer:
     # Compute HealthyRank only for uninjured players
     healthy_players = contracts_data_team_depth[contracts_data_team_depth['InjuryStatus'] == 'Uninjured'].copy()
 
-    healthy_players['HealthyRank'] = healthy_players.sort_values(by=['OverallRating', 'YearsPro', 'AAV'],
-                                                                ascending=[False, True, True]) \
-                                                    .groupby(['TeamIndex', 'Position']) \
-                                                    .cumcount() + 1
+    healthy_players['HealthyRank'] = healthy_players.sort_values(
+        by=['OverallRating', 'YearsPro', 'AAV'], ascending=[False, True, True]
+    ).groupby(['TeamIndex', 'PositionGroup']) \
+    .cumcount() + 1
 
     # Merge HealthyRank back into the full dataset
     contracts_data_team_depth = contracts_data_team_depth.merge(
-        healthy_players[['TeamIndex', 'Position', 'FirstName', 'LastName', 'HealthyRank']],
-        on=['TeamIndex', 'Position', 'FirstName', 'LastName'],
+        healthy_players[['TeamIndex', 'PositionGroup', 'FirstName', 'LastName', 'HealthyRank']],
+        on=['TeamIndex', 'PositionGroup', 'FirstName', 'LastName'],
         how='left'
     )
 
     # Reorder columns for the 'Team Position Depth' DataFrame
     contracts_data_team_depth = contracts_data_team_depth[['Rank', 'HealthyRank', 'TeamIndex', 'TeamName', 'FirstName', 'LastName', 
-                                                       'Position', 'YearsPro', 'OverallRating', 'ContractYear', 'ContractLength', 
-                                                       'ContractYearsLeft', 'AAV', 'SigningBonus']]
+                                                       'PositionGroup', 'Position', 'YearsPro', 'OverallRating', 'ContractYear',
+                                                       'ContractLength', 'ContractYearsLeft', 'AAV', 'SigningBonus']]
     contracts_data_team_depth.to_excel(writer, index=False, sheet_name='Team Position Depth')

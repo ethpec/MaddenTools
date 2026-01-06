@@ -198,13 +198,13 @@ def traderequest_playingtime(row):
         multiplier = 2.0
     elif row['Position'] in ['TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['Rank'] == 2:
         multiplier = 1.0
-    elif row['Position'] in ['RB', 'HB', 'LE', 'RE'] and row['Rank'] >= 4:
+    elif row['Position'] in ['RB', 'HB'] and row['Rank'] >= 4:
         multiplier = 2.0
-    elif row['Position'] in ['RB', 'HB', 'LE', 'RE'] and row['Rank'] == 3:
+    elif row['Position'] in ['RB', 'HB'] and row['Rank'] == 3:
         multiplier = 1.0
-    elif row['Position'] in ['WR', 'CB', 'DT'] and row['Rank'] >= 5:
+    elif row['Position'] in ['WR', 'CB', 'DT', 'LE', 'RE'] and row['Rank'] >= 5:
         multiplier = 2.0
-    elif row['Position'] in ['WR', 'CB', 'DT'] and row['Rank'] == 4:
+    elif row['Position'] in ['WR', 'CB', 'DT', 'LE', 'RE'] and row['Rank'] == 4:
         multiplier = 1.0
 
     if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
@@ -252,8 +252,9 @@ def tradecut_youngplayer(row):
 
     # Define position groups
     position_group_one = ['QB','TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS']
-    position_group_two = ['RB', 'HB', 'DT', 'LE', 'RE']
+    position_group_two = ['RB', 'HB', 'DT']
     position_group_three = ['WR', 'CB']
+    position_group_four = ['LE', 'RE']
 
     position = row['Position']
     rank = row['Rank']
@@ -276,8 +277,12 @@ def tradecut_youngplayer(row):
             return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_three and rank >= 4:
             return 'Trade/Cut' if random.random() <= 0.75 * multiplier else 'Maybe'
-        elif position in position_group_three and rank == 3 and overall <= 79:
+        elif position in position_group_three and rank == 3 and overall <= 82:
             return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
+        elif position in position_group_four and rank >= 5:
+            return 'Trade/Cut' if random.random() <= 0.95 * multiplier else 'Maybe'
+        elif position in position_group_four and 3 <= rank <= 4 and overall <= 79:
+            return 'Trade/Cut' if random.random() <= 0.35 * multiplier else 'Maybe'
 
     # Day 2 Logic
     elif 2 <= draft_round <= 3:
@@ -293,6 +298,10 @@ def tradecut_youngplayer(row):
             return 'Trade/Cut' if random.random() <= 0.5 * multiplier else 'Maybe'
         elif position in position_group_three and rank == 3 and overall <= 74:
             return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
+        elif position in position_group_four and rank >= 5:
+            return 'Trade/Cut' if random.random() <= 0.65 * multiplier else 'Maybe'
+        elif position in position_group_four and 3 <= rank <= 4 and overall <= 74:
+            return 'Trade/Cut' if random.random() <= 0.25 * multiplier else 'Maybe'
 
     # Day 3 Logic
     elif 4 <= draft_round <= 7:
@@ -307,6 +316,10 @@ def tradecut_youngplayer(row):
         elif position in position_group_three and rank >= 4 and overall <= 69:
             return 'Trade/Cut' if random.random() <= 0.2 * multiplier else 'Maybe'
         elif position in position_group_three and rank == 3 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'Maybe'
+        elif position in position_group_four and rank >= 5 and overall <= 69:
+            return 'Trade/Cut' if random.random() <= 0.2 * multiplier else 'Maybe'
+        elif position in position_group_four and 3 <= rank <= 4 and overall <= 69:
             return 'Trade/Cut' if random.random() <= 0.1 * multiplier else 'Maybe'
 
     return 'No'
