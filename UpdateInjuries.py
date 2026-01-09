@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -23,14 +23,15 @@ def adjust_durations(row, probability_weights):
 def update_injuries(row):
 
     # Check if the player meets the criteria to reset injury duration
-    if (row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and
-        row['InjuryStatus'] == 'Uninjured' and
-        row['IsInjuredReserve'] == True and 
-        row['MinInjuryDuration'] >= 55 and 
-        row['MaxInjuryDuration'] >= 55):
+    if row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and row['InjuryStatus'] == 'Uninjured':
+        #row['IsInjuredReserve'] == True and 
+        #row['MinInjuryDuration'] >= 55 and 
+        #row['MaxInjuryDuration'] >= 55):
         row['MinInjuryDuration'] = 0
         row['MaxInjuryDuration'] = 0
+        row['TotalInjuryDuration'] = 0
         row['InjuryType'] = 'Invalid_'
+        row['InjurySeverity'] = 'Invalid_'
 
     if row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and row['InjuryStatus'] == 'Injured':
             
@@ -70,6 +71,12 @@ def update_injuries(row):
             elif row['MaxInjuryDuration'] == 1:
                 row = adjust_durations(row, [0, 91, 9])
 
+    if row['ContractStatus'] in ['Signed', 'FreeAgent', 'PracticeSquad'] and row['InjuryStatus'] == 'Uninjured':
+            
+        for col in row.index:
+            if 'WearAndTear' in col:
+                row[col] = 10
+
     return row
 
 # Track the original DataFrame before applying updates
@@ -87,7 +94,7 @@ columns_to_remove = [
 df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to Excel
-output_filename = 'Files/Madden25/IE/Season10/Player_InjuryChanges.xlsx'
+output_filename = 'Files/Madden26/IE/Season1/Player_InjuryChanges.xlsx'
 df.to_excel(output_filename, index=False)
 
 print(df.dtypes)
