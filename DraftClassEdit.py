@@ -4,7 +4,7 @@ import random
 import numpy as np
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season0/Player.xlsx'
+file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
 
 df = pd.read_excel(file_path)
 
@@ -248,6 +248,21 @@ def update_traits(row):
             if random.random() < 0.075:
                 row['PT_GASGUZZLER'] = True
 
+        # Nose Tackle Logic #
+        if row['Position'] in ['DT']:
+            overall_rating = row['OverallRating']
+            dt_true_weight = row['Weight'] + 160
+            if dt_true_weight >= 325:
+                row['ThrowAccuracyDeepRating'] = min(overall_rating + 5, 99)
+            elif 310 <= dt_true_weight < 325:
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 5, 1)
+            elif 300 <= dt_true_weight < 310:
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 15, 1)
+            elif 290 <= dt_true_weight < 300:
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 25, 1)
+            else:
+                row['ThrowAccuracyDeepRating'] = 25   
+
         # DB Edits
         if row['Position'] in ['CB', 'FS', 'SS']:
             if row['PressRating'] >= 85 and random.random() < 0.75:
@@ -272,7 +287,7 @@ def update_attributes(row):
         # Assign out-of-position attributes initially (so they can be changed later)
         # Non-Specialists
 
-        if row['Position'] not in ['K', 'P', 'QB']:
+        if row['Position'] not in ['K', 'P', 'QB', 'LS']:
             row['AwarenessRating'] = row['OverallRating']
             row['KickPowerRating'] = max(row['KickPowerRating'] - 5, 15)
             row['KickAccuracyRating'] = max(row['KickAccuracyRating'] - 10, 10)
@@ -634,4 +649,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden26/IE/Season0/DraftClassEdit.xlsx', index=False)
+df.to_excel('Files/Madden26/IE/Season1/DraftClassEdit.xlsx', index=False)

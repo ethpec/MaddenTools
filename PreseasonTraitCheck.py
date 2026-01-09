@@ -14,8 +14,8 @@ def update_traits(row):
     years_pro = row['YearsPro']
     
     #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro == 0: ###USE FOR ROOKIES###
-    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro >= 1: ###USE FOR NON-ROOKIES###
-    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro >= 0: ###All###
+    #if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro >= 1: ###USE FOR NON-ROOKIES###
+    if contract_status in ['FreeAgent', 'Signed', 'PracticeSquad'] and years_pro >= 0: ###All###
 
         # Set ExperiencePoints to 0 for these contract statuses
         row['ExperiencePoints'] = 0
@@ -40,7 +40,7 @@ def update_traits(row):
                 row['ZoneCoverageRating'] = 63 + random.randint(0, 5)
             if row['PT_CONSERVATIVE'] is False and row['PT_RISKTAKER'] is False:
                 row['ZoneCoverageRating'] = 60 + random.randint(0, 5)
-            if row['PT_RISKTAKER'] == 'TRUE':
+            if row['PT_RISKTAKER'] is True:
                 row['ZoneCoverageRating'] = 57 + random.randint(0, 5)
             if row['PT_PARANOID'] is False and row['PT_OBLIVIOUS'] is False:
                 row['ManCoverageRating'] = 70 + random.randint (-5, 10)
@@ -48,27 +48,33 @@ def update_traits(row):
                 row['ManCoverageRating'] = 75 + random.randint (-5, 10)
             if row['PT_OBLIVIOUS'] is True:
                 row['ManCoverageRating'] = 65 + random.randint (-5, 10)
-            if row['PT_POCKETPASSER'] is True:
+            if row['PT_POCKETPASSER'] is True and row['SpeedRating'] < 80:
                 row['FinesseMovesRating'] = 5
                 row['PowerMovesRating'] = 65
-            if row['PT_POCKETPASSER'] is False and row['PT_SCRAMBLER'] is False:
+            if row['PT_POCKETPASSER'] is True and row['SpeedRating'] >= 80:
+                row['FinesseMovesRating'] = 15
+                row['PowerMovesRating'] = 55
+            if row['PT_POCKETPASSER'] is False and row['PT_SCRAMBLER'] is False and row['SpeedRating'] < 85:
                 row['FinesseMovesRating'] = 20
                 row['PowerMovesRating'] = 50
-            if row['PT_SCRAMBLER'] =='TRUE' and row['Age'] >= 30:
+            if row['PT_POCKETPASSER'] is False and row['PT_SCRAMBLER'] is False and row['SpeedRating'] >= 85:
+                row['FinesseMovesRating'] = 30
+                row['PowerMovesRating'] = 35
+            if row['PT_SCRAMBLER'] is True and row['Age'] >= 30:
                 row['FinesseMovesRating'] = 40
                 row['PowerMovesRating'] = 15
-            if row['PT_SCRAMBLER'] =='TRUE' and row['Age'] < 30:
+            if row['PT_SCRAMBLER'] is True and row['Age'] < 30:
                 row['FinesseMovesRating'] = 50
                 row['PowerMovesRating'] = 10
-            if row['PT_SCRAMBLER'] =='TRUE' and row['SpeedRating'] >= 88 and row['Age'] >= 30:
+            if row['PT_SCRAMBLER'] is True and row['SpeedRating'] >= 85 and row['Age'] >= 30:
                 row['FinesseMovesRating'] = 60
                 row['PowerMovesRating'] = 5
-            if row['PT_SCRAMBLER'] =='TRUE' and row['SpeedRating'] >= 88 and row['Age'] < 30:
+            if row['PT_SCRAMBLER'] is True and row['SpeedRating'] >= 85 and row['Age'] < 30:
                 row['FinesseMovesRating'] = 75
                 row['PowerMovesRating'] = 1
-            if row['PT_PARANOID'] =='TRUE' and row['OverallRating'] >= 85:
+            if row['PT_PARANOID'] is True and row['OverallRating'] >= 85:
                 row['PT_PARANOID'] ='FALSE'
-            if row['PT_OBLIVIOUS'] == 'TRUE' and row['OverallRating'] >= 85:
+            if row['PT_OBLIVIOUS'] is True and row['OverallRating'] >= 85:
                 row['PT_OBLIVIOUS'] ='FALSE'
             if row['Age'] >= 30:
                 row['SpeedRating'] = max(50, row['SpeedRating'] - 1)
@@ -92,15 +98,15 @@ def update_traits(row):
             row['PlayActionRating'] = 25
             rb_targets = round((row['CatchingRating'] + row['CatchInTrafficRating'] + row['ShortRouteRunningRating']) / 3)
             if 75 <= rb_targets <= 99:
-                adjusted_rbtargets = rb_targets - 5 + random.randint(0, 5) - random.randint(0, 5)
+                adjusted_rbtargets = rb_targets + 5 + random.randint(0, 10) - random.randint(0, 5)
             elif 70 <= rb_targets <= 74:
-                adjusted_rbtargets = rb_targets - 10 + random.randint(0, 5) - random.randint(0, 5)
+                adjusted_rbtargets = rb_targets + random.randint(0, 9) - random.randint(0, 5)
             elif 65 <= rb_targets <= 69:
-                adjusted_rbtargets = rb_targets - 15 + random.randint(0, 5) - random.randint(0, 5)
+                adjusted_rbtargets = rb_targets - 5 + random.randint(0, 8) - random.randint(0, 5)
             elif 60 <= rb_targets <= 64:
-                adjusted_rbtargets = rb_targets - 20 + random.randint(0, 5) - random.randint(0, 5)
+                adjusted_rbtargets = rb_targets - 10 + random.randint(0, 7) - random.randint(0, 5)
             else:
-                adjusted_rbtargets = rb_targets - 25 + random.randint(0, 5) - random.randint(0, 5)
+                adjusted_rbtargets = rb_targets - 15 + random.randint(0, 6) - random.randint(0, 5)
             row['FinesseMovesRating'] = min(99, adjusted_rbtargets)
 
         # WR Edits
@@ -109,7 +115,7 @@ def update_traits(row):
             row['PlayActionRating'] = 25
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['FinesseMovesRating'] = overall_rating - 5 - random.randint(0, 2) + random.randint(0, 3)
+                row['FinesseMovesRating'] = overall_rating - 2 - random.randint(0, 2) + random.randint(0, 3)
             elif 90 <= overall_rating <= 94:
                 row['FinesseMovesRating'] = overall_rating - 5 - random.randint(0, 4) + random.randint(0, 6)
             elif 85 <= overall_rating <= 89:
@@ -122,6 +128,7 @@ def update_traits(row):
                 row['FinesseMovesRating'] = overall_rating - 30 - random.randint(0, 14) + random.randint(0, 24)
             elif 1 <= overall_rating <= 69:
                 row['FinesseMovesRating'] = 35 - random.randint(0, 15) + random.randint(0, 25)
+            row['FinesseMovesRating'] = min(99, row['FinesseMovesRating'])
 
         # TE Edits
         if row['Position'] == 'TE':
@@ -129,28 +136,29 @@ def update_traits(row):
             row['PlayActionRating'] = 25
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['FinesseMovesRating'] = overall_rating - 5 - random.randint(0, 2) + random.randint(0, 3)
+                row['FinesseMovesRating'] = overall_rating - random.randint(0, 2) + random.randint(0, 3)
             elif 90 <= overall_rating <= 94:
-                row['FinesseMovesRating'] = overall_rating - 5 - random.randint(0, 4) + random.randint(0, 6)
+                row['FinesseMovesRating'] = overall_rating - 2 - random.randint(0, 4) + random.randint(0, 6)
             elif 85 <= overall_rating <= 89:
-                row['FinesseMovesRating'] = overall_rating - 10 - random.randint(0, 6) + random.randint(0, 12)
+                row['FinesseMovesRating'] = overall_rating - 5 - random.randint(0, 6) + random.randint(0, 12)
             elif 80 <= overall_rating <= 84:
-                row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 8) + random.randint(0, 24)
+                row['FinesseMovesRating'] = overall_rating - 10 - random.randint(0, 8) + random.randint(0, 24)
             elif 75 <= overall_rating <= 79:
-                row['FinesseMovesRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24)
+                row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 12) + random.randint(0, 24)
             elif 70 <= overall_rating <= 74:
-                row['FinesseMovesRating'] = overall_rating - 30 - random.randint(0, 14) + random.randint(0, 24)
+                row['FinesseMovesRating'] = overall_rating - 25 - random.randint(0, 14) + random.randint(0, 24)
             elif 1 <= overall_rating <= 69:
-                row['FinesseMovesRating'] = 35 - random.randint(0, 15) + random.randint(0, 25)
+                row['FinesseMovesRating'] = 30 - random.randint(0, 15) + random.randint(0, 25)
+            row['FinesseMovesRating'] = min(99, row['FinesseMovesRating'])
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE']:
             row['PlayActionRating'] = 45 + random.randint(0, 15)
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
-                row['ThrowOnTheRunRating'] = overall_rating - 5 + random.randint(0, 4)
+                row['ThrowOnTheRunRating'] = overall_rating
             elif 90 <= overall_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 4) + random.randint(0, 5)
             elif 85 <= overall_rating <= 89:
                 row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 6) + random.randint(0, 8)
             elif 80 <= overall_rating <= 84:
@@ -184,15 +192,15 @@ def update_traits(row):
 
             # Nose Tackle Logic #
             if dt_true_weight >= 325:
-                row['ThrowAccuracyDeepRating'] = 99 if overall_rating >= 80 else min(overall_rating + 15, 90)
+                row['ThrowAccuracyDeepRating'] = min(overall_rating + 5, 99)
             elif 310 <= dt_true_weight < 325:
-                row['ThrowAccuracyDeepRating'] = min(overall_rating, 85) if overall_rating >= 80 else overall_rating
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 5, 1)
             elif 300 <= dt_true_weight < 310:
-                row['ThrowAccuracyDeepRating'] = 35 if overall_rating >= 80 else 30
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 15, 1)
             elif 290 <= dt_true_weight < 300:
-                row['ThrowAccuracyDeepRating'] = 20 if overall_rating >= 80 else 10
+                row['ThrowAccuracyDeepRating'] = max(overall_rating - 25, 1)
             else:
-                row['ThrowAccuracyDeepRating'] = 1            
+                row['ThrowAccuracyDeepRating'] = 25            
 
         if row['Position'] in ['LOLB', 'MLB', 'ROLB']:
             row['ThrowOnTheRunRating'] = 45 + random.randint(0, 20)
