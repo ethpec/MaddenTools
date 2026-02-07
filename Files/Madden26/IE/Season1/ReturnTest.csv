@@ -1,0 +1,65 @@
+Row,Position,FirstName_x,LastName_x,FullName,TeamPrefixName,SEAS_YEAR,PRETTDS,KRETYARDS,PRETYARDS,KRETATTEMPTS,KRETLONGEST,PRETATTEMPTS,PRETLONGEST,KRETTDS,FirstName_y,LastName_y,PLYR_ASSETNAME,Row Excel,Row Editor,YearsPro,Age,PLYR_DRAFTROUND,TeamIndex,ContractStatus,TraitDevelopment,OverallRating,SkillPoints,RegressionPoints,TeamName,RatingTier,KRYardsPerReturn,PRYardsPerReturn,TDsPerReturn
+,CB,Tre,Tomlinson,Tre Tomlinson,AZ,1,0,401,0,15,80,0,0,0,,,,,,,,,,,,,,,,,26.733333333333334,,0.0
+,CB,Jason,Marshall Jr,Jason Marshall Jr,MIA,1,0,490,17,21,24,2,9,0,Jason,Marshall Jr,MarshallJrJason_15322,1674.0,1672.0,1.0,23.0,5.0,11.0,Signed,Normal,68.0,0.0,0.0,MIA,tier_6,23.333333333333332,8.5,0.0
+,FS,Jeremiah,Cooper,Jeremiah Cooper,CLE,1,0,628,0,26,27,0,0,0,Jeremiah,Cooper,JeremiahCooper_2654,3476.0,3474.0,0.0,22.0,5.0,4.0,Signed,Normal,66.0,0.0,0.0,CLE,tier_6,24.153846153846153,,0.0
+,CB,Jonquis,Hardaway,Jonquis Hardaway,KC,1,0,435,41,18,27,5,14,0,Jonquis,Hardaway,JonquisHardaway_26410,3429.0,3427.0,0.0,22.0,4.0,8.0,Signed,Normal,70.0,0.0,0.0,KC,tier_5,24.166666666666668,8.2,0.0
+,CB,Jeremiah,Wilson,Jeremiah Wilson,LAC,1,0,509,111,21,28,17,13,0,Jeremiah,Wilson,JeremiahWilson_26521,3442.0,3440.0,0.0,22.0,5.0,7.0,Signed,Normal,69.0,0.0,0.0,LAC,tier_6,24.238095238095237,6.529411764705882,0.0
+,CB,Theran,Johnson,Theran Johnson,TEN,1,0,619,29,26,67,3,13,0,Theran,Johnson,TheranJohnson_26721,3543.0,3541.0,0.0,22.0,7.0,29.0,Signed,Normal,64.0,0.0,0.0,TEN,tier_6,23.807692307692307,9.666666666666666,0.0
+,WR,Matthew,Golden,Matthew Golden,GB,1,0,715,6,27,60,1,6,0,Matthew,Golden,GoldenMatthew_15096,950.0,948.0,1.0,23.0,1.0,19.0,Signed,Normal,73.0,0.0,0.0,GB,tier_5,26.48148148148148,6.0,0.0
+,WR,Xavier,Worthy,Xavier Worthy,KC,1,0,25,140,1,25,18,38,0,Xavier,Worthy,WorthyXavier_14650,2993.0,2991.0,2.0,23.0,1.0,8.0,Signed,College_Impact,76.0,0.0,0.0,KC,tier_4,25.0,7.777777777777778,0.0
+,HB,Bhayshul,Tuten,Bhayshul Tuten,JAX,1,0,453,12,15,84,1,12,0,Bhayshul,Tuten,TutenBhayshul_14812,2732.0,2730.0,1.0,24.0,4.0,16.0,Signed,College_Impact,73.0,0.0,0.0,JAX,tier_5,30.2,12.0,0.0
+,HB,Ray,Davis,Ray Davis,BUF,1,0,426,166,14,101,22,14,1,Ray,Davis,DavisRay_14626,612.0,610.0,2.0,26.0,4.0,2.0,Signed,College_Impact,71.0,0.0,0.0,BUF,tier_5,30.428571428571427,7.545454545454546,0.027777777777777776
+,HB,Samaje,Perine,Samaje Perine,CIN,1,0,690,0,26,84,0,0,0,Samaje,Perine,PerineSamaje_12627,2094.0,2092.0,10.0,30.0,4.0,1.0,Signed,Normal,69.0,0.0,0.0,CIN,tier_6,26.53846153846154,,0.0
+,WR,Keon,Coleman,Keon Coleman,CLE,1,0,658,255,25,101,27,33,1,Keon,Coleman,ColemanKeon_14646,500.0,498.0,2.0,23.0,2.0,4.0,Signed,Normal,73.0,0.0,0.0,CLE,tier_5,26.32,9.444444444444445,0.019230769230769232
+,HB,Desmond,Reid,Desmond Reid,BUF,1,0,485,146,21,25,16,28,0,Desmond,Reid,DesmondReid_26710,3685.0,3683.0,0.0,22.0,7.0,2.0,Signed,Normal,72.0,0.0,0.0,BUF,tier_5,23.095238095238095,9.125,0.0
+,HB,Phil,Mafah,Phil Mafah,DAL,1,0,753,0,33,27,0,0,0,Phil,Mafah,MafahPhil_15042,1656.0,1654.0,1.0,23.0,7.0,10.0,Signed,Normal,65.0,0.0,0.0,DAL,tier_6,22.818181818181817,,0.0
+,WR,Kameron,Johnson,Kameron Johnson,TB,1,0,682,270,27,68,29,36,0,Kameron,Johnson,JohnsonKameron_1278,1369.0,1367.0,2.0,24.0,63.0,5.0,Signed,Normal,61.0,0.0,0.0,TB,tier_6,25.25925925925926,9.310344827586206,0.0
+,WR,Tory,Horton,Tory Horton,SEA,1,0,816,4,32,63,1,4,0,Tory,Horton,HortonTory_15064,1211.0,1209.0,1.0,23.0,5.0,27.0,Signed,Normal,72.0,0.0,0.0,SEA,tier_5,25.5,4.0,0.0
+,WR,Rashid,Shaheed,Rashid Shaheed,SEA,1,0,649,271,21,88,26,43,0,Rashid,Shaheed,ShaheedRashid_22666,2382.0,2380.0,4.0,28.0,63.0,27.0,Signed,College_Impact,75.0,0.0,0.0,SEA,tier_4,30.904761904761905,10.423076923076923,0.0
+,HB,Isaac,Guerendo,Isaac Guerendo,SF,1,1,1015,251,40,59,31,56,0,Isaac,Guerendo,GuerendoIsaac_15012,1004.0,1002.0,2.0,26.0,4.0,14.0,Signed,Normal,68.0,0.0,0.0,SF,tier_6,25.375,8.096774193548388,0.014084507042253521
+,WR,Isaac,TeSlaa,Isaac TeSlaa,DET,1,0,535,372,22,64,33,56,0,Isaac,TeSlaa,TeSlaaIsaac_15067,2620.0,2618.0,1.0,24.0,3.0,18.0,Signed,College_Impact,75.0,0.0,0.0,DET,tier_4,24.318181818181817,11.272727272727273,0.0
+,WR,Myles,Price,Myles Price,MIN,1,0,410,157,15,86,27,14,0,Myles,Price,PriceMyles_4657,3113.0,3111.0,1.0,24.0,63.0,30.0,Signed,Normal,65.0,0.0,0.0,MIN,tier_6,27.333333333333332,5.814814814814815,0.0
+,HB,Devin,Mockobee,Devin Mockobee,TB,1,0,692,16,29,45,2,11,0,Devin,Mockobee,DevinMockobee_26619,3539.0,3537.0,0.0,22.0,6.0,5.0,Signed,Normal,70.0,0.0,0.0,TB,tier_5,23.862068965517242,8.0,0.0
+,HB,Trevor,Etienne,Trevor Etienne,CAR,1,0,485,97,20,55,13,17,0,Trevor,Etienne,EtienneTrevor_15050,768.0,766.0,1.0,22.0,4.0,20.0,Signed,Normal,69.0,0.0,0.0,CAR,tier_6,24.25,7.461538461538462,0.0
+,WR,Luke,McCaffrey,Luke McCaffrey,WAS,1,0,541,217,22,39,19,48,0,Luke,McCaffrey,McCaffreyLuke_14666,1716.0,1714.0,2.0,25.0,3.0,25.0,Signed,Normal,73.0,0.0,0.0,WAS,tier_5,24.59090909090909,11.421052631578947,0.0
+,WR,Efton,Chism III,Efton Chism III,NE,1,0,381,181,17,24,19,47,0,Efton,Chism III,ChismIIIEfton_4663,3052.0,3050.0,1.0,24.0,63.0,21.0,Signed,Normal,70.0,0.0,0.0,NE,tier_5,22.41176470588235,9.526315789473685,0.0
+,HB,Brashard,Smith,Brashard Smith,KC,1,0,596,125,24,49,16,13,0,Brashard,Smith,SmithBrashard_15034,2449.0,2447.0,1.0,23.0,7.0,8.0,Signed,Normal,69.0,0.0,0.0,KC,tier_6,24.833333333333332,7.8125,0.0
+,WR,Tyler,Lockett,Tyler Lockett,AZ,1,0,936,148,36,64,14,48,0,,,,,,,,,,,,,,,,,26.0,10.571428571428571,0.0
+,HB,Antonio,Gibson,Antonio Gibson,NE,1,0,214,101,8,63,13,14,0,Antonio,Gibson,GibsonAntonio_21048,922.0,920.0,6.0,28.0,3.0,21.0,Signed,Normal,70.0,0.0,0.0,NE,tier_5,26.75,7.769230769230769,0.0
+,WR,Marvin,Mims Jr,Marvin Mims Jr,DEN,1,0,763,150,31,60,25,16,0,Marvin,Mims Jr,MimsJrMarvin_22767,1829.0,1827.0,3.0,24.0,2.0,3.0,Signed,College_Impact,75.0,0.0,0.0,DEN,tier_4,24.612903225806452,6.0,0.0
+,WR,Mason,Tipton,Mason Tipton,NO,1,0,299,64,13,32,11,18,0,Mason,Tipton,TiptonMason_1356,2668.0,2666.0,2.0,25.0,63.0,26.0,Signed,Normal,69.0,0.0,0.0,NO,tier_6,23.0,5.818181818181818,0.0
+,WR,Lajohntay,Wester,Lajohntay Wester,BAL,1,0,660,0,29,25,0,0,0,Lajohntay,Wester,WesterLajohntay_15100,2859.0,2857.0,1.0,24.0,6.0,24.0,Signed,Normal,69.0,0.0,0.0,BAL,tier_6,22.75862068965517,,0.0
+,WR,Junior,Vandeross III,Junior Vandeross III,CLE,1,0,332,12,15,24,2,11,0,Junior,Vandeross III,JuniorVandeross III_2663361,3682.0,3680.0,0.0,22.0,63.0,4.0,Signed,Normal,71.0,0.0,0.0,CLE,tier_5,22.133333333333333,6.0,0.0
+,HB,Tony,Pollard,Tony Pollard,CHI,1,0,441,219,18,28,28,39,0,Tony,Pollard,PollardTony_20473,2136.0,2134.0,7.0,29.0,4.0,0.0,Signed,Normal,73.0,0.0,0.0,CHI,tier_5,24.5,7.821428571428571,0.0
+,WR,Ainias,Smith,Ainias Smith,MIN,1,0,728,18,30,52,5,11,0,Ainias,Smith,SmithAinias_14664,2444.0,2442.0,2.0,25.0,5.0,30.0,Signed,Normal,67.0,0.0,0.0,MIN,tier_6,24.266666666666666,3.6,0.0
+,WR,Calvin,Austin,Calvin Austin,PIT,1,0,711,127,29,39,19,14,0,Calvin,Austin,AustinIIICalvin_22086,106.0,104.0,4.0,27.0,4.0,28.0,Signed,Normal,72.0,0.0,0.0,PIT,tier_5,24.517241379310345,6.684210526315789,0.0
+,WR,Barion,Brown,Barion Brown,NO,1,0,645,185,29,36,36,26,0,Barion,Brown,BarionBrown_26530,3508.0,3506.0,0.0,22.0,5.0,26.0,Signed,Normal,67.0,0.0,0.0,NO,tier_6,22.24137931034483,5.138888888888889,0.0
+,WR,Luther,Burden III,Luther Burden III,CHI,1,0,637,29,25,64,4,11,0,Luther,Burden III,BurdenIIILuther_15095,370.0,368.0,1.0,22.0,2.0,0.0,Signed,College_Impact,80.0,0.0,0.0,CHI,tier_3,25.48,7.25,0.0
+,WR,Brenden,Rice,Brenden Rice,PHI,1,0,885,31,37,56,5,12,0,Brenden,Rice,RiceBrenden_14656,2228.0,2226.0,2.0,24.0,7.0,12.0,Signed,Normal,65.0,0.0,0.0,PHI,tier_6,23.91891891891892,6.2,0.0
+,HB,Devin,Neal,Devin Neal,NO,1,0,449,0,19,35,0,0,0,Devin,Neal,NealDevin_14835,1928.0,1926.0,1.0,23.0,6.0,26.0,Signed,Normal,73.0,0.0,0.0,NO,tier_5,23.63157894736842,,0.0
+,HB,Devin,Singletary,Devin Singletary,NYG,1,0,379,0,16,46,0,0,0,Devin,Singletary,SingletaryDevin_20491,2422.0,2420.0,7.0,28.0,3.0,15.0,Signed,Normal,69.0,0.0,0.0,NYG,tier_6,23.6875,,0.0
+,WR,Anthony,Gould,Anthony Gould,MIA,1,0,828,172,35,28,21,16,0,Anthony,Gould,GouldAnthony_15019,965.0,963.0,2.0,25.0,5.0,11.0,Signed,Normal,67.0,0.0,0.0,MIA,tier_6,23.65714285714286,8.19047619047619,0.0
+,HB,Justice,Hill,Justice Hill,BAL,1,0,588,299,24,46,33,37,0,Justice,Hill,HillJustice_20490,1166.0,1164.0,7.0,28.0,4.0,24.0,Signed,Normal,69.0,0.0,0.0,BAL,tier_6,24.5,9.06060606060606,0.0
+,HB,Jarquez,Hunter,Jarquez Hunter,LAR,1,1,733,378,30,54,39,80,0,Jarquez,Hunter,HunterJarquez_14822,1242.0,1240.0,1.0,23.0,4.0,23.0,Signed,Normal,70.0,0.0,0.0,LAR,tier_5,24.433333333333334,9.692307692307692,0.014492753623188406
+,WR,Jaylin,Noel,Jaylin Noel,HOU,1,0,691,260,28,29,35,30,0,Jaylin,Noel,NoelJaylin_15059,1960.0,1958.0,1.0,23.0,3.0,31.0,Signed,Normal,68.0,0.0,0.0,HOU,tier_6,24.678571428571427,7.428571428571429,0.0
+,WR,Ted,Hurst,Ted Hurst,LAC,1,0,435,98,16,59,13,37,0,Ted,Hurst,TedHurst_26719,3531.0,3529.0,0.0,22.0,7.0,7.0,Signed,Normal,70.0,0.0,0.0,LAC,tier_5,27.1875,7.538461538461538,0.0
+,WR,Isaiah,Williams,Isaiah Williams,NYJ,1,1,783,288,28,70,32,47,0,Isaiah,Williams,WilliamsIsaiah_14669,2900.0,2898.0,2.0,25.0,63.0,17.0,Signed,Normal,65.0,0.0,0.0,NYJ,tier_6,27.964285714285715,9.0,0.016666666666666666
+,WR,Charlie,Jones,Charlie Jones,CIN,1,0,821,219,33,48,27,53,0,Charlie,Jones,JonesCharlie_22781,1402.0,1400.0,3.0,27.0,4.0,1.0,Signed,Normal,66.0,0.0,0.0,CIN,tier_6,24.87878787878788,8.11111111111111,0.0
+,WR,Jaylin,Lane,Jaylin Lane,WAS,1,0,722,10,30,28,1,10,0,Jaylin,Lane,LaneJaylin_15068,1549.0,1547.0,1.0,24.0,4.0,25.0,Signed,Normal,72.0,0.0,0.0,WAS,tier_5,24.066666666666666,10.0,0.0
+,WR,Chimere,Dike,Chimere Dike,TEN,1,2,755,519,25,89,42,82,0,Chimere,Dike,DikeChimere_15071,662.0,660.0,1.0,24.0,4.0,29.0,Signed,Normal,69.0,0.0,0.0,TEN,tier_6,30.2,12.357142857142858,0.029850746268656716
+,WR,Parker,Washington,Parker Washington,JAX,1,0,464,199,18,65,24,30,0,Parker,Washington,WashingtonParker_22766,2823.0,2821.0,3.0,24.0,6.0,16.0,Signed,Normal,78.0,0.0,0.0,JAX,tier_4,25.77777777777778,8.291666666666666,0.0
+,HB,Israel,Abanikanda,Israel Abanikanda,PIT,1,0,911,0,37,57,0,0,0,Israel,Abanikanda,AbanikandaIsrael_22741,2.0,0.0,3.0,23.0,5.0,28.0,Signed,Normal,68.0,0.0,0.0,PIT,tier_6,24.62162162162162,,0.0
+,HB,Will,Shipley,Will Shipley,PHI,1,0,582,119,24,38,15,17,0,Will,Shipley,ShipleyWill_14630,2400.0,2398.0,2.0,24.0,4.0,12.0,Signed,Normal,71.0,0.0,0.0,PHI,tier_5,24.25,7.933333333333334,0.0
+,WR,Ashton,Dulin,Ashton Dulin,IND,1,0,881,0,37,28,0,0,0,Ashton,Dulin,DulinAshton_20649,702.0,700.0,7.0,29.0,63.0,9.0,Signed,Normal,66.0,0.0,0.0,IND,tier_6,23.81081081081081,,0.0
+,WR,Kevin,Coleman Jr,Kevin Coleman Jr,IND,1,1,860,235,34,27,22,55,0,Kevin,Coleman Jr,KevinColeman Jr_26614,3491.0,3489.0,0.0,22.0,6.0,9.0,Signed,Normal,65.0,0.0,0.0,IND,tier_6,25.294117647058822,10.681818181818182,0.017857142857142856
+,WR,Zachariah,Branch,Zachariah Branch,AZ,1,0,541,62,22,28,6,14,0,,,,,,,,,,,,,,,,,24.59090909090909,10.333333333333334,0.0
+,HB,Jam,Miller,Jam Miller,DEN,1,0,601,38,26,24,5,9,0,Jam,Miller,JamMiller_26431,3466.0,3464.0,0.0,22.0,4.0,3.0,Signed,Normal,69.0,0.0,0.0,DEN,tier_6,23.115384615384617,7.6,0.0
+,WR,Aaron,Anderson,Aaron Anderson,NYJ,1,0,873,0,36,41,0,0,0,Aaron,Anderson,AaronAnderson_2641,3434.0,3432.0,0.0,23.0,4.0,17.0,Signed,Normal,68.0,0.0,0.0,NYJ,tier_6,24.25,,0.0
+,HB,Sione,Vaki,Sione Vaki,DET,1,0,517,29,21,60,4,11,0,Sione,Vaki,VakiSione_14999,2744.0,2742.0,2.0,25.0,4.0,18.0,Signed,Normal,65.0,0.0,0.0,DET,tier_6,24.61904761904762,7.25,0.0
+,WR,KaVontae,Turpin,KaVontae Turpin,DAL,1,0,1069,426,36,100,41,58,1,KaVontae,Turpin,TurpinKaVontae_22599,2731.0,2729.0,5.0,30.0,63.0,10.0,Signed,Normal,67.0,0.0,0.0,DAL,tier_6,29.694444444444443,10.390243902439025,0.012987012987012988
+,HB,Tyrone,Tracy Jr,Tyrone Tracy Jr,NYG,1,0,692,239,25,72,30,44,0,Tyrone,Tracy Jr,TracyJrTyrone_15010,2691.0,2689.0,2.0,26.0,5.0,15.0,Signed,Normal,79.0,0.0,0.0,NYG,tier_4,27.68,7.966666666666667,0.0
+,WR,Jayden,Higgins,Jayden Higgins,HOU,1,0,377,2,16,27,1,2,0,Jayden,Higgins,HigginsJayden_15057,1158.0,1156.0,1.0,23.0,2.0,31.0,Signed,Normal,77.0,0.0,0.0,HOU,tier_4,23.5625,2.0,0.0
+,WR,Jack,Bech,Jack Bech,LV,1,0,784,50,31,68,7,13,0,Jack,Bech,BechJack_15055,182.0,180.0,1.0,23.0,2.0,22.0,Signed,Normal,68.0,0.0,0.0,LV,tier_6,25.29032258064516,7.142857142857143,0.0
+,WR,Xavier,Legette,Xavier Legette,LV,1,0,599,95,20,100,12,14,0,Xavier,Legette,LegetteXavier_14652,1577.0,1575.0,2.0,25.0,1.0,22.0,Signed,Normal,68.0,0.0,0.0,LV,tier_6,29.95,7.916666666666667,0.0
+,WR,Savion,Williams,Savion Williams,GB,1,0,721,286,30,37,34,51,0,Savion,Williams,WilliamsSavion_15063,2923.0,2921.0,1.0,24.0,3.0,19.0,Signed,Normal,68.0,0.0,0.0,GB,tier_6,24.033333333333335,8.411764705882353,0.0
+,WR,Kevin,Concepcion,Kevin Concepcion,ATL,1,0,751,251,30,31,26,15,0,Kevin,Concepcion,KevinConcepcion_2628,3368.0,3366.0,0.0,21.0,2.0,13.0,Signed,Normal,74.0,0.0,0.0,ATL,tier_5,25.033333333333335,9.653846153846153,0.0
