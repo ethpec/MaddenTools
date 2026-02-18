@@ -1,11 +1,11 @@
 import pandas as pd
 
 # Set the multiplier for adjusting salaries and bonuses
-adjustment_multiplier = 0.945  # You can change this value to adjust salaries and bonuses (0.918)
+adjustment_multiplier = 0.928  # You can change this value to adjust salaries and bonuses (0.918)
 
 # Your File Paths
-player_file_path = 'Files/Madden26/IE/Season0/Player.xlsx'
-output_filename = 'Files/Madden26/IE/Season0/Contracts_Adjusted.xlsx'
+player_file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+output_filename = 'Files/Madden26/IE/Season1/Contracts_Adjusted.xlsx'
 
 # Read player data from the Excel file
 df = pd.read_excel(player_file_path)

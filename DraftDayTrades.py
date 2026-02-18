@@ -6,8 +6,8 @@ import random
 # USER INPUT
 # =========================
 
-TRADE_DIRECTION = "DOWN"  # "DOWN" or "UP"
-USER_PICK = 4
+TRADE_DIRECTION = "UP"  # "DOWN" or "UP"
+USER_PICK = 122 # 1 less than pick number
 USER_TEAM_NAME = 'NO'
 
 # =========================
@@ -97,6 +97,28 @@ draft_order_df = pd.merge(
 # HELPER FUNCTIONS
 # =========================
 
+def get_base_probability(pick):
+    if TRADE_DIRECTION == "DOWN":
+        if 1 <= pick <= 32:
+            return 0.0625
+        elif 33 <= pick <= 64:
+            return 0.0725
+        elif 65 <= pick <= 96:
+            return 0.0625
+        elif 97 <= pick <= 255:
+            return 0.0525
+        return 0
+    else: # USER trading up
+        if 1 <= pick <= 32:
+            return 0.125
+        elif 33 <= pick <= 64:
+            return 0.15
+        elif 65 <= pick <= 96:
+            return 0.125
+        elif 97 <= pick <= 255:
+            return 0.1
+        return 0
+
 def get_pick_multiplier(num_picks):
     if TRADE_DIRECTION == "DOWN": # (USER trading down)
         if num_picks >= 10:
@@ -174,46 +196,23 @@ def get_distance_multiplier(team_pick_position):
         if distance <= 5:
             return 1.0
         elif distance <= 10:
-            return 0.75
+            return 0.875
         elif distance <= 15:
-            return 0.5
+            return 0.75
         else:
-            return 0.1
+            return 0.25
         
     else:  # TRADE UP (USER trading up)
         distance = abs(team_pick_position - USER_PICK)
 
         if distance <= 5:
-            return 1.25
+            return 1.125
         elif distance <= 10:
             return 1.0
         elif distance <= 15:
-            return 0.75
+            return 0.875
         else:
-            return 0.5
-
-def get_base_probability(pick):
-    if TRADE_DIRECTION == "DOWN":
-        if 1 <= pick <= 32:
-            return 0.0625
-        elif 33 <= pick <= 64:
-            return 0.0725
-        elif 65 <= pick <= 96:
-            return 0.0625
-        elif 97 <= pick <= 255:
-            return 0.0525
-        return 0
-    else: # USER trading up
-        if 1 <= pick <= 32:
-            return 0.0625
-        elif 33 <= pick <= 64:
-            return 0.0725
-        elif 65 <= pick <= 96:
-            return 0.0625
-        elif 97 <= pick <= 255:
-            return 0.0525
-        return 0
-
+            return 0.75
 
 def get_distance_limit(pick):
     if TRADE_DIRECTION == "DOWN":
@@ -229,11 +228,11 @@ def get_distance_limit(pick):
             return 32
     else: # USER trading up
         if 1 <= pick <= 32:
-            return 15
-        elif 33 <= pick <= 64:
             return 20
-        elif 65 <= pick <= 96:
+        elif 33 <= pick <= 64:
             return 25
+        elif 65 <= pick <= 96:
+            return 30
         else:
             return 32       
 
@@ -242,46 +241,46 @@ def get_value_distribution(pick):
     if TRADE_DIRECTION == "DOWN":
         if 1 <= pick <= 32:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.40,
-                "SLIGHT_OVER": 0.30,
-                "BIG_OVER": 0.15
+                "SLIGHT_OVER (~105%)": 0.30,
+                "BIG_OVER (~110%+)": 0.15
             }
         elif 33 <= pick <= 96:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.50,
-                "SLIGHT_OVER": 0.25,
-                "BIG_OVER": 0.10
+                "SLIGHT_OVER (~105%)": 0.25,
+                "BIG_OVER (~110%+)": 0.10
             }
         else:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.60,
-                "SLIGHT_OVER": 0.20,
-                "BIG_OVER": 0.05
+                "SLIGHT_OVER (~105%)": 0.20,
+                "BIG_OVER (~110%+)": 0.05
             }
     else: # USER trading up
         if 1 <= pick <= 32:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.40,
-                "SLIGHT_OVER": 0.30,
-                "BIG_OVER": 0.15
+                "SLIGHT_OVER (~105%)": 0.30,
+                "BIG_OVER (~110%+)": 0.15
             }
         elif 33 <= pick <= 96:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.50,
-                "SLIGHT_OVER": 0.25,
-                "BIG_OVER": 0.10
+                "SLIGHT_OVER (~105%)": 0.25,
+                "BIG_OVER (~110%+)": 0.10
             }
         else:
             return {
-                "UNDER": 0.15,
+                "UNDER (~95%)": 0.15,
                 "FAIR": 0.60,
-                "SLIGHT_OVER": 0.20,
-                "BIG_OVER": 0.05
+                "SLIGHT_OVER (~105%)": 0.20,
+                "BIG_OVER (~110%+)": 0.05
             }
 
 def roll_value_tier(distribution):

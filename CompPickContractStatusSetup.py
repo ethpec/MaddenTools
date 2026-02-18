@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Your File Paths
-expiring_contract_file = 'Files/Madden26/IE/Season0/LastSeason_ExpiringContracts.xlsx'
+expiring_contract_file = 'Files/Madden26/IE/Season1/LastSeason_ExpiringContracts.xlsx'
 
 # Read the "LastSeason_ExpiringContracts.xlsx" sheet into DataFrame
 expiring_contracts_df = pd.read_excel(expiring_contract_file)
@@ -31,7 +31,7 @@ for _, row in expiring_contracts_df[expiring_contracts_df['ContractStatus'] == '
         expiring_contracts_df.at[_, 'ContractStatus'] = 'Expiring'
 
 # Define the output filename in the same directory as the import
-output_filename = 'Files/Madden26/IE/Season0/CompPick_ContractStatusUpdated.xlsx'
+output_filename = 'Files/Madden26/IE/Season1/CompPick_ContractStatusUpdated.xlsx'
 
 # Export the updated DataFrame to Excel in the same directory
 expiring_contracts_df.to_excel(output_filename, index=False)
