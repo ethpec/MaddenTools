@@ -1,6 +1,7 @@
 # Imports
 import pandas as pd
 import random
+from openpyxl.styles import PatternFill, Alignment
 
 # ==============================
 # File Paths
@@ -146,7 +147,7 @@ columns_to_keep = [
 ]
 
 # Ensure essential columns are at front
-front_columns = ["ContractStatus", "PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Position"]
+front_columns = ["ContractStatus", "PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Height", "Weight", "Age", "Position"]
 
 # Only add front_columns if they exist in the DataFrame
 front_columns = [col for col in front_columns if col in df.columns]
@@ -252,16 +253,69 @@ def clean_column_name(col):
     return col
 
 # ==============================
+# Grade Color Fills
+# ==============================
+
+GRADE_FILLS = {
+    "A":          PatternFill("solid", fgColor="81c784"),
+    "B":          PatternFill("solid", fgColor="c8e6c9"),
+    "C":          PatternFill("solid", fgColor="fff176"),
+    "D":          PatternFill("solid", fgColor="ffcc80"),
+    "F":          PatternFill("solid", fgColor="ef9a9a"),
+    "7-Elite":    PatternFill("solid", fgColor="81c784"),
+    "6-Great":    PatternFill("solid", fgColor="a5d6a7"),
+    "5-Good":     PatternFill("solid", fgColor="c8e6c9"),
+    "4-Solid":    PatternFill("solid", fgColor="fff9c4"),
+    "3-Decent":   PatternFill("solid", fgColor="fff176"),
+    "2-Marginal": PatternFill("solid", fgColor="ffcc80"),
+    "1-Poor":     PatternFill("solid", fgColor="ef9a9a"),
+}
+
+LEFT_ALIGN = Alignment(horizontal="left")
+
+def apply_grade_colors(ws):
+    ws.auto_filter.ref = ws.dimensions
+
+    # Track max content length per column for auto-width
+    col_widths = {}
+
+    for row in ws.iter_rows():
+        for cell in row:
+            cell.alignment = LEFT_ALIGN
+            col_letter = cell.column_letter
+            cell_len = len(str(cell.value)) if cell.value is not None else 0
+            if cell.row == 1:
+                cell_len += 2  # extra room for filter dropdown arrow
+            col_widths[col_letter] = max(col_widths.get(col_letter, 0), cell_len)
+
+            if cell.row > 1:
+                fill = GRADE_FILLS.get(str(cell.value) if cell.value is not None else "")
+                if fill:
+                    cell.fill = fill
+
+    for col_letter, width in col_widths.items():
+        ws.column_dimensions[col_letter].width = width + 2
+
+# ==============================
 # Save Output (Multi-Sheet by Position Group + All)
 # ==============================
 
 output_filename = 'Files/Madden26/IE/Season2/Draft_LetterGrades.xlsx'
 
 # Base columns always included
-base_columns = ["PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Position"]
+base_columns = ["PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Height", "Weight", "Age", "Position"]
 
 # Keep only Draft players for export
 draft_df = df[df["ContractStatus"] == "Draft"].copy()
+
+# Add Rank: overall pick number across all rounds
+draft_df["Rank"] = draft_df["PLYR_DRAFTPICK"].astype(int) + 32 * (draft_df["PLYR_DRAFTROUND"].astype(int) - 1)
+
+# Convert Weight to true value
+draft_df["Weight"] = draft_df["Weight"].astype(int) + 160
+
+# Convert Height from inches to feet'inches" format
+draft_df["Height"] = draft_df["Height"].astype(int).apply(lambda h: f"{h // 12}'{h % 12}\"")
 
 # Sort draft_df for the "All" sheet
 draft_df.sort_values(by=["PLYR_DRAFTROUND", "PLYR_DRAFTPICK"], inplace=True)
@@ -275,11 +329,12 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
     }
 
     # Save All draft players sheet first
-    draft_df[base_columns].rename(columns=base_rename_map).to_excel(
+    draft_df[["Rank"] + base_columns].rename(columns=base_rename_map).to_excel(
         writer,
         sheet_name="All",
         index=False
     )
+    apply_grade_colors(writer.sheets["All"])
 
     # Preferred column ordering per sheet (using abbreviations)
     position_column_order = {
@@ -305,7 +360,7 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
         # Find which columns were actually changed for THIS position group
         changed_columns = [
             col for col in group_df.columns
-            if col not in base_columns
+            if col not in base_columns and col != "Rank"
             and not group_df[col].equals(
                 original_df.loc[group_df.index, col]
             )
@@ -320,7 +375,7 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
             changed_columns = ordered + remaining
 
         # Final columns for this sheet
-        export_columns = base_columns + changed_columns
+        export_columns = ["Rank"] + base_columns + changed_columns
 
         # Sort by Draft Round and Draft Pick
         group_df.sort_values(by=["PLYR_DRAFTROUND", "PLYR_DRAFTPICK"], inplace=True)
@@ -332,5 +387,6 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
             sheet_name=sheet_name,
             index=False
         )
+        apply_grade_colors(writer.sheets[sheet_name])
 
 print("Draft letter grades generated successfully.")
