@@ -4,13 +4,55 @@ import random
 import math
 import numpy as np
 
+# Season Configuration
+current_season_year = 2
+RFA_TENDER = 326
+SECOND_RND_RFA_TENDER = 534
+
 # File Paths
-player_file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
-salary_expectation_file_path = 'Files/Madden26/IE/Season1/ExpectedSalarySheet.xlsx'
+player_file_path = 'Files/Madden26/IE/Season2/Player.xlsx'
+salary_expectation_file_path = 'Files/Madden26/IE/Season2/ExpectedSalarySheet.xlsx'
+prog_reg_file_path = 'Files/Madden26/IE/Season2/AllProgRegInfo.xlsm'
 
 # Load DataFrames
 df = pd.read_excel(player_file_path)
 salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
+
+# Load AllProgRegInfo sheets filtered to current and prior two season years
+_prog_reg = pd.ExcelFile(prog_reg_file_path, engine='openpyxl')
+_season_years = [current_season_year, current_season_year - 1, current_season_year - 2]
+
+def _load_prog_reg_sheet(sheet_name):
+    sheet_df = _prog_reg.parse(sheet_name)
+    return sheet_df[sheet_df['SEAS_YEAR'].isin(_season_years)].reset_index(drop=True)
+
+defensive_stats_df = _load_prog_reg_sheet('Defensive Stats')
+kicking_stats_df = _load_prog_reg_sheet('Kicking Stats')
+oline_stats_df = _load_prog_reg_sheet('OLine Stats')
+offensive_stats_df = _load_prog_reg_sheet('Offensive Stats')
+
+# Filter each stats sheet to its known positions before combining
+_offensive_positions  = ['QB', 'RB', 'HB', 'FB', 'WR', 'TE']
+_defensive_positions  = ['LE', 'RE', 'DT', 'LOLB', 'MLB', 'ROLB', 'CB', 'FS', 'SS']
+_kicking_positions    = ['K', 'P']
+_oline_positions      = ['LT', 'LG', 'C', 'RG', 'RT']
+
+offensive_stats_df  = offensive_stats_df[offensive_stats_df['Position'].isin(_offensive_positions)]
+defensive_stats_df  = defensive_stats_df[defensive_stats_df['Position'].isin(_defensive_positions)]
+kicking_stats_df    = kicking_stats_df[kicking_stats_df['Position'].isin(_kicking_positions)]
+oline_stats_df      = oline_stats_df[oline_stats_df['Position'].isin(_oline_positions)]
+
+# Combine all stats sheets and pivot DOWNSPLAYED per season year onto player df
+_all_stats_df = pd.concat([offensive_stats_df, defensive_stats_df, kicking_stats_df, oline_stats_df], ignore_index=True)
+_downs_pivot = _all_stats_df.pivot_table(
+    index=['FirstName', 'LastName', 'Position'],
+    columns='SEAS_YEAR',
+    values='DOWNSPLAYED',
+    aggfunc='first'
+).reset_index()
+_downs_pivot.columns.name = None
+_downs_pivot.rename(columns={yr: f'DOWNSPLAYED_Y{yr}' for yr in _season_years if yr in _downs_pivot.columns}, inplace=True)
+df = df.merge(_downs_pivot, on=['FirstName', 'LastName', 'Position'], how='left')
 
 # Parse Salary Table
 def parse_salary_table(salary_df):
@@ -179,7 +221,7 @@ def fix_contract_salaries(row):
     if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         row['ContractLength'] = 1
         row['ContractSalary0'] = 96
-        row['ContractBonus0'] = 0
+        row['ContractBonus0'] = 4
         row['ContractSalary1'] = 0
         row['ContractSalary2'] = 0
         row['ContractSalary3'] = 0
@@ -194,7 +236,7 @@ def fix_contract_salaries(row):
     if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         row['ContractLength'] = 1
         row['ContractSalary0'] = 103
-        row['ContractBonus0'] = 0
+        row['ContractBonus0'] = 5
         row['ContractSalary1'] = 0
         row['ContractSalary2'] = 0
         row['ContractSalary3'] = 0
@@ -303,15 +345,55 @@ def fix_contract_salaries(row):
 
     return row
 
+# Rookie Contract Escalators
+def apply_rookie_escalator(row):
+    if not (row['ContractStatus'] == 'Signed' and
+            row['YearsPro'] == 3 and
+            2 <= row['PLYR_DRAFTROUND'] <= 7):
+        return row
+
+    cy = current_season_year
+
+    def get_downs(yr):
+        val = row.get(f'DOWNSPLAYED_Y{yr}', 0)
+        return 0 if pd.isna(val) else val
+
+    pcts = [get_downs(cy) / 1100, get_downs(cy - 1) / 1100, get_downs(cy - 2) / 1100]
+
+    # Level 3: Pro Bowl appearance
+    level3 = (row.get('ProBowlAppearences', 0) or 0) >= 1
+
+    # Level 2: all 3 seasons >= 55%
+    level2 = all(p >= 0.55 for p in pcts)
+
+    # Level 1: 2nd round needs 60%, rounds 3-7 need 35%
+    threshold = 0.60 if row['PLYR_DRAFTROUND'] == 2 else 0.35
+    level1 = sum(1 for p in pcts if p >= threshold) >= 2 or (sum(pcts) / 3) >= threshold
+
+    if level3:
+        row['ContractSalary3'] = SECOND_RND_RFA_TENDER
+        row['EscalatorLevel'] = 'Level3'
+    elif level2:
+        row['ContractSalary3'] = RFA_TENDER + 25
+        row['EscalatorLevel'] = 'Level2'
+    elif level1:
+        row['ContractSalary3'] = RFA_TENDER
+        row['EscalatorLevel'] = 'Level1'
+
+    return row
+
 #Assign expected salary info
 result_df = df.apply(assign_salaryinfo, axis=1)
 
 # Adjust contracts based on that info
 result_df = result_df.apply(fix_contract_salaries, axis=1)
 
+# Apply rookie escalators
+result_df = result_df.apply(apply_rookie_escalator, axis=1)
+
 # List of newly created columns
 created_cols = [
-    'SalaryCheck', 'StatusCheck',
+    'SalaryCheck', 'StatusCheck', 'EscalatorLevel',
     'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength',
     'CurrentAAV', 'CurrentBonus', 'AdjustedOverall'
 ]
@@ -326,5 +408,5 @@ remaining_cols = [col for col in original_cols if col not in created_cols]
 result_df = result_df[created_cols + remaining_cols]
 
 # Export
-output_filename = 'Files/Madden26/IE/Season1/Player_ExpectedSalary.xlsx'
+output_filename = 'Files/Madden26/IE/Season2/Player_ExpectedSalary.xlsx'
 result_df.to_excel(output_filename, index=False)
