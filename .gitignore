@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# pyenv root directory (literal directory name from pyenv-virtualenv)
+$(pyenv root)/
+
+# Scratch / dev files
+main.py
+test.py
