@@ -3,9 +3,17 @@ import pandas as pd
 import random
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+file_path = 'Files/Madden26/IE/Season2/Player.xlsx'
+coach_file_path = 'Files/Madden26/IE/Season2/CoachInfo.xlsx'
 
 df = pd.read_excel(file_path)
+coach_df = pd.read_excel(coach_file_path)
+
+# Team Index Dictionary
+team_dict = {0: 'CHI', 1: 'CIN', 2: 'BUF', 3: 'DEN', 4: 'CLE', 5: 'TB', 6: 'ARI', 7: 'LAC', 8: 'KC', 9: 'IND',
+             10: 'DAL', 11: 'MIA', 12: 'PHI', 13: 'ATL', 14: 'SF', 15: 'NYG', 16: 'JAX', 17: 'NYJ', 18: 'DET',
+             19: 'GB', 20: 'CAR', 21: 'NE', 22: 'LV', 23: 'LAR', 24: 'BAL', 25: 'WAS', 26: 'NO', 27: 'SEA',
+             28: 'PIT', 29: 'TEN', 30: 'MIN', 31: 'HOU', 32: 'FA'}
 
 def get_confidence_modifier(confidence_rating):
     if confidence_rating <= 30:
@@ -53,6 +61,8 @@ def adjust_durations(row, probability_weights):
 def adjust_with_confidence(row, base_weights, conf_mod):
     weights = apply_confidence_to_weights(base_weights, conf_mod)
     return adjust_durations(row, weights)
+
+team_def_tier = coach_df.set_index('TeamIndex')['DEF Tier'].to_dict()
 
 # Function to update injuries
 def update_injuries(row):
@@ -114,11 +124,35 @@ def update_injuries(row):
 
     return row
 
+def update_def_tier_simstat(row):
+
+    if row['ContractStatus'] in ['Signed', 'PracticeSquad'] and row['Position'] in ['LE', 'RE', 'DT', 'LOLB', 'MLB', 'ROLB', 'CB', 'FS', 'SS']:
+
+        team_index = row['TeamIndex']
+
+        if team_index in team_def_tier:
+
+            tier = int(team_def_tier[team_index])
+
+            tier_to_rating = {
+                1: 90,
+                2: 70,
+                3: 50,
+                4: 30,
+                5: 10
+            }
+
+            if tier in tier_to_rating:
+                row['ThrowAccuracyMidRating'] = tier_to_rating[tier]
+
+    return row
+
 # Track the original DataFrame before applying updates
 original_df = df.copy()
 
 # Apply the update_injuries function to the DataFrame
 df = df.apply(update_injuries, axis=1)
+df = df.apply(update_def_tier_simstat, axis=1)
 
 # Identify columns with no changes
 columns_to_remove = [
@@ -129,7 +163,7 @@ columns_to_remove = [
 df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to Excel
-output_filename = 'Files/Madden26/IE/Season1/Player_InjuryChanges.xlsx'
+output_filename = 'Files/Madden26/IE/Season2/Player_InjuryChanges.xlsx'
 df.to_excel(output_filename, index=False)
 
 print(df.dtypes)
