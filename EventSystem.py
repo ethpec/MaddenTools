@@ -2,12 +2,12 @@ import pandas as pd
 import random
 
 # Your File Paths
-player_file_path = 'Files/Madden26/IE/Season1/Player_ExpectedSalary.xlsx' ### Replaced Player sheet, Run ContractFixer first ###
-position_report_file_path = 'Files/Madden26/IE/Season1/Position_Report.xlsx'
-output_file_path = 'Files/Madden26/IE/Season1/EventSystem_Results.xlsx'
+player_file_path = 'Files/Madden26/IE/Season2/Player_ExpectedSalary.xlsx' ### Replaced Player sheet, Run ContractFixer first ###
+position_report_file_path = 'Files/Madden26/IE/Season2/Position_Report.xlsx'
+output_file_path = 'Files/Madden26/IE/Season2/EventSystem_Results.xlsx'
 
 # Set the season phase
-season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -194,13 +194,13 @@ merged_df['TradeWR'] = merged_df.apply(traderequest_wr, axis=1)
 # Function to determine trade request based on conditions
 def traderequest_playingtime(row):
     multiplier = 0.0
-    if row['Position'] in ['TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['Rank'] >= 3:
+    if row['Position'] in ['TE', 'C', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['Rank'] >= 3:
         multiplier = 2.0
-    elif row['Position'] in ['TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['Rank'] == 2:
+    elif row['Position'] in ['TE', 'C', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['Rank'] == 2:
         multiplier = 1.0
-    elif row['Position'] in ['RB', 'HB'] and row['Rank'] >= 4:
+    elif row['Position'] in ['RB', 'HB', 'LT', 'LG', 'RG', 'RT'] and row['Rank'] >= 4:
         multiplier = 2.0
-    elif row['Position'] in ['RB', 'HB'] and row['Rank'] == 3:
+    elif row['Position'] in ['RB', 'HB', 'LT', 'LG', 'RG', 'RT'] and row['Rank'] == 3:
         multiplier = 1.0
     elif row['Position'] in ['WR', 'CB', 'DT', 'LE', 'RE'] and row['Rank'] >= 5:
         multiplier = 2.0
@@ -251,8 +251,8 @@ def tradecut_youngplayer(row):
         return 'No'
 
     # Define position groups
-    position_group_one = ['QB','TE', 'LT', 'LG', 'C', 'RG', 'RT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS']
-    position_group_two = ['RB', 'HB', 'DT']
+    position_group_one = ['QB','TE', 'C', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS']
+    position_group_two = ['RB', 'HB', 'LT', 'LG', 'RG', 'RT', 'DT']
     position_group_three = ['WR', 'CB']
     position_group_four = ['LE', 'RE']
 
@@ -364,21 +364,48 @@ def injury_offseason(row):
 merged_df['OffseasonInjury'] = merged_df.apply(injury_offseason, axis=1)
 
 # Function to determine Retirement based on conditions
-def vet_earlyretirement(row):
+def playerretirement(row):
 
     if season_phase == "Offseason":
-        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
-            return 'Yes' if random.random() <= 0.005 else 'No'
-        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 26 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
-            return 'Yes' if random.random() <= 0.005 else 'No'
+        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 29 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+            retire_chance = 0.005
+            if row['Age'] >= 30:
+                retire_chance += 0.01
+            if row['Age'] >= 31:
+                retire_chance += 0.02
+            if row['Age'] >= 32:
+                retire_chance += 0.03
+            if row['Age'] >= 33:
+                retire_chance += 0.035
+            return 'Yes' if random.random() <= retire_chance else 'No'
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 25 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+            retire_chance = 0.005
+            if row['Age'] >= 26:
+                retire_chance += 0.01
+            if row['Age'] >= 27:
+                retire_chance += 0.02
+            if row['Age'] >= 28:
+                retire_chance += 0.03
+            if row['Age'] >= 29:
+                retire_chance += 0.035
+            return 'Yes' if random.random() <= retire_chance else 'No'
         if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 27 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
-            return 'Yes' if random.random() <= 0.005 else 'No'
+            retire_chance = 0.005
+            if row['Age'] >= 28:
+                retire_chance += 0.01
+            if row['Age'] >= 29:
+                retire_chance += 0.02
+            if row['Age'] >= 30:
+                retire_chance += 0.03
+            if row['Age'] >= 31:
+                retire_chance += 0.035
+            return 'Yes' if random.random() <= retire_chance else 'No'
         else:
             return 'No'
     elif season_phase == "Preseason":
-        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 28 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 29 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.001 else 'No'
-        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 26 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] in ['RB', 'HB'] and row['Age'] >= 25 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.001 else 'No'
         if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 27 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.001 else 'No'
@@ -388,7 +415,7 @@ def vet_earlyretirement(row):
         return 'No'
     
 # Apply the function to create the Retire column
-merged_df['Retire'] = merged_df.apply(vet_earlyretirement, axis=1)
+merged_df['Retire'] = merged_df.apply(playerretirement, axis=1)
 
 # Save the merged dataframe to a new Excel file
 merged_df.to_excel(output_file_path, index=False)
