@@ -2,7 +2,11 @@
 import pandas as pd
 import math
 import numpy as np
+import os
 from utils.salary_utils import parse_salary_table
+
+# Wave Configuration (1, 2, or 3)
+WAVE = 1
 
 # File Paths
 all_contracts_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/ContractOffer[].xlsx'
@@ -18,7 +22,7 @@ position_needs_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/PositionN
 all_players_df = pd.read_excel(player_file_path)
 salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
 position_needs_df = pd.read_excel(position_needs_file_path)
-team_df = pd.read_excel(team_info_file_path, usecols=['TeamIndex', 'NewHC', 'WinsLastSeason'])
+team_df = pd.read_excel(team_info_file_path, usecols=['TeamIndex', 'TeamName', 'NewHC', 'WinsLastSeason', 'CapSpace'])
 
 # Filter to only Free Agents eligible for contract offers
 fa_player_df = all_players_df[all_players_df['ContractStatus'] == 'FreeAgent'].copy()
@@ -106,6 +110,20 @@ def build_team_needs(roster_df, position_needs_df):
 
 team_needs_df = build_team_needs(roster_df, position_needs_df)
 
+# Adjust TargetOVR range per team based on available CapSpace
+def cap_ovr_adjustment(cap_space):
+    if cap_space >= 7500:   return 3
+    elif cap_space >= 5000: return 2
+    elif cap_space >= 2500: return 1
+    elif cap_space >= 0:    return 0
+    else:                   return -1
+
+cap_lookup = team_df.set_index('TeamIndex')['CapSpace'].to_dict()
+team_needs_df['OVRAdjustment'] = team_needs_df['TeamIndex'].map(cap_lookup).apply(cap_ovr_adjustment)
+team_needs_df['TargetOVRMin'] = team_needs_df['TargetOVRMin'] + team_needs_df['OVRAdjustment']
+team_needs_df['TargetOVRMax'] = team_needs_df['TargetOVRMax'] + team_needs_df['OVRAdjustment']
+team_needs_df.drop(columns=['OVRAdjustment'], inplace=True)
+
 # Build per-team PrevTeamIndex modifier lookup
 # Modifier applies to players whose PrevTeamIndex matches the team pursuing them
 def build_prev_team_modifier(team_df):
@@ -115,7 +133,7 @@ def build_prev_team_modifier(team_df):
         new_hc = str(row['NewHC']).strip().upper()
         wins = row['WinsLastSeason']
         if new_hc == 'NO' and wins > 9:
-            modifiers[team_index] = 1.5
+            modifiers[team_index] = 2.0
         elif new_hc == 'YES':
             modifiers[team_index] = 0.5
     return modifiers
@@ -146,7 +164,7 @@ def match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers):
 
             # Apply adjusted overall modifier based on diff from base OverallRating
             ovr_diff = adjusted_overall - player['OverallRating']
-            ovr_modifiers = {-1: 0.9, 1: 1.1, 2: 1.2, 3: 1.3}
+            ovr_modifiers = {-1: 0.75, 1: 1.25, 2: 1.35, 3: 1.5}
             weight *= ovr_modifiers.get(ovr_diff, 1.0)
 
             weight = round(weight, 4)
@@ -172,16 +190,55 @@ def match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers):
 
 fa_matches_df = match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers)
 
-# Select one FA per team need using weighted random selection
-# Tracks already-selected players per team to prevent the same player being selected for multiple needs
-# SelectionWeight defaults to 10 for all — modifiers will adjust this per team/player later
-def select_fa_per_need(fa_matches_df):
+# For Wave 2+, restore previously rolled values (AdjustedOverall, salary, weight) for
+# existing team/need/player combinations so evaluations don't change between waves.
+if WAVE > 1:
+    rolled_cols = ['AdjustedOverall', 'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength', 'SelectionWeight']
+    match_keys = ['TeamIndex', 'NeedLabel', 'FirstName', 'LastName']
+    try:
+        prev_matches_df = pd.read_excel(
+            'Files/Madden26/IE/Season2/FreeAgency/Output/FreeAgency.xlsx',
+            sheet_name='FAMatches',
+            usecols=match_keys + rolled_cols
+        )
+        fa_matches_df = fa_matches_df.merge(
+            prev_matches_df, on=match_keys, how='left', suffixes=('', '_prev')
+        )
+        for col in rolled_cols:
+            prev_col = col + '_prev'
+            if prev_col in fa_matches_df.columns:
+                fa_matches_df[col] = fa_matches_df[prev_col].combine_first(fa_matches_df[col])
+                fa_matches_df.drop(columns=[prev_col], inplace=True)
+    except Exception:
+        pass  # Fall back to freshly rolled values if sheet is missing
+
+# Load previous wave selections if running Wave 2 or 3
+# Keys are (TeamIndex, NeedLabel) -> (FirstName, LastName)
+def load_previous_selections(output_filename):
+    if not os.path.exists(output_filename):
+        return {}
+    try:
+        prev_df = pd.read_excel(output_filename, sheet_name='FASelections')
+        return {
+            (row['TeamIndex'], row['NeedLabel']): (row['FirstName'], row['LastName'])
+            for _, row in prev_df.iterrows()
+        }
+    except Exception:
+        return {}
+
+# Select one FA per team need using weighted random selection.
+# For Wave 2+, prefers previously selected players if still available as FAs,
+# otherwise falls back to weighted random selection from remaining candidates.
+# Tracks already-selected players per team to prevent the same player being selected for multiple needs.
+# No cap/offer limits applied here — all needs are filled regardless of cap space.
+def select_fa_per_need(fa_matches_df, previous_selections=None):
     records = []
 
     for _, team_group in fa_matches_df.groupby('TeamIndex'):
+        team_index = team_group.iloc[0]['TeamIndex']
         selected_players = set()
 
-        for _, group in team_group.groupby('NeedLabel'):
+        for need_label, group in team_group.groupby('NeedLabel'):
             available = group[~group.apply(
                 lambda r: (r['FirstName'], r['LastName']) in selected_players, axis=1
             )]
@@ -189,9 +246,23 @@ def select_fa_per_need(fa_matches_df):
             if available.empty:
                 continue
 
-            weights = available.get('SelectionWeight', pd.Series([10] * len(available), index=available.index))
-            total = weights.sum()
-            probabilities = (weights / total).values
+            # Wave 2+: keep previous selection if that player is still an available FA
+            if previous_selections:
+                prev_name = previous_selections.get((team_index, need_label))
+                if prev_name:
+                    prev_match = available[
+                        (available['FirstName'] == prev_name[0]) &
+                        (available['LastName'] == prev_name[1])
+                    ]
+                    if not prev_match.empty:
+                        selected = prev_match.iloc[0]
+                        selected_players.add((selected['FirstName'], selected['LastName']))
+                        records.append(selected.to_dict())
+                        continue
+
+            # Default: weighted random selection
+            weights = available['SelectionWeight'] if 'SelectionWeight' in available.columns else pd.Series([10] * len(available), index=available.index)
+            probabilities = (weights / weights.sum()).values
 
             selected = available.sample(n=1, weights=probabilities).iloc[0]
             selected_players.add((selected['FirstName'], selected['LastName']))
@@ -199,7 +270,128 @@ def select_fa_per_need(fa_matches_df):
 
     return pd.DataFrame(records)
 
-fa_selections_df = select_fa_per_need(fa_matches_df)
+# From FASelections, build FAOffers by weighted-randomly drawing needs per team
+# until the cap floor is hit or 10 offers are made.
+# Each need's weight is based on the selected player's OVR and wave multipliers.
+def build_fa_offers(fa_selections_df, team_df, wave, cap_floor_lookup):
+    records = []
+
+    cap_lookup = team_df.set_index('TeamIndex')['CapSpace'].to_dict()
+
+    def wave_weight(ovr, wave):
+        if wave == 1:
+            if ovr >= 90:   return 3.0
+            elif ovr >= 85: return 2.5
+            elif ovr >= 80: return 2.0
+            elif ovr >= 75: return 1.5
+            elif ovr >= 70: return 1.0
+            else:           return 0.5
+        elif wave == 2:
+            if ovr >= 90:   return 3.0
+            elif ovr >= 80: return 2.0
+            elif ovr >= 70: return 1.5
+            else:           return 1.0
+        else:  # wave 3
+            if ovr >= 90:   return 2.0
+            else:           return 1.0
+
+    for team_index, team_group in fa_selections_df.groupby('TeamIndex'):
+        remaining_cap = cap_lookup.get(team_index, 0)
+        cap_floor = cap_floor_lookup.get(team_index, 0)
+        offers = 0
+
+        pool = team_group.copy()
+        pool['OfferWeight'] = pool['OverallRating'].apply(lambda ovr: wave_weight(ovr, wave))
+
+        ovr_penalty = {2: 1, 3: 2}.get(wave, 0)
+
+        while offers < 10 and remaining_cap > cap_floor and not pool.empty:
+            weights = pool['OfferWeight']
+            probabilities = (weights / weights.sum()).values
+
+            idx = np.random.choice(pool.index, p=probabilities)
+            selected = pool.loc[idx].to_dict()
+
+            if ovr_penalty > 0:
+                position = str(selected['Position']).strip().upper()
+                adjusted_overall = max(selected['AdjustedOverall'] - ovr_penalty, 0)
+                aav, bonus, length = salary_interpolation(position, adjusted_overall, salary_lookup)
+                selected['AdjustedOverall'] = adjusted_overall
+                selected['ExpectedAAV'] = aav
+                selected['ExpectedBonus'] = bonus
+                selected['ExpectedContractLength'] = length
+
+            records.append(selected)
+            remaining_cap -= selected['ExpectedAAV']
+            offers += 1
+            pool = pool.drop(idx)
+
+    return pd.DataFrame(records)
+
+# Apply wave-specific SelectionWeight modifiers before selection
+# Returns a modified copy — base weights in fa_matches_df remain unchanged
+def apply_wave_modifiers(fa_matches_df, wave):
+    df = fa_matches_df.copy()
+
+    if wave == 1:
+        def ovr_multiplier(ovr):
+            if ovr >= 90:   return 3.0
+            elif ovr >= 85: return 2.5
+            elif ovr >= 80: return 2.0
+            elif ovr >= 75: return 1.5
+            elif ovr >= 70: return 1.0
+            else:           return 0.5
+
+        df['SelectionWeight'] = df.apply(
+            lambda r: round(r['SelectionWeight'] * ovr_multiplier(r['OverallRating']), 4), axis=1
+        )
+
+    elif wave == 3:
+        def ovr_multiplier(ovr):
+            if ovr >= 90: return 2.0
+            else:         return 1.0
+
+        df['SelectionWeight'] = df.apply(
+            lambda r: round(r['SelectionWeight'] * ovr_multiplier(r['OverallRating']), 4), axis=1
+        )
+
+    elif wave == 2:
+        def ovr_multiplier(ovr):
+            if ovr >= 90:   return 3.0
+            elif ovr >= 80: return 2.0
+            elif ovr >= 70: return 1.5
+            else:           return 1.0
+
+        df['SelectionWeight'] = df.apply(
+            lambda r: round(r['SelectionWeight'] * ovr_multiplier(r['OverallRating']), 4), axis=1
+        )
+
+    return df
+
+# Build TeamPhilosophy: roll cap floors once on Wave 1, persist for Wave 2+
+output_filename = 'Files/Madden26/IE/Season2/FreeAgency/Output/FreeAgency.xlsx'
+
+if WAVE > 1 and os.path.exists(output_filename):
+    try:
+        team_philosophy_df = pd.read_excel(output_filename, sheet_name='TeamPhilosophy')
+    except Exception:
+        team_philosophy_df = None
+else:
+    team_philosophy_df = None
+
+if team_philosophy_df is None:
+    team_philosophy_df = team_df[['TeamIndex', 'TeamName', 'CapSpace']].copy()
+    team_philosophy_df['CapFloor'] = [
+        np.random.choice(range(0, -2400, -100)) for _ in range(len(team_philosophy_df))
+    ]
+
+cap_floor_lookup = team_philosophy_df.set_index('TeamIndex')['CapFloor'].to_dict()
+
+previous_selections = load_previous_selections(output_filename) if WAVE > 1 else {}
+
+fa_selections_df = select_fa_per_need(apply_wave_modifiers(fa_matches_df, WAVE), previous_selections or None)
+
+fa_offers_df = build_fa_offers(fa_selections_df, team_df, WAVE, cap_floor_lookup)
 
 # Put created columns at the front
 created_cols = ['ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength', 'AdjustedOverall', 'SalaryCheck']
@@ -207,9 +399,10 @@ remaining_cols = [c for c in fa_player_df.columns if c not in created_cols]
 fa_player_df = fa_player_df[created_cols + remaining_cols]
 
 # Export all outputs to a single workbook on separate sheets
-output_filename = 'Files/Madden26/IE/Season2/FreeAgency/Output/FreeAgency.xlsx'
 with pd.ExcelWriter(output_filename, engine='openpyxl') as writer:
     fa_player_df.to_excel(writer, sheet_name='ContractOffers', index=False)
     team_needs_df.to_excel(writer, sheet_name='TeamNeeds', index=False)
+    team_philosophy_df.to_excel(writer, sheet_name='TeamPhilosophy', index=False)
     fa_matches_df.to_excel(writer, sheet_name='FAMatches', index=False)
     fa_selections_df.to_excel(writer, sheet_name='FASelections', index=False)
+    fa_offers_df.to_excel(writer, sheet_name='FAOffers', index=False)
