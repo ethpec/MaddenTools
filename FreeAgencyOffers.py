@@ -5,8 +5,14 @@ import numpy as np
 import os
 from utils.salary_utils import parse_salary_table
 
-# Wave Configuration (1, 2, or 3)
+# FA Wave Configuration (1, 2, or 3)
 WAVE = 1
+
+CONTRACTOFFERTABLE = 4233 #4212
+PLAYERCONTRACTTABLE = 4285 #4261
+INTTABLE = 5543 #5454
+TEAMTABLE = 5917 #5797
+PLAYERTABLE = 4222 #4204
 
 # File Paths
 all_contracts_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/ContractOffer[].xlsx'
@@ -20,9 +26,10 @@ position_needs_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/PositionN
 
 # Load DataFrames
 all_players_df = pd.read_excel(player_file_path)
+all_players_df['RowNum'] = all_players_df.index
 salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
 position_needs_df = pd.read_excel(position_needs_file_path)
-team_df = pd.read_excel(team_info_file_path, usecols=['TeamIndex', 'TeamName', 'NewHC', 'WinsLastSeason', 'CapSpace'])
+team_df = pd.read_excel(team_info_file_path, usecols=['TeamIndex', 'TeamName', 'MFERow', 'NewHC', 'WinsLastSeason', 'CapSpace'])
 
 # Filter to only Free Agents eligible for contract offers
 fa_player_df = all_players_df[all_players_df['ContractStatus'] == 'FreeAgent'].copy()
@@ -124,8 +131,7 @@ team_needs_df['TargetOVRMin'] = team_needs_df['TargetOVRMin'] + team_needs_df['O
 team_needs_df['TargetOVRMax'] = team_needs_df['TargetOVRMax'] + team_needs_df['OVRAdjustment']
 team_needs_df.drop(columns=['OVRAdjustment'], inplace=True)
 
-# Build per-team PrevTeamIndex modifier lookup
-# Modifier applies to players whose PrevTeamIndex matches the team pursuing them
+# Build per-team PrevTeamIndex modifier lookup (former players more or less likely to return)
 def build_prev_team_modifier(team_df):
     modifiers = {}
     for _, row in team_df.iterrows():
@@ -184,13 +190,14 @@ def match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers):
                 'ExpectedBonus': bonus,
                 'ExpectedContractLength': length,
                 'SelectionWeight': weight,
+                'RowNum': player['RowNum'],
             })
 
     return pd.DataFrame(records)
 
 fa_matches_df = match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers)
 
-# For Wave 2+, restore previously rolled values (AdjustedOverall, salary, weight) for
+# For Wave 2&3, restore previously rolled values (AdjustedOverall, salary, weight) for
 # existing team/need/player combinations so evaluations don't change between waves.
 if WAVE > 1:
     rolled_cols = ['AdjustedOverall', 'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength', 'SelectionWeight']
@@ -227,7 +234,7 @@ def load_previous_selections(output_filename):
         return {}
 
 # Select one FA per team need using weighted random selection.
-# For Wave 2+, prefers previously selected players if still available as FAs,
+# For Wave 2&3, prefers previously selected players if still available as FAs,
 # otherwise falls back to weighted random selection from remaining candidates.
 # Tracks already-selected players per team to prevent the same player being selected for multiple needs.
 # No cap/offer limits applied here — all needs are filled regardless of cap space.
@@ -246,7 +253,7 @@ def select_fa_per_need(fa_matches_df, previous_selections=None):
             if available.empty:
                 continue
 
-            # Wave 2+: keep previous selection if that player is still an available FA
+            # Wave 2&3: keep previous selection if that player is still an available FA
             if previous_selections:
                 prev_name = previous_selections.get((team_index, need_label))
                 if prev_name:
@@ -382,7 +389,7 @@ else:
 if team_philosophy_df is None:
     team_philosophy_df = team_df[['TeamIndex', 'TeamName', 'CapSpace']].copy()
     team_philosophy_df['CapFloor'] = [
-        np.random.choice(range(0, -2400, -100)) for _ in range(len(team_philosophy_df))
+        np.random.choice(range(-100, -2100, -100)) for _ in range(len(team_philosophy_df))
     ]
 
 cap_floor_lookup = team_philosophy_df.set_index('TeamIndex')['CapFloor'].to_dict()
@@ -392,15 +399,106 @@ previous_selections = load_previous_selections(output_filename) if WAVE > 1 else
 fa_selections_df = select_fa_per_need(apply_wave_modifiers(fa_matches_df, WAVE), previous_selections or None)
 
 fa_offers_df = build_fa_offers(fa_selections_df, team_df, WAVE, cap_floor_lookup)
+fa_offers_df['ReferenceRow'] = range(len(fa_offers_df))
 
 # Put created columns at the front
 created_cols = ['ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength', 'AdjustedOverall', 'SalaryCheck']
 remaining_cols = [c for c in fa_player_df.columns if c not in created_cols]
 fa_player_df = fa_player_df[created_cols + remaining_cols]
 
+# Build ContractOffer[] output
+contract_offer_table_binary = format(2 * CONTRACTOFFERTABLE, '016b')
+contract_offer_array_df = pd.read_excel(all_contracts_file_path, dtype=str)
+
+# Find the first slot that is all zeros (32 zeros or just '0')
+first_empty_slot = None
+for col in contract_offer_array_df.columns:
+    val = str(contract_offer_array_df.at[0, col]).strip().replace('nan', '0')
+    if val == '0' or val == '0' * 32:
+        first_empty_slot = int(col.replace('ContractOffer', ''))
+        break
+
+if first_empty_slot is not None:
+    for _, row in fa_offers_df.iterrows():
+        ref = int(row['ReferenceRow'])
+        slot = first_empty_slot + ref
+        col = f'ContractOffer{slot}'
+        if col in contract_offer_array_df.columns:
+            contract_offer_array_df.at[0, col] = contract_offer_table_binary + format(slot, '016b')
+
+contract_offer_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/ContractOffer[].xlsx'
+with pd.ExcelWriter(contract_offer_output_path, engine='openpyxl') as writer:
+    contract_offer_array_df.to_excel(writer, index=False)
+
+# Build ContractOffer output
+contract_offer_df = pd.read_excel(contract_offer_file_path, dtype=str)
+
+# Step 1: set IsSigned to FALSE where Contract has no reference
+contract_offer_df['IsSigned'] = contract_offer_df.apply(
+    lambda r: 'FALSE' if (str(r['Contract']).strip() == '0' or str(r['Contract']).strip() == '0' * 32) else r['IsSigned'],
+    axis=1
+)
+
+# Step 2: find first empty Contract row, then write player contract references from FAOffers
+player_contract_table_binary = format(2 * PLAYERCONTRACTTABLE, '016b')
+first_empty_contract_row = None
+for idx in contract_offer_df.index:
+    val = str(contract_offer_df.at[idx, 'Contract']).strip()
+    if val == '0' or val == '0' * 32:
+        first_empty_contract_row = idx
+        break
+
+player_table_binary = format(2 * PLAYERTABLE, '016b')
+team_table_binary = format(2 * TEAMTABLE, '016b')
+mfe_row_lookup = team_df.set_index('TeamIndex')['MFERow'].to_dict()
+
+int_table_binary = format(2 * INTTABLE, '016b')
+player_contract_df = pd.read_excel(player_contract_file_path, dtype=str)
+int_df = pd.read_excel(contract_salary_file_path, dtype=str)
+
+if first_empty_contract_row is not None:
+    for _, row in fa_offers_df.iterrows():
+        ref = int(row['ReferenceRow'])
+        slot = first_empty_contract_row + ref
+        length = int(row['ExpectedContractLength'])
+        aav = str(int(row['ExpectedAAV']))
+        bonus = str(int(row['ExpectedBonus']))
+        salary_row = slot * 2
+        bonus_row = (slot * 2) + 1
+
+        if slot in contract_offer_df.index:
+            contract_offer_df.at[slot, 'Contract'] = player_contract_table_binary + format(slot, '016b')
+            contract_offer_df.at[slot, 'Player'] = player_table_binary + format(int(row['RowNum']), '016b')
+            mfe_row = int(mfe_row_lookup.get(row['TeamIndex'], 0))
+            contract_offer_df.at[slot, 'Team'] = team_table_binary + format(mfe_row, '016b')
+
+        if slot in player_contract_df.index:
+            player_contract_df.at[slot, 'SalaryTable'] = int_table_binary + format(salary_row, '016b')
+            player_contract_df.at[slot, 'BonusTable'] = int_table_binary + format(bonus_row, '016b')
+            player_contract_df.at[slot, 'Length'] = str(length)
+
+        for yr in range(7):
+            col = f'int{yr}'
+            value = aav if yr < length else '0'
+            bonus_value = bonus if yr < length else '0'
+            if salary_row in int_df.index and col in int_df.columns:
+                int_df.at[salary_row, col] = value
+            if bonus_row in int_df.index and col in int_df.columns:
+                int_df.at[bonus_row, col] = bonus_value
+
+contract_offer_detail_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/ContractOffer.xlsx'
+player_contract_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/PlayerContract.xlsx'
+int_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/int[].xlsx'
+with pd.ExcelWriter(contract_offer_detail_output_path, engine='openpyxl') as writer:
+    contract_offer_df[['Team', 'Player', 'Contract', 'IsSigned']].to_excel(writer, index=False)
+with pd.ExcelWriter(player_contract_output_path, engine='openpyxl') as writer:
+    player_contract_df[['SalaryTable', 'BonusTable', 'Length']].to_excel(writer, index=False)
+with pd.ExcelWriter(int_output_path, engine='openpyxl') as writer:
+    int_df.to_excel(writer, index=False)
+
 # Export all outputs to a single workbook on separate sheets
 with pd.ExcelWriter(output_filename, engine='openpyxl') as writer:
-    fa_player_df.to_excel(writer, sheet_name='ContractOffers', index=False)
+    fa_player_df.to_excel(writer, sheet_name='FreeAgents', index=False)
     team_needs_df.to_excel(writer, sheet_name='TeamNeeds', index=False)
     team_philosophy_df.to_excel(writer, sheet_name='TeamPhilosophy', index=False)
     fa_matches_df.to_excel(writer, sheet_name='FAMatches', index=False)
