@@ -8,6 +8,12 @@ from utils.salary_utils import parse_salary_table
 # FA Wave Configuration (1, 2, or 3)
 WAVE = 1
 
+# User-controlled team — excluded from all CPU FA logic
+USER_TEAM_INDEX = 26
+
+# Non-real teams excluded from all FA logic
+EXCLUDED_TEAM_INDICES = [32]
+
 CONTRACTOFFERTABLE = 4233 #4212
 PLAYERCONTRACTTABLE = 4285 #4261
 INTTABLE = 5543 #5454
@@ -85,37 +91,38 @@ fa_player_df = fa_player_df.apply(assign_salaryinfo, axis=1)
 # then match against PositionNeeds config to determine target OVR range per need
 def build_team_needs(roster_df, position_needs_df):
     records = []
+    team_indices = roster_df['TeamIndex'].unique()
 
-    for (team_index, position), group in roster_df.groupby(['TeamIndex', 'Position']):
-        ranked = group.sort_values('OverallRating', ascending=False).reset_index(drop=True)
-        ranked['PositionRank'] = ranked.index + 1
+    for team_index in team_indices:
+        team_roster = roster_df[roster_df['TeamIndex'] == team_index]
 
-        needs_for_pos = position_needs_df[position_needs_df['Position'] == position]
+        for position, needs_for_pos in position_needs_df.groupby('Position'):
+            pos_players = team_roster[team_roster['Position'] == position]
+            ranked = pos_players.sort_values('OverallRating', ascending=False).reset_index(drop=True)
 
-        for _, need_row in needs_for_pos.iterrows():
-            rank = need_row['Rank']
-            roster_ovr_min = need_row['Roster OVR Min']
-            roster_ovr_max = need_row['Roster OVR Max']
+            for _, need_row in needs_for_pos.iterrows():
+                rank = need_row['Rank']
+                roster_ovr_min = need_row['Roster OVR Min']
+                roster_ovr_max = need_row['Roster OVR Max']
 
-            # Get the player at this rank, or 0 if roster is short
-            if rank <= len(ranked):
-                slot_ovr = ranked.iloc[rank - 1]['OverallRating']
-            else:
-                slot_ovr = 0
+                slot_ovr = ranked.iloc[rank - 1]['OverallRating'] if rank <= len(ranked) else 0
 
-            if roster_ovr_min <= slot_ovr <= roster_ovr_max:
-                records.append({
-                    'TeamIndex': team_index,
-                    'Position': position,
-                    'NeedLabel': need_row['Need Label'],
-                    'SlotOVR': slot_ovr,
-                    'TargetOVRMin': need_row['Target OVR Min'],
-                    'TargetOVRMax': need_row['Target OVR Max'],
-                })
+                if roster_ovr_min <= slot_ovr <= roster_ovr_max:
+                    records.append({
+                        'TeamIndex': team_index,
+                        'Position': position,
+                        'NeedLabel': need_row['Need Label'],
+                        'SlotOVR': slot_ovr,
+                        'TargetOVRMin': need_row['Target OVR Min'],
+                        'TargetOVRMax': need_row['Target OVR Max'],
+                        'DefaultWeight': need_row.get('DefaultWeight', 1) or 1,
+                    })
 
     return pd.DataFrame(records)
 
 team_needs_df = build_team_needs(roster_df, position_needs_df)
+excluded_indices = EXCLUDED_TEAM_INDICES + [USER_TEAM_INDEX]
+team_needs_df = team_needs_df[~team_needs_df['TeamIndex'].isin(excluded_indices)].reset_index(drop=True)
 
 # Adjust TargetOVR range per team based on available CapSpace
 def cap_ovr_adjustment(cap_space):
@@ -170,7 +177,7 @@ def match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers):
 
             # Apply adjusted overall modifier based on diff from base OverallRating
             ovr_diff = adjusted_overall - player['OverallRating']
-            ovr_modifiers = {-1: 0.75, 1: 1.25, 2: 1.35, 3: 1.5}
+            ovr_modifiers = {-1: 0.75, 0: 1.0, 1: 1.25, 2: 1.5, 3: 1.75}
             weight *= ovr_modifiers.get(ovr_diff, 1.0)
 
             weight = round(weight, 4)
@@ -190,6 +197,7 @@ def match_fa_to_needs(team_needs_df, fa_player_df, prev_team_modifiers):
                 'ExpectedBonus': bonus,
                 'ExpectedContractLength': length,
                 'SelectionWeight': weight,
+                'DefaultWeight': float(need.get('DefaultWeight', 1) or 1),
                 'RowNum': player['RowNum'],
             })
 
@@ -299,7 +307,7 @@ def build_fa_offers(fa_selections_df, team_df, wave, cap_floor_lookup):
             elif ovr >= 70: return 1.5
             else:           return 1.0
         else:  # wave 3
-            if ovr >= 90:   return 2.0
+            if ovr >= 80:   return 2.0
             else:           return 1.0
 
     for team_index, team_group in fa_selections_df.groupby('TeamIndex'):
@@ -308,7 +316,7 @@ def build_fa_offers(fa_selections_df, team_df, wave, cap_floor_lookup):
         offers = 0
 
         pool = team_group.copy()
-        pool['OfferWeight'] = pool['OverallRating'].apply(lambda ovr: wave_weight(ovr, wave))
+        pool['OfferWeight'] = pool.apply(lambda r: wave_weight(r['OverallRating'], wave) * float(r.get('DefaultWeight', 1) or 1), axis=1)
 
         ovr_penalty = {2: 1, 3: 2}.get(wave, 0)
 
@@ -461,7 +469,7 @@ if first_empty_contract_row is not None:
         ref = int(row['ReferenceRow'])
         slot = first_empty_contract_row + ref
         length = int(row['ExpectedContractLength'])
-        aav = str(int(row['ExpectedAAV']))
+        aav = str(int(row['ExpectedAAV']) - int(row['ExpectedBonus']))
         bonus = str(int(row['ExpectedBonus']))
         salary_row = slot * 2
         bonus_row = (slot * 2) + 1
