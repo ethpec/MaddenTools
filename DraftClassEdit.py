@@ -2,9 +2,10 @@
 import pandas as pd
 import random
 import numpy as np
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+file_path = season_path('Player.xlsx')
 
 df = pd.read_excel(file_path)
 
@@ -27,254 +28,99 @@ def update_traits(row):
         if row['Position'] not in ['X']:
 
             if random.random() < 0.10:
-                row['PT_UNDISCIPLINED'] = True
-            if not row['PT_UNDISCIPLINED'] and random.random() < 0.10:
-                row['PT_DISCIPLINED'] = True
-
-        # HB/WR/TE general traits
-        if row['Position'] in ['RB', 'HB', 'WR', 'TE', 'FB']:
-            if row['JukeMoveRating'] >= 90 and random.random() < 0.66:
-                row['PT_ELUSIVEINSTINCT'] = True
-            elif 80 <= row['JukeMoveRating'] <= 89 and random.random() < 0.33:
-                row['PT_ELUSIVEINSTINCT'] = True
-            elif row['JukeMoveRating'] <= 79 and random.random() < 0.1:
-                row['PT_ELUSIVEINSTINCT'] = True
-            if row['SpinMoveRating'] >= 90 and random.random() < 0.66:
-                row['PT_SPINCYCLE'] = True
-            elif 80 <= row['SpinMoveRating'] <= 89 and random.random() < 0.25:
-                row['PT_SPINCYCLE'] = True
-            elif row['SpinMoveRating'] <= 79 and random.random() < 0.05:
-                row['PT_SPINCYCLE'] = True
-            if row['TruckingRating'] >= 90 and random.random() < 0.66:
-                row['PT_RUNOVER'] = True
-            elif 80 <= row['TruckingRating'] <= 89 and random.random() < 0.33:
-                row['PT_RUNOVER'] = True
-            elif row['TruckingRating'] <= 79 and random.random() < 0.1:
-                row['PT_RUNOVER'] = True
-            if row['StiffArmRating'] >= 90 and random.random() < 0.66:
-                row['PT_STRONGARM'] = True
-            elif 80 <= row['StiffArmRating'] <= 89 and random.random() < 0.33:
-                row['PT_STRONGARM'] = True
-            elif row['StiffArmRating'] <= 79 and random.random() < 0.1:
-                row['PT_STRONGARM'] = True            
+                row['TRAIT_PENALTY'] = 'Undisciplined'
+            if 0.10 < random.random() < 0.20:
+                row['TRAIT_PENALTY'] = 'Disciplined'       
 
         # QB Edits
         if row['Position'] == 'QB':
 
-            # QB Generic Trait Chances   
-            qb_trait_chances = {
-                'PT_LOOKFORSTARS': 0.50,
-                'PT_EYESUP': 0.15,
-                'PT_TRIGGERHAPPY': 0.10,
-                'PT_QUICKCLOCK': 0.15,
-                'PT_QUICKTRIGGER': 0.15,
-                'PT_SEEINGGHOSTS': 0.10,
-                'PT_SETUPTIME': 0.10,
-                'PT_THROWAWAY': 0.25,
-                'PT_UNUSEDTRAIT1': 0.10, #Throw It Up
-                'PT_COVERBALL': 0.15,
-                'PT_HAPPYFEET': 0.075
-            }
-            for trait, chance in qb_trait_chances.items():
-                if random.random() < chance:
-                    row[trait] = True
+            row['TRAIT_THROWAWAY'] = 'FALSE'
+            row['TRAIT_COVER_BALL'] = 'ForAllHits'
 
             # QB attribute dependent traits    
-            if row['ThrowPowerRating'] >= 96 and random.random() < 0.15:
-                row['PT_CANNON'] = True
-            elif 95 >= row['ThrowPowerRating'] >= 92 and random.random() < 0.1:
-                row['PT_CANNON'] = True
-            elif 88 <= row['ThrowPowerRating'] <= 91 and random.random() < 0.05:
-                row['PT_CANNON'] = True
-            if row['PT_CANNON'] == False and random.random() < 0.1:
-                row['PT_UPANDOVER'] = True
-            if row['SpeedRating'] <= 74:
-                row['PT_SEDENTARY'] = True
-            elif 75 <= row['SpeedRating'] <= 79:
-                row['PT_SEDENTARY'] = random.choice([True, False])
-            elif row['SpeedRating'] >= 85:
-                row['PT_HEROBALL'] = True
-            elif 80 <= row['SpeedRating'] <= 84:
-                row['PT_HEROBALL'] = random.choice([True, False])
-            if random.random() < 0.15:
-                row['PT_RISKTAKER'] = True
-            if random.random() < 0.15 and row['PT_RISKTAKER'] == False:
-                row['PT_CONSERVATIVE'] = True
-            if row['ThrowOnTheRunRating'] >= 85  and random.random() < 0.75:
-                row['PT_DOUBLEBACK'] = True
-            elif 80 <= row['ThrowOnTheRunRating'] <= 84 and random.random() < 0.2:
-                row['PT_DOUBLEBACK'] = True
-            elif row['ThrowOnTheRunRating'] <= 79 and random.random() < 0.05:
-                row['PT_DOUBLEBACK'] = True
-            if random.random() < 0.1:
-                row['PT_OBLIVIOUS'] = True
-            elif row['PT_OBLIVIOUS'] == False and random.random() < 0.07:
-                row['PT_PARANOID'] = True
-            if row['SpeedRating'] >= 85 and random.random() < 0.5:
-                row['PT_ELUSIVEINSTINCT'] = True
-            elif 84 >= row['SpeedRating'] >= 80 and random.random() < 0.25:
-                row['PT_ELUSIVEINSTINCT'] = True
-            elif row['SpeedRating'] <= 79 and random.random() < 0.075:
-                row['PT_ELUSIVEINSTINCT'] = True
-            if row['SpeedRating'] >= 85 and random.random() < 0.1:
-                row['PT_SPINCYCLE'] = True
-            elif 84 >= row['SpeedRating'] >= 80 and random.random() < 0.05:
-                row['PT_SPINCYCLE'] = True
-            elif row['SpeedRating'] <= 79 and random.random() < 0.01:
-                row['PT_SPINCYCLE'] = True
-            if row['SpeedRating'] >= 85 and random.random() < 0.2:
-                row['PT_RUNOVER'] = True
-            elif 84 >= row['SpeedRating'] >= 80 and random.random() < 0.1:
-                row['PT_RUNOVER'] = True
-            elif row['SpeedRating'] <= 79 and random.random() < 0.05:
-                row['PT_RUNOVER'] = True
-            if row['SpeedRating'] >= 85 and random.random() < 0.1:
-                row['PT_STRONGARM'] = True
-            elif 84 >= row['SpeedRating'] >= 80 and random.random() < 0.05:
-                row['PT_STRONGARM'] = True
-            elif row['SpeedRating'] <= 79 and random.random() < 0.01:
-                row['PT_STRONGARM'] = True
-            if not row['PT_ELUSIVEINSTINCT'] and not row['PT_STRONGARM'] and not row['PT_SPINCYCLE'] and not row['PT_RUNOVER']:
-                row['PT_STEERINGCLEAR'] = True
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_QBSTYLE'] = 'Pocket'
+            if 77 <= row['SpeedRating'] <= 79:
+                qbstyle_value = random.choice(['Pocket', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if 80 <= row['SpeedRating'] <= 82:
+                row['TRAIT_QBSTYLE'] = 'Balanced'
+            if 83 <= row['SpeedRating'] <= 84:
+                qbstyle_value = random.choice(['Scrambling', 'Balanced'])
+                row['TRAIT_TUCK_RUN'] = qbstyle_value
+            if row['SpeedRating'] >= 85:
+                row['TRAIT_QBSTYLE'] = 'Scrambling'
+            if row['SpeedRating'] >= 90:
+                row['TRAIT_TUCK_RUN'] = '2'
+            if 85 <= row['SpeedRating'] <= 89:
+                tuck_run_value = random.choice(['1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if 80 <= row['SpeedRating'] <= 84:
+                tuck_run_value = random.choice(['0', '1', '2'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if 77 <= row['SpeedRating'] <= 79:
+                tuck_run_value = random.choice(['0', '1'])
+                row['TRAIT_TUCK_RUN'] = tuck_run_value
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_TUCK_RUN'] = '0'
+            if 'Conservative' in row['TRAIT_DECISION_MAKER']:
+                qbforcepass_value = random.choice(['Ideal', 'Conservative'])
+                row['TRAIT_DECISION_MAKER'] = qbforcepass_value
                         
         # HB Edits
         if row['Position'] == 'HB':
 
-            # HB Generic Trait Chances   
-            hb_trait_chances = {
-                'PT_AGGRESSIVE': 0.10,
-                'PT_COVERBALL': 0.15,
-                'PT_HIGHLIGHTREEL': 0.05,
-                'PT_POSSESSION': 0.15,
-                'PT_RAC': 0.20,
-                'PT_EARLYCELEBRATION': 0.15
-            }
-            for trait, chance in hb_trait_chances.items():
-                if random.random() < chance:
-                    row[trait] = True
-
-            if not row['PT_ELUSIVEINSTINCT'] and not row['PT_STRONGARM'] and not row['PT_SPINCYCLE'] and not row['PT_RUNOVER'] and random.random() < 0.05:
-                row['PT_STEERINGCLEAR'] = True
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
 
         # OFF Edits
         if row['Position'] in ['WR', 'TE']:
 
-            # WR/TE Generic Trait Chances   
-            rec_trait_chances = {
-                'PT_COVERBALL': 0.15,
-                'PT_POSSESSION': 0.15,
-                'PT_RAC': 0.25,
-                'PT_EARLYCELEBRATION': 0.20
-            }
-            for trait, chance in rec_trait_chances.items():
-                if random.random() < chance:
-                    row[trait] = True
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
 
-            if not row['PT_ELUSIVEINSTINCT'] and not row['PT_STRONGARM'] and not row['PT_SPINCYCLE'] and not row['PT_RUNOVER'] and random.random() < 0.25:
-                row['PT_STEERINGCLEAR'] = True
-            if row['SpectacularCatchRating'] >= 90 and random.random() < 0.66:
-                row['PT_HIGHLIGHTREEL'] = True
-            elif 80 <= row['SpectacularCatchRating'] <= 89 and random.random() < 0.25:
-                row['PT_HIGHLIGHTREEL'] = True
-            elif row['SpectacularCatchRating'] <= 79 and random.random() < 0.075:
-                row['PT_HIGHLIGHTREEL'] = True
-            if row['CatchInTrafficRating'] >= 90 and random.random() < 0.75:
-                row['PT_AGGRESSIVE'] = True
-            elif 80 <= row['CatchInTrafficRating'] <= 89 and random.random() < 0.33:
-                row['PT_AGGRESSIVE'] = True
-            elif row['CatchInTrafficRating'] <= 79 and random.random() < 0.10:
-                row['PT_AGGRESSIVE'] = True        
+            long_snap_te_chances = [
+                (20, 0.005),
+                (30, 0.005),
+                (40, 0.005),
+                (50, 0.005),
+                (60, 0.005),
+            ]
 
-        # DEF General Trait Edits
-        if row['Position'] in ['LE', 'RE', 'DT', 'LOLB', 'MLB', 'ROLB', 'CB', 'FS', 'SS']:
-            if row['HitPowerRating'] >= 90 and random.random() < 0.66:
-                row['PT_HEADHUNTER'] = True
-            elif 80 <= row['HitPowerRating'] <= 89 and random.random() < 0.15:
-                row['PT_HEADHUNTER'] = True
-            elif row['HitPowerRating'] <= 79 and random.random() < 0.05:
-                row['PT_HEADHUNTER'] = True 
-            if random.random() < 0.05:
-                row['PT_PUNCHITOUT'] = True
-            if not row['PT_HEADHUNTER'] and not row['PT_PUNCHITOUT'] and random.random() < 0.10:
-                row['PT_SAFETACKLER'] = True
+            if row['Position'] == 'TE':
+                for value, chance in long_snap_te_chances:
+                    if random.random() <= chance:
+                        row['LongSnapRating'] = value
+                        break
+
+        # OL LS Edits
+        if row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT']:
+            long_snap_ol_chances = [
+                (20, 0.003),
+                (30, 0.002),
+                (40, 0.001),
+                (50, 0.001),
+                (60, 0.001),
+            ]
+            for value, chance in long_snap_ol_chances:
+                if random.random() <= chance:
+                    row['LongSnapRating'] = value
+                    break      
 
         # DEF Front Edits
         if row['Position'] in ['LE', 'RE', 'DT']:
         
-            if (row['BlockSheddingRating'] + row['PowerMovesRating'])/2 >= 85 and random.random() < 0.75:
-                row['PT_BOUNCER'] = True
-            elif 75 <= (row['BlockSheddingRating'] + row['PowerMovesRating'])/2 <= 84 and random.random() < 0.25:
-                row['PT_BOUNCER'] = True
-            elif (row['BlockSheddingRating'] + row['PowerMovesRating'])/2 <= 74 and random.random() < 0.05:
-                row['PT_BOUNCER'] = True      
-            if row['StrengthRating'] >= 85 and random.random() < 0.75:
-                row['PT_BULL'] = True
-            elif 75 <= row['StrengthRating'] <= 84 and random.random() < 0.25:
-                row['PT_BULL'] = True
-            elif row['StrengthRating'] <= 74 and random.random() < 0.05:
-                row['PT_BULL'] = True  
-            if row['FinesseMovesRating'] >= 85 and random.random() < 0.75:
-                row['PT_FINESSERUSHER'] = True
-            elif 75 <= row['FinesseMovesRating'] <= 84 and random.random() < 0.25:
-                row['PT_FINESSERUSHER'] = True
-            elif row['FinesseMovesRating'] <= 74 and random.random() < 0.05:
-                row['PT_FINESSERUSHER'] = True 
-            if (row['PowerMovesRating'] + row['FinesseMovesRating'])/2 >= 85 and random.random() < 0.75:
-                row['PT_OLE'] = True
-            elif 75 <= (row['PowerMovesRating'] + row['FinesseMovesRating'])/2 <= 84 and random.random() < 0.25:
-                row['PT_OLE'] = True
-            elif (row['PowerMovesRating'] + row['FinesseMovesRating'])/2 <= 74 and random.random() < 0.05:
-                row['PT_OLE'] = True  
-            if row['PowerMovesRating'] >= 85 and random.random() < 0.75:
-                row['PT_POWERRUSHER'] = True
-            elif 75 <= row['PowerMovesRating'] <= 84 and random.random() < 0.25:
-                row['PT_POWERRUSHER'] = True
-            elif row['PowerMovesRating'] <= 74 and random.random() < 0.05:
-                row['PT_POWERRUSHER'] = True  
-            if (row['AgilityRating'] + row['FinesseMovesRating'])/2 >= 85 and random.random() < 0.75:
-                row['PT_SPINRUSHER'] = True
-            elif 75 <= (row['AgilityRating'] + row['FinesseMovesRating'])/2 <= 84 and random.random() < 0.25:
-                row['PT_SPINRUSHER'] = True
-            elif (row['AgilityRating'] + row['FinesseMovesRating'])/2 <= 74 and random.random() < 0.05:
-                row['PT_SPINRUSHER'] = True
-            if (row['StrengthRating'] + row['PowerMovesRating'])/2 >= 85 and random.random() < 0.75:
-                row['PT_HAMMERHEAD'] = True
-            elif 75 <= (row['StrengthRating'] + row['PowerMovesRating'])/2 <= 84 and random.random() < 0.25:
-                row['PT_HAMMERHEAD'] = True
-            elif (row['StrengthRating'] + row['PowerMovesRating'])/2 <= 74 and random.random() < 0.05:
-                row['PT_HAMMERHEAD'] = True 
-            if random.random() < 0.075:
-                row['PT_FLYSWATTER'] = True
-            if random.random() < 0.075:
-                row['PT_GASGUZZLER'] = True
+            row['TRAIT_DLSWIM'] = 'TRUE'
+            row['TRAIT_DLSPIN'] = 'TRUE'
+            row['TRAIT_DLBULLRUSH'] = 'TRUE'
 
-        # Nose Tackle Logic #
-        if row['Position'] in ['DT']:
-            overall_rating = row['OverallRating']
-            dt_true_weight = row['Weight'] + 160
-            if dt_true_weight >= 325:
-                row['ThrowAccuracyDeepRating'] = min(overall_rating + 5, 99)
-            elif 310 <= dt_true_weight < 325:
-                row['ThrowAccuracyDeepRating'] = max(overall_rating - 5, 1)
-            elif 300 <= dt_true_weight < 310:
-                row['ThrowAccuracyDeepRating'] = max(overall_rating - 15, 1)
-            elif 290 <= dt_true_weight < 300:
-                row['ThrowAccuracyDeepRating'] = max(overall_rating - 25, 1)
-            else:
-                row['ThrowAccuracyDeepRating'] = 25   
-
-        # DB Edits
-        if row['Position'] in ['CB', 'FS', 'SS']:
-            if row['PressRating'] >= 85 and random.random() < 0.75:
-                row['PT_JAMMER'] = True
-            elif 75 <= row['PressRating'] <= 84 and random.random() < 0.15:
-                row['PT_JAMMER'] = True
-            elif row['PressRating'] <= 74 and random.random() < 0.05:
-                row['PT_JAMMER'] = True 
-            if random.random() < 0.10:
-                row['PT_PLAYBALL'] = True
-            if not row['PT_PLAYBALL'] and random.random() < 0.10:
-                row['PT_PLAYRECEIVER'] = True
+        # OLB Edits
+        if row['Position'] in ['LOLB', 'ROLB', 'MLB']:
+            if 'PassRush' in row['TRAIT_LBSTYLE']:
+                row['TRAIT_LBSTYLE'] = 'Balanced'
 
     # Add more conditions and changes for other columns and positions as needed
     return row
@@ -302,7 +148,63 @@ def update_attributes(row):
 
         # Non-QBs throwing Edits
         if row['Position'] not in ['QB']:
-            row['ThrowPowerRating'] = min(row['ThrowPowerRating'] + 5, 90)          
+            row['ThrowPowerRating'] = min(row['ThrowPowerRating'] + 5, 90)
+
+        # Ego Rating
+        if row['Position'] in ['WR', 'CB'] and str(row['GenericHeadAssetName']).lower() in ['gen_5', 'gen_6', 'gen_7']:
+            roll = random.random()
+            if roll < 0.15:
+                row['PLYR_EGO'] = 15
+            elif roll < 0.30:
+                row['PLYR_EGO'] = 35
+            elif roll < 0.55:
+                row['PLYR_EGO'] = 55
+            elif roll < 0.80:
+                row['PLYR_EGO'] = 75
+            else:
+                row['PLYR_EGO'] = 95
+        if row['Position'] not in ['WR', 'CB'] and str(row['GenericHeadAssetName']).lower() in ['gen_5', 'gen_6', 'gen_7']:
+            roll = random.random()
+            if roll < 0.20:
+                row['PLYR_EGO'] = 15
+            elif roll < 0.45:
+                row['PLYR_EGO'] = 35
+            elif roll < 0.60:
+                row['PLYR_EGO'] = 55
+            elif roll < 0.85:
+                row['PLYR_EGO'] = 75
+            else:
+                row['PLYR_EGO'] = 95
+        if str(row['GenericHeadAssetName']).lower() not in ['gen_5', 'gen_6', 'gen_7']:
+            roll = random.random()
+            if roll < 0.25:
+                row['PLYR_EGO'] = 15
+            elif roll < 0.5:
+                row['PLYR_EGO'] = 35
+            elif roll < 0.75:
+                row['PLYR_EGO'] = 55
+            elif roll < 0.95:
+                row['PLYR_EGO'] = 75
+            else:
+                row['PLYR_EGO'] = 95
+
+        # Personality(Character Concerns) Rating
+        if str(row['GenericHeadAssetName']).lower() in ['gen_5', 'gen_6', 'gen_7']:
+            roll = random.random()
+            if roll < 0.95:
+                row['PersonalityRating'] = 60
+            elif roll < 0.995:
+                row['PersonalityRating'] = 75
+            else:
+                row['PersonalityRating'] = 90
+        if str(row['GenericHeadAssetName']).lower() not in ['gen_5', 'gen_6', 'gen_7']:
+            roll = random.random()
+            if roll < 0.97:
+                row['PersonalityRating'] = 60
+            elif roll < 0.999:
+                row['PersonalityRating'] = 75
+            else:
+                row['PersonalityRating'] = 90        
 
         # QB Edits
         if row['Position'] == 'QB':
@@ -354,33 +256,39 @@ def update_attributes(row):
                 row['CarryingRating'] = min(98, max(row['CarryingRating'] + 3, 65))
                 row['BreakTackleRating'] = min(98, max(row['BreakTackleRating'] + 2, 60))
 
-            long_snap_te_chances = [
-                (20, 0.005),
-                (30, 0.005),
-                (40, 0.005),
-                (50, 0.005),
-                (60, 0.005),
-            ]
+        # Stamina Edits
+        if row['Position'] in ['TE']:
+              row['StaminaRating'] = max(row['StaminaRating'] - 15, 1)
+        if row['Position'] in ['DT']:
+              row['StaminaRating'] = max(row['StaminaRating'] - 10, 1)
 
-            if row['Position'] == 'TE':
-                for value, chance in long_snap_te_chances:
-                    if random.random() <= chance:
-                        row['LongSnapRating'] = value
-                        break
-
-        # OL LS Edits
+        # OL Edits
         if row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT']:
-            long_snap_ol_chances = [
-                (20, 0.003),
-                (30, 0.002),
-                (40, 0.001),
-                (50, 0.001),
-                (60, 0.001),
+            row['CarryingRating'] = random.randint(20, 45)
+            row['CatchingRating'] = random.randint(15, 40)
+
+            carrying_ol_chances = [
+                (50, 0.015),
+                (55, 0.006),
+                (60, 0.003),
+                (65, 0.001),
             ]
-            for value, chance in long_snap_ol_chances:
+            for value, chance in carrying_ol_chances:
                 if random.random() <= chance:
-                    row['LongSnapRating'] = value
-                    break
+                    row['CarryingRating'] = value
+                    break    
+
+            catching_ol_chances = [
+                (45, 0.015),
+                (50, 0.004),
+                (55, 0.003),
+                (60, 0.002),
+                (65, 0.001),
+            ]
+            for value, chance in catching_ol_chances:
+                if random.random() <= chance:
+                    row['CatchingRating'] = value
+                    break 
 
         # DT Nose Tackle logic
         if row['Position'] in ['DT']:
@@ -416,6 +324,12 @@ def update_attributes(row):
 
             if row['ZoneCoverageRating'] < 50:
                 row['ZoneCoverageRating'] = 48 + random.randint(0, 5)
+
+            if row['FinesseMovesRating'] > 60:
+                row['FinesseMovesRating'] = row['FinesseMovesRating'] - random.randint(0, 5)
+
+            if row['PowerMovesRating'] > 60:
+                row['PowerMovesRating'] = row['PowerMovesRating'] - random.randint(0, 5)
 
             if row['OverallRating'] <= 60:
                 row['AwarenessRating'] = min(row['AwarenessRating'] + 1, 99)
@@ -649,4 +563,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'DraftClassEdit.xlsx'
-df.to_excel('Files/Madden26/IE/Season1/DraftClassEdit.xlsx', index=False)
+df.to_excel(season_path('DraftClassEdit.xlsx'), index=False)
