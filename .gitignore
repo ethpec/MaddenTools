@@ -134,3 +134,6 @@ $(pyenv root)/
 # Scratch / dev files
 main.py
 test.py
+
+# Madden import/export data — kept locally, not on GitHub
+Files/
