@@ -4,36 +4,37 @@ import math
 import numpy as np
 import os
 from utils.salary_utils import parse_salary_table
+from config import season_path
 
 # FA Wave Configuration (1, 2, or 3)
 WAVE = 3
 
 # User-controlled team — excluded from all CPU FA logic
-USER_TEAM_INDEX = 26
+USER_TEAM_INDEX = 28
 
 # Non-real teams excluded from all FA logic
 EXCLUDED_TEAM_INDICES = [32]
 
-CONTRACTOFFERTABLE = 4233 #4212
-PLAYERCONTRACTTABLE = 4285 #4261
-INTTABLE = 5543 #5454
-TEAMTABLE = 5917 #5797
-PLAYERTABLE = 4222 #4204
+CONTRACTOFFERTABLE = 4212 #4212
+PLAYERCONTRACTTABLE = 4261 #4261
+INTTABLE = 5454 #5454
+TEAMTABLE = 5797 #5797
+PLAYERTABLE = 4204 #4204
 
 # File Paths
-all_contracts_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/ContractOffer[].xlsx'
-contract_offer_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/ContractOffer.xlsx'
-player_contract_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/PlayerContract.xlsx'
-contract_salary_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/int[].xlsx'
-player_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/Player.xlsx'
-team_info_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/Team.xlsx'
-salary_expectation_file_path = 'Files/Madden26/IE/Season2/ExpectedSalarySheet.xlsx'
-position_needs_file_path = 'Files/Madden26/IE/Season2/FreeAgency/Input/PositionNeeds.xlsx'
+all_contracts_file_path = season_path('FreeAgency/Input/ContractOffer[].xlsx')
+contract_offer_file_path = season_path('FreeAgency/Input/ContractOffer.xlsx')
+player_contract_file_path = season_path('FreeAgency/Input/PlayerContract.xlsx')
+contract_salary_file_path = season_path('FreeAgency/Input/int[].xlsx')
+player_file_path = season_path('FreeAgency/Input/Player.xlsx')
+team_info_file_path = season_path('FreeAgency/Input/Team.xlsx')
+salary_expectation_file_path = season_path('ExpectedSalarySheet.xlsx')
+position_needs_file_path = season_path('FreeAgency/Input/PositionNeeds.xlsx')
 
 # Load DataFrames
 all_players_df = pd.read_excel(player_file_path)
 all_players_df['RowNum'] = all_players_df.index
-salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
+salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (300) (FA Class)')
 position_needs_df = pd.read_excel(position_needs_file_path)
 team_df = pd.read_excel(team_info_file_path, usecols=['TeamIndex', 'TeamName', 'MFERow', 'NewHC', 'WinsLastSeason', 'CapSpace'])
 
@@ -145,8 +146,10 @@ def build_prev_team_modifier(team_df):
         team_index = row['TeamIndex']
         new_hc = str(row['NewHC']).strip().upper()
         wins = row['WinsLastSeason']
-        if new_hc == 'NO' and wins > 9:
+        if new_hc == 'NO' and wins >= 10:
             modifiers[team_index] = 2.0
+        elif new_hc == 'NO' and 7 >= wins >= 9:
+            modifiers[team_index] = 1.5
         elif new_hc == 'YES':
             modifiers[team_index] = 0.5
     return modifiers
@@ -214,7 +217,7 @@ prev_matches_df = None
 if WAVE > 1:
     try:
         prev_matches_df = pd.read_excel(
-            'Files/Madden26/IE/Season2/FreeAgency/Output/FreeAgency.xlsx',
+            season_path('FreeAgency/Output/FreeAgency.xlsx'),
             sheet_name='FAMatches',
             usecols=match_keys + rolled_cols
         )
@@ -384,7 +387,7 @@ def build_fa_offers(fa_selections_df, team_df, wave, cap_floor_lookup):
 
 # Apply wave-specific SelectionWeight modifiers before selection
 # Returns a modified copy — base weights in fa_matches_df remain unchanged
-def apply_wave_modifiers(fa_matches_df, wave):
+def apply_wave_modifiers(fa_matches_df, wave, cap_per_need_lookup=None):
     df = fa_matches_df.copy()
 
     if wave == 1:
@@ -420,10 +423,25 @@ def apply_wave_modifiers(fa_matches_df, wave):
             lambda r: round(r['SelectionWeight'] * ovr_multiplier(r['OverallRating']), 4), axis=1
         )
 
+    # Cap-per-need multiplier: applied across all waves for players 80+ OVR
+    if cap_per_need_lookup:
+        def cap_need_multiplier(ovr, team_index):
+            if ovr < 80:
+                return 1.0
+            cpn = cap_per_need_lookup.get(team_index, 0)
+            if cpn > 500:   return 3.0
+            elif cpn >= 250: return 2.0
+            elif cpn >= 0: return 1.0
+            else:            return 0.5
+
+        df['SelectionWeight'] = df.apply(
+            lambda r: round(r['SelectionWeight'] * cap_need_multiplier(r['OverallRating'], r['TeamIndex']), 4), axis=1
+        )
+
     return df
 
 # Build TeamPhilosophy: roll cap floors once on Wave 1, persist for Wave 2+
-output_filename = 'Files/Madden26/IE/Season2/FreeAgency/Output/FreeAgency.xlsx'
+output_filename = season_path('FreeAgency/Output/FreeAgency.xlsx')
 
 if WAVE > 1 and os.path.exists(output_filename):
     try:
@@ -441,9 +459,18 @@ if team_philosophy_df is None:
 
 cap_floor_lookup = team_philosophy_df.set_index('TeamIndex')['CapFloor'].to_dict()
 
+# Cap-per-need: current cap space divided by number of remaining needs per team
+cap_space_lookup = team_df.set_index('TeamIndex')['CapSpace'].to_dict()
+needs_count_per_team = fa_matches_df.groupby('TeamIndex')['NeedLabel'].nunique()
+cap_per_need_lookup = {
+    int(team): round(cap_space_lookup.get(int(team), 0) / max(count, 1))
+    for team, count in needs_count_per_team.items()
+}
+team_philosophy_df['CapPerNeed'] = team_philosophy_df['TeamIndex'].map(cap_per_need_lookup)
+
 previous_selections = load_previous_selections(output_filename) if WAVE > 1 else {}
 
-fa_selections_df = select_fa_per_need(apply_wave_modifiers(fa_matches_df, WAVE), fa_player_df, previous_selections or None, prev_matches_df)
+fa_selections_df = select_fa_per_need(apply_wave_modifiers(fa_matches_df, WAVE, cap_per_need_lookup), fa_player_df, previous_selections or None, prev_matches_df)
 
 fa_offers_df = build_fa_offers(fa_selections_df, team_df, WAVE, cap_floor_lookup)
 
@@ -556,10 +583,10 @@ if (len(empty_slots) >= needed and len(empty_co_rows) >= needed and
             if bonus_row in int_df.index and int_col in int_df.columns:
                 int_df.at[bonus_row,  int_col] = bonus if yr < length else '0'
 
-contract_offer_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/ContractOffer[].xlsx'
-contract_offer_detail_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/ContractOffer.xlsx'
-player_contract_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/PlayerContract.xlsx'
-int_output_path = 'Files/Madden26/IE/Season2/FreeAgency/Output/int[].xlsx'
+contract_offer_output_path = season_path('FreeAgency/Output/ContractOffer[].xlsx')
+contract_offer_detail_output_path = season_path('FreeAgency/Output/ContractOffer.xlsx')
+player_contract_output_path = season_path('FreeAgency/Output/PlayerContract.xlsx')
+int_output_path = season_path('FreeAgency/Output/int[].xlsx')
 with pd.ExcelWriter(contract_offer_output_path, engine='openpyxl') as writer:
     contract_offer_array_df.to_excel(writer, index=False)
 with pd.ExcelWriter(contract_offer_detail_output_path, engine='openpyxl') as writer:
