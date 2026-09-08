@@ -2,11 +2,12 @@
 import pandas as pd
 import random
 import math
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+player_file_path = season_path('Player.xlsx')
 
-df = pd.read_excel(file_path)
+df = pd.read_excel(player_file_path)
 
 def update_traits(row):
     # Check the player's position and apply changes to specific columns
@@ -20,33 +21,11 @@ def update_traits(row):
         # Set ExperiencePoints to 0 for these contract statuses
         row['ExperiencePoints'] = 0
 
-        row['PT_BIGHITTER'] = row['PT_HEADHUNTER']
-        row['PT_STRIPSBALL'] = row['PT_PUNCHITOUT']
+        #row['PT_BIGHITTER'] = row['PT_HEADHUNTER']
+        #row['PT_STRIPSBALL'] = row['PT_PUNCHITOUT']
 
         # QB Edits
         if row['Position'] == 'QB':
-
-            # QB Generic Trait Chances   
-            qb_trait_chances = {
-                'PT_LOOKFORSTARS': 0.01,
-                'PT_EYESUP': 0.01,
-                'PT_TRIGGERHAPPY': 0.01,
-                'PT_QUICKCLOCK': 0.01,
-                'PT_QUICKTRIGGER': 0.01,
-                'PT_SEEINGGHOSTS': 0.01,
-                'PT_SETUPTIME': 0.01,
-                'PT_THROWAWAY': 0.01,
-                'PT_UNUSEDTRAIT1': 0.01,  # Throw It Up
-                'PT_COVERBALL': 0.01,
-                'PT_HAPPYFEET': 0.01
-            }
-
-            for trait, chance in qb_trait_chances.items():
-                roll = random.random()
-                if roll < chance:          # 1% chance to force True
-                    row[trait] = True
-                elif roll > 1 - chance:    # 1% chance to force False
-                    row[trait] = False
 
             # For QBs, set a minimum of 70 and a maximum of 90 for InjuryRating
             new_injury_rating = row['InjuryRating'] # - 10
@@ -55,50 +34,46 @@ def update_traits(row):
             if new_injury_rating > 90:
                 new_injury_rating = 90
             row['InjuryRating'] = new_injury_rating
-            row['PT_AGGRESSIVEQB'] = row['PT_RISKTAKER']
-            row['PT_POCKETPASSER'] = row['PT_SEDENTARY']
-            row['PT_SCRAMBLER'] = row['PT_HEROBALL']
-            row['PT_SNAPMISCHIEF'] = 'FALSE'
-            if row['PT_CONSERVATIVE'] is True:
-                row['ZoneCoverageRating'] = 63 + random.randint(0, 5)
-            if row['PT_CONSERVATIVE'] is False and row['PT_RISKTAKER'] is False:
+            row['TRAIT_COVER_BALL'] = 'OnMediumHits'
+            row['TRAIT_THROWAWAY'] = 'FALSE' # Keep this for Madden 25 #
+            if row['SpeedRating'] <= 76:
+                row['TRAIT_QBSTYLE'] = 'Pocket'
+            if row['SpeedRating'] <= 79 and row['TRAIT_QBSTYLE'] == 'Scrambling':
+                row['TRAIT_QBSTYLE'] = 'Balanced'
+            if 'Conservative' in row['TRAIT_DECISION_MAKER']:
+                row['ZoneCoverageRating'] = 65 + random.randint(0, 5)
+            if 'Ideal' in row['TRAIT_DECISION_MAKER']:
                 row['ZoneCoverageRating'] = 60 + random.randint(0, 5)
-            if row['PT_RISKTAKER'] is True:
-                row['ZoneCoverageRating'] = 57 + random.randint(0, 5)
-            if row['PT_PARANOID'] is False and row['PT_OBLIVIOUS'] is False:
+            if 'Aggressive' in row['TRAIT_DECISION_MAKER']:
+                row['ZoneCoverageRating'] = 55 + random.randint(0, 5)
+            if row['TRAIT_SENSE_PRESSURE'] == 'Ideal':
+                row['ManCoverageRating'] = 80 + random.randint (-5, 10)
+            if row['TRAIT_SENSE_PRESSURE'] == 'Average':
                 row['ManCoverageRating'] = 70 + random.randint (-5, 10)
-            if row['PT_PARANOID'] is True:
-                row['ManCoverageRating'] = 75 + random.randint (-5, 10)
-            if row['PT_OBLIVIOUS'] is True:
-                row['ManCoverageRating'] = 65 + random.randint (-5, 10)
-            if row['PT_POCKETPASSER'] is True and row['SpeedRating'] < 80:
+            if row['TRAIT_SENSE_PRESSURE'] == 'Paranoid':
+                row['ManCoverageRating'] = 70 + random.randint (-5, 10)
+            if row['TRAIT_SENSE_PRESSURE'] == 'TriggerHappy':
+                row['ManCoverageRating'] = 60 + random.randint (-5, 10)
+            if row['TRAIT_SENSE_PRESSURE'] == 'Oblivious':
+                row['ManCoverageRating'] = 60 + random.randint (-5, 10)
+            if row['TRAIT_QBSTYLE'] =='Pocket':
                 row['FinesseMovesRating'] = 5
-                row['PowerMovesRating'] = 65
-            if row['PT_POCKETPASSER'] is True and row['SpeedRating'] >= 80:
-                row['FinesseMovesRating'] = 15
-                row['PowerMovesRating'] = 55
-            if row['PT_POCKETPASSER'] is False and row['PT_SCRAMBLER'] is False and row['SpeedRating'] < 85:
+                row['PowerMovesRating'] = 60
+            if row['TRAIT_QBSTYLE'] =='Balanced':
                 row['FinesseMovesRating'] = 20
-                row['PowerMovesRating'] = 50
-            if row['PT_POCKETPASSER'] is False and row['PT_SCRAMBLER'] is False and row['SpeedRating'] >= 85:
-                row['FinesseMovesRating'] = 30
-                row['PowerMovesRating'] = 35
-            if row['PT_SCRAMBLER'] is True and row['Age'] >= 30:
+                row['PowerMovesRating'] = 40
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['Age'] >= 30:
                 row['FinesseMovesRating'] = 40
                 row['PowerMovesRating'] = 15
-            if row['PT_SCRAMBLER'] is True and row['Age'] < 30:
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['Age'] < 30:
                 row['FinesseMovesRating'] = 50
                 row['PowerMovesRating'] = 10
-            if row['PT_SCRAMBLER'] is True and row['SpeedRating'] >= 85 and row['Age'] >= 30:
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88 and row['Age'] >= 30:
                 row['FinesseMovesRating'] = 60
                 row['PowerMovesRating'] = 5
-            if row['PT_SCRAMBLER'] is True and row['SpeedRating'] >= 85 and row['Age'] < 30:
+            if row['TRAIT_QBSTYLE'] =='Scrambling' and row['SpeedRating'] >= 88 and row['Age'] < 30:
                 row['FinesseMovesRating'] = 75
                 row['PowerMovesRating'] = 1
-            if row['PT_PARANOID'] is True and row['OverallRating'] >= 85:
-                row['PT_PARANOID'] ='FALSE'
-            if row['PT_OBLIVIOUS'] is True and row['OverallRating'] >= 85:
-                row['PT_OBLIVIOUS'] ='FALSE'
             if row['Age'] >= 30:
                 row['SpeedRating'] = max(50, row['SpeedRating'] - 1)
                 row['AccelerationRating'] = max(50, row['AccelerationRating'] - 1)
@@ -117,8 +92,13 @@ def update_traits(row):
             if new_injury_rating > 90:
                 new_injury_rating = 90
             row['InjuryRating'] = new_injury_rating
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
+            row['ThrowUnderPressureRating'] = 25
             row['PowerMovesRating'] = 25
             row['PlayActionRating'] = 25
+
             rb_targets = round((row['CatchingRating'] + row['CatchInTrafficRating'] + row['ShortRouteRunningRating']) / 3)
             if 75 <= rb_targets <= 99:
                 adjusted_rbtargets = rb_targets + 5 + random.randint(0, 10) - random.randint(0, 5)
@@ -134,6 +114,9 @@ def update_traits(row):
 
         # WR Edits
         if row['Position'] == 'WR':
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'            
             row['PowerMovesRating'] = 75
             row['PlayActionRating'] = 25
             overall_rating = row['OverallRating']
@@ -146,7 +129,7 @@ def update_traits(row):
             elif 80 <= overall_rating <= 84:
                 row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 8) + random.randint(0, 24)
             elif 75 <= overall_rating <= 79:
-                row['FinesseMovesRating'] = overall_rating - 25 - random.randint(0, 12) + random.randint(0, 24)
+                row['FinesseMovesRating'] = overall_rating - 30 - random.randint(0, 12) + random.randint(0, 24)
             elif 70 <= overall_rating <= 74:
                 row['FinesseMovesRating'] = overall_rating - 35 - random.randint(0, 14) + random.randint(0, 24)
             elif 1 <= overall_rating <= 69:
@@ -155,6 +138,9 @@ def update_traits(row):
 
         # TE Edits
         if row['Position'] == 'TE':
+            row['TRAIT_YACCATCH'] = 'TRUE'
+            row['TRAIT_POSSESSIONCATCH'] = 'TRUE'
+            row['TRAIT_HIGHPOINTCATCH'] = 'TRUE'
             row['PowerMovesRating'] = 50
             row['PlayActionRating'] = 25
             overall_rating = row['OverallRating']
@@ -169,15 +155,35 @@ def update_traits(row):
             elif 75 <= overall_rating <= 79:
                 row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 12) + random.randint(0, 26)
             elif 70 <= overall_rating <= 74:
-                row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 12) + random.randint(0, 28)
+                row['FinesseMovesRating'] = overall_rating - 20 - random.randint(0, 12) + random.randint(0, 30)
             elif 1 <= overall_rating <= 69:
-                row['FinesseMovesRating'] = 35 - random.randint(0, 12) + random.randint(0, 30)
+                row['FinesseMovesRating'] = 35 - random.randint(0, 12) + random.randint(0, 32)
             row['FinesseMovesRating'] = min(99, row['FinesseMovesRating'])
+
+        # REC Deep catch ability
+        if row['Position'] in ['HB','FB','WR','TE']:
+            deep_rec_rating = row['DeepRouteRunningRating']
+            if 90 <= deep_rec_rating <= 99:
+                row['BlockSheddingRating'] = deep_rec_rating
+            elif 85 <= deep_rec_rating <= 89:
+                row['BlockSheddingRating'] = deep_rec_rating - 5 - random.randint(0, 3) + random.randint(0, 3)
+            elif 80 <= deep_rec_rating <= 84:
+                row['BlockSheddingRating'] = deep_rec_rating - 10 - random.randint(0, 3) + random.randint(0, 3)
+            elif 75 <= deep_rec_rating <= 79:
+                row['BlockSheddingRating'] = deep_rec_rating - 15 - random.randint(0, 4) + random.randint(0, 4)
+            elif 70 <= deep_rec_rating <= 74:
+                row['BlockSheddingRating'] = deep_rec_rating - 20 - random.randint(0, 4) + random.randint(0, 4)
+            elif 1 <= deep_rec_rating <= 69:
+                row['BlockSheddingRating'] = deep_rec_rating - 25 - random.randint(0, 5) + random.randint(0, 5)
+            row['BlockSheddingRating'] = max(1, row['BlockSheddingRating'])
 
         # DEF Edits
         if row['Position'] in ['LE', 'RE']:
+            row['TRAIT_DLSWIM'] = 'TRUE'
+            row['TRAIT_DLSPIN'] = 'TRUE'
+            row['TRAIT_DLBULLRUSH'] = 'TRUE'
             row['PlayActionRating'] = 45 + random.randint(0, 15)
-            row['BreakSackRating'] = 1
+            row['BreakSackRating'] = 1 # Positional Tackle modifier (SIM STATS)
             overall_rating = row['OverallRating']
             if 95 <= overall_rating <= 99:
                 row['ThrowOnTheRunRating'] = overall_rating
@@ -195,25 +201,28 @@ def update_traits(row):
                 row['ThrowOnTheRunRating'] = overall_rating - random.randint(0, 15) + random.randint(0, 15)
 
         if row['Position'] in ['DT']:
+            row['TRAIT_DLSWIM'] = 'TRUE'
+            row['TRAIT_DLSPIN'] = 'TRUE'
+            row['TRAIT_DLBULLRUSH'] = 'TRUE'
             row['PlayActionRating'] = 30 + random.randint(0, 15)
             row['BreakSackRating'] = 9
             overall_rating = row['OverallRating']
             overall_pass_rush_rating = max(row['FinesseMovesRating'], row['PowerMovesRating'])
             dt_true_weight = row['Weight'] + 160
             if 95 <= overall_pass_rush_rating <= 99:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 20 + random.randint(0, 5)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 40 - random.randint(0, 2) + random.randint(0, 4))
             elif 90 <= overall_pass_rush_rating <= 94:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 25 - random.randint(0, 4) + random.randint(0, 6)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 45 - random.randint(0, 4) + random.randint(0, 6))
             elif 85 <= overall_pass_rush_rating <= 89:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 30 - random.randint(0, 6) + random.randint(0, 8)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 50 - random.randint(0, 6) + random.randint(0, 8))
             elif 80 <= overall_pass_rush_rating <= 84:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 35 - random.randint(0, 8) + random.randint(0, 10)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 55 - random.randint(0, 8) + random.randint(0, 10))
             elif 75 <= overall_pass_rush_rating <= 79:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 40 - random.randint(0, 10) + random.randint(0, 12)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 60 - random.randint(0, 10) + random.randint(0, 12))
             elif 70 <= overall_pass_rush_rating <= 74:
-                row['ThrowOnTheRunRating'] = overall_pass_rush_rating - 45 - random.randint(0, 12) + random.randint(0, 15)
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 65 - random.randint(0, 12) + random.randint(0, 15))
             elif 1 <= overall_pass_rush_rating <= 69:
-                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 48 - random.randint(0, 12) + random.randint(0, 15))
+                row['ThrowOnTheRunRating'] = max(1, overall_pass_rush_rating - 58 - random.randint(0, 12) + random.randint(0, 15))
 
             # Nose Tackle Logic #
             if dt_true_weight >= 325:
@@ -229,13 +238,13 @@ def update_traits(row):
 
         if row['Position'] in ['LOLB', 'MLB', 'ROLB']:
             row['ThrowOnTheRunRating'] = 45 + random.randint(0, 20)
-            row['ThrowUnderPressureRating'] = 1 + random.randint(0, 24)
+            row['ThrowUnderPressureRating'] = 1 + random.randint(0, 19)
             row['PlayActionRating'] = 50 + random.randint(0, 15)
             row['BreakSackRating'] = 65
 
         if row['Position'] in ['CB']:
             row['ThrowOnTheRunRating'] = 75 + random.randint(0, 20)          
-            row['ThrowUnderPressureRating'] = 1 + random.randint(0, 24)
+            row['ThrowUnderPressureRating'] = 6 + random.randint(0, 24)
             row['PlayActionRating'] = 15 + random.randint(0, 15)
             row['BreakSackRating'] = 70
 
@@ -260,19 +269,19 @@ def update_traits(row):
 
 # Define target values for ContractSalary0 and ContractSalary1 based on years_pro
 min_salary_values = {
-    0: 84,
-    1: 96,
-    2: 103,
-    3: 110,
+    0: 89,
+    1: 100,
+    2: 108,
+    3: 115,
 }
 
 # Set the same values for players with 4 through 6 YearsPro
 for years_pro in range(4, 7):
-    min_salary_values[years_pro] = 117  # Minimum for years_pro >= 4
+    min_salary_values[years_pro] = 122  # Minimum for years_pro >= 4
 
 # Set the same values for players with 7 through 25 YearsPro
 for years_pro in range(7, 26):
-    min_salary_values[years_pro] = 125  # Minimum for years_pro >= 7
+    min_salary_values[years_pro] = 130  # Minimum for years_pro >= 7
 
 # Function to adjust Salary to league minimum
 def adjust_contract_salary(row):
@@ -346,6 +355,74 @@ def player_tag_updates(row):
     
     return row
 
+def player_personality_change(row):
+    # 1% chance to gain 15 PersonalityRating, 1% chance to lose 15 (clamped 60-90)
+    contract_status = row['ContractStatus']
+    personality_rating = row['PersonalityRating']
+
+    if contract_status not in ['FreeAgent', 'Signed', 'PracticeSquad']:
+        return row
+
+    if pd.isna(personality_rating):
+        return row
+
+    roll = random.randint(1, 100)
+    if roll == 1:
+        new_personality_rating = personality_rating + 15
+    elif roll == 2:
+        new_personality_rating = personality_rating - 15
+    else:
+        return row
+
+    if new_personality_rating < 60:
+        new_personality_rating = 60
+    if new_personality_rating > 90:
+        new_personality_rating = 90
+    row['PersonalityRating'] = new_personality_rating
+
+    return row
+
+def player_ego_change(row):
+    # Chance to gain or lose 20 PLYR_EGO based on OverallRating (clamped 15-95)
+    contract_status = row['ContractStatus']
+    overall_rating = row['OverallRating']
+    ego_rating = row['PLYR_EGO']
+
+    if contract_status not in ['FreeAgent', 'Signed', 'PracticeSquad']:
+        return row
+
+    if pd.isna(ego_rating):
+        return row
+
+    if overall_rating >= 90:
+        increase_chance = 8
+        decrease_chance = 2
+    elif 80 <= overall_rating <= 89:
+        increase_chance = 7
+        decrease_chance = 3
+    elif 70 <= overall_rating <= 79:
+        increase_chance = 5
+        decrease_chance = 5
+    else:
+        increase_chance = 4
+        decrease_chance = 6
+
+    roll = random.randint(1, 100)
+    if roll <= increase_chance:
+        new_ego_rating = ego_rating + 20
+    elif roll <= increase_chance + decrease_chance:
+        new_ego_rating = ego_rating - 20
+    else:
+        return row
+
+    if new_ego_rating < 15:
+        new_ego_rating = 15
+    if new_ego_rating > 95:
+        new_ego_rating = 95
+    row['PLYR_EGO'] = new_ego_rating
+
+    return row
+
 
 # Track the original DataFrame before applying updates
 original_df = df.copy()
@@ -358,6 +435,12 @@ df = df.apply(adjust_contract_salary, axis=1)
 
 # Apply the player_tag_updates function to update the DataFrame
 df = df.apply(player_tag_updates, axis=1)
+
+# Apply the player_personality_change function to update the DataFrame
+df = df.apply(player_personality_change, axis=1)
+
+# Apply the player_ego_change function to update the DataFrame
+df = df.apply(player_ego_change, axis=1)
 
 # Create a set to store column names with edits
 columns_with_edits = set()
@@ -379,4 +462,4 @@ for column in df.columns:
 df.drop(columns=columns_to_remove, inplace=True)
 
 output_filename = 'Player_PreseasonEdits.xlsx'
-df.to_excel('Files/Madden26/IE/Season1/Player_PreseasonEdits.xlsx', index=False)
+df.to_excel(season_path('Player_PreseasonEdits.xlsx'), index=False)
