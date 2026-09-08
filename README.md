@@ -231,6 +231,28 @@ Generates realistic 18-week NFL schedules using **linear programming** (PuLP).
 
 ---
 
+### Offseason Injury Adjustments — `OffseasonInjuryAdjustments.py`
+
+Carries end-of-season injuries into the new league year, deciding which players are still hurt when the offseason begins and how long they remain out.
+
+**Key features:**
+- Clears all injury data and resets wear-and-tear for uninjured players
+- Skips suspensions, which the game stores as injuries with `InjuryType == 'DoNotUse'`
+- Injured players are placed in a 5×4 matrix of current `MaxInjuryDuration` tier (30+, 20-29, 10-19, 5-9, 1-4) against `InjuryRating` tier (85+, 80-84, 75-79, 74 and under)
+- Each cell carries percent odds of three outcomes, with the remainder out of 100 being the chance the injury is left alone:
+
+| Outcome | Duration rolled |
+|---|---|
+| `SeasonEnding` | 55–62 weeks |
+| `PartialSeason` | 32–45 weeks |
+| `OffseasonTrainingImpact` | 27–31 weeks |
+
+- Lower injury ratings draw meaningfully worse odds — a 74-and-under player at 20-29 weeks has roughly four times the chance of an extension that an 85+ player does
+- Injuries only ever lengthen: a rolled duration below the player's current one is discarded
+- `MinInjuryDuration`, `MaxInjuryDuration`, and `TotalInjuryDuration` all land on the rolled value, capped at 62
+
+---
+
 ### Weekly Run Script — `WeeklyScript.py`
 
 Updates injury lengths, assigns proper sim rating to newly signed players.
@@ -346,6 +368,7 @@ A college-to-pro potential simulation engine for incoming draft classes. Models 
 
 ```
 MaddenTools/
+├── config.py                      # Game + season selection (single source of truth)
 ├── ContractFixer.py               # Season contract normalization + rookie escalators
 ├── ContractSalaryAdjustment.py    # League-wide salary multiplier correction
 ├── DraftClassEdit.py              # Draft class attribute + trait setup
@@ -356,13 +379,15 @@ MaddenTools/
 ├── DraftPickTrades.py             # Draft pick trade-down probability + partner finder
 ├── EventSystem.py                 # Offseason/preseason event simulation
 ├── FAContractFix.py               # Free agent contract restructuring
+├── FreeAgencyOffers.py            # Free agency contract offer generation
 ├── FreeAgentClass.py              # Top-10 free agent scouting report by position
 ├── ResignContractFix.py           # Re-sign contract restructuring
 ├── PracticeSquadContracts.py      # Practice squad future contract normalization
 ├── VoidYears.py                   # Void year detection and activation tracker
+├── OffseasonInjuryAdjustments.py  # Offseason injury carry-over and duration rolls
 ├── PreseasonTraitCheck.py         # Preseason attribute + tag normalization
 ├── PreseasonWaiverClaims.py       # Preseason waiver claim simulation
-├── PotentialSystem                # College prospect potential engine
+├── PotentialSystem.py             # College prospect potential engine
 ├── PullFromPracticeSquad.py       # Practice squad call-up eligibility checker
 ├── RosterPositionChecks.py        # Depth chart + contract report generator
 ├── ScheduleEditor.py              # LP-based season schedule generator
@@ -375,9 +400,61 @@ MaddenTools/
 ├── CompPickContractStatusSetup.py # Comp pick pipeline: contract status pre-processing
 ├── CompPickValueDetermination.py  # Comp pick pipeline: player value calculation
 ├── CompPicksAwarded.py            # Comp pick pipeline: award determination
-└── Files/
-    └── Madden26/IE/               # Excel input/output files by season
+├── utils/                         # Shared helpers (salary utilities)
+└── Files/                         # Excel input/output, by game and season (not tracked)
+    └── Madden25/IE/Season13/
 ```
+
+---
+
+## Configuration
+
+Every script resolves its input and output paths through `config.py`, so the
+active franchise and season are set in exactly one place:
+
+```python
+GAME = 'Madden25'
+SEASON = 'Season13'
+```
+
+Scripts call `season_path('Player.xlsx')` rather than hardcoding a directory,
+which means advancing to a new season is a single edit rather than a
+find-and-replace across every file.
+
+Paths are anchored to the location of `config.py` rather than the working
+directory, so scripts can be run from anywhere. Data is expected in `Files/`
+inside the repo by default; to keep exports somewhere else — another drive, or
+a shared folder — set the `MADDEN_DATA_DIR` environment variable instead of
+editing `config.py`:
+
+```bash
+# Windows (PowerShell)
+$env:MADDEN_DATA_DIR = 'D:\MaddenData'
+```
+
+---
+
+## Data Inputs
+
+Scripts read Excel exports produced by Madden's Import/Export system, placed in
+`Files/<Game>/IE/<Season>/`. These files are not tracked in git — export your
+own from your franchise.
+
+| File | Source | Used by |
+|---|---|---|
+| `Player.xlsx` | Player table export | nearly all scripts |
+| `PlayerExpiringContracts.xlsx` | Player table, expiring contracts | comp picks, re-signs |
+| `Player_FreeAgents.xlsx` | Player table, free agents | free agency scripts |
+| `Coach.xlsx`, `CoachInfo.xlsx`, `CoachSchemes.xlsx` | Coach table export | PreseasonTraitCheck, WeeklyScript |
+| `AllProgRegInfo.xlsm` | Season statistics export | StatBasedEditor, ContractSalaryAdjustment |
+| `DraftOrder.xlsx`, `Draft Pick.xlsx` | Draft tables | draft and waiver scripts |
+| `ExpectedSalarySheet.xlsx` | Hand-maintained market-rate table | ContractFixer, FreeAgencyOffers |
+| `ExpectedContractLength.xlsx` | Hand-maintained length table | FAContractFix, ResignContractFix |
+| `ProgRegLogicCheck.xlsx`, `RegressionValues.xlsx` | Hand-maintained logic tables | StatBasedEditor, AgeBasedProgAndReg |
+
+Each script writes its results to a separate output workbook in the same season
+folder, exporting only the columns it modified so the re-import touches as
+little as possible.
 
 ---
 
