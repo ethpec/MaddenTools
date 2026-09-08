@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+from config import season_path
 
 # Your File Paths
-player_file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+player_file_path = season_path('Player.xlsx')
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
@@ -85,7 +86,7 @@ contracts_data['TeamName'] = contracts_data['TeamIndex'].map(team_dict)
 contracts_data = contracts_data[['FirstName', 'LastName', 'Position', 'YearsPro' , 'OverallRating' , 'InjuryStatus', 'ContractYear' , 'ContractLength', 'AAV', 'SigningBonus', 'TeamIndex', 'TeamName']]
 
 # Export the differences to a new sheet named "Differences" and add "Team Position Depth"
-output_file_path = 'Files/Madden26/IE/Season1/Position_Report.xlsx'
+output_file_path = season_path('Position_Report.xlsx')
 with pd.ExcelWriter(output_file_path) as writer:
     report_data.to_excel(writer, index=False, sheet_name='Counts')
     differences.to_excel(writer, sheet_name='Differences')
@@ -132,3 +133,48 @@ with pd.ExcelWriter(output_file_path) as writer:
                                                        'PositionGroup', 'Position', 'YearsPro', 'OverallRating', 'ContractYear',
                                                        'ContractLength', 'ContractYearsLeft', 'AAV', 'SigningBonus']]
     contracts_data_team_depth.to_excel(writer, index=False, sheet_name='Team Position Depth')
+
+    # Build TeamNeeds tab
+    # Each rule: (PositionGroup, Rank, OVR threshold, NeedReason label)
+    need_rules = [
+        ('WR',   2, 75, 'WR2 < 75'),
+        ('WR',   4, 65, 'WR4 < 65'),
+        ('HB',   1, 75, 'HB1 < 75'),
+        ('HB',   2, 70, 'HB2 < 70'),
+        ('TE',   1, 70, 'TE1 < 70'),
+        ('TE',   2, 65, 'TE2 < 65'),
+        ('T',    2, 70, 'T2 < 70'),
+        ('T',    3, 65, 'T3 < 65'),
+        ('G',    2, 70, 'G2 < 70'),
+        ('G',    3, 65, 'G3 < 65'),
+        ('C',    1, 65, 'C1 < 65'),
+        ('EDGE', 2, 70, 'EDGE2 < 70'),
+        ('EDGE', 3, 67, 'EDGE3 < 67'),
+        ('DT',   2, 70, 'DT2 < 70'),
+        ('DT',   3, 65, 'DT3 < 65'),
+        ('OLB',  2, 65, 'OLB2 < 65'),
+        ('MLB',  1, 70, 'MLB1 < 70'),
+        ('CB',   2, 75, 'CB2 < 75'),
+        ('CB',   4, 65, 'CB4 < 65'),
+        ('FS',   1, 70, 'FS1 < 70'),
+        ('SS',   1, 70, 'SS1 < 70'),
+    ]
+
+    need_rows = []
+    for pos_group, rank, ovr_threshold, label in need_rules:
+        filtered = contracts_data_team_depth[
+            (contracts_data_team_depth['PositionGroup'] == pos_group) &
+            (contracts_data_team_depth['HealthyRank'] == rank) &
+            (contracts_data_team_depth['OverallRating'] < ovr_threshold)
+        ][['TeamName', 'PositionGroup']].copy()
+        filtered['NeedReason'] = label
+        need_rows.append(filtered)
+
+    if need_rows:
+        team_needs_df = pd.concat(need_rows, ignore_index=True)
+    else:
+        team_needs_df = pd.DataFrame(columns=['TeamName', 'PositionGroup', 'NeedReason'])
+
+    team_needs_df = team_needs_df[['TeamName', 'PositionGroup', 'NeedReason']]
+    team_needs_df = team_needs_df.sort_values(by=['TeamName', 'PositionGroup']).reset_index(drop=True)
+    team_needs_df.to_excel(writer, index=False, sheet_name='TeamNeeds')
