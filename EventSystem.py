@@ -1,20 +1,21 @@
 import pandas as pd
 import random
+from config import season_path
 
 # Your File Paths
-player_file_path = 'Files/Madden26/IE/Season2/Player_ExpectedSalary.xlsx' ### Replaced Player sheet, Run ContractFixer first ###
-position_report_file_path = 'Files/Madden26/IE/Season2/Position_Report.xlsx'
-output_file_path = 'Files/Madden26/IE/Season2/EventSystem_Results.xlsx'
+player_file_path = season_path('Player_ExpectedSalary.xlsx') ### Replaced Player sheet, Run ContractFixer first ###
+position_report_file_path = season_path('Position_Report.xlsx')
+output_file_path = season_path('EventSystem_Results.xlsx')
 
 # Set the season phase
-season_phase = "Offseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
+season_phase = "Preseason"  ### Change this to "Preseason", "TradeDeadline", or "Offseason" ###
 
 # Read data from the specified Excel files
 player_df = pd.read_excel(player_file_path)
 position_report_df = pd.read_excel(position_report_file_path, sheet_name='Team Position Depth')
 
 # Specify relevant columns from player_df
-relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'PLYR_DRAFTROUND','InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration', "ExpectedAAV"]
+relevant_columns_player = ['FirstName', 'LastName', 'Position', 'YearsPro', 'Age', 'ConfidenceRating', 'PersonalityRating', 'PLYR_EGO', 'PLYR_DRAFTROUND','InjuryRating', 'InjuryType', 'InjuryStatus', 'TotalInjuryDuration', "ExpectedAAV"]
 
 # Select only the relevant columns from player_df
 player_subset_df = player_df[relevant_columns_player]
@@ -31,6 +32,18 @@ def determine_contract_status(hold_out_chance, hold_in_chance, multiplier):
     else:
         return 'No'
 
+def get_ego_multiplier(ego):
+    if ego <= 34:
+        return 0.90
+    elif ego <= 54:
+        return 0.95
+    elif ego <= 74:
+        return 1.0
+    elif ego <= 94:
+        return 1.05
+    else:
+        return 1.1
+
 def young_newcontract(row):
     multiplier = 0.75
     if row['Position'] in ['LT', 'RT', 'LE', 'RE', 'CB']:
@@ -39,6 +52,7 @@ def young_newcontract(row):
         multiplier = 1.25
     elif row['Position'] in ['QB']:
         multiplier = 1.5
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
 
     if season_phase not in ["Preseason", "Offseason"]:
         return 'No'
@@ -68,6 +82,7 @@ def vet_wantscontract(row):
         multiplier = 1.25
     elif row['Position'] in ['RB', 'HB', 'LT', 'RT']:
         multiplier = 1.0
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
 
     if season_phase not in ["Preseason", "Offseason"]:
         return 'No'
@@ -138,7 +153,8 @@ def traderequest_lowmorale(row):
         multiplier = 0.1
     elif row['ConfidenceRating'] >= 70:
         multiplier = 0.05
-    
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
+
     if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if row['OverallRating'] >= 80 and row['YearsPro'] >= 2 and row['Age'] <= 26 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.025 * multiplier else 'No'
@@ -159,7 +175,7 @@ def traderequest_wr(row):
     # Check if the position is WR
     if row['Position'] != 'WR':
         return 'No'  # Early return if the position is not WR
-    
+
     multiplier = 1.0
     if row['ConfidenceRating'] < 20:
         multiplier = 5.0
@@ -175,7 +191,8 @@ def traderequest_wr(row):
         multiplier = 0.25
     elif row['ConfidenceRating'] >= 70:
         multiplier = 0.1
-    
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
+
     if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if 73 <= row['OverallRating'] <= 84 and 2 <= row['YearsPro'] <= 3 and row['PLYR_DRAFTROUND'] <= 2 and row['ContractYearsLeft'] <= 3:
             return 'Yes' if random.random() <= 0.15 * multiplier else 'No'
@@ -206,6 +223,7 @@ def traderequest_playingtime(row):
         multiplier = 2.0
     elif row['Position'] in ['WR', 'CB', 'DT', 'LE', 'RE'] and row['Rank'] == 4:
         multiplier = 1.0
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
 
     if season_phase in ["Preseason", "TradeDeadline", "Offseason"]:
         if row['OverallRating'] >= 90 and row['YearsPro'] >= 2:
@@ -245,6 +263,7 @@ def tradecut_youngplayer(row):
         multiplier = 0.5
     else:
         multiplier = 0.25
+    multiplier *= get_ego_multiplier(row['PLYR_EGO'])
 
     # Only consider trades during allowed phases
     if season_phase not in ["Preseason", "TradeDeadline", "Offseason"]:
@@ -327,6 +346,36 @@ def tradecut_youngplayer(row):
 # Apply the function to create the TradeUnhappy column
 merged_df['TradeCutYoungPlayer'] = merged_df.apply(tradecut_youngplayer, axis=1)
 
+def suspension_offseason(row):
+    if row['InjuryStatus'] != 'Uninjured':
+        return 'No'
+
+    personality = row['PersonalityRating']
+
+    if season_phase == "Preseason":
+        if personality <= 60:
+            suspension_chance = 0.002   # 0.2%
+        elif personality <= 89:
+            suspension_chance = 0.015   # 1.5%
+        else:
+            suspension_chance = 0.033   # 3.3%
+    else:
+        return 'No'
+
+    if random.random() >= suspension_chance:
+        return 'No'
+
+    length = random.choices(
+        [5, 7, 10, 12, 25, 1000], # Added 4 weeks to values to account for preseason
+        weights=[45, 30, 15, 8, 2],
+        k=1
+    )[0]
+
+    if length == 1000:
+        return 'Out of League Permanently'
+    game_word = 'game' if length == 1 else 'games'
+    return f'Suspension - {length} {game_word}'
+
 # Function to determine offseason injury based on conditions
 def injury_offseason(row):
     multiplier = 1.0
@@ -362,12 +411,16 @@ def injury_offseason(row):
     
 # Apply the function to create the OffseasonInjury column
 merged_df['OffseasonInjury'] = merged_df.apply(injury_offseason, axis=1)
+merged_df['OffseasonInjury'] = merged_df.apply(
+    lambda row: suspension_offseason(row) if row['OffseasonInjury'] == 'No' else row['OffseasonInjury'],
+    axis=1
+)
 
 # Function to determine Retirement based on conditions
 def playerretirement(row):
 
     if season_phase == "Offseason":
-        if row['Position'] in ['QB', 'K', 'P'] and row['Age'] >= 29 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] in ['QB', 'K', 'P', 'LS'] and row['Age'] >= 29 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             retire_chance = 0.005
             if row['Age'] >= 30:
                 retire_chance += 0.01
@@ -377,6 +430,8 @@ def playerretirement(row):
                 retire_chance += 0.03
             if row['Age'] >= 33:
                 retire_chance += 0.035
+            if row['Age'] >= 38:
+                retire_chance += 0.05
             return 'Yes' if random.random() <= retire_chance else 'No'
         if row['Position'] in ['RB', 'HB'] and row['Age'] >= 25 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             retire_chance = 0.005
@@ -388,8 +443,23 @@ def playerretirement(row):
                 retire_chance += 0.03
             if row['Age'] >= 29:
                 retire_chance += 0.035
+            if row['Age'] >= 31:
+                retire_chance += 0.05
             return 'Yes' if random.random() <= retire_chance else 'No'
-        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P'] and row['Age'] >= 27 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+        if row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT'] and row['Age'] >= 27 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
+            retire_chance = 0.005
+            if row['Age'] >= 28:
+                retire_chance += 0.01
+            if row['Age'] >= 29:
+                retire_chance += 0.02
+            if row['Age'] >= 30:
+                retire_chance += 0.03
+            if row['Age'] >= 32:
+                retire_chance += 0.035
+            if row['Age'] >= 34:
+                retire_chance += 0.05
+            return 'Yes' if random.random() <= retire_chance else 'No'
+        if row['Position'] not in ['QB', 'RB', 'HB', 'K', 'P', 'LT', 'LG', 'C', 'RG', 'RT'] and row['Age'] >= 27 and row['OverallRating'] >= 65 and row['ContractYearsLeft'] <= 3:
             retire_chance = 0.005
             if row['Age'] >= 28:
                 retire_chance += 0.01
@@ -399,6 +469,8 @@ def playerretirement(row):
                 retire_chance += 0.03
             if row['Age'] >= 31:
                 retire_chance += 0.035
+            if row['Age'] >= 33:
+                retire_chance += 0.05
             return 'Yes' if random.random() <= retire_chance else 'No'
         else:
             return 'No'
