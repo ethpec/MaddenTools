@@ -1,16 +1,17 @@
 # Imports
 import pandas as pd
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+file_path = season_path('Player.xlsx')
 
 df = pd.read_excel(file_path)
 
 # Define target values for ContractSalary0 and ContractSalary1 based on years_pro
 min_salary_values = {
-    0: 80,
-    1: 92,
-    2: 98
+    0: 89,
+    1: 100,
+    2: 108
 }
 
 # Practice Squad contract updates - signing them to "future deals" essentially
@@ -84,4 +85,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 
 # Save the updated DataFrame to a new Excel file
 output_filename = 'PracticeSquad_Contracts.xlsx'
-df.to_excel('Files/Madden26/IE/Season1/PracticeSquad_Contracts.xlsx', index=False)
+df.to_excel(season_path('PracticeSquad_Contracts.xlsx'), index=False)

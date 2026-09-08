@@ -1,17 +1,18 @@
 import pandas as pd
+from config import season_path
 
 # Set the multiplier for adjusting salaries and bonuses
-adjustment_multiplier = 1  # You can change this value to adjust salaries and bonuses (0.918)
+adjustment_multiplier = 0.92  # You can change this value to adjust salaries and bonuses (0.918)
 
 # Season Configuration
-current_season_year = 10  # Edit this as based on season #
+current_season_year = 12  # Edit this as based on season #
 RFA_TENDER = 352
 SECOND_RND_RFA_TENDER = 576
 
 # Your File Paths
-player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
-prog_reg_file_path = 'Files/Madden25/IE/Season10/AllProgRegInfo.xlsm'
-output_filename = 'Files/Madden25/IE/Season10/Contracts_Adjusted.xlsx'
+player_file_path = season_path('Player.xlsx')
+prog_reg_file_path = season_path('AllProgRegInfo.xlsm')
+output_filename = season_path('Contracts_Adjusted.xlsx')
 
 # Read player data from the Excel file
 df = pd.read_excel(player_file_path)

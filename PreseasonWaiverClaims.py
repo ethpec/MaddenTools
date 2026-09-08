@@ -1,10 +1,11 @@
 # Imports
 import pandas as pd
 import random
+from config import season_path
 
 # File Paths
-player_file_path = 'Files/Madden26/IE/Season2/Player.xlsx'
-draft_order_file_path = 'Files/Madden26/IE/Season2/DraftOrder.xlsx'
+player_file_path = season_path('Player.xlsx')
+draft_order_file_path = season_path('DraftOrder.xlsx')
 
 # Team Index Dictionary
 team_dict = {0: 'CHI', 1: 'CIN', 2: 'BUF', 3: 'DEN', 4: 'CLE', 5: 'TB', 6: 'ARI', 7: 'LAC', 8: 'KC', 9: 'IND',
@@ -172,7 +173,7 @@ waiver_targets_df = pd.concat(waiver_targets_rows)[
 ].reset_index(drop=True)
 
 # Export
-output_filename = 'Files/Madden26/IE/Season2/WaiverClaims.xlsx'
+output_filename = season_path('WaiverClaims.xlsx')
 with pd.ExcelWriter(output_filename, engine='openpyxl') as writer:
     waiver_sim_df.to_excel(writer, sheet_name='WaiverSim', index=False)
     waiver_targets_df.to_excel(writer, sheet_name='WaiverTargets', index=False)

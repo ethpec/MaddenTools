@@ -1,7 +1,8 @@
 import pandas as pd
 import random
+from config import season_path
 
-file_path = 'Files/Madden26/IE/Season1/PotentialInput.xlsx'
+file_path = season_path('PotentialInput.xlsx')
 
 ############# Make Rookies have 'R' as YearsPro #############
 
@@ -20,18 +21,18 @@ def calculate_dev_trait_change(row):
     last_season = row['DevTraitLastSeason']
     current = row['TraitDevelopment']
     mapping = {
-        ('Normal', 'College_Impact'): 'NtoS',
-        ('Normal', 'College_Star'): 'NtoSS',
-        ('Normal', 'College_Elite'): 'NtoXF',
-        ('College_Impact', 'Normal'): 'StoN',
-        ('College_Impact', 'College_Star'): 'StoSS',
-        ('College_Impact', 'College_Elite'): 'StoXF',
-        ('College_Star', 'Normal'): 'SStoN',
-        ('College_Star', 'College_Impact'): 'SStoS',
-        ('College_Star', 'College_Elite'): 'SStoXF',
-        ('College_Elite', 'Normal'): 'XFtoN',
-        ('College_Elite', 'College_Impact'): 'XFtoS',
-        ('College_Elite', 'College_Star'): 'XFtoSS',
+        ('Normal', 'Star'): 'NtoS',
+        ('Normal', 'Superstar'): 'NtoSS',
+        ('Normal', 'XFactor'): 'NtoXF',
+        ('Star', 'Normal'): 'StoN',
+        ('Star', 'Superstar'): 'StoSS',
+        ('Star', 'XFactor'): 'StoXF',
+        ('Superstar', 'Normal'): 'SStoN',
+        ('Superstar', 'Star'): 'SStoS',
+        ('Superstar', 'XFactor'): 'SStoXF',
+        ('XFactor', 'Normal'): 'XFtoN',
+        ('XFactor', 'Star'): 'XFtoS',
+        ('XFactor', 'Superstar'): 'XFtoSS',
     }
     return mapping.get((last_season, current), '')
 
@@ -60,10 +61,10 @@ def calculate_age_based_skill_points(row):
             if development_trait == 'Normal':
                 chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
                 probabilities = [0.00, 0.70, 0.20, 0.05, 0.025, 0.01, 0.01, 0.005, 0.00]  # Avg = 1.5 #
-            elif development_trait == 'College_Impact':
+            elif development_trait == 'Star':
                 chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
                 probabilities = [0.00, 0.10, 0.20, 0.45, 0.15, 0.05, 0.03, 0.015, 0.005]  # Avg ~ 3 #
-            elif development_trait in ['College_Star', 'College_Elite']:
+            elif development_trait in ['Superstar', 'XFactor']:
                 chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
                 probabilities = [0.00, 0.00, 0.00, 0.20, 0.54, 0.15, 0.08, 0.02, 0.01]  # Avg = 4.25 #
             
@@ -80,10 +81,10 @@ def calculate_rookie_skill_points(row):
         if development_trait == 'Normal':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
             probabilities = [0.20, 0.41, 0.20, 0.12, 0.04, 0.017, 0.008, 0.004, 0.001]  # Average = 1.5 #
-        elif development_trait == 'College_Impact':
+        elif development_trait == 'Star':
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
             probabilities = [0.00, 0.125, 0.45, 0.125, 0.125, 0.075, 0.05, 0.035, 0.015]  # Average = 3 #
-        elif development_trait in ['College_Star', 'College_Elite']:
+        elif development_trait in ['Superstar', 'XFactor']:
             chances = [0, 1, 2, 3, 4, 5, 6, 8, 10]
             probabilities = [0.00, 0.00, 0.00, 0.40, 0.25, 0.125, 0.10, 0.075, 0.05]  # Average = 4.5 #
         skill_points = random.choices(chances, probabilities)[0]
@@ -100,7 +101,7 @@ def calculate_skill_points_rookieroll(row):
             chance = random.random()
             if chance < 0.30:  # 30% chance to take out 0%
                 pass
-            elif 0.30 <= chance < 0.65:  # 30% chance to take out 25%
+            elif 0.30 <= chance < 0.65:  # 35% chance to take out 25%
                 amount_taken = min(skill_points, int(skill_points_rookie_roll * 0.25))  # Take minimum of the two values
                 skill_points -= amount_taken  # Subtract the amount taken from the current column
                 skill_points_rookie_roll += amount_taken  # Add the amount taken to SkillPointsRookieRoll
@@ -187,20 +188,9 @@ def adjust_skill_points_based_on_dev_trait(row):
         'XFtoSS': 0,
     }
     
-    if row['YearsPro'] == 0:
+    if row['YearsPro'] == 1:
         # Adjust all NewSkillPoints1, NewSkillPoints2, NewSkillPoints3 based on DevTraitChange
-        for i in range(3):  # Iterate over NewSkillPoints1 to NewSkillPoints3
-            col_name = f'NewSkillPoints{i}'
-            current_points = row[col_name]
-            change = skill_points_to_add.get(dev_trait_change, 0)
-            new_points = current_points + change
-            
-            # Ensure new points are non-negative
-            row[col_name] = max(new_points, 0)
-            
-    elif row['YearsPro'] == 1:
-        # Adjust only NewSkillPoints2 and NewSkillPoints3 based on DevTraitChange
-        for i in range(1, 3):  # Iterate over NewSkillPoints2 to NewSkillPoints3
+        for i in range(1, 4):  # Iterate over NewSkillPoints1 to NewSkillPoints3
             col_name = f'NewSkillPoints{i}'
             current_points = row[col_name]
             change = skill_points_to_add.get(dev_trait_change, 0)
@@ -210,6 +200,17 @@ def adjust_skill_points_based_on_dev_trait(row):
             row[col_name] = max(new_points, 0)
             
     elif row['YearsPro'] == 2:
+        # Adjust only NewSkillPoints2 and NewSkillPoints3 based on DevTraitChange
+        for i in range(2, 4):  # Iterate over NewSkillPoints2 to NewSkillPoints3
+            col_name = f'NewSkillPoints{i}'
+            current_points = row[col_name]
+            change = skill_points_to_add.get(dev_trait_change, 0)
+            new_points = current_points + change
+            
+            # Ensure new points are non-negative
+            row[col_name] = max(new_points, 0)
+            
+    elif row['YearsPro'] == 3:
         # Adjust only NewSkillPoints3 based on DevTraitChange
         col_name = 'NewSkillPoints3'
         current_points = row[col_name]
@@ -225,4 +226,4 @@ def adjust_skill_points_based_on_dev_trait(row):
 df = df.apply(adjust_skill_points_based_on_dev_trait, axis=1)
 
 # Save the modified DataFrame to Excel
-df.to_excel('Files/Madden26/IE/Season1/Player_Potential.xlsx', index=False)
+df.to_excel(season_path('Player_Potential.xlsx'), index=False)

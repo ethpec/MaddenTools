@@ -1,12 +1,13 @@
 # Imports
 import pandas as pd
+from config import season_path
 
 # Your File Paths
-player_value_file = 'Files/Madden26/IE/Season1/CompPickPlayerValue.xlsx'
-expiring_contracts_file = 'Files/Madden26/IE/Season1/CompPick_ContractStatusUpdated.xlsx'
-output_filename = 'Files/Madden26/IE/Season1/CompPicksAwarded.xlsx'
+player_value_file = season_path('CompPickPlayerValue.xlsx')
+expiring_contracts_file = season_path('CompPick_ContractStatusUpdated.xlsx')
+output_filename = season_path('CompPicksAwarded.xlsx')
 
-excluded_year_drafted = 1  # Change this as needed - Match current season number ###
+excluded_year_drafted = 12  # Change this as needed - Match current season number ###
 
 # Read the "CompPickPlayerValue.xlsx" and "LastSeason_ExpiringContracts.xlsx" sheets into DataFrames
 player_value_df = pd.read_excel(player_value_file)

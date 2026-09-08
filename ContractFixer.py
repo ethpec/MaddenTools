@@ -1,58 +1,16 @@
 # Imports
 import pandas as pd
 import random
-import math
 import numpy as np
-
-# Season Configuration
-current_season_year = 2
-RFA_TENDER = 326
-SECOND_RND_RFA_TENDER = 534
+from config import season_path
 
 # File Paths
-player_file_path = 'Files/Madden26/IE/Season2/Player.xlsx'
-salary_expectation_file_path = 'Files/Madden26/IE/Season2/ExpectedSalarySheet.xlsx'
-prog_reg_file_path = 'Files/Madden26/IE/Season2/AllProgRegInfo.xlsm'
+player_file_path = season_path('Player.xlsx')
+salary_expectation_file_path = season_path('ExpectedSalarySheet.xlsx')
 
 # Load DataFrames
 df = pd.read_excel(player_file_path)
-salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (279) (FA Class)')
-
-# Load AllProgRegInfo sheets filtered to current and prior two season years
-_prog_reg = pd.ExcelFile(prog_reg_file_path, engine='openpyxl')
-_season_years = [current_season_year, current_season_year - 1, current_season_year - 2]
-
-def _load_prog_reg_sheet(sheet_name):
-    sheet_df = _prog_reg.parse(sheet_name)
-    return sheet_df[sheet_df['SEAS_YEAR'].isin(_season_years)].reset_index(drop=True)
-
-defensive_stats_df = _load_prog_reg_sheet('Defensive Stats')
-kicking_stats_df = _load_prog_reg_sheet('Kicking Stats')
-oline_stats_df = _load_prog_reg_sheet('OLine Stats')
-offensive_stats_df = _load_prog_reg_sheet('Offensive Stats')
-
-# Filter each stats sheet to its known positions before combining
-_offensive_positions  = ['QB', 'RB', 'HB', 'FB', 'WR', 'TE']
-_defensive_positions  = ['LE', 'RE', 'DT', 'LOLB', 'MLB', 'ROLB', 'CB', 'FS', 'SS']
-_kicking_positions    = ['K', 'P']
-_oline_positions      = ['LT', 'LG', 'C', 'RG', 'RT']
-
-offensive_stats_df  = offensive_stats_df[offensive_stats_df['Position'].isin(_offensive_positions)]
-defensive_stats_df  = defensive_stats_df[defensive_stats_df['Position'].isin(_defensive_positions)]
-kicking_stats_df    = kicking_stats_df[kicking_stats_df['Position'].isin(_kicking_positions)]
-oline_stats_df      = oline_stats_df[oline_stats_df['Position'].isin(_oline_positions)]
-
-# Combine all stats sheets and pivot DOWNSPLAYED per season year onto player df
-_all_stats_df = pd.concat([offensive_stats_df, defensive_stats_df, kicking_stats_df, oline_stats_df], ignore_index=True)
-_downs_pivot = _all_stats_df.pivot_table(
-    index=['FirstName', 'LastName', 'Position'],
-    columns='SEAS_YEAR',
-    values='DOWNSPLAYED',
-    aggfunc='first'
-).reset_index()
-_downs_pivot.columns.name = None
-_downs_pivot.rename(columns={yr: f'DOWNSPLAYED_Y{yr}' for yr in _season_years if yr in _downs_pivot.columns}, inplace=True)
-df = df.merge(_downs_pivot, on=['FirstName', 'LastName', 'Position'], how='left')
+salary_df = pd.read_excel(salary_expectation_file_path, sheet_name='Import (300) (FA Class)')
 
 # Parse Salary Table
 def parse_salary_table(salary_df):
@@ -97,16 +55,16 @@ def salary_interpolation(position, overall, salary_lookup):
     return aav, bonus, length
 
 # Weighted random adjustment for OverallRating
-def random_overall_adjustment():
-    choices = [0, 1, 2]
-    probabilities = [0.75, 0.2, 0.05]  # adjust as needed
-    return np.random.choice(choices, p=probabilities)
+#def random_overall_adjustment():
+    #choices = [0, 1, 2]
+    #probabilities = [0.75, 0.2, 0.05]  # adjust as needed
+    #return np.random.choice(choices, p=probabilities)
 
 # Apply to Each Row
 def assign_salaryinfo(row):
     position = str(row['Position']).strip().upper()
     # Apply random adjustment to OverallRating
-    adjusted_overall = row['OverallRating'] + random_overall_adjustment()
+    adjusted_overall = row['OverallRating'] # + random_overall_adjustment()
 
     aav, bonus, length = salary_interpolation(position, adjusted_overall, salary_lookup)
 
@@ -120,7 +78,11 @@ def assign_salaryinfo(row):
 
 def fix_contract_salaries(row):
     salary_changed = False  # Flag to check if any salary value changes
-    
+
+    # Always create these so the columns exist even if no row hits the block below
+    row['CurrentAAV'] = np.nan
+    row['CurrentBonus'] = np.nan
+
     if row['YearsPro'] >= 4 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         total_salary = sum(row[f'ContractSalary{i}'] for i in range(7))
         total_bonus = sum(row[f'ContractBonus{i}'] for i in range(7))
@@ -140,16 +102,17 @@ def fix_contract_salaries(row):
         
         if row['ContractLength'] == 2 and row['ContractSalary0'] >= 0.45 * total_salary and row['ContractSalary1'] > 0:
             
-            if row['CurrentAAV'] >= row['ExpectedAAV']:
-                base_salary = total_salary
-            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
-                row['ContractBonus0'] = row['ExpectedBonus']
-                row['ContractBonus1'] = row['ExpectedBonus']
-            else:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+            base_salary = total_salary
+            #if row['CurrentAAV'] >= row['ExpectedAAV']:
+                #base_salary = total_salary
+            #elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                #row['ContractBonus0'] = row['ExpectedBonus']
+                #row['ContractBonus1'] = row['ExpectedBonus']
+            #else:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
 
-            new_salary_0 = math.ceil(random.uniform(0.33, 0.44) * base_salary / 5) * 5
+            new_salary_0 = round(random.uniform(0.33, 0.44) * base_salary / 5) * 5
 
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
@@ -160,23 +123,24 @@ def fix_contract_salaries(row):
 
         elif row['ContractLength'] == 3 and row['ContractSalary0'] >= 0.27 * total_salary and row['ContractSalary2'] > 0:
 
-            if row['CurrentAAV'] >= row['ExpectedAAV']:
-                base_salary = total_salary
-            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
-                row['ContractBonus0'] = row['ExpectedBonus']
-                row['ContractBonus1'] = row['ExpectedBonus']
-                row['ContractBonus2'] = row['ExpectedBonus']
-            else:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+            base_salary = total_salary
+            #if row['CurrentAAV'] >= row['ExpectedAAV']:
+                #base_salary = total_salary
+            #elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                #row['ContractBonus0'] = row['ExpectedBonus']
+                #row['ContractBonus1'] = row['ExpectedBonus']
+                #row['ContractBonus2'] = row['ExpectedBonus']
+            #else:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
 
             leftover = base_salary
             
-            new_salary_0 = math.ceil(random.uniform(0.22, 0.26) * base_salary / 5) * 5
+            new_salary_0 = round(random.uniform(0.22, 0.26) * base_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
-            new_salary_1 = math.ceil(random.uniform(0.33, 0.37) * base_salary / 5) * 5
+            new_salary_1 = round(random.uniform(0.33, 0.37) * base_salary / 5) * 5
             if new_salary_1 != row['ContractSalary1']:
                 salary_changed = True
             leftover -= new_salary_1
@@ -186,28 +150,29 @@ def fix_contract_salaries(row):
 
         elif row['ContractLength'] == 4 and row['ContractSalary0'] >= 0.21 * total_salary and row['ContractSalary3'] > 0:
             
-            if row['CurrentAAV'] >= row['ExpectedAAV']:
-                base_salary = total_salary
-            elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
-                row['ContractBonus0'] = row['ExpectedBonus']
-                row['ContractBonus1'] = row['ExpectedBonus']
-                row['ContractBonus2'] = row['ExpectedBonus']
-                row['ContractBonus3'] = row['ExpectedBonus']
-            else:
-                base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+            base_salary = total_salary
+            #if row['CurrentAAV'] >= row['ExpectedAAV']:
+                #base_salary = total_salary
+            #elif row['CurrentAAV'] < row['ExpectedAAV'] and row['CurrentBonus'] < row['ExpectedBonus']:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
+                #row['ContractBonus0'] = row['ExpectedBonus']
+                #row['ContractBonus1'] = row['ExpectedBonus']
+                #row['ContractBonus2'] = row['ExpectedBonus']
+                #row['ContractBonus3'] = row['ExpectedBonus']
+            #else:
+                #base_salary = (row['ExpectedAAV'] - row['ExpectedBonus']) * row['ContractLength']
 
             leftover = base_salary
 
-            new_salary_0 = math.ceil(random.uniform(0.17, 0.21) * base_salary / 5) * 5
+            new_salary_0 = round(random.uniform(0.15, 0.20) * base_salary / 5) * 5
             if new_salary_0 != row['ContractSalary0']:
                 salary_changed = True
             leftover -= new_salary_0
-            new_salary_1 = math.ceil(0.25 * base_salary / 5) * 5
+            new_salary_1 = round(0.25 * base_salary / 5) * 5
             if new_salary_1 != row['ContractSalary1']:
                 salary_changed = True
             leftover -= new_salary_1
-            new_salary_2 = math.ceil(0.27 * base_salary / 5) * 5
+            new_salary_2 = round(0.27 * base_salary / 5) * 5
             if new_salary_2 != row['ContractSalary2']:
                 salary_changed = True
             leftover -= new_salary_2
@@ -216,26 +181,39 @@ def fix_contract_salaries(row):
             row['ContractSalary2'] = new_salary_2
             row['ContractSalary3'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(4, 7))
 
+        elif row['ContractLength'] == 5 and row['ContractSalary0'] >= 0.19 * total_salary and row['ContractSalary4'] > 0:
+            
+            base_salary = total_salary
+
+            leftover = base_salary
+
+            new_salary_0 = round(random.uniform(0.08, 0.12) * base_salary / 5) * 5
+            if new_salary_0 != row['ContractSalary0']:
+                salary_changed = True
+            leftover -= new_salary_0
+            new_salary_1 = round(0.18 * base_salary / 5) * 5
+            if new_salary_1 != row['ContractSalary1']:
+                salary_changed = True
+            leftover -= new_salary_1
+            new_salary_2 = round(0.21 * base_salary / 5) * 5
+            if new_salary_2 != row['ContractSalary2']:
+                salary_changed = True
+            leftover -= new_salary_2
+            new_salary_3 = round(0.24 * base_salary / 5) * 5            
+            if new_salary_3 != row['ContractSalary3']:
+                salary_changed = True
+            leftover -= new_salary_3
+            row['ContractSalary0'] = new_salary_0
+            row['ContractSalary1'] = new_salary_1
+            row['ContractSalary2'] = new_salary_2
+            row['ContractSalary3'] = new_salary_3
+            row['ContractSalary4'] = leftover - sum(row[f'ContractSalary{i}'] for i in range(5, 7))
+
     row['StatusCheck'] = salary_changed  # Add StatusCheck column
 
     if row['YearsPro'] == 1 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
         row['ContractLength'] = 1
-        row['ContractSalary0'] = 96
-        row['ContractBonus0'] = 4
-        row['ContractSalary1'] = 0
-        row['ContractSalary2'] = 0
-        row['ContractSalary3'] = 0
-        row['ContractSalary4'] = 0
-        row['ContractBonus1'] = 0
-        row['ContractBonus2'] = 0
-        row['ContractBonus3'] = 0
-        row['ContractBonus4'] = 0
-        row['PLYR_CAPSALARY'] = 96
-        row['StatusCheck'] = 'Young_Adjusted'
-
-    if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
-        row['ContractLength'] = 1
-        row['ContractSalary0'] = 103
+        row['ContractSalary0'] = 100
         row['ContractBonus0'] = 5
         row['ContractSalary1'] = 0
         row['ContractSalary2'] = 0
@@ -245,13 +223,28 @@ def fix_contract_salaries(row):
         row['ContractBonus2'] = 0
         row['ContractBonus3'] = 0
         row['ContractBonus4'] = 0
-        row['PLYR_CAPSALARY'] = 103
+        row['PLYR_CAPSALARY'] = 105
+        row['StatusCheck'] = 'Young_Adjusted'
+
+    if row['YearsPro'] == 2 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed':
+        row['ContractLength'] = 1
+        row['ContractSalary0'] = 108
+        row['ContractBonus0'] = 7
+        row['ContractSalary1'] = 0
+        row['ContractSalary2'] = 0
+        row['ContractSalary3'] = 0
+        row['ContractSalary4'] = 0
+        row['ContractBonus1'] = 0
+        row['ContractBonus2'] = 0
+        row['ContractBonus3'] = 0
+        row['ContractBonus4'] = 0
+        row['PLYR_CAPSALARY'] = 115
         row['StatusCheck'] = 'Young_Adjusted'
 
     ### Veteran Age 28 ###
     if row['Age'] >= 28 and row['Position'] in ['RB', 'HB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
         # Adjust salaries
-        salary_multiplier = random.uniform(0.7, 0.95)
+        salary_multiplier = random.uniform(0.65, 0.9)
 
         for i in range(7):
             col = f'ContractSalary{i}'
@@ -259,7 +252,7 @@ def fix_contract_salaries(row):
                 row[col] = round((row[col] * salary_multiplier) / 5) * 5
 
         # Adjust bonuses
-        bonus_multiplier = random.uniform(0.65, 0.95)
+        bonus_multiplier = random.uniform(0.65, 0.9)
         for i in range(5):
             col = f'ContractBonus{i}'
             if col in row:
@@ -270,7 +263,7 @@ def fix_contract_salaries(row):
     ### Veteran Age 29 ###
     if row['Age'] >= 29 and row['Position'] in ['CB'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
         # Adjust salaries
-        salary_multiplier = random.uniform(0.7, 0.95)
+        salary_multiplier = random.uniform(0.65, 0.9)
 
         for i in range(7):
             col = f'ContractSalary{i}'
@@ -280,16 +273,16 @@ def fix_contract_salaries(row):
         row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
-        bonus_multiplier = random.uniform(0.65, 0.95)
+        bonus_multiplier = random.uniform(0.65, 0.9)
         for i in range(5):
             col = f'ContractBonus{i}'
             if col in row:
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 30 ###
-    if row['Age'] >= 30 and row['Position'] in ['WR', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
+    if row['Age'] >= 30 and row['Position'] in ['WR', 'DT', 'LOLB', 'MLB', 'ROLB', 'FS', 'SS'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
         # Adjust salaries
-        salary_multiplier = random.uniform(0.7, 0.95)
+        salary_multiplier = random.uniform(0.65, 0.9)
 
         for i in range(7):
             col = f'ContractSalary{i}'
@@ -299,16 +292,16 @@ def fix_contract_salaries(row):
         row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
-        bonus_multiplier = random.uniform(0.65, 0.95)
+        bonus_multiplier = random.uniform(0.65, 0.9)
         for i in range(5):
             col = f'ContractBonus{i}'
             if col in row:
                 row[col] = round((row[col] * bonus_multiplier) / 5) * 5
 
     ### Veteran Age 31 ###
-    if row['Age'] >= 31 and row['Position'] in ['TE', 'DT', 'LE', 'RE'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
+    if row['Age'] >= 31 and row['Position'] in ['TE', 'LE', 'RE'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
         # Adjust salaries
-        salary_multiplier = random.uniform(0.7, 0.95)
+        salary_multiplier = random.uniform(0.65, 0.9)
 
         for i in range(7):
             col = f'ContractSalary{i}'
@@ -318,7 +311,7 @@ def fix_contract_salaries(row):
         row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
-        bonus_multiplier = random.uniform(0.65, 0.95)
+        bonus_multiplier = random.uniform(0.65, 0.9)
         for i in range(5):
             col = f'ContractBonus{i}'
             if col in row:
@@ -327,7 +320,7 @@ def fix_contract_salaries(row):
     ### Veteran Age 33 ###
     if row['Age'] >= 33 and row['Position'] in ['LT', 'LG', 'C', 'RG', 'RT'] and row['ContractSalary0'] >= 225 and row['ContractYear'] == 0 and row['ContractStatus'] == 'Signed' and row['CurrentBonus'] < 1000:
         # Adjust salaries
-        salary_multiplier = random.uniform(0.7, 0.95)
+        salary_multiplier = random.uniform(0.65, 0.9)
 
         for i in range(7):
             col = f'ContractSalary{i}'
@@ -337,7 +330,7 @@ def fix_contract_salaries(row):
         row['StatusCheck'] = 'Vet_Adjusted'
 
         # Adjust bonuses
-        bonus_multiplier = random.uniform(0.65, 0.95)
+        bonus_multiplier = random.uniform(0.65, 0.9)
         for i in range(5):
             col = f'ContractBonus{i}'
             if col in row:
@@ -345,41 +338,9 @@ def fix_contract_salaries(row):
 
     return row
 
-# Rookie Contract Escalators
-def apply_rookie_escalator(row):
-    if not (row['ContractStatus'] == 'Signed' and
-            row['YearsPro'] == 3 and
-            2 <= row['PLYR_DRAFTROUND'] <= 7):
-        return row
-
-    cy = current_season_year
-
-    def get_downs(yr):
-        val = row.get(f'DOWNSPLAYED_Y{yr}', 0)
-        return 0 if pd.isna(val) else val
-
-    pcts = [get_downs(cy) / 1100, get_downs(cy - 1) / 1100, get_downs(cy - 2) / 1100]
-
-    # Level 3: Pro Bowl appearance
-    level3 = (row.get('ProBowlAppearences', 0) or 0) >= 1
-
-    # Level 2: all 3 seasons >= 55%
-    level2 = all(p >= 0.55 for p in pcts)
-
-    # Level 1: 2nd round needs 60%, rounds 3-7 need 35%
-    threshold = 0.60 if row['PLYR_DRAFTROUND'] == 2 else 0.35
-    level1 = sum(1 for p in pcts if p >= threshold) >= 2 or (sum(pcts) / 3) >= threshold
-
-    if level3:
-        row['ContractSalary3'] = SECOND_RND_RFA_TENDER
-        row['EscalatorLevel'] = 'Level3'
-    elif level2:
-        row['ContractSalary3'] = RFA_TENDER + 25
-        row['EscalatorLevel'] = 'Level2'
-    elif level1:
-        row['ContractSalary3'] = RFA_TENDER
-        row['EscalatorLevel'] = 'Level1'
-
+def update_cap_hit(row):
+    if row['StatusCheck']:
+        row['PLYR_CAPSALARY'] = row['ContractSalary0'] + row['ContractBonus0']
     return row
 
 #Assign expected salary info
@@ -388,12 +349,12 @@ result_df = df.apply(assign_salaryinfo, axis=1)
 # Adjust contracts based on that info
 result_df = result_df.apply(fix_contract_salaries, axis=1)
 
-# Apply rookie escalators
-result_df = result_df.apply(apply_rookie_escalator, axis=1)
+# Update cap hit for any row that was modified
+result_df = result_df.apply(update_cap_hit, axis=1)
 
 # List of newly created columns
 created_cols = [
-    'SalaryCheck', 'StatusCheck', 'EscalatorLevel',
+    'SalaryCheck', 'StatusCheck',
     'ExpectedAAV', 'ExpectedBonus', 'ExpectedContractLength',
     'CurrentAAV', 'CurrentBonus', 'AdjustedOverall'
 ]
@@ -408,5 +369,5 @@ remaining_cols = [col for col in original_cols if col not in created_cols]
 result_df = result_df[created_cols + remaining_cols]
 
 # Export
-output_filename = 'Files/Madden26/IE/Season2/Player_ExpectedSalary.xlsx'
+output_filename = season_path('Player_ExpectedSalary.xlsx')
 result_df.to_excel(output_filename, index=False)

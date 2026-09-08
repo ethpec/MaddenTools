@@ -1,22 +1,23 @@
 import pandas as pd
 import numpy as np
 import random
+from config import season_path
 
 # =========================
 # USER INPUT
 # =========================
 
-TRADE_DIRECTION = "UP"  # "DOWN" or "UP"
-USER_PICK = 122 # 1 less than pick number
-USER_TEAM_NAME = 'NO'
+TRADE_DIRECTION = "DOWN"  # "DOWN" or "UP"
+USER_PICK = 86 # 1 less than pick number
+USER_TEAM_NAME = 'PIT'
 
 # =========================
 # FILE PATHS
 # =========================
 
-pick_file_path = 'Files/Madden26/IE/Season1/DraftPicks.xlsx'
-index_file_path = 'Files/Madden26/IE/Season1/DraftTeamIndex.xlsx'
-value_file_path = 'Files/Madden26/IE/Season1/DraftPickValue.xlsx'
+pick_file_path = season_path('DraftPicks.xlsx')
+index_file_path = season_path('DraftTeamIndex.xlsx')
+value_file_path = season_path('DraftPickValue.xlsx')
 
 # =========================
 # LOAD DATA
@@ -241,45 +242,43 @@ def get_value_distribution(pick):
     if TRADE_DIRECTION == "DOWN":
         if 1 <= pick <= 32:
             return {
-                "UNDER (~95%)": 0.15,
-                "FAIR": 0.40,
-                "SLIGHT_OVER (~105%)": 0.30,
-                "BIG_OVER (~110%+)": 0.15
+                "FAIR": 0.20,
+                "SLIGHT_OVER (~105%)": 0.60,
+                "BIG_OVER (~110%+)": 0.20
             }
         elif 33 <= pick <= 96:
             return {
-                "UNDER (~95%)": 0.15,
-                "FAIR": 0.50,
-                "SLIGHT_OVER (~105%)": 0.25,
-                "BIG_OVER (~110%+)": 0.10
+                "UNDER (~95%)": 0.05,
+                "FAIR": 0.60,
+                "SLIGHT_OVER (~105%)": 0.30,
+                "BIG_OVER (~110%+)": 0.05
             }
         else:
             return {
-                "UNDER (~95%)": 0.15,
+                "UNDER (~95%)": 0.10,
                 "FAIR": 0.60,
-                "SLIGHT_OVER (~105%)": 0.20,
+                "SLIGHT_OVER (~105%)": 0.25,
                 "BIG_OVER (~110%+)": 0.05
             }
     else: # USER trading up
         if 1 <= pick <= 32:
             return {
-                "UNDER (~95%)": 0.15,
-                "FAIR": 0.40,
-                "SLIGHT_OVER (~105%)": 0.30,
-                "BIG_OVER (~110%+)": 0.15
+                "FAIR": 0.20,
+                "SLIGHT_OVER (~105%)": 0.60,
+                "BIG_OVER (~110%+)": 0.20
             }
         elif 33 <= pick <= 96:
             return {
-                "UNDER (~95%)": 0.15,
-                "FAIR": 0.50,
-                "SLIGHT_OVER (~105%)": 0.25,
-                "BIG_OVER (~110%+)": 0.10
+                "UNDER (~95%)": 0.05,
+                "FAIR": 0.60,
+                "SLIGHT_OVER (~105%)": 0.30,
+                "BIG_OVER (~110%+)": 0.05
             }
         else:
             return {
-                "UNDER (~95%)": 0.15,
+                "UNDER (~95%)": 0.10,
                 "FAIR": 0.60,
-                "SLIGHT_OVER (~105%)": 0.20,
+                "SLIGHT_OVER (~105%)": 0.25,
                 "BIG_OVER (~110%+)": 0.05
             }
 

@@ -1,9 +1,10 @@
 # Imports
 import pandas as pd
 import random
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden24/IE/Season2/Player.xlsx'
+file_path = season_path('Player.xlsx')
 
 df = pd.read_excel(file_path)
 
@@ -41,4 +42,4 @@ def update_trait_development(row):
 df['TraitDevelopment'] = df.apply(update_trait_development, axis=1)
 
 output_filename = 'DevTraitChange.xlsx'
-df.to_excel('Files/Madden24/IE/Season2/DevTraitChange.xlsx', index=False)
+df.to_excel(season_path('DevTraitChange.xlsx'), index=False)

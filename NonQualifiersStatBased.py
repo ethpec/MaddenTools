@@ -1,9 +1,10 @@
 # Imports
 import pandas as pd
 import random
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden25/IE/Season10/Final_PreAdjustment.csv'
+file_path = season_path('Final_PreAdjustment.csv')
 
 df = pd.read_csv(file_path)
 
@@ -56,4 +57,4 @@ def add_regression_points(row):
 df = df.apply(add_regression_points, axis=1)
 
 output_filename = 'Final.csv'
-df.to_csv('Files/Madden25/IE/Season10/Final_AllStatBased.csv', index=False)
+df.to_csv(season_path('Final_AllStatBased.csv'), index=False)

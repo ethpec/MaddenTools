@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 import random
 import string
+from config import season_path
 
 # Your File Paths
-pick_file_path = 'Files/Madden26/IE/Season1/DraftPicks.xlsx'
-index_file_path = 'Files/Madden26/IE/Season1/DraftTeamIndex.xlsx'
-value_file_path = 'Files/Madden26/IE/Season1/DraftPickValue.xlsx'
-output_file_path = 'Files/Madden26/IE/Season1/Draft_Trades.xlsx'
+pick_file_path = season_path('DraftPicks.xlsx')
+index_file_path = season_path('DraftTeamIndex.xlsx')
+value_file_path = season_path('DraftPickValue.xlsx')
+output_file_path = season_path('Draft_Trades.xlsx')
 
 # Read DraftTeamIndex Excel file
 team_index_df = pd.read_excel(index_file_path)

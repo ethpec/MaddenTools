@@ -1,8 +1,9 @@
 # Imports
 import pandas as pd
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season1/Player.xlsx'
+file_path = season_path('Player.xlsx')
 
 # Read the Excel file
 df = pd.read_excel(file_path)
@@ -25,4 +26,4 @@ top_10_per_position = top_10_per_position[selected_columns]
 
 # Save the result to Excel
 output_filename = 'Player_FreeAgentClass.xlsx'
-top_10_per_position.to_excel(f'Files/Madden26/IE/Season1/{output_filename}', index=False)
+top_10_per_position.to_excel(season_path(output_filename), index=False)
