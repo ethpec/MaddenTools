@@ -2,9 +2,10 @@
 import pandas as pd
 import random
 import numpy as np
+from config import season_path
 
 # Your File Path
-file_path = 'Files/Madden26/IE/Season0/Player.xlsx'
+file_path = season_path('Player.xlsx')
 
 df = pd.read_excel(file_path)
 
@@ -12,22 +13,22 @@ df = pd.read_excel(file_path)
 position_strength = {
     'QB': 'Normal',
     'HB': 'Weak',
-    'WR': 'Weak',
-    'TE': 'Weak',
+    'WR': 'Normal',
+    'TE': 'Strong',
     'LT': 'Weak',
-    'LG': 'Weak',
-    'C': 'Normal',
-    'RG': 'Normal',
+    'LG': 'Normal',
+    'C': 'Strong',
+    'RG': 'Weak',
     'RT': 'Normal',
     'LE': 'Weak',
-    'DT': 'Normal',
-    'RE': 'Weak',
+    'DT': 'Strong',
+    'RE': 'Normal',
     'LOLB': 'Weak',
-    'MLB': 'Weak',
-    'ROLB': 'Weak',
-    'CB': 'Weak',
+    'MLB': 'Normal',
+    'ROLB': 'Normal',
+    'CB': 'Normal',
     'FS': 'Weak',
-    'SS': 'Weak',
+    'SS': 'Normal',
 }
 
 # Map strength label to numerical modifier
@@ -112,13 +113,13 @@ def update_ratings(row):
 
         # WR Edits
         if row['Position'] == 'WR':
-            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 2), 99))
-            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
+            row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-3, 2), 99))
+            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-3, 2), 99))
             row['CatchingRating'] = max(1, min(row['CatchingRating'] + random.randint(-6, 4) + mod, 99))
             row['DeepRouteRunningRating'] = max(1, min(row['DeepRouteRunningRating'] + random.randint(-5, 4) + mod, 99))
             row['MediumRouteRunningRating'] = max(1, min(row['MediumRouteRunningRating'] + random.randint(-6, 4) + mod, 99))
             row['ShortRouteRunningRating'] = max(1, min(row['ShortRouteRunningRating'] + random.randint(-7, 4) + mod, 99))
-            row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-1, 1), 99))
+            row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-2, 1), 99))
             row['ReleaseRating'] = max(1, min(row['ReleaseRating'] + random.randint(-4, 4) + mod, 99))
             row['CatchInTrafficRating'] = max(1, min(row['CatchInTrafficRating'] + random.randint(-7, 4) + mod, 99))
             row['SpectacularCatchRating'] = max(1, min(row['SpectacularCatchRating'] + random.randint(-8, 4) + mod, 99))
@@ -243,6 +244,16 @@ def update_ratings(row):
 
         # DL Edits
         if row['Position'] in ['LE', 'RE']:
+            row['CharacterBodyType'] = 'Muscular'
+
+            # Weight cap for Edges, 275 lbs (Weight is stored as lbs - 160)
+            row['Weight'] = min(row['Weight'], (275 - 160) + random.randint(-10, 10))
+
+            # Athletic floors for Edges
+            row['SpeedRating'] = max(row['SpeedRating'], 70 + random.randint(-2, 2))
+            row['AccelerationRating'] = max(row['AccelerationRating'], 70 + random.randint(-2, 2))
+            row['AgilityRating'] = max(row['AgilityRating'], 58 + random.randint(-2, 2))
+
             row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 3), 99))
             row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
             row['BlockSheddingRating'] = max(1, min(row['BlockSheddingRating'] + random.randint(-5, 5) + mod, 99))
@@ -267,11 +278,12 @@ def update_ratings(row):
                     row[col] = max(1, min(row[col] + random.randint(1, 5), 99))
 
         if row['Position'] in ['DT']:
+            row['CharacterBodyType'] = 'Heavy'
             row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 4), 99))
             row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
             row['BlockSheddingRating'] = max(1, min(row['BlockSheddingRating'] + random.randint(-5, 4) + mod, 99))
             row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-2, 5), 99))
-            row['FinesseMovesRating'] = max(1, min(row['FinesseMovesRating'] + random.randint(-5, 5) + mod, 99))
+            row['FinesseMovesRating'] = max(1, min(row['FinesseMovesRating'] + random.randint(-4, 5) + mod, 99))
             row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-1, 3), 99))
             row['StrengthRating'] = max(1, min(row['StrengthRating'] + random.randint(-3, 3), 99))
             row['PursuitRating'] = max(1, min(row['PursuitRating'] + random.randint(-5, 4) + mod, 99))
@@ -293,6 +305,16 @@ def update_ratings(row):
         # LB Edits
 
         if row['Position'] in ['LOLB', 'ROLB']:
+            row['CharacterBodyType'] = 'Muscular'
+
+            # Weight cap for OLBs, 242 lbs (Weight is stored as lbs - 160)
+            row['Weight'] = min(row['Weight'], (242 - 160) + random.randint(-10, 10))
+
+            # Athletic floors for OLBs
+            row['SpeedRating'] = max(row['SpeedRating'], 78 + random.randint(-2, 2))
+            row['AccelerationRating'] = max(row['AccelerationRating'], 78 + random.randint(-2, 2))
+            row['AgilityRating'] = max(row['AgilityRating'], 73 + random.randint(-2, 2))
+
             row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 2), 99))
             row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-3, 2), 99))
             row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-3, 2), 99))
@@ -349,9 +371,9 @@ def update_ratings(row):
         # DB Edits
         if row['Position'] == 'CB':
             row['AgilityRating'] = max(1, min(row['AgilityRating'] + random.randint(-2, 2), 99))
-            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-2, 2), 99))
+            row['AccelerationRating'] = max(1, min(row['AccelerationRating'] + random.randint(-3, 2), 99))
             row['ChangeOfDirectionRating'] = max(1, min(row['ChangeOfDirectionRating'] + random.randint(-2, 2), 99))
-            row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-2, 2), 99))
+            row['SpeedRating'] = max(1, min(row['SpeedRating'] + random.randint(-3, 2), 99))
             row['StrengthRating'] = max(1, min(row['StrengthRating'] + random.randint(-2, 3), 99))
             row['PursuitRating'] = max(1, min(row['PursuitRating'] + random.randint(-4, 2) + mod, 99))
             row['TackleRating'] = max(1, min(row['TackleRating'] + random.randint(-4, 3) + mod, 99))
@@ -385,8 +407,8 @@ def update_ratings(row):
             row['PlayRecognitionRating'] = max(1, min(row['PlayRecognitionRating'] + random.randint(-4, 10) + mod, 99))
             row['CatchingRating'] = max(1, min(row['CatchingRating'] + random.randint(-5, 4) + mod, 99))
             row['CatchInTrafficRating'] = max(1, min(row['CatchInTrafficRating'] + random.randint(-4, 5) + mod, 99))
-            row['ManCoverageRating'] = max(1, min(row['ManCoverageRating'] + random.randint(-8, 4) + mod, 99))
-            row['PressRating'] = max(1, min(row['PressRating'] + random.randint(-6, 4) + mod, 99))
+            row['ManCoverageRating'] = max(1, min(row['ManCoverageRating'] + random.randint(-10, 4) + mod, 99))
+            row['PressRating'] = max(1, min(row['PressRating'] + random.randint(-10, 4) + mod, 99))
             row['ZoneCoverageRating'] = max(1, min(row['ZoneCoverageRating'] + random.randint(-8, 4) + mod, 99))
             row['HitPowerRating'] = max(1, min(row['HitPowerRating'] + random.randint(-5, 5) + mod, 99))
             row['KickReturnRating'] = max(1, min(row['KickReturnRating'] + random.randint(-5, 3) + mod, 99))
@@ -469,4 +491,4 @@ df.drop(columns=columns_to_remove, inplace=True)
 ###
 
 output_filename = 'Player_DraftClassNormalized.xlsx'
-df.to_excel('Files/Madden26/IE/Season0/Player_DraftClassNormalized.xlsx', index=False)
+df.to_excel(season_path('Player_DraftClassNormalized.xlsx'), index=False)
