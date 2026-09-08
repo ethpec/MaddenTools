@@ -2,13 +2,14 @@
 import pandas as pd
 import random
 from openpyxl.styles import PatternFill, Alignment
+from config import season_path
 
 # ==============================
 # File Paths
 # ==============================
 
-file_path = 'Files/Madden26/IE/Season2/Player.xlsx'
-scouting_file_path = 'Files/Madden26/IE/Season2/AllScoutInfo.xlsx'
+file_path = season_path('Player.xlsx')
+scouting_file_path = season_path('AllScoutInfo.xlsx')
 
 # ==============================
 # Load Player DataFrame
@@ -30,7 +31,7 @@ df[numeric_columns] = df[numeric_columns].astype(object)
 
 positions_df = pd.read_excel(scouting_file_path, sheet_name="Positions")
 spline_df = pd.read_excel(scouting_file_path, sheet_name="spline")
-sheet_1680_df = pd.read_excel(scouting_file_path, sheet_name="1680")
+sheet_1327_df = pd.read_excel(scouting_file_path, sheet_name="1327")
 
 # Track original BEFORE edits
 original_df = df.copy()
@@ -44,7 +45,8 @@ position_groups = {
     "WR": ["WR"],
     "TE": ["TE"],
     "OL": ["LT", "LG", "C", "RG", "RT"],
-    "DL": ["LE", "RE", "DT"],
+    "DE": ["LE", "RE"],
+    "DT": ["DT"],
     "LB": ["MLB", "LOLB", "ROLB"],
     "CB": ["CB"],
     "SAF": ["FS", "SS"],
@@ -55,7 +57,7 @@ position_groups = {
 # Process Draft Players
 # ==============================
 
-for index, player in df[df["ContractStatus"] == "Draft"].iterrows():
+for index, player in df[(df["ContractStatus"] == "Draft") & (df["PLYR_DRAFTTEAM"] == 32) & (df["PLYR_ASSETNAME"] != "OLD")].iterrows():
 
     position = player["Position"]
 
@@ -81,10 +83,10 @@ for index, player in df[df["ContractStatus"] == "Draft"].iterrows():
         x_row_value = spline_row["x row"]
 
         # Use x_row_value as row index
-        if x_row_value >= len(sheet_1680_df):
+        if x_row_value >= len(sheet_1327_df):
             continue
 
-        int_row = sheet_1680_df.iloc[int(x_row_value) - 2]
+        int_row = sheet_1327_df.iloc[int(x_row_value) - 2]
 
         int1 = int_row["int1"]
         int2 = int_row["int2"]
@@ -147,7 +149,7 @@ columns_to_keep = [
 ]
 
 # Ensure essential columns are at front
-front_columns = ["ContractStatus", "PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Height", "Weight", "Age", "Position"]
+front_columns = ["ContractStatus", "PLYR_DRAFTTEAM", "PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "PLYR_ASSETNAME", "FirstName", "LastName", "Height", "Weight", "Age", "Position"]
 
 # Only add front_columns if they exist in the DataFrame
 front_columns = [col for col in front_columns if col in df.columns]
@@ -300,13 +302,13 @@ def apply_grade_colors(ws):
 # Save Output (Multi-Sheet by Position Group + All)
 # ==============================
 
-output_filename = 'Files/Madden26/IE/Season2/Draft_LetterGrades.xlsx'
+output_filename = season_path('Draft_LetterGrades.xlsx')
 
 # Base columns always included
 base_columns = ["PLYR_DRAFTROUND", "PLYR_DRAFTPICK", "FirstName", "LastName", "Height", "Weight", "Age", "Position"]
 
 # Keep only Draft players for export
-draft_df = df[df["ContractStatus"] == "Draft"].copy()
+draft_df = df[(df["ContractStatus"] == "Draft") & (df["PLYR_DRAFTTEAM"] == 32) & (df["PLYR_ASSETNAME"] != "OLD")].copy()
 
 # Add Rank: overall pick number across all rounds
 draft_df["Rank"] = draft_df["PLYR_DRAFTPICK"].astype(int) + 32 * (draft_df["PLYR_DRAFTROUND"].astype(int) - 1)
@@ -340,10 +342,11 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
     position_column_order = {
         "QB":  ["THP", "SAC", "MAC", "DAC", "TUP", "TOR", "PAC", "BSK", "SPD", "ACC", "AGI", "STR", "AWR"],
         "RB":  ["SPD", "ACC", "AGI", "COD", "CAR", "BTK", "TRK", "SFA", "JKM", "SPM", "BCV", "STR", "SRR", "CTH", "CIT"],
-        "WR":  ["SRR", "MRR", "DRR", "RLS", "CTH", "CIT", "SPC", "SPD", "ACC", "AGI", "STR"],
+        "WR":  ["SRR", "MRR", "DRR", "RLS", "CTH", "CIT", "SPC", "SPD", "ACC", "AGI", "BCV", "BTK", "STR"],
         "TE":  ["CTH", "CIT", "SPC", "RLS", "SRR", "MRR", "DRR", "PBK", "RBK", "IBL", "SPD", "ACC", "AGI", "STR", "BTK", "TRK"],
         "OL":  ["PBK", "PBP", "PBF", "RBK", "RBP", "RBF", "IBL", "LBK", "STR", "AGI", "ACC"],
-        "DL":  ["PMV", "FMV", "BSH", "TAK", "HIT", "PUR", "PRC", "STR", "SPD", "ACC", "AGI"],
+        "DE":  ["PMV", "FMV", "BSH", "TAK", "HIT", "PUR", "PRC", "STR", "SPD", "ACC", "AGI"],
+        "DT":  ["PMV", "FMV", "BSH", "TAK", "HIT", "PUR", "PRC", "STR", "SPD", "ACC", "AGI"],
         "LB":  ["TAK", "HIT", "PUR", "MCV", "ZCV", "PRC", "PMV", "FMV", "BSH", "SPD", "ACC", "AGI", "STR"],
         "CB":  ["MCV", "ZCV", "PRS", "PRC", "TAK", "SPD", "ACC", "AGI", "STR"],
         "SAF": ["MCV", "ZCV", "PRC", "TAK", "HIT", "PUR", "BSH", "SPD", "ACC", "AGI", "STR"],
@@ -374,8 +377,11 @@ with pd.ExcelWriter(output_filename, engine="openpyxl") as writer:
             remaining = [col for col in changed_columns if col not in ordered]
             changed_columns = ordered + remaining
 
+        # Add blank Star column for manual input
+        group_df["Star"] = ""
+
         # Final columns for this sheet
-        export_columns = ["Rank"] + base_columns + changed_columns
+        export_columns = ["Star", "Rank"] + base_columns + changed_columns
 
         # Sort by Draft Round and Draft Pick
         group_df.sort_values(by=["PLYR_DRAFTROUND", "PLYR_DRAFTPICK"], inplace=True)
