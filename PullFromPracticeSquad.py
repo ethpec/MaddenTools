@@ -3,9 +3,11 @@ import pandas as pd
 import random
 import math
 import numpy as np
+from itertools import product
+from config import season_path
 
 # File Paths
-player_file_path = 'Files/Madden25/IE/Season10/Player.xlsx'
+player_file_path = season_path('Player.xlsx')
 
 # Load DataFrames
 df = pd.read_excel(player_file_path)
@@ -18,7 +20,7 @@ team_dict = {0:'CHI', 1:'CIN', 2:'BUF', 3:'DEN', 4:'CLE', 5:'TB', 6:'ARI', 7:'LA
 
 # Position Requirement Dictionary (Active players required per team per position)
 position_requirements = {
-    'QB': 2,
+    'QB': 3,
     'HB': 3,
     'WR': 4,
     'TE': 3,
@@ -35,7 +37,9 @@ position_requirements = {
     'ROLB': 1,
     'CB': 4,
     'FS': 1,
-    'SS': 1
+    'SS': 1,
+    'K': 1,
+    'P': 1
 }
 
 # Filter for active players (Signed and Uninjured)
@@ -44,13 +48,20 @@ active_players = df[
     (df['InjuryStatus'] == 'Uninjured')
 ]
 
-# Group by TeamIndex and Position, then count
-position_counts = (
+# Build complete cross-product of all teams x positions (excluding FA team 32)
+all_teams = [k for k in team_dict.keys() if k != 32]
+all_positions = list(position_requirements.keys())
+complete_index = pd.DataFrame(list(product(all_teams, all_positions)), columns=['TeamIndex', 'Position'])
+
+# Count active players per team/position and merge onto complete index (missing = 0)
+actual_counts = (
     active_players
     .groupby(['TeamIndex', 'Position'])
     .size()
     .reset_index(name='ActiveCount')
 )
+position_counts = complete_index.merge(actual_counts, on=['TeamIndex', 'Position'], how='left')
+position_counts['ActiveCount'] = position_counts['ActiveCount'].fillna(0).astype(int)
 
 # Convert TeamIndex to abbreviation
 position_counts['Team'] = position_counts['TeamIndex'].map(team_dict)
@@ -76,4 +87,4 @@ position_counts['HasPracticeSquadPlayer'] = position_counts.apply(has_ps_player,
 position_counts = position_counts[['Team', 'Position', 'ActiveCount', 'NotEnoughActivePlayers', 'HasPracticeSquadPlayer']]
 
 # Export to Excel
-position_counts.to_excel('Files/Madden25/IE/Season10/ActivePlayerCounts.xlsx', index=False)
+position_counts.to_excel(season_path('ActivePlayerCounts.xlsx'), index=False)
